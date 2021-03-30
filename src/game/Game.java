@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
 
+import entity.Player;
+
 //nabi
 
 public class Game extends Canvas implements Runnable{
@@ -28,6 +30,7 @@ public class Game extends Canvas implements Runnable{
 	public Game() {
 		handler=new Handler();
 		new Window(WIDTH,HEIGHT,"IsekaiPon",this);
+		handler.addObject(new Player(32, 32, ID.Player, 1, 100, 32, 28, 5));
 	}
 	
 	public synchronized void start() {
