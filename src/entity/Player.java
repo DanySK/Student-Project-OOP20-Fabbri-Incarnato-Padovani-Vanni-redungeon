@@ -1,5 +1,6 @@
 package entity;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 
 import game.ID;
@@ -25,8 +26,8 @@ public class Player extends Entity {
 
 	@Override
 	public void render(Graphics2D g) {
-		// TODO Auto-generated method stub
-		
+		g.setColor(Color.GREEN);
+		g.drawRect(x, y, 32, 32);
 	}
 
 }
