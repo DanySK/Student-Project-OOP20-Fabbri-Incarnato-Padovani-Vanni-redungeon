@@ -1,12 +1,15 @@
 package entity;
 
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 
 import game.*;
+import utilities.*;
 
 public abstract class Entity extends GameObject{
 
 	BufferedImage img; 
+	protected AABB box;
 	private int level;
 	private int hp;
 	private int attack;
@@ -22,6 +25,7 @@ public abstract class Entity extends GameObject{
 		this.setAttack(attack);
 		this.setMagic_Attack(magic_attack);
 		this.setDefence(defence);
+		this.setBox(new AABB(new Point(this.x, this.y), 32, 32));
 		
 	}
 	
@@ -59,6 +63,10 @@ public abstract class Entity extends GameObject{
 	{
 		return attribute;
 	}
+	public AABB getBox() {
+		return box;
+	}
+
 
 	
 	
@@ -81,5 +89,8 @@ public abstract class Entity extends GameObject{
 	public void setDefence(int defence)
 	{
 		this.defence = defence;
+	}
+	public void setBox(AABB box) {
+		this.box = box;
 	}
 }

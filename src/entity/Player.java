@@ -21,6 +21,8 @@ public class Player extends Entity {
 
 	@Override
 	public void move() {
+		box.sumX(this.getvelX());
+		box.sumY(this.getvelY());
 		x+=velX;
 		y+=velY;
 		velX=0;
@@ -39,25 +41,25 @@ public class Player extends Entity {
 		
 		switch (e) {
 		case KeyEvent.VK_W:
-			this.setvelY(-1);
+			this.setvelY(-32);
 			//this.setvelX(0);
 			this.move();
 			break;
 			
 		case KeyEvent.VK_A:
-			this.setvelX(-1);
+			this.setvelX(-32);
 			//this.setvelY(0);
 			this.move();
 			break;
 			
 		case KeyEvent.VK_S:
-			this.setvelY(1);
+			this.setvelY(32);
 			//this.setvelX(0);
 			this.move();
 			break;
 			
 		case KeyEvent.VK_D:
-			this.setvelX(1);
+			this.setvelX(32);
 			//this.setvelY(0);
 			this.move();
 			break;
