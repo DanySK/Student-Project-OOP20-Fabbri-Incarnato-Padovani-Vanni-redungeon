@@ -3,6 +3,7 @@ package mapandtiles;
 import java.awt.Graphics2D;
 
 import java.awt.Point;
+import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import java.util.Random;
 import java.util.Vector;
@@ -94,6 +95,12 @@ public class Floor extends GameObject {
 	
 	@Override
 	public void move() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void input(KeyEvent key) {
 		// TODO Auto-generated method stub
 		
 	}
