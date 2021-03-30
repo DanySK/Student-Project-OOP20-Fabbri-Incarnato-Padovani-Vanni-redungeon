@@ -27,7 +27,7 @@ public class Game extends Canvas implements Runnable{
 
 	public Game() {
 		handler=new Handler();
-		//new Window(WIDTH,HEIGHT,"IsekaiPon",this); 	WIP ;) ;)
+		new Window(WIDTH,HEIGHT,"IsekaiPon",this);
 	}
 	
 	public synchronized void start() {
