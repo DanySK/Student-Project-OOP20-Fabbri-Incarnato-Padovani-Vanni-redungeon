@@ -32,7 +32,7 @@ public class Game extends Canvas implements Runnable{
 		this.addKeyListener(new KeyInput(handler));
 		new Window(WIDTH,HEIGHT,"IsekaiPon",this);
 		handler.addObject(new Player(32, 32, ID.Player, 1, 100, 32, 28, 5));
-		handler.addObject(new Enemy(32, 32, ID.Enemy, 1, 100, 32, 28, 5, (Player) handler.object.get(0)));
+		handler.addObject(new Enemy(128, 128, ID.Enemy, 1, 100, 32, 28, 5, (Player) handler.object.get(0)));
 	}
 	
 	public synchronized void start() {

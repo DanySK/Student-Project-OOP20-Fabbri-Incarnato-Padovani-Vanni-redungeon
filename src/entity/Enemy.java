@@ -60,6 +60,7 @@ public class Enemy extends Entity{
 		{
 				this.setvelX(-1);
 		}
+		this.move();
 	}
 
 }
