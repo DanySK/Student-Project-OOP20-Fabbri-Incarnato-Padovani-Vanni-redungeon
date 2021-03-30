@@ -4,6 +4,7 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
+import java.io.IOException;
 
 import entity.*;
 
@@ -27,7 +28,7 @@ public class Game extends Canvas implements Runnable{
 	
 	private Handler handler;
 
-	public Game() {
+	public Game() throws IOException {
 		handler=new Handler();
 		this.addKeyListener(new KeyInput(handler));
 		new Window(WIDTH,HEIGHT,"IsekaiPon",this);
@@ -102,7 +103,7 @@ public class Game extends Canvas implements Runnable{
 		g.dispose();
 		bs.show();
 	}
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		new Game();
 	}
 

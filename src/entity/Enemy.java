@@ -3,17 +3,22 @@ package entity;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import game.*;
 
 public class Enemy extends Entity{
-
+	
 	Player player_parameter;
 	
-	public Enemy(int x, int y, ID id, int level, int hp, int attack, int magic_attack, int defence, Player player) {
+	public Enemy(int x, int y, ID id, int level, int hp, int attack, int magic_attack, int defence, Player player) throws IOException{
 		super(x, y, id, level, hp, attack, magic_attack, defence);
 		// TODO Auto-generated constructor stub
 		this.player_parameter = player;
+		this.img = ImageIO.read(new File("data/megaman.png"));
 	}
 
 	@Override
@@ -35,7 +40,7 @@ public class Enemy extends Entity{
 	public void render(Graphics2D g) {
 		// TODO Auto-generated method stub
 		g.setColor(Color.GREEN);
-		g.drawRect(x, y, 32, 32);
+		g.drawImage(img, x, y, null);
 	}
 
 	@Override

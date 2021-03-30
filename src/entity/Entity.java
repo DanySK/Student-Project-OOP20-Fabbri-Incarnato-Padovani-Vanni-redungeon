@@ -1,9 +1,12 @@
 package entity;
 
+import java.awt.image.BufferedImage;
+
 import game.*;
 
 public abstract class Entity extends GameObject{
 
+	BufferedImage img; 
 	private int level;
 	private int hp;
 	private int attack;
