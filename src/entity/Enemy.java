@@ -1,6 +1,7 @@
 package entity;
 
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
 
 import game.*;
 
@@ -25,6 +26,12 @@ public class Enemy extends Entity{
 
 	@Override
 	public void render(Graphics2D g) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void input(KeyEvent key) {
 		// TODO Auto-generated method stub
 		
 	}

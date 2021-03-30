@@ -1,6 +1,8 @@
 package game;
 
 import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
 
 public class KeyInput extends KeyAdapter {
 	
@@ -9,8 +11,14 @@ public class KeyInput extends KeyAdapter {
 		this.handler=handler;
 	}
 	
-	public void keyPressed() {
-		
+	public void keyPressed(KeyEvent key) {
+		for(int i=0;i<handler.object.size();i++) {
+			GameObject tempobj=handler.object.get(i);
+			
+			if(tempobj.getID()==ID.Player) {
+				tempobj.input(key);
+			}
+		}
 	}
 	
 	public void keyReleased() {
