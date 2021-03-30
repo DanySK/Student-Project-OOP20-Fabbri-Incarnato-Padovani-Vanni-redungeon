@@ -15,8 +15,8 @@ public abstract class GameObject {
 		this.x=x;
 		this.y=y;
 		this.id=id;
-	
 	}
+	
 	public abstract void tick(); 
 	public abstract void move();
 	public abstract void render(Graphics2D g);
