@@ -22,7 +22,7 @@ public class Floor extends GameObject {
 	private final int MAX_LEAF_SIZE=20;
 	private Random r= new Random();
 	
-	
+	//generate a Floor with level, width ,height,screen width and screen height
    public Floor(int l,int w, int h,int screenw,int screenh) {
 	   super(w, h, ID.Floor);
 	   this.level=l;
@@ -33,7 +33,7 @@ public class Floor extends GameObject {
 	   this.floorGenner(this.width,this.height);
    }
 
-   
+   //generate the pesudorandom floor calling roomscreate
    void floorGenner(int w,int h) {
 	   for(int i=0;i<w/tilesize;i++) {
 		   for(int j=0;j<h/tilesize;j++) {
@@ -41,12 +41,12 @@ public class Floor extends GameObject {
 		   this.tilestate.put(new Point(i, j), new Tile(new Point(i, j),tiletype.OFF));
 	   }
 	   }
-	   roomCreate();
+	   roomsCreate();
 	   
 	   
    }
-   
-   void roomCreate() {
+   //use a BSP algorithm to create the rooms and halls through a vector of Leaf
+   void roomsCreate() {
 		Leaf root = new Leaf(0,0,width/tilesize,height/tilesize);
 		leaves.add(root);
 		boolean didsplit= true;
@@ -98,7 +98,6 @@ public class Floor extends GameObject {
 		// TODO Auto-generated method stub
 		
 	}
-
 
 	@Override
 	public void input(KeyEvent key) {
