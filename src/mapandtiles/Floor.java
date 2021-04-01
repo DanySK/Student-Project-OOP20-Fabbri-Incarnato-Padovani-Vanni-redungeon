@@ -6,9 +6,11 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 import java.util.Vector;
 import game.*;
+import utilities.AABB;
 
 public class Floor extends GameObject {
 	
@@ -107,7 +109,7 @@ public class Floor extends GameObject {
 	}
 
 	@Override
-	public void input(KeyEvent key) {
+	public void input(KeyEvent key, List<AABB> collisions) {
 		// TODO Auto-generated method stub
 		
 	}

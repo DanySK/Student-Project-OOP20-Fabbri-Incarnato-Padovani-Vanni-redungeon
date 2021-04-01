@@ -6,6 +6,7 @@ import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioSystem;
@@ -20,6 +21,7 @@ public class Enemy extends Entity{
 	
 	Player player_parameter;
 	AABB box1;
+	boolean collide;
 	
 	public Enemy(int x, int y, ID id, int level, int hp, int attack, int magic_attack, int defence, Player player) throws IOException{
 		super(x, y, id, level, hp, attack, magic_attack, defence);
@@ -48,14 +50,35 @@ public class Enemy extends Entity{
 	@Override
 	public void render(Graphics2D g) {
 		// TODO Auto-generated method stub
-		g.setColor(Color.GREEN);
+		g.setColor(Color.green);
+		
+		//with a proportion the render function set the hp of the monster
+		
+		if(this.getHp()==this.getMax_hp())
+		{
+			g.fillRect(x, y-10, 30, 10);
+		}
+		else if ( this.getMax_hp()/this.getHp() <= 2)
+		{
+			g.setColor(Color.orange);
+			g.fillRect(x, y-10, (this.getHp()*30)/this.getMax_hp(), 10);
+		}
+		else if (this.getMax_hp()/this.getHp() <= 3)
+		{
+			g.setColor(Color.red);
+			g.fillRect(x, y-10, (this.getHp()*30)/this.getMax_hp(), 10);
+		}
+		
 		g.drawImage(img, x, y, null);
 	}
 
 	@Override
-	public void input(KeyEvent key) {
+	public void input(KeyEvent key, List<AABB> collisions) {
 		// TODO Auto-generated method stub
 		box1 = new AABB(new Point(this.getBox().getX(), getBox().getY()), 32, 32);
+		collisions.remove(box);
+		
+		//the enemy find the position of the player like it is in a cartesian system
 		
 		if(this.getY()<player_parameter.getY())
 		{
@@ -81,8 +104,11 @@ public class Enemy extends Entity{
 			this.setvelX(-32);
 		}
 		
-		if(!(box1.collides(player_parameter.getBox())))
+		//try if there are any other entity in the position where i'm going to go, if not the enemy move
+		collisions.forEach(x -> {if(box1.collides(x)) {collide=true;}});
+		if(!collide)
 			this.move();
+		
 		else {
 			
 			try {
