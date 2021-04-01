@@ -2,17 +2,34 @@ package entity;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
+import javax.imageio.ImageIO;
+
 import game.ID;
+import mapandtiles.Floor;
 import utilities.AABB;
 
 public class Player extends Entity {
 
-	public Player(int x, int y, ID id, int level, int hp, int attack, int magic_attack, int defence) {
+	private Floor playerFloor;
+	
+	BufferedImage img = null;{
+		try {
+			img = ImageIO.read(new File("data/zelda.png"));
+		} catch(IOException e){ }
+	}
+	
+	
+	
+	public Player(int x, int y, ID id, int level, int hp, int attack, int magic_attack, int defence, Floor f) {
 		super(x, y, id, level, hp, attack, magic_attack, defence);
-		// TODO Auto-generated constructor stub
+		this.playerFloor = f;
 	}
 
 	@Override
@@ -23,12 +40,17 @@ public class Player extends Entity {
 
 	@Override
 	public void move() {
-		box.sumX(this.getvelX());
-		box.sumY(this.getvelY());
+		Point pred = new Point(x+velX,y+velY);
+
 		x+=velX;
 		y+=velY;
+		box.setpos(new Point(x,y));
 		velX=0;
 		velY=0;
+		
+		if(this.getHp() < this.getMax_hp() ) {
+			this.setHp(this.getHp()+1);
+		}
 	}
 
 	@Override
