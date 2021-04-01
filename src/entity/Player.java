@@ -3,6 +3,7 @@ package entity;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -18,15 +19,13 @@ import utilities.AABB;
 public class Player extends Entity {
 
 	private Floor playerFloor;
-	
+	boolean flag;
 	BufferedImage img = null;{
 		try {
 			img = ImageIO.read(new File("data/zelda.png"));
 		} catch(IOException e){ }
 	}
-	
-	
-	
+
 	public Player(int x, int y, ID id, int level, int hp, int attack, int magic_attack, int defence, Floor f) {
 		super(x, y, id, level, hp, attack, magic_attack, defence);
 		this.playerFloor = f;
@@ -56,7 +55,34 @@ public class Player extends Entity {
 	@Override
 	public void render(Graphics2D g) {
 		g.setColor(Color.GREEN);
-		g.drawRect(x, y, 32, 32);
+		
+		if(this.getHp() > 0) {
+			if(this.getHp()==this.getHp()) {
+				g.fillRect((x-playerFloor.getOffsetX()*32), 
+						(y-playerFloor.getOffsetY()*32), 
+						30, 10);
+			}
+			else if ( this.getHp()/this.getHp() <= 2)
+			{
+				g.setColor(Color.orange);
+				g.fillRect((x-playerFloor.getOffsetX())*32,
+						(y-playerFloor.getOffsetY())*32-1, 
+						(this.getHp()*30)/this.getHp(), 10);
+			}
+			else if (this.getHp()/this.getHp() <= 3)
+			{
+				g.setColor(Color.red);
+				g.fillRect((x-playerFloor.getOffsetX())*32, 
+						(y-playerFloor.getOffsetY())*32-1, 
+						(this.getHp()*30)/this.getHp(), 10);
+			}
+		}
+		
+		g.drawImage(img,(x-playerFloor.getOffsetX())*32,
+				(y-playerFloor.getOffsetY())*32,null);
+        g.setColor(Color.black);
+        g.draw(getBounds()); g.setColor(Color.BLACK);
+       
 	}
 
 	@Override
@@ -92,6 +118,13 @@ public class Player extends Entity {
 		
 	}
 
+	public Rectangle getBounds()
+	{
+		return new Rectangle((x-playerFloor.getOffsetX())*32, 
+				(y-playerFloor.getOffsetY())*32, 
+				img.getWidth(null), 
+				img.getHeight(null));
+	}
 	
 
 }
