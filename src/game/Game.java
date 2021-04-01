@@ -20,12 +20,13 @@ public class Game extends Canvas implements Runnable{
 	private static final long serialVersionUID = -8647713295702872480L;
 	
 	public static final int WIDTH =1600, HEIGHT=WIDTH/12*9;
-	public static final int MAPW=1600,MAPH=HEIGHT;
+	public static final int MAPW=3600,MAPH=HEIGHT;
 	
 	private Thread thread; 
 	
 	private boolean running= false;
 	private Floor f;
+	private Player p;
 	
 	private Handler handler;
 
@@ -35,7 +36,9 @@ public class Game extends Canvas implements Runnable{
 		new Window(WIDTH,HEIGHT,"Re:Dungeon",this);
 		this.f= new Floor(1,MAPW,MAPH,WIDTH,HEIGHT);
 		handler.addObject(f);
-		handler.addObject(new Player(32, 32, ID.Player, 1, 100, 32, 28, 5, f));
+		this.p=new Player(32, 32, ID.Player, 1, 100, 32, 28, 5,f);
+		f.placeEntity(p);
+		handler.addObject(p);
 		handler.addObject(new Enemy(128, 128, ID.Enemy, 1, 100, 32, 28, 5, (Player) handler.object.get(1)));
 	}
 	
