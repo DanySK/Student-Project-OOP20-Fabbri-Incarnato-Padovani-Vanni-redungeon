@@ -12,6 +12,7 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
+import mapandtiles.tiletype;
 import game.ID;
 import mapandtiles.Floor;
 import utilities.AABB;
@@ -40,7 +41,25 @@ public class Player extends Entity {
 	@Override
 	public void move() {
 		Point pred = new Point(x+velX,y+velY);
-
+							
+		if(new AABB(pred,1,1).collides(
+				this.playerFloor.getMap().get(
+						new Point(
+								(this.box.getpos().x+velX),
+								(this.box.getpos().y+velY)
+								)
+						).getbox()
+				) && this.playerFloor.getMap().get(
+						new Point(
+								(this.x+velX),
+								(this.y+velY)
+								)
+						).gettype()==tiletype.OFF) {
+			
+			velX=0;
+			velY=0;
+		}
+		
 		x+=velX;
 		y+=velY;
 		box.setpos(new Point(x,y));
@@ -58,8 +77,8 @@ public class Player extends Entity {
 		
 		if(this.getHp() > 0) {
 			if(this.getHp()==this.getHp()) {
-				g.fillRect((x-playerFloor.getOffsetX()*32), 
-						(y-playerFloor.getOffsetY()*32), 
+				g.fillRect((x-playerFloor.getOffsetX())*32, 
+						(y-playerFloor.getOffsetY())*32, 
 						30, 10);
 			}
 			else if ( this.getHp()/this.getHp() <= 2)

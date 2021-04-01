@@ -36,7 +36,7 @@ public class Game extends Canvas implements Runnable{
 		new Window(WIDTH,HEIGHT,"Re:Dungeon",this);
 		this.f= new Floor(1,MAPW,MAPH,WIDTH,HEIGHT);
 		handler.addObject(f);
-		this.p=new Player(32, 32, ID.Player, 1, 100, 32, 28, 5,f);
+		this.p=new Player(15, 15, ID.Player, 1, 30, 12, 10, 5,f);
 		f.placeEntity(p);
 		handler.addObject(p);
 		handler.addObject(new Enemy(128, 128, ID.Enemy, 1, 100, 32, 28, 5, (Player) handler.object.get(1)));
