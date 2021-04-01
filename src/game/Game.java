@@ -1,13 +1,13 @@
 package game;
 
 import java.awt.Canvas;
+
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
 import java.io.IOException;
 import mapandtiles.*;
 import entity.*;
-import gachagame.main.Floor;
 
 //nabi
 
