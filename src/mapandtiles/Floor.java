@@ -1,5 +1,6 @@
 package mapandtiles;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 
 import java.awt.Point;
@@ -78,11 +79,17 @@ public class Floor extends GameObject {
 
    @Override
    public void render(Graphics2D g) {
+	   g.setColor(Color.gray);
+	   for(int i =0;i<screenw/tilesize;i++) {
+		   for(int j=0;j <screenh/tilesize;j++) {
+				   g.drawImage(tilestate.get(new Point(i,j)).getImg(),i*tilesize, j*tilesize,null);
+			   
+		   }
+	   }
 	   
    }
 
 	public HashMap <Point,Tile> getMap(){return this.tilestate;}
-	
 	
 	@Override
 	public void tick() {

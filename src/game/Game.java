@@ -5,8 +5,9 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
 import java.io.IOException;
-
+import mapandtiles.*;
 import entity.*;
+import gachagame.main.Floor;
 
 //nabi
 
@@ -24,14 +25,16 @@ public class Game extends Canvas implements Runnable{
 	private Thread thread; 
 	
 	private boolean running= false;
-	
+	private Floor f;
 	
 	private Handler handler;
 
 	public Game() throws IOException {
 		handler=new Handler();
 		this.addKeyListener(new KeyInput(handler));
-		new Window(WIDTH,HEIGHT,"IsekaiPon",this);
+		new Window(WIDTH,HEIGHT,"Re:Dungeon",this);
+		this.f= new Floor(1,MAPW,MAPH,WIDTH,HEIGHT);
+		handler.addObject(f);
 		handler.addObject(new Player(32, 32, ID.Player, 1, 100, 32, 28, 5));
 		handler.addObject(new Enemy(128, 128, ID.Enemy, 1, 100, 32, 28, 5, (Player) handler.object.get(0)));
 	}
