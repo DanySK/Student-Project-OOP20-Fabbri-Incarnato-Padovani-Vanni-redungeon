@@ -2,6 +2,7 @@ package mapandtiles;
 
 import java.awt.Color;
 
+
 import java.awt.Graphics2D;
 
 import java.awt.Point;
@@ -13,8 +14,9 @@ import java.util.List;
 import java.util.Random;
 import java.util.Vector;
 import javax.imageio.ImageIO;
-import utilities.SpriteSheet;
+import entity.*;
 import game.*;
+import utilities.SpriteSheet;
 import utilities.AABB;
 
 public class Floor extends GameObject {
@@ -30,7 +32,8 @@ public class Floor extends GameObject {
 	private final int MAX_LEAF_SIZE=20;
 	private Random r= new Random();
 	SpriteSheet sprite;
-	
+	private int offsetX=0;
+	private int offsetY=0;
 	//generate a Floor with level, width ,height,screen width and screen height
    public Floor(int l,int w, int h,int screenw,int screenh) {
 	   super(w, h, ID.Floor);
@@ -101,20 +104,48 @@ public class Floor extends GameObject {
 		this.tilestate.replace(rpos, new Tile(rpos,tiletype.Exit,sprite));
 		
 	}
+   
+   public void placeEntity(Entity e) {
+		Random r= new Random();
+		int a=r.nextInt(rooms.size());
+		Point rpos = rooms.get(a).get(r.nextInt(rooms.get(a).size()));
+		e.setX(rpos.x);
+		e.setY(rpos.y);
+		if(e.getID()==ID.Player) {
+			this.setCamera(e);
+		}
+			
+	}
+   public void setCamera(Entity e) {
+		if(e.getX()-screenw/64 >0 && e.getX()+screenw/64<width/32) {
+			this.offsetX=e.getX()-screenw/64;
+		}
+			else if (e.getX()-screenw/64 <=0) {this.offsetX=0;}
+			else if (e.getX()+screenw/64>=width/32) {this.offsetX=width/32 -screenw/32;}
+			if(e.getY()-screenh/64 >0 && e.getY()+screenh/64 < height/32) {
+				this.offsetY=e.getY()-screenh/64;
+			}
+			else if(e.getY()-screenh/64 <=0) {this.offsetY=0;}
+			else if(e.getY()+screenh/64 >=height/32) {this.offsetY= height/32-screenh/32;}
+			System.out.println("x:"+offsetX+"y:"+offsetY);
+		
+	}
 
    @Override
    public void render(Graphics2D g) {
 	   g.setColor(Color.gray);
 	   for(int i =0;i<screenw/tilesize;i++) {
 		   for(int j=0;j <screenh/tilesize;j++) {
-				   g.drawImage(tilestate.get(new Point(i,j)).getImg(),i*tilesize, j*tilesize,null);
+				   g.drawImage(tilestate.get(new Point(i+offsetX,j+offsetY)).getImg(),i*tilesize, j*tilesize,null);
 			   
 		   }
 	   }
 	   
    }
-
-	public HashMap <Point,Tile> getMap(){return this.tilestate;}
+   
+   public int getOffsetX() {return this.offsetX;}
+   public int getOffsetY() {return this.offsetY;}
+   public HashMap <Point,Tile> getMap(){return this.tilestate;}
 	
 	@Override
 	public void tick() {
@@ -127,12 +158,59 @@ public class Floor extends GameObject {
 	
 	@Override
 	public void move() {
+		if(offsetX+velX<0 || offsetX+velX>width/32-screenw/32) {velX=0;}
+		if(offsetY+velY<0 || offsetY+velY>height/32-screenh/32) {velY=0;}
+		offsetX+=velX;
+		offsetY+=velY;
+		velX=0;
+		velY=0;
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void input(KeyEvent key, List<AABB> collisions) {
+		int e = key.getKeyCode();
+		
+		
+		switch (e)
+		{
+			case KeyEvent.VK_W:
+				
+				{
+					this.setvelY(-1);
+					//this.setvelX(0);
+					this.move();
+				}
+				break;
+				
+			case KeyEvent.VK_A:
+				
+				{
+					this.setvelX(-1);
+					//this.setvelY(0);
+					this.move();
+				}
+				break;
+				
+			case KeyEvent.VK_S:
+				
+				{
+					this.setvelY(1);
+					//this.setvelX(0);
+					this.move();
+				}
+				break;
+				
+			case KeyEvent.VK_D:
+			{
+					this.setvelX(1);
+					//this.setvelY(0);
+					this.move();
+				}
+				break;
+				
+		}
 		// TODO Auto-generated method stub
 		
 	}
