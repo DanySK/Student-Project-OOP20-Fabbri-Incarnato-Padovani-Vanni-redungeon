@@ -2,32 +2,23 @@ package mapandtiles;
 
 import java.awt.Point;
 
+
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 import java.util.Random;
-
-import javax.imageio.ImageIO;
-
-import mapandtiles.tiletype;
-import utilities.SpriteSheet;
+import utilities.*;
 import game.*;
 
 public class Tile {
+	private AABB box;
 	private tiletype t;
 	BufferedImage img;
 	SpriteSheet sprite;
 	
-	public Tile(Point p,tiletype t) {
+	public Tile(Point p,tiletype t,SpriteSheet s) {
+		this.box=new AABB(p,1,1);
 		this.t= t;
-		 try 
-			{
-				sprite = new SpriteSheet(ImageIO.read(new File("data/tiles.png")));
-				
-			}	catch(IOException e) 
-				{
-				
-				}
+		this.sprite=s;
 		Random rand = new Random();
 		if(this.t==tiletype.ON) {
 		int int_random = rand.nextInt(4);
@@ -43,6 +34,7 @@ public class Tile {
 		
 		
 	}
+	public AABB getbox() {return this.box;}
 	public void setSprite(File f) {
 		
 	}

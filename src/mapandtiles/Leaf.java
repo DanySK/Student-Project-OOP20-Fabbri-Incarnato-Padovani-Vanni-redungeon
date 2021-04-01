@@ -2,14 +2,15 @@ package mapandtiles;
 
 import java.awt.Point;
 
+
 import java.awt.Rectangle;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Random;
 import java.util.Vector;
-
 import javax.imageio.ImageIO;
+import utilities.*;
 
 
 public class Leaf{
@@ -23,7 +24,7 @@ public class Leaf{
     public Rectangle room; // the room that is inside this Leaf
     public Vector<Rectangle> halls; // hallways to connect this Leaf to other Leafs
     public HashMap<Point,Tile> tilestate= new HashMap<>();
- 
+    SpriteSheet s;
     public  Leaf(int x, int y, int w, int h)
     {
         // initialize our leaf
@@ -31,6 +32,14 @@ public class Leaf{
         this.y = y;
         this.w = w;
         this.h = h;
+        try 
+		{
+			s = new SpriteSheet(ImageIO.read(new File("data/tiles.png")));
+			
+		}	catch(IOException e) 
+			{
+			
+			}
       
     }
  
@@ -103,7 +112,7 @@ public class Leaf{
     		Vector<Point> roomph= new Vector<Point>();
     		for(int a=room.x;a<room.x+room.width;a++) {
     			for(int b= room.y;b<room.y+room.height;b++) {
-    				t.put(new Point(a,b), new Tile(new Point(a,b),tiletype.ON));
+    				t.put(new Point(a,b), new Tile(new Point(a,b),tiletype.ON,s));
     				roomph.add(new Point(a,b));
     			}
     			
@@ -236,7 +245,7 @@ public class Leaf{
     	for(int a=0;a<halls.size();a++) {
 			for(int b=0;b<halls.get(a).width;b++) {
 				for(int d=0;d<halls.get(a).height;d++) {
-			      t.put(new Point(halls.get(a).x+b,halls.get(a).y+d), new Tile(new Point(halls.get(a).x+b,halls.get(a).y+d),tiletype.ON));
+			      t.put(new Point(halls.get(a).x+b,halls.get(a).y+d), new Tile(new Point(halls.get(a).x+b,halls.get(a).y+d),tiletype.ON,s));
 				}
 			}
 		}
