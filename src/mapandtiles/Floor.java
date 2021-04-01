@@ -9,11 +9,13 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 import java.util.Vector;
 import javax.imageio.ImageIO;
 import utilities.SpriteSheet;
 import game.*;
+import utilities.AABB;
 
 public class Floor extends GameObject {
 	
@@ -130,7 +132,7 @@ public class Floor extends GameObject {
 	}
 
 	@Override
-	public void input(KeyEvent key) {
+	public void input(KeyEvent key, List<AABB> collisions) {
 		// TODO Auto-generated method stub
 		
 	}

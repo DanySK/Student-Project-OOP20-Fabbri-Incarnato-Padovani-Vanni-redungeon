@@ -12,6 +12,7 @@ public abstract class Entity extends GameObject{
 	protected AABB box;
 	private int level;
 	private int hp;
+	private int max_hp;
 	private int attack;
 	private int magic_attack;
 	private int defence;
@@ -22,11 +23,11 @@ public abstract class Entity extends GameObject{
 		super(x, y, id);
 		this.setLevel(level);
 		this.setHp(hp);
+		this.setMax_hp(hp);
 		this.setAttack(attack);
 		this.setMagic_Attack(magic_attack);
 		this.setDefence(defence);
 		this.setBox(new AABB(new Point(this.x, this.y), 32, 32));
-		
 	}
 	
 	public boolean isDead() {
@@ -65,6 +66,9 @@ public abstract class Entity extends GameObject{
 	}
 	public AABB getBox() {
 		return box;
+	}	
+	public int getMax_hp() {
+		return max_hp;
 	}
 
 
@@ -92,5 +96,8 @@ public abstract class Entity extends GameObject{
 	}
 	public void setBox(AABB box) {
 		this.box = box;
+	}
+	public void setMax_hp(int max_hp) {
+		this.max_hp = max_hp;
 	}
 }

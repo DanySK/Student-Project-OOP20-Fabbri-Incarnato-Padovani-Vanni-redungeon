@@ -2,7 +2,9 @@ package game;
 
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.util.List;
 
+import utilities.*;
 
 
 public abstract class GameObject {
@@ -20,7 +22,7 @@ public abstract class GameObject {
 	public abstract void tick(); 
 	public abstract void move();
 	public abstract void render(Graphics2D g);
-	public abstract void input(KeyEvent key);
+	public abstract void input(KeyEvent key, List<AABB> collisions);
 	
     public void setX(int x) {
     	this.x=x;

@@ -3,8 +3,10 @@ package entity;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.util.List;
 
 import game.ID;
+import utilities.AABB;
 
 public class Player extends Entity {
 
@@ -36,7 +38,8 @@ public class Player extends Entity {
 	}
 
 	@Override
-	public void input(KeyEvent key) {
+	public void input(KeyEvent key, List<AABB> collisions) {
+		
 		int e = key.getKeyCode();
 		
 		switch (e) {
@@ -64,6 +67,9 @@ public class Player extends Entity {
 			this.move();
 			break;
 		}
+		
 	}
+
+	
 
 }
