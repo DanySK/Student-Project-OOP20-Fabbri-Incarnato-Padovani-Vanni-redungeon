@@ -89,33 +89,64 @@ public class Player extends Entity {
 	public void input(KeyEvent key, List<AABB> collisions) {
 		
 		int e = key.getKeyCode();
+		collisions.remove(box);
+		flag=false;
+		AABB box1;
 		
-		switch (e) {
-		case KeyEvent.VK_W:
-			this.setvelY(-32);
-			//this.setvelX(0);
-			this.move();
-			break;
-			
-		case KeyEvent.VK_A:
-			this.setvelX(-32);
-			//this.setvelY(0);
-			this.move();
-			break;
-			
-		case KeyEvent.VK_S:
-			this.setvelY(32);
-			//this.setvelX(0);
-			this.move();
-			break;
-			
-		case KeyEvent.VK_D:
-			this.setvelX(32);
-			//this.setvelY(0);
-			this.move();
-			break;
+		if(e==KeyEvent.VK_D && e==KeyEvent.VK_S)
+		{
+			System.out.println("son qua dentro coglione");
 		}
 		
+			switch (e)
+			{
+				case KeyEvent.VK_W:
+					box1 = new AABB(new Point(box.getX(), box.getY()-1), 1, 1);
+					collisions.forEach(x -> {if(box1.collides(x)) {flag=true;}});	
+					if(!flag)
+					{
+						this.setvelY(-1);
+						//this.setvelX(0);
+						this.move();
+					}
+					break;
+					
+				case KeyEvent.VK_A:
+					box1 = new AABB(new Point(box.getX()-1, box.getY()), 1, 1);
+					collisions.forEach(x -> {if(box1.collides(x)) {flag=true;}});	
+					if(!flag)
+					{
+						this.setvelX(-1);
+						//this.setvelY(0);
+						this.move();
+					}
+					break;
+					
+				case KeyEvent.VK_S:
+					box1 = new AABB(new Point(box.getX(), box.getY()+1), 1, 1);
+					collisions.forEach(x -> {if(box1.collides(x)) {flag=true;}});	
+					if(!flag)
+					{
+						this.setvelY(1);
+						//this.setvelX(0);
+						this.move();
+					}
+					break;
+					
+				case KeyEvent.VK_D:
+					box1 = new AABB(new Point(box.getX()+1, box.getY()), 1, 1);
+					collisions.forEach(x -> {if(box1.collides(x)) {flag=true;}});	
+					if(!flag)
+					{
+						this.setvelX(1);
+						//this.setvelY(0);
+						this.move();
+					}
+					break;
+					
+			}
+			
+		collisions.add(box);
 	}
 
 	public Rectangle getBounds()
