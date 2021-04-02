@@ -90,7 +90,7 @@ public class Enemy extends Entity{
 	@Override
 	public void input(KeyEvent key, List<AABB> collisions) {
 		// TODO Auto-generated method stub
-		box1 = new AABB(new Point(this.getBox().getX(), getBox().getY()), 32, 32);
+		box1 = new AABB(new Point(this.getBox().getX(), getBox().getY()), 1, 1);
 		collisions.remove(box);
 		
 		//the enemy find the position of the player like it is in a cartesian system
