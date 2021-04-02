@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 
 import game.*;
 import utilities.*;
+import mapandtiles.*;
 
 public abstract class Entity extends GameObject{
 
@@ -17,8 +18,9 @@ public abstract class Entity extends GameObject{
 	private int magic_attack;
 	private int defence;
 	private Attribute attribute;
+	private Floor floor;
 	
-	public Entity(int x, int y, ID id, int level, int hp, int attack, int magic_attack, int defence) {
+	public Entity(int x, int y, ID id, int level, int hp, int attack, int magic_attack, int defence, Floor floor) {
 		
 		super(x, y, id);
 		this.setLevel(level);
@@ -27,6 +29,7 @@ public abstract class Entity extends GameObject{
 		this.setAttack(attack);
 		this.setMagic_Attack(magic_attack);
 		this.setDefence(defence);
+		this.setFloor(floor);
 		this.setBox(new AABB(new Point(this.x, this.y), 32, 32));
 	}
 	
@@ -70,6 +73,9 @@ public abstract class Entity extends GameObject{
 	public int getMax_hp() {
 		return max_hp;
 	}
+	public Floor getFloor() {
+		return floor;
+	}
 
 
 	
@@ -99,5 +105,8 @@ public abstract class Entity extends GameObject{
 	}
 	public void setMax_hp(int max_hp) {
 		this.max_hp = max_hp;
+	}
+	public void setFloor(Floor floor) {
+		this.floor = floor;
 	}
 }

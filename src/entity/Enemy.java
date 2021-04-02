@@ -16,6 +16,8 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 import utilities.*;
 import game.*;
+import mapandtiles.Floor;
+import mapandtiles.tiletype;
 
 public class Enemy extends Entity{
 	
@@ -23,8 +25,8 @@ public class Enemy extends Entity{
 	AABB box1;
 	boolean collide;
 	
-	public Enemy(int x, int y, ID id, int level, int hp, int attack, int magic_attack, int defence, Player player) throws IOException{
-		super(x, y, id, level, hp, attack, magic_attack, defence);
+	public Enemy(int x, int y, ID id, int level, int hp, int attack, int magic_attack, int defence,Floor floor, Player player) throws IOException{
+		super(x, y, id, level, hp, attack, magic_attack, defence, floor);
 		// TODO Auto-generated constructor stub
 		this.player_parameter = player;
 		this.img = ImageIO.read(new File("data/megaman.png"));
@@ -39,8 +41,13 @@ public class Enemy extends Entity{
 	@Override
 	public void move() {
 		// TODO Auto-generated method stub
-		box.sumX(this.getvelX());
-		box.sumY(this.getvelY());
+		Point pred = new Point(x+velX,y+velY);
+		
+		if(new AABB(pred,1,1).collides(this.getFloor().getMap().get(new Point((this.box.getpos().x+velX),(this.box.getpos().y+velY))).getbox()) && this.getFloor().getMap().get(new Point((this.x+velX),(this.y+velY))).gettype()==tiletype.OFF)
+		{	
+			velX=0;velY=0;
+		}
+
 		x+=velX;
 		y+=velY;
 		velX=0;
@@ -54,22 +61,29 @@ public class Enemy extends Entity{
 		
 		//with a proportion the render function set the hp of the monster
 		
-		if(this.getHp()==this.getMax_hp())
-		{
-			g.fillRect(x, y-10, 30, 10);
+		if(this.getHp() > 0) {
+			if(this.getHp()==this.getHp()) {
+				g.fillRect((x-getFloor().getOffsetX())*32, 
+						(y-getFloor().getOffsetY())*32, 
+						30, 10);
+			}
+			else if ( this.getHp()/this.getHp() <= 2)
+			{
+				g.setColor(Color.orange);
+				g.fillRect((x-getFloor().getOffsetX())*32,
+						(y-getFloor().getOffsetY())*32-1, 
+						(this.getHp()*30)/this.getHp(), 10);
+			}
+			else if (this.getHp()/this.getHp() <= 3)
+			{
+				g.setColor(Color.red);
+				g.fillRect((x-getFloor().getOffsetX())*32, 
+						(y-getFloor().getOffsetY())*32-1, 
+						(this.getHp()*30)/this.getHp(), 10);
+			}
 		}
-		else if ( this.getMax_hp()/this.getHp() <= 2)
-		{
-			g.setColor(Color.orange);
-			g.fillRect(x, y-10, (this.getHp()*30)/this.getMax_hp(), 10);
-		}
-		else if (this.getMax_hp()/this.getHp() <= 3)
-		{
-			g.setColor(Color.red);
-			g.fillRect(x, y-10, (this.getHp()*30)/this.getMax_hp(), 10);
-		}
-		
-		g.drawImage(img, x, y, null);
+		g.drawImage(img,(x-getFloor().getOffsetX())*32,
+				(y-getFloor().getOffsetY())*32,null);
 	}
 
 	@Override
@@ -123,6 +137,8 @@ public class Enemy extends Entity{
 		         e.printStackTrace();
 		      }
 		}
+		
+		collisions.add(box);
 	}
 
 }

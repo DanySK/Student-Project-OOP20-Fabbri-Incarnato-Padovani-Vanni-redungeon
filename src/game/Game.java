@@ -27,6 +27,7 @@ public class Game extends Canvas implements Runnable{
 	private boolean running= false;
 	private Floor f;
 	private Player p;
+	private Enemy e;
 	
 	private Handler handler;
 
@@ -39,7 +40,9 @@ public class Game extends Canvas implements Runnable{
 		this.p=new Player(15, 15, ID.Player, 1, 30, 12, 10, 5,f);
 		f.placeEntity(p);
 		handler.addObject(p);
-		handler.addObject(new Enemy(128, 128, ID.Enemy, 1, 100, 32, 28, 5, (Player) handler.object.get(1)));
+		this.e = new Enemy(128, 128, ID.Enemy, 1, 100, 32, 28, 5, f, (Player) handler.object.get(1));
+		f.placeEntity(e);
+		handler.addObject(e);
 	}
 	
 	public synchronized void start() {
