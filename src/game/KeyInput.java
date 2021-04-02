@@ -1,10 +1,10 @@
 package game;
 
 import java.awt.event.KeyAdapter;
+
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
-
 import game.*;
 import utilities.*;
 import entity.*;
@@ -28,6 +28,9 @@ public class KeyInput extends KeyAdapter {
 			}
 
 			if(tempobj.getID()==ID.Enemy) {
+				tempobj.input(key, collisions);
+			} 
+			if(tempobj.getID()==ID.Floor) {
 				tempobj.input(key, collisions);
 			}
 		}

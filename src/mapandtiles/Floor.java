@@ -145,6 +145,8 @@ public class Floor extends GameObject {
    
    public int getOffsetX() {return this.offsetX;}
    public int getOffsetY() {return this.offsetY;}
+   public void setOffsetX(int x) {this.offsetX=x;}
+   public void setOffsetY(int y) {this.offsetY=y;}
    public HashMap <Point,Tile> getMap(){return this.tilestate;}
 	
 	@Override
@@ -160,8 +162,8 @@ public class Floor extends GameObject {
 	public void move() {
 		if(offsetX+velX<0 || offsetX+velX>width/32-screenw/32) {velX=0;}
 		if(offsetY+velY<0 || offsetY+velY>height/32-screenh/32) {velY=0;}
-		offsetX+=velX;
-		offsetY+=velY;
+		this.setOffsetX(offsetX+=velX);
+		this.setOffsetY(offsetY+=velY);
 		velX=0;
 		velY=0;
 		// TODO Auto-generated method stub

@@ -30,7 +30,7 @@ public abstract class Entity extends GameObject{
 		this.setMagic_Attack(magic_attack);
 		this.setDefence(defence);
 		this.setFloor(floor);
-		this.setBox(new AABB(new Point(this.x, this.y), 32, 32));
+		this.setBox(new AABB(new Point(this.x, this.y), 1, 1));
 	}
 	
 	public boolean isDead() {

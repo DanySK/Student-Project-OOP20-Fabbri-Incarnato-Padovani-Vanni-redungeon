@@ -50,6 +50,7 @@ public class Enemy extends Entity{
 
 		x+=velX;
 		y+=velY;
+		box.setpos(new Point(x,y));
 		velX=0;
 		velY=0;
 	}
@@ -96,26 +97,26 @@ public class Enemy extends Entity{
 		
 		if(this.getY()<player_parameter.getY())
 		{
-			box1.sumY(32);	
-			this.setvelY(32);
+			box1.sumY(1);	
+			this.setvelY(1);
 		}
 		
 		if(this.getY()>player_parameter.getY())
 		{
-			box1.sumY(-32);	
-			this.setvelY(-32);
+			box1.sumY(-1);	
+			this.setvelY(-1);
 		}
 		
 		if(this.getX()<player_parameter.getX())
 		{
-			box1.sumX(32);	
-			this.setvelX(32);
+			box1.sumX(1);	
+			this.setvelX(1);
 		}
 		
 		if(this.getX()>player_parameter.getX())
 		{
-			box1.sumX(-32);	
-			this.setvelX(-32);
+			box1.sumX(-1);	
+			this.setvelX(-1);
 		}
 		
 		//try if there are any other entity in the position where i'm going to go, if not the enemy move
