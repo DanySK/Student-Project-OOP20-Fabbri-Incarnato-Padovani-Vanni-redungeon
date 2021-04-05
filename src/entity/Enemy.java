@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
@@ -25,6 +26,7 @@ public class Enemy extends Entity{
 	AABB box1;
 	boolean collide;
 	Clip clip;
+	AudioInputStream audio;
 	
 	public Enemy(int x, int y, ID id, int level, int hp, int attack, int magic_attack, int defence,Floor floor, Player player) throws IOException, LineUnavailableException, UnsupportedAudioFileException{
 		super(x, y, id, level, hp, attack, magic_attack, defence, floor);
@@ -32,7 +34,8 @@ public class Enemy extends Entity{
 		this.player_parameter = player;
 		this.img = ImageIO.read(new File("data/megaman.png"));
 		clip = AudioSystem.getClip();
-		clip.open(AudioSystem.getAudioInputStream(new File("data/bonk.wav")));
+		audio= AudioSystem.getAudioInputStream(new File("data/bonk.wav"));
+		clip.open(audio);
 	}
 
 	@Override
@@ -136,7 +139,10 @@ public class Enemy extends Entity{
 		
 		else {
 				if(box1.collides(player_parameter.getBox()))
-				      clip.start();
+				{
+					clip.loop(1);
+				}
+				      
 		}
 		
 		collisions.add(box);
