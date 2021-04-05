@@ -97,26 +97,38 @@ public class Enemy extends Entity{
 		
 		if(this.getY()<player_parameter.getY())
 		{
-			box1.sumY(1);	
-			this.setvelY(1);
+			if(!(this.getFloor().getMap().get(new Point((this.x),(this.y+1))).gettype()==tiletype.OFF))
+			{
+				box1.sumY(1);	
+				this.setvelY(1);
+			}
 		}
 		
 		if(this.getY()>player_parameter.getY())
 		{
-			box1.sumY(-1);	
-			this.setvelY(-1);
+			if(!(this.getFloor().getMap().get(new Point((this.x),(this.y-1))).gettype()==tiletype.OFF))
+			{
+				box1.sumY(-1);	
+				this.setvelY(-1);
+			}
 		}
 		
 		if(this.getX()<player_parameter.getX())
 		{
-			box1.sumX(1);	
-			this.setvelX(1);
+			if(!(this.getFloor().getMap().get(new Point((this.x+1),(this.y+velY))).gettype()==tiletype.OFF))
+			{
+				box1.sumX(1);	
+				this.setvelX(1);
+			}
 		}
 		
 		if(this.getX()>player_parameter.getX())
 		{
-			box1.sumX(-1);	
-			this.setvelX(-1);
+			if(!(this.getFloor().getMap().get(new Point((this.x-1),(this.y+velY))).gettype()==tiletype.OFF))
+			{	
+				box1.sumX(-1);	
+				this.setvelX(-1);
+			}
 		}
 		
 		//try if there are any other entity in the position where i'm going to go, if not the enemy move
@@ -125,18 +137,21 @@ public class Enemy extends Entity{
 			this.move();
 		
 		else {
+				if(box1.collides(player_parameter.getBox()))
+				{
 			
-			try {
-		         Clip clip = AudioSystem.getClip();
-		         clip.open(AudioSystem.getAudioInputStream(new File("data/bonk.wav")));
-		         clip.start();
-		      } catch (UnsupportedAudioFileException e) {
-		         e.printStackTrace();
-		      } catch (IOException e) {
-		         e.printStackTrace();
-		      } catch (LineUnavailableException e) {
-		         e.printStackTrace();
-		      }
+					try {
+				         Clip clip = AudioSystem.getClip();
+				         clip.open(AudioSystem.getAudioInputStream(new File("data/bonk.wav")));
+				         clip.start();
+				      } catch (UnsupportedAudioFileException e) {
+				         e.printStackTrace();
+				      } catch (IOException e) {
+				         e.printStackTrace();
+				      } catch (LineUnavailableException e) {
+				         e.printStackTrace();
+				      }
+				}
 		}
 		
 		collisions.add(box);
