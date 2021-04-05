@@ -158,6 +158,8 @@ public class Floor extends GameObject {
    public void setOffsetY(int y) {this.offsetY=y;}
    public int getScreenw() {return this.screenw;}
    public int getScreenh() {return this.screenh;}
+   public int getWidth() {return this.width;}
+   public int getHeight() {return this.height;}
    public HashMap <Point,Tile> getMap(){return this.tilestate;}
 	
 	@Override
