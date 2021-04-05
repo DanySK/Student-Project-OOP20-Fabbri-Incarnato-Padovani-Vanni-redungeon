@@ -31,6 +31,9 @@ public class Tile {
 		if(this.t==tiletype.Exit) {
 			this.img = sprite.grabImage(1, 3, 32, 32);
 		}
+		if(this.t==tiletype.Heal) {
+			this.img = sprite.grabImage(1, 4, 32, 32);
+		}
 		
 		
 	}

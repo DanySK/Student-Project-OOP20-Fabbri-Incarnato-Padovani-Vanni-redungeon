@@ -57,6 +57,7 @@ public class Floor extends GameObject {
    void floorGenner(int w,int h) {
 	   roomsCreate();
 	   exitCreate();
+	   healCreate();
 	   for(int i=0;i<w/tilesize;i++) {
 		   for(int j=0;j<h/tilesize;j++) {
 			   if(!(tilestate.containsKey(new Point(i,j))))
@@ -104,6 +105,14 @@ public class Floor extends GameObject {
 		this.tilestate.replace(rpos, new Tile(rpos,tiletype.Exit,sprite));
 		
 	}
+   public void healCreate() {
+		Random r= new Random();
+		int a=r.nextInt(rooms.size());
+		Point rpos = rooms.get(a).get(r.nextInt(rooms.get(a).size()));
+		if(tilestate.get(rpos).gettype()!=tiletype.Exit)
+		this.tilestate.replace(rpos, new Tile(rpos,tiletype.Heal,sprite));
+		
+	}
    
    public void placeEntity(Entity e) {
 		Random r= new Random();
@@ -147,6 +156,8 @@ public class Floor extends GameObject {
    public int getOffsetY() {return this.offsetY;}
    public void setOffsetX(int x) {this.offsetX=x;}
    public void setOffsetY(int y) {this.offsetY=y;}
+   public int getScreenw() {return this.screenw;}
+   public int getScreenh() {return this.screenh;}
    public HashMap <Point,Tile> getMap(){return this.tilestate;}
 	
 	@Override
