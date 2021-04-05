@@ -54,7 +54,7 @@ public class Player extends Entity {
 			velX=0;
 			velY=0;
 		}
-		
+		this.getFloor().moveCam(this.velX,this.velY);
 		x+=velX;
 		y+=velY;
 		box.setpos(new Point(x,y));

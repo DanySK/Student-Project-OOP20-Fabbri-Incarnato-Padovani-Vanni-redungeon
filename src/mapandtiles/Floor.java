@@ -158,8 +158,9 @@ public class Floor extends GameObject {
 	}
 	
 	
-	@Override
-	public void move() {
+	public void moveCam(int x,int y) {
+		this.velX=x;
+		this.velY=y;
 		if(offsetX+velX<0 || offsetX+velX>width/32-screenw/32) {velX=0;}
 		if(offsetY+velY<0 || offsetY+velY>height/32-screenh/32) {velY=0;}
 		this.setOffsetX(offsetX+=velX);
@@ -172,7 +173,7 @@ public class Floor extends GameObject {
 
 	@Override
 	public void input(KeyEvent key, List<AABB> collisions) {
-		int e = key.getKeyCode();
+		/*int e = key.getKeyCode();
 		
 		
 		switch (e)
@@ -212,7 +213,13 @@ public class Floor extends GameObject {
 				}
 				break;
 				
-		}
+		}*/
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void move() {
 		// TODO Auto-generated method stub
 		
 	}
