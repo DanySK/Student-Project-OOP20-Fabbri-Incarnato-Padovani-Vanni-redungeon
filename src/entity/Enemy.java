@@ -41,12 +41,6 @@ public class Enemy extends Entity{
 	@Override
 	public void move() {
 		// TODO Auto-generated method stub
-		Point pred = new Point(x+velX,y+velY);
-		
-		if(new AABB(pred,1,1).collides(this.getFloor().getMap().get(new Point((this.box.getpos().x+velX),(this.box.getpos().y+velY))).getbox()) && this.getFloor().getMap().get(new Point((this.x+velX),(this.y+velY))).gettype()==tiletype.OFF)
-		{	
-			velX=0;velY=0;
-		}
 
 		x+=velX;
 		y+=velY;
@@ -92,6 +86,7 @@ public class Enemy extends Entity{
 		// TODO Auto-generated method stub
 		box1 = new AABB(new Point(this.getBox().getX(), getBox().getY()), 1, 1);
 		collisions.remove(box);
+		collide = false;
 		
 		//the enemy find the position of the player like it is in a cartesian system
 		
