@@ -6,6 +6,10 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
 import java.io.IOException;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
 import mapandtiles.*;
 import entity.*;
 
@@ -31,7 +35,7 @@ public class Game extends Canvas implements Runnable{
 	
 	private Handler handler;
 
-	public Game() throws IOException {
+	public Game() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
 		handler=new Handler();
 		this.addKeyListener(new KeyInput(handler));
 		new Window(WIDTH,HEIGHT,"Re:Dungeon",this);
@@ -112,7 +116,7 @@ public class Game extends Canvas implements Runnable{
 		g.dispose();
 		bs.show();
 	}
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, LineUnavailableException, UnsupportedAudioFileException {
 		new Game();
 	}
 

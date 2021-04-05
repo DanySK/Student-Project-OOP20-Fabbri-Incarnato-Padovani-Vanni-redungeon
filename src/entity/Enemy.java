@@ -24,12 +24,15 @@ public class Enemy extends Entity{
 	Player player_parameter;
 	AABB box1;
 	boolean collide;
+	Clip clip;
 	
-	public Enemy(int x, int y, ID id, int level, int hp, int attack, int magic_attack, int defence,Floor floor, Player player) throws IOException{
+	public Enemy(int x, int y, ID id, int level, int hp, int attack, int magic_attack, int defence,Floor floor, Player player) throws IOException, LineUnavailableException, UnsupportedAudioFileException{
 		super(x, y, id, level, hp, attack, magic_attack, defence, floor);
 		// TODO Auto-generated constructor stub
 		this.player_parameter = player;
 		this.img = ImageIO.read(new File("data/megaman.png"));
+		clip = AudioSystem.getClip();
+		clip.open(AudioSystem.getAudioInputStream(new File("data/bonk.wav")));
 	}
 
 	@Override
@@ -133,20 +136,7 @@ public class Enemy extends Entity{
 		
 		else {
 				if(box1.collides(player_parameter.getBox()))
-				{
-			
-					try {
-				         Clip clip = AudioSystem.getClip();
-				         clip.open(AudioSystem.getAudioInputStream(new File("data/bonk.wav")));
-				         clip.start();
-				      } catch (UnsupportedAudioFileException e) {
-				         e.printStackTrace();
-				      } catch (IOException e) {
-				         e.printStackTrace();
-				      } catch (LineUnavailableException e) {
-				         e.printStackTrace();
-				      }
-				}
+				      clip.start();
 		}
 		
 		collisions.add(box);
