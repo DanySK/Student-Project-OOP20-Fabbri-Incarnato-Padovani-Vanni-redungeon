@@ -25,7 +25,7 @@ public abstract class AbsFloor extends GameObject {
 	}
     public void placeEntity(Entity e) {};
 	public void moveCam(int x,int y) {};
-	public HashMap<Point,Tile> getMap(){return this.tilestate;}
+	public HashMap<Point,Tile> getMap(){return tilestate;}
 	public int getOffsetX() {return this.offsetX;}
 	public int getOffsetY() {return this.offsetY;}
 }

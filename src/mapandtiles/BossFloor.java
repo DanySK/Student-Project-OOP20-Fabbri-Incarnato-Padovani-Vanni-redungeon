@@ -28,7 +28,7 @@ public class BossFloor extends AbsFloor {
 	private int offsetX=0;
 	private int offsetY=0;
 	SpriteSheet sprite;
-	private int border =4;
+	private int border =2;
 	public BossFloor(int l, int w, int h,int screenw,int screenh) {
 		super(w, h, ID.Floor);
 		   this.level=l;
@@ -48,17 +48,17 @@ public class BossFloor extends AbsFloor {
 		// TODO Auto-generated constructor stub
 	}
 	void bossfloorGenner(int w,int h) {
-		 for(int i=0;i<w/tilesize;i++) {
-			   for(int j=0;j<h/tilesize;j++) {
+		 for(int i=border;i<w/tilesize-border;i++) {
+			   for(int j=border;j<h/tilesize-border;j++) {
 				   this.tilestate.put(new Point(i, j), new Tile(new Point(i, j),tiletype.ON,sprite));
 			   }
 		   }
-		/* for(int i=0;i<width/tilesize;i++) {
+		 for(int i=0;i<width/tilesize;i++) {
 			   for(int j=0;j<height/tilesize;j++) {
 				   if(!(tilestate.containsKey(new Point(i,j))))
 			   this.tilestate.put(new Point(i, j), new Tile(new Point(i, j),tiletype.OFF,sprite));
 		   }
-			   }*/
+			   }
 		   
 	   }
 
@@ -73,7 +73,7 @@ public class BossFloor extends AbsFloor {
 		// TODO Auto-generated method stub
 		
 	}
-
+    public HashMap<Point, Tile> getMap(){return this.tilestate;}
 	@Override
 	public void render(Graphics2D g) {
 		g.setColor(Color.gray);
