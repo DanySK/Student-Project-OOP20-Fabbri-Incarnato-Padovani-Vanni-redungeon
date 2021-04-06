@@ -133,6 +133,25 @@ public class Enemy extends Entity{
 		
 		//the enemy find the position of the player like it is in a cartesian system
 		
+		if(this.getY()<player_parameter.getY())
+		{
+			if(!(this.getFloor().getMap().get(new Point((this.x),(this.y+1))).gettype()==tiletype.OFF))
+			{
+				this.setDirection(Direction.Up);
+				box1.sumY(1);	
+				this.setvelY(1);
+			}
+		}
+		
+		if(this.getY()>player_parameter.getY())
+		{
+			if(!(this.getFloor().getMap().get(new Point((this.x),(this.y-1))).gettype()==tiletype.OFF))
+			{
+				this.setDirection(Direction.Down);
+				box1.sumY(-1);	
+				this.setvelY(-1);
+			}
+		}
 		
 		if(this.getX()<player_parameter.getX())
 		{
@@ -151,26 +170,6 @@ public class Enemy extends Entity{
 				this.setDirection(Direction.Left);
 				box1.sumX(-1);	
 				this.setvelX(-1);
-			}
-		}
-
-		if(this.getY()<player_parameter.getY())
-		{
-			if(!(this.getFloor().getMap().get(new Point((this.x),(this.y+1))).gettype()==tiletype.OFF))
-			{
-				this.setDirection(Direction.Down);
-				box1.sumY(1);	
-				this.setvelY(1);
-			}
-		}
-		
-		if(this.getY()>player_parameter.getY())
-		{
-			if(!(this.getFloor().getMap().get(new Point((this.x),(this.y-1))).gettype()==tiletype.OFF))
-			{
-				this.setDirection(Direction.Down);
-				box1.sumY(-1);	
-				this.setvelY(-1);
 			}
 		}
 		
