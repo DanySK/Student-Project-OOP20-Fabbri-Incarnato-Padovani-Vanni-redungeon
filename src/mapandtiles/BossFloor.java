@@ -29,8 +29,8 @@ public class BossFloor extends AbsFloor {
 	public BossFloor(int l, int w, int h,int screenw,int screenh) {
 		super(w, h, ID.Floor);
 		   this.level=l;
-		   this.height=h;
-		   this.width=w;
+		   this.height=screenh;
+		   this.width=screenw;
 		   this.screenw=screenw;
 		   this.screenh=screenh;
 		   try 
@@ -41,6 +41,7 @@ public class BossFloor extends AbsFloor {
 				{
 				
 				}
+		   bossfloorGenner(this.width,this.height);
 		// TODO Auto-generated constructor stub
 	}
 	void bossfloorGenner(int w,int h) {
@@ -49,11 +50,30 @@ public class BossFloor extends AbsFloor {
 				   this.tilestate.put(new Point(i, j), new Tile(new Point(i, j),tiletype.ON,sprite));
 			   }
 		   }
-		   for(int i=0;i<w/tilesize;i++) {
+		   for(int i=0;i<border;i++) {
 			   for(int j=0;j<h/tilesize;j++) {
+				   
 			   this.tilestate.put(new Point(i, j), new Tile(new Point(i, j),tiletype.OFF,sprite));
 		   }
-		   }	   
+		   }
+		   for(int i=0;i<w/tilesize;i++) {
+			   for(int j=0;j<border;j++) {
+				   
+			   this.tilestate.put(new Point(i, j), new Tile(new Point(i, j),tiletype.OFF,sprite));
+		   }
+		   }
+		   for(int i=width/tilesize-border;i<w/tilesize;i++) {
+			   for(int j=0;j<height/tilesize;j++) {
+				   
+			   this.tilestate.put(new Point(i, j), new Tile(new Point(i, j),tiletype.OFF,sprite));
+		   }
+		   }
+		   for(int i=0;i<w/tilesize;i++) {
+			   for(int j=height/tilesize-border;j<height/tilesize;j++) {
+				   
+			   this.tilestate.put(new Point(i, j), new Tile(new Point(i, j),tiletype.OFF,sprite));
+		   }
+		   }
 		   
 	   }
 

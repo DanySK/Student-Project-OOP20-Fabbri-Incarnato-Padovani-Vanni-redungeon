@@ -39,7 +39,7 @@ public class Game extends Canvas implements Runnable{
 		handler=new Handler();
 		this.addKeyListener(new KeyInput(handler));
 		new Window(WIDTH,HEIGHT,"Re:Dungeon",this);
-		this.f= new Floor(1,MAPW,MAPH,WIDTH,HEIGHT);
+		this.f= new BossFloor(1,MAPW,MAPH,WIDTH,HEIGHT);
 		handler.addObject(f);
 		this.p=new Player(15, 15, ID.Player, 1, 30, 12, 10, 5,f);
 		f.placeEntity(p);
