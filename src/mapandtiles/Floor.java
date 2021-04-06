@@ -120,6 +120,7 @@ public class Floor extends AbsFloor {
 		Point rpos = rooms.get(a).get(r.nextInt(rooms.get(a).size()));
 		e.setX(rpos.x);
 		e.setY(rpos.y);
+		e.setBox(new AABB(rpos,1,2));
 		if(e.getID()==ID.Player) {
 			this.setCamera(e);
 		}

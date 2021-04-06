@@ -48,17 +48,17 @@ public class BossFloor extends AbsFloor {
 		// TODO Auto-generated constructor stub
 	}
 	void bossfloorGenner(int w,int h) {
-		 for(int i=border;i<width/tilesize-border;i++) {
-			   for(int j=border;j<height/tilesize-border;j++) {
+		 for(int i=0;i<w/tilesize;i++) {
+			   for(int j=0;j<h/tilesize;j++) {
 				   this.tilestate.put(new Point(i, j), new Tile(new Point(i, j),tiletype.ON,sprite));
 			   }
 		   }
-		 for(int i=0;i<w/tilesize;i++) {
-			   for(int j=0;j<h/tilesize;j++) {
+		/* for(int i=0;i<width/tilesize;i++) {
+			   for(int j=0;j<height/tilesize;j++) {
 				   if(!(tilestate.containsKey(new Point(i,j))))
 			   this.tilestate.put(new Point(i, j), new Tile(new Point(i, j),tiletype.OFF,sprite));
 		   }
-			   }
+			   }*/
 		   
 	   }
 
@@ -90,6 +90,7 @@ public class BossFloor extends AbsFloor {
 	public void placeEntity(Entity e) {
 		e.setX(screenw/64);
 	    e.setY(screenh/32-10);
+	    e.setBox(new AABB(new Point(screenw/64,screenh/32-10),1,2));
 	}
 	public void moveCam(int x,int y) {}
 

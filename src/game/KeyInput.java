@@ -19,7 +19,7 @@ public class KeyInput extends KeyAdapter {
 	
 	public void keyPressed(KeyEvent key) {
 		List<AABB> collisions = new ArrayList<AABB>();
-		handler.object.stream().filter(x->x.id != ID.Floor).forEach( x -> collisions.add(((Entity) x).getBox()));
+		handler.object.stream().filter(x->x.getID() != ID.Floor).forEach( x -> collisions.add(((Entity) x).getBox()));
 		for(int i=0;i<handler.object.size();i++) {
 			GameObject tempobj=handler.object.get(i);
 			
@@ -30,9 +30,6 @@ public class KeyInput extends KeyAdapter {
 			if(tempobj.getID()==ID.Enemy) {
 				tempobj.input(key, collisions);
 			} 
-			if(tempobj.getID()==ID.Floor) {
-				tempobj.input(key, collisions);
-			}
 		}
 	}
 	
