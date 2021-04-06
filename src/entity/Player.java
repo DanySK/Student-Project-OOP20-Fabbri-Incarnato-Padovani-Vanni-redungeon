@@ -35,12 +35,37 @@ public class Player extends Entity {
 				img_matrix[row][column] = sprite.grabImage(column+1, row+1, 34, 60); 
 			}
 		}
+
+		
+		this.setDirection(Direction.Left);
+		
+		img = img_matrix[0][1];
 	}
 
 	@Override
 	public void tick() {
 		// TODO Auto-generated method stub
-		
+		if(!this.isMoving())
+		{
+			switch(this.getDirection())
+			{
+				case Left:
+					img = img_matrix [1][1];
+					break;
+					
+				case Down:
+					img = img_matrix [0][1];
+					break;
+					
+				case Right:
+					img = img_matrix [2][1];
+					break;
+					
+				case Up:
+					img = img_matrix [3][1];
+					break;
+			}
+		}
 	}
 
 	@Override
@@ -129,6 +154,7 @@ public class Player extends Entity {
 					collisions.forEach(x -> {if(box1.collides(x)) {flag=true;}});	
 					if(!flag)
 					{
+						this.setDirection(Direction.Up);
 						this.setvelY(-1);
 						//this.setvelX(0);
 						this.move();
@@ -140,6 +166,7 @@ public class Player extends Entity {
 					collisions.forEach(x -> {if(box1.collides(x)) {flag=true;}});	
 					if(!flag)
 					{
+						this.setDirection(Direction.Left);
 						this.setvelX(-1);
 						//this.setvelY(0);
 						this.move();
@@ -151,6 +178,7 @@ public class Player extends Entity {
 					collisions.forEach(x -> {if(box1.collides(x)) {flag=true;}});	
 					if(!flag)
 					{
+						this.setDirection(Direction.Down);
 						this.setvelY(1);
 						//this.setvelX(0);
 						this.move();
@@ -162,6 +190,7 @@ public class Player extends Entity {
 					collisions.forEach(x -> {if(box1.collides(x)) {flag=true;}});	
 					if(!flag)
 					{
+						this.setDirection(Direction.Right);
 						this.setvelX(1);
 						//this.setvelY(0);
 						this.move();

@@ -18,8 +18,6 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 import utilities.*;
 import game.*;
-import mapandtiles.Floor;
-import mapandtiles.tiletype;
 import mapandtiles.*;
 
 public class Enemy extends Entity{
@@ -48,6 +46,8 @@ public class Enemy extends Entity{
 		clip = AudioSystem.getClip();
 		audio= AudioSystem.getAudioInputStream(new File("data/bonk.wav"));
 		clip.open(audio);
+		
+		this.setDirection(Direction.Left);
 		
 		img = img_matrix[0][1];
 
@@ -133,28 +133,12 @@ public class Enemy extends Entity{
 		
 		//the enemy find the position of the player like it is in a cartesian system
 		
-		if(this.getY()<player_parameter.getY())
-		{
-			if(!(this.getFloor().getMap().get(new Point((this.x),(this.y+1))).gettype()==tiletype.OFF))
-			{
-				box1.sumY(1);	
-				this.setvelY(1);
-			}
-		}
-		
-		if(this.getY()>player_parameter.getY())
-		{
-			if(!(this.getFloor().getMap().get(new Point((this.x),(this.y-1))).gettype()==tiletype.OFF))
-			{
-				box1.sumY(-1);	
-				this.setvelY(-1);
-			}
-		}
 		
 		if(this.getX()<player_parameter.getX())
 		{
 			if(!(this.getFloor().getMap().get(new Point((this.x+1),(this.y+velY))).gettype()==tiletype.OFF))
 			{
+				this.setDirection(Direction.Right);
 				box1.sumX(1);	
 				this.setvelX(1);
 			}
@@ -164,8 +148,29 @@ public class Enemy extends Entity{
 		{
 			if(!(this.getFloor().getMap().get(new Point((this.x-1),(this.y+velY))).gettype()==tiletype.OFF))
 			{	
+				this.setDirection(Direction.Left);
 				box1.sumX(-1);	
 				this.setvelX(-1);
+			}
+		}
+
+		if(this.getY()<player_parameter.getY())
+		{
+			if(!(this.getFloor().getMap().get(new Point((this.x),(this.y+1))).gettype()==tiletype.OFF))
+			{
+				this.setDirection(Direction.Down);
+				box1.sumY(1);	
+				this.setvelY(1);
+			}
+		}
+		
+		if(this.getY()>player_parameter.getY())
+		{
+			if(!(this.getFloor().getMap().get(new Point((this.x),(this.y-1))).gettype()==tiletype.OFF))
+			{
+				this.setDirection(Direction.Down);
+				box1.sumY(-1);	
+				this.setvelY(-1);
 			}
 		}
 		
