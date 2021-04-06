@@ -20,12 +20,16 @@ public abstract class Entity extends GameObject{
 	private int magic_attack;
 	private int defence;
 	private Attribute attribute;
+<<<<<<< Updated upstream
 	private Direction direction;
 	private Floor floor;
 	private boolean movement; //false the entity steady, true is moving 
+=======
+	private AbsFloor floor;
+>>>>>>> Stashed changes
 	
 	
-	public Entity(int x, int y, ID id, int level, int hp, int attack, int magic_attack, int defence, Floor floor) {
+	public Entity(int x, int y, ID id, int level, int hp, int attack, int magic_attack, int defence, AbsFloor floor) {
 		super(x, y, id);
 		this.setLevel(level);
 		this.setHp(hp);
@@ -85,8 +89,12 @@ public abstract class Entity extends GameObject{
 	{
 		return max_hp;
 	}
+<<<<<<< Updated upstream
 	public Floor getFloor() 
 	{
+=======
+	public AbsFloor getFloor() {
+>>>>>>> Stashed changes
 		return floor;
 	}
 	public boolean isMoving() {
@@ -124,8 +132,12 @@ public abstract class Entity extends GameObject{
 	{
 		this.max_hp = max_hp;
 	}
+<<<<<<< Updated upstream
 	public void setFloor(Floor floor) 
 	{
+=======
+	public void setFloor(AbsFloor floor) {
+>>>>>>> Stashed changes
 		this.floor = floor;
 	}
 	public void setDirection(Direction direction) 
