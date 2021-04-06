@@ -8,8 +8,11 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
+
+import entity.Entity;
 import game.ID;
 import utilities.AABB;
 import utilities.SpriteSheet;
@@ -50,30 +53,12 @@ public class BossFloor extends AbsFloor {
 				   this.tilestate.put(new Point(i, j), new Tile(new Point(i, j),tiletype.ON,sprite));
 			   }
 		   }
-		   for(int i=0;i<border;i++) {
+		 for(int i=0;i<w/tilesize;i++) {
 			   for(int j=0;j<h/tilesize;j++) {
-				   
+				   if(!(tilestate.containsKey(new Point(i,j))))
 			   this.tilestate.put(new Point(i, j), new Tile(new Point(i, j),tiletype.OFF,sprite));
 		   }
-		   }
-		   for(int i=0;i<w/tilesize;i++) {
-			   for(int j=0;j<border;j++) {
-				   
-			   this.tilestate.put(new Point(i, j), new Tile(new Point(i, j),tiletype.OFF,sprite));
-		   }
-		   }
-		   for(int i=width/tilesize-border;i<w/tilesize;i++) {
-			   for(int j=0;j<height/tilesize;j++) {
-				   
-			   this.tilestate.put(new Point(i, j), new Tile(new Point(i, j),tiletype.OFF,sprite));
-		   }
-		   }
-		   for(int i=0;i<w/tilesize;i++) {
-			   for(int j=height/tilesize-border;j<height/tilesize;j++) {
-				   
-			   this.tilestate.put(new Point(i, j), new Tile(new Point(i, j),tiletype.OFF,sprite));
-		   }
-		   }
+			   }
 		   
 	   }
 
@@ -102,6 +87,11 @@ public class BossFloor extends AbsFloor {
 		// TODO Auto-generated method stub
 		
 	}
+	public void placeEntity(Entity e) {
+		e.setX(screenw/64);
+	    e.setY(screenh/32-10);
+	}
+	public void moveCam(int x,int y) {}
 
 	@Override
 	public void input(KeyEvent key, List<AABB> collisions) {
