@@ -19,7 +19,7 @@ import game.*;
 import utilities.SpriteSheet;
 import utilities.AABB;
 
-public class Floor extends GameObject {
+public class Floor extends AbsFloor {
 	
 	private int level;
 	private int screenw,screenh;
@@ -186,48 +186,6 @@ public class Floor extends GameObject {
 
 	@Override
 	public void input(KeyEvent key, List<AABB> collisions) {
-		/*int e = key.getKeyCode();
-		
-		
-		switch (e)
-		{
-			case KeyEvent.VK_W:
-				
-				{
-					this.setvelY(-1);
-					//this.setvelX(0);
-					this.move();
-				}
-				break;
-				
-			case KeyEvent.VK_A:
-				
-				{
-					this.setvelX(-1);
-					//this.setvelY(0);
-					this.move();
-				}
-				break;
-				
-			case KeyEvent.VK_S:
-				
-				{
-					this.setvelY(1);
-					//this.setvelX(0);
-					this.move();
-				}
-				break;
-				
-			case KeyEvent.VK_D:
-			{
-					this.setvelX(1);
-					//this.setvelY(0);
-					this.move();
-				}
-				break;
-				
-		}*/
-		// TODO Auto-generated method stub
 		
 	}
 
