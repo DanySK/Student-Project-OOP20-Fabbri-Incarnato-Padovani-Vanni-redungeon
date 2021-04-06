@@ -29,7 +29,7 @@ public class Game extends Canvas implements Runnable{
 	private Thread thread; 
 	
 	private boolean running= false;
-	private Floor f;
+	private AbsFloor f;
 	private Player p;
 	private Enemy e;
 	

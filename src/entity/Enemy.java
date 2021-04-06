@@ -20,6 +20,7 @@ import utilities.*;
 import game.*;
 import mapandtiles.Floor;
 import mapandtiles.tiletype;
+import mapandtiles.*;
 
 public class Enemy extends Entity{
 	
@@ -31,7 +32,7 @@ public class Enemy extends Entity{
 	long timer;
 	long lastime;
 	
-	public Enemy(int x, int y, ID id, int level, int hp, int attack, int magic_attack, int defence,Floor floor, Player player) throws IOException, LineUnavailableException, UnsupportedAudioFileException{
+	public Enemy(int x, int y, ID id, int level, int hp, int attack, int magic_attack, int defence,AbsFloor floor, Player player) throws IOException, LineUnavailableException, UnsupportedAudioFileException{
 		super(x, y, id, level, hp, attack, magic_attack, defence, floor);
 		// TODO Auto-generated constructor stub
 		sprite = new SpriteSheet(ImageIO.read(new File("data/enemy1.png")));

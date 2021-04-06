@@ -1,6 +1,7 @@
 package entity;
 
 import java.awt.Color;
+
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -12,7 +13,7 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
-import mapandtiles.tiletype;
+import mapandtiles.*;
 import game.ID;
 import mapandtiles.Floor;
 import utilities.AABB;
@@ -23,7 +24,7 @@ public class Player extends Entity {
 	boolean flag;
 	
 
-	public Player(int x, int y, ID id, int level, int hp, int attack, int magic_attack, int defence, Floor floor) throws IOException {
+	public Player(int x, int y, ID id, int level, int hp, int attack, int magic_attack, int defence, AbsFloor floor) throws IOException {
 		super(x, y, id, level, hp, attack, magic_attack, defence, floor);
 		sprite = new SpriteSheet(ImageIO.read(new File("data/player.png")));
 		this.img_matrix = new BufferedImage[4][3];
