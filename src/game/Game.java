@@ -47,6 +47,22 @@ public class Game extends Canvas implements Runnable{
 		this.e = new Enemy(10, 10, ID.Enemy, 1, 100, 32, 28, 5, f, p);
 		f.placeEntity(e);
 		handler.addObject(e);
+
+		this.e = new Enemy(10, 10, ID.Enemy, 1, 100, 32, 28, 5, f, p);
+		f.placeEntity(e);
+		handler.addObject(e);
+
+		this.e = new Enemy(10, 10, ID.Enemy, 1, 100, 32, 28, 5, f, p);
+		f.placeEntity(e);
+		handler.addObject(e);
+
+		this.e = new Enemy(10, 10, ID.Enemy, 1, 100, 32, 28, 5, f, p);
+		f.placeEntity(e);
+		handler.addObject(e);
+
+		this.e = new Enemy(10, 10, ID.Enemy, 1, 100, 32, 28, 5, f, p);
+		f.placeEntity(e);
+		handler.addObject(e);
 	}
 	
 	public synchronized void start() {

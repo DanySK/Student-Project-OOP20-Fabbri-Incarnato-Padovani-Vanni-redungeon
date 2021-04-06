@@ -22,6 +22,7 @@ import mapandtiles.*;
 
 public class Enemy extends Entity{
 	
+	int column=0;
 	Player player_parameter;
 	AABB box1;
 	boolean collide;
@@ -57,34 +58,43 @@ public class Enemy extends Entity{
 
 	@Override
 	public void tick() {
+		timer += System.currentTimeMillis() - lastime;
 		// TODO Auto-generated method stub
-		if(!this.isMoving())
+		if(timer>=1500)
 		{
 			switch(this.getDirection())
 			{
 				case Left:
-					img = img_matrix [1][1];
+					img = img_matrix [1][this.column];
 					break;
 					
 				case Down:
-					img = img_matrix [0][1];
+					img = img_matrix [0][this.column];
 					break;
 					
 				case Right:
-					img = img_matrix [2][1];
+					img = img_matrix [2][this.column];
 					break;
 					
 				case Up:
-					img = img_matrix [3][1];
+					img = img_matrix [3][this.column];
 					break;
 			}
+			
+			if(this.column==2)
+				this.column=0;
+			else
+				this.column++;
+			
+			lastime = System.currentTimeMillis();
+			timer = 0;
 		}
 	}
 
 	@Override
 	public void move() {
 		// TODO Auto-generated method stub
-
+		
 		x+=velX;
 		y+=velY;
 		box.setpos(new Point(x,y));
