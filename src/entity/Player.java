@@ -16,6 +16,7 @@ import mapandtiles.tiletype;
 import game.ID;
 import mapandtiles.Floor;
 import utilities.AABB;
+import utilities.SpriteSheet;
 
 public class Player extends Entity {
 
@@ -24,7 +25,15 @@ public class Player extends Entity {
 
 	public Player(int x, int y, ID id, int level, int hp, int attack, int magic_attack, int defence, Floor floor) throws IOException {
 		super(x, y, id, level, hp, attack, magic_attack, defence, floor);
-		img = ImageIO.read(new File("data/zelda.png"));
+		sprite = new SpriteSheet(ImageIO.read(new File("data/player.png")));
+		this.img = new BufferedImage[4][3];
+		for(int row=0; row<4; row++)
+		{
+			for(int column=0; column<3; column++)
+			{
+				img[row][column] = sprite.grabImage(column+1, row+1, 34, 60); 
+			}
+		}
 	}
 
 	@Override
@@ -92,10 +101,10 @@ public class Player extends Entity {
 			}
 		}
 		
-		g.drawImage(img,(x-getFloor().getOffsetX())*32,
-				(y-getFloor().getOffsetY())*32,null);
+		g.drawImage(img[0][1],(x-getFloor().getOffsetX())*32,
+				(y-getFloor().getOffsetY()-1)*32,null);
         g.setColor(Color.black);
-        g.draw(getBounds()); g.setColor(Color.BLACK);
+        //g.draw(getBounds()); g.setColor(Color.BLACK);
        
 	}
 
@@ -115,7 +124,7 @@ public class Player extends Entity {
 			switch (e)
 			{
 				case KeyEvent.VK_W:
-					box1 = new AABB(new Point(box.getX(), box.getY()-1), 1, 1);
+					box1 = new AABB(new Point(box.getX(), box.getY()-1), 1, 2);
 					collisions.forEach(x -> {if(box1.collides(x)) {flag=true;}});	
 					if(!flag)
 					{
@@ -126,7 +135,7 @@ public class Player extends Entity {
 					break;
 					
 				case KeyEvent.VK_A:
-					box1 = new AABB(new Point(box.getX()-1, box.getY()), 1, 1);
+					box1 = new AABB(new Point(box.getX()-1, box.getY()), 1, 2);
 					collisions.forEach(x -> {if(box1.collides(x)) {flag=true;}});	
 					if(!flag)
 					{
@@ -137,7 +146,7 @@ public class Player extends Entity {
 					break;
 					
 				case KeyEvent.VK_S:
-					box1 = new AABB(new Point(box.getX(), box.getY()+1), 1, 1);
+					box1 = new AABB(new Point(box.getX(), box.getY()+1), 1, 2);
 					collisions.forEach(x -> {if(box1.collides(x)) {flag=true;}});	
 					if(!flag)
 					{
@@ -148,7 +157,7 @@ public class Player extends Entity {
 					break;
 					
 				case KeyEvent.VK_D:
-					box1 = new AABB(new Point(box.getX()+1, box.getY()), 1, 1);
+					box1 = new AABB(new Point(box.getX()+1, box.getY()), 1, 2);
 					collisions.forEach(x -> {if(box1.collides(x)) {flag=true;}});	
 					if(!flag)
 					{
@@ -163,13 +172,13 @@ public class Player extends Entity {
 		collisions.add(box);
 	}
 
-	public Rectangle getBounds()
+	/*public Rectangle getBounds()
 	{
 		return new Rectangle((x-getFloor().getOffsetX())*32, 
 				(y-getFloor().getOffsetY())*32, 
 				img.getWidth(null), 
 				img.getHeight(null));
-	}
+	}*/
 	
 
 }

@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -31,8 +32,16 @@ public class Enemy extends Entity{
 	public Enemy(int x, int y, ID id, int level, int hp, int attack, int magic_attack, int defence,Floor floor, Player player) throws IOException, LineUnavailableException, UnsupportedAudioFileException{
 		super(x, y, id, level, hp, attack, magic_attack, defence, floor);
 		// TODO Auto-generated constructor stub
+		sprite = new SpriteSheet(ImageIO.read(new File("data/enemy1.png")));
 		this.player_parameter = player;
-		this.img = ImageIO.read(new File("data/megaman.png"));
+		this.img = new BufferedImage[4][3];
+		for(int row=0; row<4; row++)
+		{
+			for(int column=0; column<3; column++)
+			{
+				img[row][column] = sprite.grabImage(column+1, row+1, 38, 66); 
+			}
+		}
 		clip = AudioSystem.getClip();
 		audio= AudioSystem.getAudioInputStream(new File("data/bonk.wav"));
 		clip.open(audio);
@@ -83,14 +92,14 @@ public class Enemy extends Entity{
 						(this.getHp()*30)/this.getHp(), 10);
 			}
 		}
-		g.drawImage(img,(x-getFloor().getOffsetX())*32,
-				(y-getFloor().getOffsetY())*32,null);
+		g.drawImage(img[0][1],(x-getFloor().getOffsetX())*32,
+				(y-getFloor().getOffsetY()-1)*32,null);
 	}
 
 	@Override
 	public void input(KeyEvent key, List<AABB> collisions) {
 		// TODO Auto-generated method stub
-		box1 = new AABB(new Point(this.getBox().getX(), getBox().getY()), 1, 1);
+		box1 = new AABB(new Point(this.getBox().getX(), getBox().getY()), 1, 2);
 		collisions.remove(box);
 		collide = false;
 		
