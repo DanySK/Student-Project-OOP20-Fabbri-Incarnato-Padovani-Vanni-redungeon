@@ -40,18 +40,22 @@ public class KeyInput extends KeyAdapter {
 		int key=e.getKeyCode();
 		for(int i=0; i<handler.object.size();i++) {
 			GameObject tempobj=handler.object.get(i);
-			if(tempobj.getID()!=ID.NPC) {
+			if(tempobj.getID()==ID.NPC || tempobj.getID()==ID.NPC) {
 				if(key==KeyEvent.VK_W) {
 					tempobj.setvelY(0);
+					((Entity) tempobj).setMovement(false);
 				}
 				if(key==KeyEvent.VK_A) {
 					tempobj.setvelX(0);
+					((Entity) tempobj).setMovement(false);
 				}
 				if(key==KeyEvent.VK_S) {
 					tempobj.setvelY(0);
+					((Entity) tempobj).setMovement(false);
 				}
 				if(key==KeyEvent.VK_D) {
 					tempobj.setvelX(0);
+					((Entity) tempobj).setMovement(false);
 				}
 			}
 		}

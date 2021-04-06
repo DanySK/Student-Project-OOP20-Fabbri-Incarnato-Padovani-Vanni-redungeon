@@ -10,7 +10,8 @@ import mapandtiles.*;
 public abstract class Entity extends GameObject{
 
 	SpriteSheet sprite;
-	BufferedImage[][] img; 
+	BufferedImage[][] img_matrix; 
+	BufferedImage img;
 	protected AABB box;
 	private int level;
 	private int hp;
@@ -19,7 +20,9 @@ public abstract class Entity extends GameObject{
 	private int magic_attack;
 	private int defence;
 	private Attribute attribute;
+	private Direction direction;
 	private Floor floor;
+	private boolean movement; //false the entity steady, true is moving 
 	
 	
 	public Entity(int x, int y, ID id, int level, int hp, int attack, int magic_attack, int defence, Floor floor) {
@@ -34,7 +37,9 @@ public abstract class Entity extends GameObject{
 		this.setBox(new AABB(new Point(this.x, this.y), 1, 2));
 	}
 	
-	public boolean isDead() {
+	public boolean isDead() 
+	{
+		
 		if(this.hp <= 0)
 			return true;
 		
@@ -68,14 +73,24 @@ public abstract class Entity extends GameObject{
 	{
 		return attribute;
 	}
-	public AABB getBox() {
+	public Direction getDirection() 
+	{
+		return direction;
+	}
+	public AABB getBox() 
+	{
 		return box;
 	}	
-	public int getMax_hp() {
+	public int getMax_hp()
+	{
 		return max_hp;
 	}
-	public Floor getFloor() {
+	public Floor getFloor() 
+	{
 		return floor;
+	}
+	public boolean isMoving() {
+		return movement;
 	}
 
 
@@ -101,13 +116,24 @@ public abstract class Entity extends GameObject{
 	{
 		this.defence = defence;
 	}
-	public void setBox(AABB box) {
+	public void setBox(AABB box) 
+	{
 		this.box = box;
 	}
-	public void setMax_hp(int max_hp) {
+	public void setMax_hp(int max_hp) 
+	{
 		this.max_hp = max_hp;
 	}
-	public void setFloor(Floor floor) {
+	public void setFloor(Floor floor) 
+	{
 		this.floor = floor;
+	}
+	public void setDirection(Direction direction) 
+	{
+		this.direction = direction;
+	}
+	public void setMovement(boolean movement) 
+	{
+		this.movement = movement;
 	}
 }

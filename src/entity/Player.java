@@ -26,12 +26,12 @@ public class Player extends Entity {
 	public Player(int x, int y, ID id, int level, int hp, int attack, int magic_attack, int defence, Floor floor) throws IOException {
 		super(x, y, id, level, hp, attack, magic_attack, defence, floor);
 		sprite = new SpriteSheet(ImageIO.read(new File("data/player.png")));
-		this.img = new BufferedImage[4][3];
+		this.img_matrix = new BufferedImage[4][3];
 		for(int row=0; row<4; row++)
 		{
 			for(int column=0; column<3; column++)
 			{
-				img[row][column] = sprite.grabImage(column+1, row+1, 34, 60); 
+				img_matrix[row][column] = sprite.grabImage(column+1, row+1, 34, 60); 
 			}
 		}
 	}
@@ -101,7 +101,7 @@ public class Player extends Entity {
 			}
 		}
 		
-		g.drawImage(img[0][1],(x-getFloor().getOffsetX())*32,
+		g.drawImage(img,(x-getFloor().getOffsetX())*32,
 				(y-getFloor().getOffsetY()-1)*32,null);
         g.setColor(Color.black);
         //g.draw(getBounds()); g.setColor(Color.BLACK);

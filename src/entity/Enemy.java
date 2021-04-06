@@ -28,29 +28,56 @@ public class Enemy extends Entity{
 	boolean collide;
 	Clip clip;
 	AudioInputStream audio;
+	long timer;
+	long lastime;
 	
 	public Enemy(int x, int y, ID id, int level, int hp, int attack, int magic_attack, int defence,Floor floor, Player player) throws IOException, LineUnavailableException, UnsupportedAudioFileException{
 		super(x, y, id, level, hp, attack, magic_attack, defence, floor);
 		// TODO Auto-generated constructor stub
 		sprite = new SpriteSheet(ImageIO.read(new File("data/enemy1.png")));
 		this.player_parameter = player;
-		this.img = new BufferedImage[4][3];
+		this.img_matrix = new BufferedImage[4][3];
 		for(int row=0; row<4; row++)
 		{
 			for(int column=0; column<3; column++)
 			{
-				img[row][column] = sprite.grabImage(column+1, row+1, 38, 66); 
+				img_matrix[row][column] = sprite.grabImage(column+1, row+1, 38, 66); 
 			}
 		}
 		clip = AudioSystem.getClip();
 		audio= AudioSystem.getAudioInputStream(new File("data/bonk.wav"));
 		clip.open(audio);
+		
+		img = img_matrix[0][1];
+
+		lastime = System.currentTimeMillis();
+		timer = 0;
 	}
 
 	@Override
 	public void tick() {
 		// TODO Auto-generated method stub
-		
+		if(!this.isMoving())
+		{
+			switch(this.getDirection())
+			{
+				case Left:
+					img = img_matrix [1][1];
+					break;
+					
+				case Down:
+					img = img_matrix [0][1];
+					break;
+					
+				case Right:
+					img = img_matrix [2][1];
+					break;
+					
+				case Up:
+					img = img_matrix [3][1];
+					break;
+			}
+		}
 	}
 
 	@Override
@@ -92,7 +119,7 @@ public class Enemy extends Entity{
 						(this.getHp()*30)/this.getHp(), 10);
 			}
 		}
-		g.drawImage(img[0][1],(x-getFloor().getOffsetX())*32,
+		g.drawImage(img,(x-getFloor().getOffsetX())*32,
 				(y-getFloor().getOffsetY()-1)*32,null);
 	}
 
