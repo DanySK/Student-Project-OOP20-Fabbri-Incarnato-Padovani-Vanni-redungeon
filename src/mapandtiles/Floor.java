@@ -29,7 +29,7 @@ public class Floor extends AbsFloor {
 	private int tilesize=32;
 	private Vector<Leaf> leaves= new Vector<Leaf>();
 	private Vector<Vector<Point>> rooms = new Vector<Vector<Point>>();
-	private final int MAX_LEAF_SIZE=20;
+	private final int MAX_LEAF_SIZE=24;
 	private Random r= new Random();
 	SpriteSheet sprite;
 	private int offsetX=0;
@@ -181,6 +181,9 @@ public class Floor extends AbsFloor {
 		velY=0;
 		// TODO Auto-generated method stub
 		
+	}
+	public void setTile(Point p) {
+		tilestate.replace(p, new Tile(p,tiletype.ON,sprite));
 	}
 
 	@Override

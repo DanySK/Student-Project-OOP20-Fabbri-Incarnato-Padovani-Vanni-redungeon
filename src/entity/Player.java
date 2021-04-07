@@ -73,7 +73,10 @@ public class Player extends Entity {
 				this.column=0;
 			else
 				this.column++;
-			
+			if(this.getFloor().getMap().get(this.box.getpos()).gettype()==tiletype.Heal) {
+				this.setHp(this.getMax_hp());
+				this.getFloor().setTile(this.getBox().getpos());
+			}
 			lastime = System.currentTimeMillis();
 			timer = 0;
 		}

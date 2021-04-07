@@ -23,6 +23,7 @@ public abstract class AbsFloor extends GameObject {
 		super(x, y, ID.Floor);
 		// TODO Auto-generated constructor stub
 	}
+	public void setTile(Point p) {}
     public void placeEntity(Entity e) {};
 	public void moveCam(int x,int y) {};
 	public HashMap<Point,Tile> getMap(){return tilestate;}
