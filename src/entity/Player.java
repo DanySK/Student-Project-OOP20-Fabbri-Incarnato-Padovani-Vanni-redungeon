@@ -166,6 +166,7 @@ public class Player extends Entity {
 					if(!flag)
 					{
 						this.setDirection(Direction.Up);
+						img = img_matrix[3][1];
 						this.setvelY(-1);
 						//this.setvelX(0);
 						this.move();
@@ -178,6 +179,7 @@ public class Player extends Entity {
 					if(!flag)
 					{
 						this.setDirection(Direction.Left);
+						img = img_matrix[1][1];
 						this.setvelX(-1);
 						//this.setvelY(0);
 						this.move();
@@ -190,6 +192,7 @@ public class Player extends Entity {
 					if(!flag)
 					{
 						this.setDirection(Direction.Down);
+						img = img_matrix[0][1];
 						this.setvelY(1);
 						//this.setvelX(0);
 						this.move();
@@ -202,6 +205,7 @@ public class Player extends Entity {
 					if(!flag)
 					{
 						this.setDirection(Direction.Right);
+						img = img_matrix[2][1];
 						this.setvelX(1);
 						//this.setvelY(0);
 						this.move();
