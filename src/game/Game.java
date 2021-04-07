@@ -147,11 +147,14 @@ public class Game extends Canvas implements Runnable{
 		level++;
 		if(level%5 !=0) {
 			this.f= new Floor(level,MAPW,MAPH,WIDTH,HEIGHT);
+			handler.object.set(0, (GameObject) f);
 		}
 		else if(level%5==0) {
 			this.f= new BossFloor(level,MAPW,MAPH,WIDTH,HEIGHT);
+			handler.object.set(0, (GameObject) f);
+			
 		}
-		handler.object.set(0, (GameObject) f);
+		
 		p.setFloor(f);
 		f.placeEntity(p);
 	}
