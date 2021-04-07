@@ -161,6 +161,8 @@ public class Floor extends AbsFloor {
    public void setOffsetY(int y) {this.offsetY=y;}
    public int getScreenw() {return this.screenw;}
    public int getScreenh() {return this.screenh;}
+   public void setScreenw(int x) {this.screenw=x;}
+   public void setScreenh(int y) {this.screenh=y;}
    public int getWidth() {return this.width;}
    public int getHeight() {return this.height;}
    public HashMap <Point,Tile> getMap(){return this.tilestate;}
