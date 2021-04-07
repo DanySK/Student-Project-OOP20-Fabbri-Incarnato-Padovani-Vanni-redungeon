@@ -30,6 +30,9 @@ public class KeyInput extends KeyAdapter {
 			if(tempobj.getID()==ID.Enemy) {
 				tempobj.input(key, collisions);
 			} 
+			if(tempobj.getID()==ID.Boss) {
+				tempobj.input(key, collisions);
+			} 
 		}
 		collisions.clear();
 	}
