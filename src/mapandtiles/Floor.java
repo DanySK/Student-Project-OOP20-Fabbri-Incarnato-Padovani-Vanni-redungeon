@@ -127,16 +127,16 @@ public class Floor extends AbsFloor {
 			
 	}
    public void setCamera(Entity e) {
-		if(e.getX()-screenw/64 >0 && e.getX()+screenw/64<width/32) {
+		if(e.getX()-screenw/(tilesize*2) >0 && e.getX()+screenw/(tilesize*2)<width/tilesize) {
 			this.offsetX=e.getX()-screenw/64;
 		}
-			else if (e.getX()-screenw/64 <=0) {this.offsetX=0;}
-			else if (e.getX()+screenw/64>=width/32) {this.offsetX=width/32 -screenw/32;}
-			if(e.getY()-screenh/64 >0 && e.getY()+screenh/64 < height/32) {
+			else if (e.getX()-screenw/(tilesize*2) <=0) {this.offsetX=0;}
+			else if (e.getX()+screenw/(tilesize*2)>=width/tilesize) {this.offsetX=width/tilesize -screenw/tilesize;}
+			if(e.getY()-screenh/(tilesize*2) >0 && e.getY()+screenh/(tilesize*2) < height/tilesize) {
 				this.offsetY=e.getY()-screenh/64;
 			}
-			else if(e.getY()-screenh/64 <=0) {this.offsetY=0;}
-			else if(e.getY()+screenh/64 >=height/32) {this.offsetY= height/32-screenh/32;}
+			else if(e.getY()-screenh/(tilesize*2) <=0) {this.offsetY=0;}
+			else if(e.getY()+screenh/(tilesize*2) >=height/tilesize) {this.offsetY= height/tilesize-screenh/tilesize;}
 			System.out.println("x:"+offsetX+"y:"+offsetY);
 		
 	}
@@ -175,8 +175,8 @@ public class Floor extends AbsFloor {
 	public void moveCam(int x,int y) {
 		this.velX=x;
 		this.velY=y;
-		if(offsetX+velX<0 || offsetX+velX>width/32-screenw/32) {velX=0;}
-		if(offsetY+velY<0 || offsetY+velY>height/32-screenh/32) {velY=0;}
+		if(offsetX+velX<0 || offsetX+velX>width/tilesize-screenw/tilesize) {velX=0;}
+		if(offsetY+velY<0 || offsetY+velY>height/tilesize-screenh/tilesize) {velY=0;}
 		this.setOffsetX(offsetX+=velX);
 		this.setOffsetY(offsetY+=velY);
 		velX=0;
