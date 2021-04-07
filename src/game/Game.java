@@ -46,29 +46,11 @@ public class Game extends Canvas implements Runnable{
 		f.placeEntity(p);
 		handler.addObject(p);
 		this.ef=new EnemyFactory();
-		/*this.e = new Enemy(10, 10, ID.Enemy, 1, 100, 32, 28, 5, f, p);
-		f.placeEntity(e);
-		handler.addObject(e);
-
-		this.e = new Enemy(10, 10, ID.Enemy, 1, 100, 32, 28, 5, f, p);
-		f.placeEntity(e);
-		handler.addObject(e);
-
-		this.e = new Enemy(10, 10, ID.Enemy, 1, 100, 32, 28, 5, f, p);
-		f.placeEntity(e);
-		handler.addObject(e);
-
-		this.e = new Enemy(10, 10, ID.Enemy, 1, 100, 32, 28, 5, f, p);
-		f.placeEntity(e);
-		handler.addObject(e);
-
-		this.e = new Enemy(10, 10, ID.Enemy, 1, 100, 32, 28, 5, f, p);
-		f.placeEntity(e);
-		handler.addObject(e);
-		
-		/*Boss b= new Boss(0,0,ID.Boss,1,100,32,28,5,f,p);
-		handler.addObject(b);
-		f.placeEntity(b);*/
+		for(int j=0;j<level;j++) {
+			Enemy enemy=ef.normalEnemy(0, 0, ID.Enemy, level, 100, 30, 20, 10, f, p);
+			handler.addObject(enemy);
+			f.placeEntity(enemy);
+		}
 	}
 	
 	public synchronized void start() {
@@ -150,10 +132,18 @@ public class Game extends Canvas implements Runnable{
 		bs.show();
 	}
 	public void nextLevel() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
+		for(int i=handler.object.size()-1;i>2;i--) {
+			handler.removeObject(handler.object.get(i));
+		}
 		level++;
 		if(level%5 !=0) {
 			this.f= new Floor(level,MAPW,MAPH,WIDTH,HEIGHT);
 			handler.object.set(0, (GameObject) f);
+			for(int j=0;j<level;j++) {
+				Enemy enemy=ef.normalEnemy(0, 0, ID.Enemy, level, 100, 30, 20, 10, f, p);
+				handler.addObject(enemy);
+				f.placeEntity(enemy);
+			}
 		}
 		else if(level%5==0) {
 			this.f= new BossFloor(level,MAPW,MAPH,WIDTH,HEIGHT);
