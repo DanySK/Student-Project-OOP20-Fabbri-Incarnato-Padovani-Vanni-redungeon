@@ -22,7 +22,9 @@ import utilities.SpriteSheet;
 public class Player extends Entity {
 
 	boolean flag;
-	
+	long timer;
+	long lastime;
+	int column = 0;
 
 	public Player(int x, int y, ID id, int level, int hp, int attack, int magic_attack, int defence, AbsFloor floor) throws IOException {
 		super(x, y, id, level, hp, attack, magic_attack, defence, floor);
@@ -44,27 +46,36 @@ public class Player extends Entity {
 
 	@Override
 	public void tick() {
+		timer += System.currentTimeMillis() - lastime;
 		// TODO Auto-generated method stub
-		if(!this.isMoving())
+		if(timer>=1500)
 		{
 			switch(this.getDirection())
 			{
 				case Left:
-					img = img_matrix [1][1];
+					img = img_matrix [1][this.column];
 					break;
 					
 				case Down:
-					img = img_matrix [0][1];
+					img = img_matrix [0][this.column];
 					break;
 					
 				case Right:
-					img = img_matrix [2][1];
+					img = img_matrix [2][this.column];
 					break;
 					
 				case Up:
-					img = img_matrix [3][1];
+					img = img_matrix [3][this.column];
 					break;
 			}
+			
+			if(this.column==2)
+				this.column=0;
+			else
+				this.column++;
+			
+			lastime = System.currentTimeMillis();
+			timer = 0;
 		}
 	}
 
