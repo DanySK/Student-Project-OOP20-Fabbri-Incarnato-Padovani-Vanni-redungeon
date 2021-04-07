@@ -45,7 +45,7 @@ public class Game extends Canvas implements Runnable{
 		this.p=new Player(15, 15, ID.Player, 1, 30, 12, 10, 5,f);
 		f.placeEntity(p);
 		handler.addObject(p);
-		this.e = new Enemy(10, 10, ID.Enemy, 1, 100, 32, 28, 5, f, p);
+		/*this.e = new Enemy(10, 10, ID.Enemy, 1, 100, 32, 28, 5, f, p);
 		f.placeEntity(e);
 		handler.addObject(e);
 
@@ -120,6 +120,10 @@ public class Game extends Canvas implements Runnable{
 	
 	private void tick() {
 		handler.tick();
+		if(handler.next) {
+			handler.next=false;
+			nextLevel();
+		}
 		
 	}
 	
@@ -147,6 +151,7 @@ public class Game extends Canvas implements Runnable{
 		else if(level%5==0) {
 			this.f= new BossFloor(level,MAPW,MAPH,WIDTH,HEIGHT);
 		}
+		handler.object.set(0, (GameObject) f);
 		p.setFloor(f);
 		f.placeEntity(p);
 	}

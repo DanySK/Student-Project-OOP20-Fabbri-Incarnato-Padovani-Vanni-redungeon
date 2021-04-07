@@ -212,6 +212,11 @@ public class Player extends Entity {
 			
 		collisions.add(box);
 	}
+	public boolean isOut() {if(this.getFloor().getMap().get(this.box.getpos()).gettype()==tiletype.Exit) {
+		return true;
+		}
+	else return false;
+	}
 
 	/*public Rectangle getBounds()
 	{
