@@ -31,13 +31,14 @@ public class KeyInput extends KeyAdapter {
 				tempobj.input(key, collisions);
 			} 
 		}
+		collisions.clear();
 	}
 	
 	public void keyReleased(KeyEvent e) {
 		int key=e.getKeyCode();
 		for(int i=0; i<handler.object.size();i++) {
 			GameObject tempobj=handler.object.get(i);
-			if(tempobj.getID()==ID.NPC || tempobj.getID()==ID.NPC) {
+			if(tempobj.getID()==ID.Enemy || tempobj.getID()==ID.Player) {
 				if(key==KeyEvent.VK_W) {
 					tempobj.setvelY(0);
 					((Entity) tempobj).setMovement(false);
