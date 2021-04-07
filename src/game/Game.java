@@ -4,6 +4,7 @@ import java.awt.Canvas;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.image.BufferStrategy;
 import java.io.IOException;
 
@@ -32,22 +33,18 @@ public class Game extends Canvas implements Runnable{
 	private AbsFloor f;
 	private Player p;
 	private Enemy e;
-	
+	private int level=1;
 	private Handler handler;
 
 	public Game() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
 		handler=new Handler();
 		this.addKeyListener(new KeyInput(handler));
 		new Window(WIDTH,HEIGHT,"Re:Dungeon",this);
-		this.f= new BossFloor(1,MAPW,MAPH,WIDTH,HEIGHT);
+		this.f= new Floor(level,MAPW,MAPH,WIDTH,HEIGHT);
 		handler.addObject(f);
 		this.p=new Player(15, 15, ID.Player, 1, 30, 12, 10, 5,f);
 		f.placeEntity(p);
 		handler.addObject(p);
-		/*this.e = new Enemy(10, 10, ID.Enemy, 1, 100, 32, 28, 5, f, p);
-		f.placeEntity(e);
-		handler.addObject(e);
-
 		this.e = new Enemy(10, 10, ID.Enemy, 1, 100, 32, 28, 5, f, p);
 		f.placeEntity(e);
 		handler.addObject(e);
@@ -62,10 +59,15 @@ public class Game extends Canvas implements Runnable{
 
 		this.e = new Enemy(10, 10, ID.Enemy, 1, 100, 32, 28, 5, f, p);
 		f.placeEntity(e);
-		handler.addObject(e);*/
-		Boss b= new Boss(0,0,ID.Boss,1,100,32,28,5,f,p);
+		handler.addObject(e);
+
+		this.e = new Enemy(10, 10, ID.Enemy, 1, 100, 32, 28, 5, f, p);
+		f.placeEntity(e);
+		handler.addObject(e);
+		
+		/*Boss b= new Boss(0,0,ID.Boss,1,100,32,28,5,f,p);
 		handler.addObject(b);
-		f.placeEntity(b);
+		f.placeEntity(b);*/
 	}
 	
 	public synchronized void start() {
@@ -110,6 +112,7 @@ public class Game extends Canvas implements Runnable{
 				timer+=1000;
 				frames=0;
 			}
+			
 		}
 		stop();
 		
@@ -117,6 +120,7 @@ public class Game extends Canvas implements Runnable{
 	
 	private void tick() {
 		handler.tick();
+		
 	}
 	
 	private void render() {
@@ -134,6 +138,17 @@ public class Game extends Canvas implements Runnable{
 		
 		g.dispose();
 		bs.show();
+	}
+	public void nextLevel() {
+		level++;
+		if(level%5 !=0) {
+			this.f= new Floor(level,MAPW,MAPH,WIDTH,HEIGHT);
+		}
+		else if(level%5==0) {
+			this.f= new BossFloor(level,MAPW,MAPH,WIDTH,HEIGHT);
+		}
+		p.setFloor(f);
+		f.placeEntity(p);
 	}
 	public static void main(String[] args) throws IOException, LineUnavailableException, UnsupportedAudioFileException {
 		new Game();
