@@ -87,10 +87,11 @@ public class BossFloor extends AbsFloor {
 		// TODO Auto-generated method stub
 		
 	}
+	
 	public void placeEntity(Entity e) {
-		e.setX(screenw/64);
-	    e.setY(screenh/32-10);
-	    e.setBox(new AABB(new Point(screenw/64,screenh/32-10),1,2));
+		e.setX(screenw/(tilesize*2));
+	    e.setY(screenh/tilesize-10);
+	    e.setBox(new AABB(new Point(screenw/(tilesize*2),screenh/tilesize-10),1,2));
 	}
 	public void moveCam(int x,int y) {}
 

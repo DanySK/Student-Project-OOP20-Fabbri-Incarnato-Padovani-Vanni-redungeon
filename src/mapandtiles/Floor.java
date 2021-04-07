@@ -97,7 +97,7 @@ public class Floor extends AbsFloor {
 		
 		
 	}
-   
+   //create the floor exit choosing a random room and a random available tile in that room
    public void exitCreate() {
 		Random r= new Random();
 		int a=r.nextInt(rooms.size());
@@ -105,6 +105,7 @@ public class Floor extends AbsFloor {
 		this.tilestate.replace(rpos, new Tile(rpos,tiletype.Exit,sprite));
 		
 	}
+   //create a special heal tile 
    public void healCreate() {
 		Random r= new Random();
 		int a=r.nextInt(rooms.size());
@@ -113,7 +114,7 @@ public class Floor extends AbsFloor {
 		this.tilestate.replace(rpos, new Tile(rpos,tiletype.Heal,sprite));
 		
 	}
-   
+   //initializes the starting position of an Entity on a random valid tile. If the entity is the player call set camera
    public void placeEntity(Entity e) {
 		Random r= new Random();
 		int a=r.nextInt(rooms.size());
@@ -126,6 +127,7 @@ public class Floor extends AbsFloor {
 		}
 			
 	}
+   //called by place entity to initialize the camera offsets to be centered on the player if possible
    public void setCamera(Entity e) {
 		if(e.getX()-screenw/(tilesize*2) >0 && e.getX()+screenw/(tilesize*2)<width/tilesize) {
 			this.offsetX=e.getX()-screenw/64;
@@ -163,15 +165,9 @@ public class Floor extends AbsFloor {
    public int getHeight() {return this.height;}
    public HashMap <Point,Tile> getMap(){return this.tilestate;}
 	
-	@Override
-	public void tick() {
-		
-		//cambio degli offset y e x per individuare nella matrice
-		// TODO Auto-generated method stub
-		
-	}
+
 	
-	
+	//moves the cam if possible
 	public void moveCam(int x,int y) {
 		this.velX=x;
 		this.velY=y;
@@ -192,6 +188,12 @@ public class Floor extends AbsFloor {
 
 	@Override
 	public void move() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void tick() {
 		// TODO Auto-generated method stub
 		
 	}
