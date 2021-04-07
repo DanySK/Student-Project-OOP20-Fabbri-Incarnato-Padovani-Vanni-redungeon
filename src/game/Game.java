@@ -32,7 +32,7 @@ public class Game extends Canvas implements Runnable{
 	private boolean running= false;
 	private AbsFloor f;
 	private Player p;
-	private Enemy e;
+	private EnemyFactory ef;
 	private int level=1;
 	private Handler handler;
 
@@ -45,6 +45,7 @@ public class Game extends Canvas implements Runnable{
 		this.p=new Player(15, 15, ID.Player, 1, 30, 12, 10, 5,f);
 		f.placeEntity(p);
 		handler.addObject(p);
+		this.ef=new EnemyFactory();
 		/*this.e = new Enemy(10, 10, ID.Enemy, 1, 100, 32, 28, 5, f, p);
 		f.placeEntity(e);
 		handler.addObject(e);
@@ -100,7 +101,12 @@ public class Game extends Canvas implements Runnable{
 			delta+=(now-lastTime)/nanoseconds;
 			lastTime=now;
 			while(delta>=1) {
-				tick();
+				try {
+					tick();
+				} catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				delta=0;
 			}
 			if(running) {
@@ -118,7 +124,7 @@ public class Game extends Canvas implements Runnable{
 		
 	}
 	
-	private void tick() {
+	private void tick() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
 		handler.tick();
 		if(handler.next) {
 			handler.next=false;
@@ -143,7 +149,7 @@ public class Game extends Canvas implements Runnable{
 		g.dispose();
 		bs.show();
 	}
-	public void nextLevel() {
+	public void nextLevel() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
 		level++;
 		if(level%5 !=0) {
 			this.f= new Floor(level,MAPW,MAPH,WIDTH,HEIGHT);
@@ -152,6 +158,9 @@ public class Game extends Canvas implements Runnable{
 		else if(level%5==0) {
 			this.f= new BossFloor(level,MAPW,MAPH,WIDTH,HEIGHT);
 			handler.object.set(0, (GameObject) f);
+			Boss boss=ef.commonBoss(0, 0, ID.Boss, level, 100, 30, 20, 10, f, p);
+			handler.addObject(boss);
+			f.placeEntity(boss);
 			
 		}
 		
