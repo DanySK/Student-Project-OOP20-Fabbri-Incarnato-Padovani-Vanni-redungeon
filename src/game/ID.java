@@ -6,6 +6,6 @@ public enum ID {
 	Item(),
 	Currency(),
 	Floor(),
-	NPC();
-
+	NPC(),
+	Boss();
 }
