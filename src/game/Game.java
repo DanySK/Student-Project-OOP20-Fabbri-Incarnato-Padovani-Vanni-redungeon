@@ -132,7 +132,7 @@ public class Game extends Canvas implements Runnable{
 		bs.show();
 	}
 	public void nextLevel() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
-		for(int i=handler.object.size()-1;i>2;i--) {
+		for(int i=handler.object.size()-1;i>1;i--) {
 			handler.removeObject(handler.object.get(i));
 		}
 		level++;

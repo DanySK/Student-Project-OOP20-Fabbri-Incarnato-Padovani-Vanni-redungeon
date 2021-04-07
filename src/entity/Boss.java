@@ -130,8 +130,8 @@ public class Boss extends Entity{
 						(this.getHp()*30)/this.getHp(), 10);
 			}
 		}
-		g.drawImage(img,(x-getFloor().getOffsetX()-5)*32,
-				(y-getFloor().getOffsetY()-3)*32,null);
+		g.drawImage(img,(x-getFloor().getOffsetX()-1)*32,
+				(y-getFloor().getOffsetY()-1)*32,null);
 	}
 
 	@Override
