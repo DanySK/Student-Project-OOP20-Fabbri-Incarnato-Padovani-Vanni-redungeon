@@ -147,7 +147,7 @@ public class Enemy extends Entity{
 		{
 			if(!(this.getFloor().getMap().get(new Point((this.x),(this.y+1))).gettype()==tiletype.OFF))
 			{
-				this.setDirection(Direction.Down);
+				this.changeDirection(Direction.Down);
 				box1.sumY(1);	
 				this.setvelY(1);
 			}
@@ -157,7 +157,7 @@ public class Enemy extends Entity{
 		{
 			if(!(this.getFloor().getMap().get(new Point((this.x),(this.y-1))).gettype()==tiletype.OFF))
 			{
-				this.setDirection(Direction.Up);
+				this.changeDirection(Direction.Up);
 				box1.sumY(-1);	
 				this.setvelY(-1);
 			}
@@ -167,7 +167,7 @@ public class Enemy extends Entity{
 		{
 			if(!(this.getFloor().getMap().get(new Point((this.x+1),(this.y+velY))).gettype()==tiletype.OFF))
 			{
-				this.setDirection(Direction.Right);
+				this.changeDirection(Direction.Right);
 				box1.sumX(1);	
 				this.setvelX(1);
 			}
@@ -177,7 +177,7 @@ public class Enemy extends Entity{
 		{
 			if(!(this.getFloor().getMap().get(new Point((this.x-1),(this.y+velY))).gettype()==tiletype.OFF))
 			{	
-				this.setDirection(Direction.Left);
+				this.changeDirection(Direction.Left);
 				box1.sumX(-1);	
 				this.setvelX(-1);
 			}

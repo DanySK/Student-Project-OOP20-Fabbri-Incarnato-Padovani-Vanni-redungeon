@@ -165,8 +165,7 @@ public class Player extends Entity {
 					collisions.forEach(x -> {if(box1.collides(x)) {flag=true;}});	
 					if(!flag)
 					{
-						this.setDirection(Direction.Up);
-						img = img_matrix[3][1];
+						this.changeDirection(Direction.Up);
 						this.setvelY(-1);
 						//this.setvelX(0);
 						this.move();
@@ -178,8 +177,7 @@ public class Player extends Entity {
 					collisions.forEach(x -> {if(box1.collides(x)) {flag=true;}});	
 					if(!flag)
 					{
-						this.setDirection(Direction.Left);
-						img = img_matrix[1][1];
+						this.changeDirection(Direction.Left);
 						this.setvelX(-1);
 						//this.setvelY(0);
 						this.move();
@@ -191,8 +189,7 @@ public class Player extends Entity {
 					collisions.forEach(x -> {if(box1.collides(x)) {flag=true;}});	
 					if(!flag)
 					{
-						this.setDirection(Direction.Down);
-						img = img_matrix[0][1];
+						this.changeDirection(Direction.Down);
 						this.setvelY(1);
 						//this.setvelX(0);
 						this.move();
@@ -204,8 +201,7 @@ public class Player extends Entity {
 					collisions.forEach(x -> {if(box1.collides(x)) {flag=true;}});	
 					if(!flag)
 					{
-						this.setDirection(Direction.Right);
-						img = img_matrix[2][1];
+						this.changeDirection(Direction.Right);
 						this.setvelX(1);
 						//this.setvelY(0);
 						this.move();

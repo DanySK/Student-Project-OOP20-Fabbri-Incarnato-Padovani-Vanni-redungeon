@@ -40,6 +40,31 @@ public abstract class Entity extends GameObject{
 		this.setBox(new AABB(new Point(this.x, this.y), 1, 2));
 	}
 	
+	public void changeDirection(Direction direction)
+	{
+		this.setDirection(direction);
+		
+		switch(direction)
+		{
+			case Down:
+				img = img_matrix[0][1];
+				break;
+				
+			case Left:
+				img = img_matrix[1][1];
+				break;
+				
+			case Right:
+				img = img_matrix[2][1];
+				break;
+				
+			case Up:
+				img = img_matrix[3][1];
+				break;
+		}
+	}
+	
+	
 	public boolean isDead() 
 	{
 		
