@@ -41,7 +41,7 @@ public class Boss extends Entity{
 		{
 			for(int column=0; column<3; column++)
 			{
-				img_matrix[row][column] = sprite.grabImage(column+1, row+1, 38, 66); 
+				img_matrix[row][column] = sprite.grabImage(column+1, row+1, 192, 128); 
 			}
 		}
 		clip = AudioSystem.getClip();
@@ -130,8 +130,8 @@ public class Boss extends Entity{
 						(this.getHp()*30)/this.getHp(), 10);
 			}
 		}
-		g.drawImage(img,(x-getFloor().getOffsetX())*32,
-				(y-getFloor().getOffsetY()-1)*32,null);
+		g.drawImage(img,(x-getFloor().getOffsetX()-5)*32,
+				(y-getFloor().getOffsetY()-3)*32,null);
 	}
 
 	@Override
