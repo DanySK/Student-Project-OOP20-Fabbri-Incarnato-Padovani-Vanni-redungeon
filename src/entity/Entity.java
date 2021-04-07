@@ -12,6 +12,7 @@ public abstract class Entity extends GameObject{
 	SpriteSheet sprite;
 	BufferedImage[][] img_matrix; 
 	BufferedImage img;
+	BufferedImage hp_bar;
 	protected AABB box;
 	private int level;
 	private int hp;

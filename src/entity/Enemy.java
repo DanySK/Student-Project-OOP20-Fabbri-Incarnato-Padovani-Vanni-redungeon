@@ -34,6 +34,7 @@ public class Enemy extends Entity{
 	public Enemy(int x, int y, ID id, int level, int hp, int attack, int magic_attack, int defence,AbsFloor floor, Player player) throws IOException, LineUnavailableException, UnsupportedAudioFileException{
 		super(x, y, id, level, hp, attack, magic_attack, defence, floor);
 		// TODO Auto-generated constructor stub
+		hp_bar = ImageIO.read(new File("data/hpbar.png"));
 		sprite = new SpriteSheet(ImageIO.read(new File("data/enemy1.png")));
 		this.player_parameter = player;
 		this.img_matrix = new BufferedImage[4][3];
@@ -111,23 +112,34 @@ public class Enemy extends Entity{
 		
 		if(this.getHp() > 0) {
 			if(this.getHp()==this.getHp()) {
+				
 				g.fillRect((x-getFloor().getOffsetX())*32, 
-						(y-getFloor().getOffsetY())*32, 
-						30, 10);
+						(y-getFloor().getOffsetY()-1)*32-11, 
+						54, 14);
+				
+				g.drawImage(hp_bar,(x-getFloor().getOffsetX())*32-14,
+						(y-getFloor().getOffsetY()-2)*32+19,null);
 			}
 			else if ( this.getHp()/this.getHp() <= 2)
 			{
+				
 				g.setColor(Color.orange);
 				g.fillRect((x-getFloor().getOffsetX())*32,
-						(y-getFloor().getOffsetY())*32-1, 
-						(this.getHp()*30)/this.getHp(), 10);
+						(y-getFloor().getOffsetY()-1)*32-11, 
+						(this.getHp()*54)/this.getHp(), 10);
+				
+				g.drawImage(hp_bar,(x-getFloor().getOffsetX())*32-14,
+						(y-getFloor().getOffsetY()-2)*32+19,null);
 			}
 			else if (this.getHp()/this.getHp() <= 3)
 			{
 				g.setColor(Color.red);
 				g.fillRect((x-getFloor().getOffsetX())*32, 
-						(y-getFloor().getOffsetY())*32-1, 
-						(this.getHp()*30)/this.getHp(), 10);
+						(y-getFloor().getOffsetY()-1)*32-11, 
+						(this.getHp()*54)/this.getHp(), 10);
+				
+				g.drawImage(hp_bar,(x-getFloor().getOffsetX())*32-14,
+						(y-getFloor().getOffsetY()-2)*32+19,null);
 			}
 		}
 		g.drawImage(img,(x-getFloor().getOffsetX())*32,
