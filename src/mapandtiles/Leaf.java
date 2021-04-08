@@ -164,6 +164,9 @@ public class Leaf{
     	int w = point2.x - point1.x;
     	int h = point2.y - point1.y;
 
+    	System.out.println(point1);
+    	System.out.println(point2);
+    	
     	if (w < 0)
     	{
     		if (h < 0)
@@ -215,6 +218,8 @@ public class Leaf{
     		}
     		else if (h > 0)
     		{
+    			//here the bug, maybe
+    			
     			if (Math.random() < 0.5)
     			{
     				halls.add(new Rectangle(point1.x, point1.y, Math.abs(w), 1));
