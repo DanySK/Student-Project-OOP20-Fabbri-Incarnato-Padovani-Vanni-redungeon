@@ -232,7 +232,9 @@ public class Player extends Entity {
  				case KeyEvent.VK_RIGHT:
  					this.changeDirection(Direction.Right);
  					break;
-				
+ 				case KeyEvent.VK_T:
+ 				     this.cut();
+ 				     break;
 				case KeyEvent.VK_Z:
 				case KeyEvent.VK_J:
 					/*attack case*/
@@ -246,6 +248,23 @@ public class Player extends Entity {
 			}
 			
 		collisions.add(box);
+	}
+	private void cut() {
+		Point cpoint= new Point (this.x,this.y);
+		if(this.getDirection()==Direction.Down) {cpoint= new Point(this.x,this.y+1);}
+		if(this.getDirection()==Direction.Up) {cpoint= new Point(this.x,this.y-1);}
+		if(this.getDirection()==Direction.Right) {cpoint= new Point(this.x+1,this.y);}
+		if(this.getDirection()==Direction.Left) {cpoint= new Point(this.x-1,this.y);}
+		if(this.getFloor().getMap().get(cpoint).gettype()== tiletype.OFF) {
+			int count=0;
+			for(int i=this.x-1;i<=this.x+1;i++) {
+				for(int j=this.y-1;j<=this.y-1;j++)
+					if(this.getFloor().getMap().get(new Point(i,j)).gettype()==tiletype.ON) {
+						count++;
+					}
+			}
+			if(count>= 2) {this.getFloor().setTile(cpoint);}
+		}
 	}
 	public boolean isOut() {if(this.getFloor().getMap().get(this.box.getpos()).gettype()==tiletype.Exit) {
 		return true;
