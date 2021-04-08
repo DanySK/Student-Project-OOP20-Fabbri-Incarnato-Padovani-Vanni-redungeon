@@ -155,7 +155,7 @@ public class Enemy extends Entity{
 		
 		//the enemy find the position of the player like it is in a cartesian system
 		
-		if(this.getY()<player_parameter.getY())
+		if(this.getY()<player_parameter.getY() && !player_parameter.isMoving())
 		{
 			if(!(this.getFloor().getMap().get(new Point((this.x),(this.y+1))).gettype()==tiletype.OFF))
 			{
@@ -165,7 +165,7 @@ public class Enemy extends Entity{
 			}
 		}
 		
-		if(this.getY()>player_parameter.getY())
+		if(this.getY()>player_parameter.getY() && !player_parameter.isMoving())
 		{
 			if(!(this.getFloor().getMap().get(new Point((this.x),(this.y-1))).gettype()==tiletype.OFF))
 			{
@@ -175,7 +175,7 @@ public class Enemy extends Entity{
 			}
 		}
 		
-		if(this.getX()<player_parameter.getX())
+		if(this.getX()<player_parameter.getX() && !player_parameter.isMoving())
 		{
 			if(!(this.getFloor().getMap().get(new Point((this.x+1),(this.y+velY))).gettype()==tiletype.OFF))
 			{
@@ -185,7 +185,7 @@ public class Enemy extends Entity{
 			}
 		}
 		
-		if(this.getX()>player_parameter.getX())
+		if(this.getX()>player_parameter.getX() && !player_parameter.isMoving())
 		{
 			if(!(this.getFloor().getMap().get(new Point((this.x-1),(this.y+velY))).gettype()==tiletype.OFF))
 			{	
