@@ -26,7 +26,7 @@ public class KeyInput extends KeyAdapter {
 			if(tempobj.getID()==ID.Player) {
 				tempobj.input(key, collisions);
 			}
-
+			if(key.getKeyCode()==KeyEvent.VK_A || key.getKeyCode()==KeyEvent.VK_S || key.getKeyCode()==KeyEvent.VK_D || key.getKeyCode()==KeyEvent.VK_W)
 			if(tempobj.getID()==ID.Enemy) {
 				tempobj.input(key, collisions);
 			} 

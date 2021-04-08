@@ -170,7 +170,6 @@ public class Player extends Entity {
 		
 			switch (e)
 			{
-				case KeyEvent.VK_UP:
  				case KeyEvent.VK_W:
 					box1 = new AABB(new Point(box.getX(), box.getY()-1), 1, 2);
 					collisions.forEach(x -> {if(box1.collides(x)) {flag=true;}});	
@@ -182,8 +181,6 @@ public class Player extends Entity {
 						this.move();
 					}
 					break;
-					
- 				case KeyEvent.VK_LEFT:
 				case KeyEvent.VK_A:
 					box1 = new AABB(new Point(box.getX()-1, box.getY()), 1, 2);
 					collisions.forEach(x -> {if(box1.collides(x)) {flag=true;}});	
@@ -196,7 +193,6 @@ public class Player extends Entity {
 					}
 					break;
 					
-				case KeyEvent.VK_DOWN:
 				case KeyEvent.VK_S:
 					box1 = new AABB(new Point(box.getX(), box.getY()+1), 1, 2);
 					collisions.forEach(x -> {if(box1.collides(x)) {flag=true;}});	
@@ -208,8 +204,7 @@ public class Player extends Entity {
 						this.move();
 					}
 					break;
-				
-				case KeyEvent.VK_RIGHT:
+
 				case KeyEvent.VK_D:
 					box1 = new AABB(new Point(box.getX()+1, box.getY()), 1, 2);
 					collisions.forEach(x -> {if(box1.collides(x)) {flag=true;}});	
@@ -221,6 +216,22 @@ public class Player extends Entity {
 						this.move();
 					}
 					break;
+					
+ 				case KeyEvent.VK_LEFT:
+ 					this.changeDirection(Direction.Left);
+ 					break;
+ 					
+ 				case KeyEvent.VK_UP:
+ 					this.changeDirection(Direction.Up);
+ 					break;
+ 					
+ 				case KeyEvent.VK_DOWN:
+ 					this.changeDirection(Direction.Down);
+ 					break;
+ 					
+ 				case KeyEvent.VK_RIGHT:
+ 					this.changeDirection(Direction.Right);
+ 					break;
 				
 				case KeyEvent.VK_Z:
 				case KeyEvent.VK_J:
