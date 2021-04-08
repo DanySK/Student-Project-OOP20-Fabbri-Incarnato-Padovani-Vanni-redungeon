@@ -77,7 +77,6 @@ public abstract class Entity extends GameObject{
 		
 	}
 	
-	
 	public int getLevel()
 	{
 		return level;

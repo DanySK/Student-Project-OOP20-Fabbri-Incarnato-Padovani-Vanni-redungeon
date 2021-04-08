@@ -115,6 +115,12 @@ public class Player extends Entity {
 			this.setHp(this.getHp()+1);
 		}
 	}
+	
+	public void combat() {
+		int atk=this.getAttack();
+		int m_atk=this.getMagic_attack();
+		
+	}
 
 	@Override
 	public void render(Graphics2D g) {
@@ -164,7 +170,8 @@ public class Player extends Entity {
 		
 			switch (e)
 			{
-				case KeyEvent.VK_W:
+				case KeyEvent.VK_UP:
+ 				case KeyEvent.VK_W:
 					box1 = new AABB(new Point(box.getX(), box.getY()-1), 1, 2);
 					collisions.forEach(x -> {if(box1.collides(x)) {flag=true;}});	
 					if(!flag)
@@ -176,6 +183,7 @@ public class Player extends Entity {
 					}
 					break;
 					
+ 				case KeyEvent.VK_LEFT:
 				case KeyEvent.VK_A:
 					box1 = new AABB(new Point(box.getX()-1, box.getY()), 1, 2);
 					collisions.forEach(x -> {if(box1.collides(x)) {flag=true;}});	
@@ -188,6 +196,7 @@ public class Player extends Entity {
 					}
 					break;
 					
+				case KeyEvent.VK_DOWN:
 				case KeyEvent.VK_S:
 					box1 = new AABB(new Point(box.getX(), box.getY()+1), 1, 2);
 					collisions.forEach(x -> {if(box1.collides(x)) {flag=true;}});	
@@ -199,7 +208,8 @@ public class Player extends Entity {
 						this.move();
 					}
 					break;
-					
+				
+				case KeyEvent.VK_RIGHT:
 				case KeyEvent.VK_D:
 					box1 = new AABB(new Point(box.getX()+1, box.getY()), 1, 2);
 					collisions.forEach(x -> {if(box1.collides(x)) {flag=true;}});	
@@ -210,6 +220,16 @@ public class Player extends Entity {
 						//this.setvelY(0);
 						this.move();
 					}
+					break;
+				
+				case KeyEvent.VK_Z:
+				case KeyEvent.VK_J:
+					/*attack case*/
+					break;
+					
+				case KeyEvent.VK_X:
+				case KeyEvent.VK_K:
+					/*magic attack case*/
 					break;
 					
 			}
