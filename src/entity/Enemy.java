@@ -148,6 +148,7 @@ public class Enemy extends Entity{
 
 	@Override
 	public void input(KeyEvent key, List<AABB> collisions) {
+		
 		// TODO Auto-generated method stub
 		box1 = new AABB(new Point(this.getBox().getX(), getBox().getY()), 1, 2);
 		collisions.remove(box);
@@ -201,6 +202,10 @@ public class Enemy extends Entity{
 			this.move();
 		
 		else {
+				
+				this.setvelX(0);
+				this.setvelY(0);
+				
 				if(box1.collides(player_parameter.getBox()))
 				{
 					clip.loop(1);
