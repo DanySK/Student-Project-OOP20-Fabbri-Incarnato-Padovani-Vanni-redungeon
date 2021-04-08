@@ -257,8 +257,8 @@ public class Player extends Entity {
 		if(this.getDirection()==Direction.Left) {cpoint= new Point(this.x-1,this.y);}
 		if(this.getFloor().getMap().get(cpoint).gettype()== tiletype.OFF) {
 			int count=0;
-			for(int i=this.x-1;i<=this.x+1;i++) {
-				for(int j=this.y-1;j<=this.y-1;j++)
+			for(int i=cpoint.x-1;i<=cpoint.x+1;i++) {
+				for(int j=cpoint.y-1;j<=cpoint.y+1;j++)
 					if(this.getFloor().getMap().get(new Point(i,j)).gettype()==tiletype.ON) {
 						count++;
 					}
