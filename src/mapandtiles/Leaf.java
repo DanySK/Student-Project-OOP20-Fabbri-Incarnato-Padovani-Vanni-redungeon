@@ -159,7 +159,7 @@ public class Leaf{
     	halls = new Vector<Rectangle>();
 
     	Point point1 = new Point((int)Math.random()*(l.width-l.x)+l.x+1, (int)Math.random()*(l.height-l.y)+l.y+1);
-    	Point point2 = new Point((int)Math.random()*(r.width-3-r.x)+r.x+1, (int)Math.random()*(r.height-3-r.y)+r.y+1);
+    	Point point2 = new Point((int)Math.random()*(r.width-r.x)+r.x+1, (int)Math.random()*(r.height-r.y)+r.y+1);
 
     	int w = point2.x - point1.x;
     	int h = point2.y - point1.y;

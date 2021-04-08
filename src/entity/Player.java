@@ -263,7 +263,7 @@ public class Player extends Entity {
 						count++;
 					}
 			}
-			if(count>= 2) {this.getFloor().setTile(cpoint);}
+			if(count== 2) {this.getFloor().setTile(cpoint);}
 		}
 	}
 	public boolean isOut() {if(this.getFloor().getMap().get(this.box.getpos()).gettype()==tiletype.Exit) {
