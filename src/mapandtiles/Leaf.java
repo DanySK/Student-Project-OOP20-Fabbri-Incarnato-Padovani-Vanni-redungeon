@@ -104,7 +104,7 @@ public class Leaf{
     		Point roomSize;
     		Point roomPos;
     		// the room can be between 3 x 3 tiles to the size of the leaf - 2.
-    		roomSize = new Point((int)(Math.random()*( w - 2-3)+3),(int)(Math.random()*(h - 2-3)+3));
+    		roomSize = new Point((int)(Math.random()*( w - 2-4)+4),(int)(Math.random()*(h - 2-4)+4));
     		// place the room within the Leaf, but don't put it right 
     		// against the side of the Leaf (that would merge rooms together)
     		roomPos = new Point((int)(Math.random()*( w-roomSize.x-1 - 1)+1), (int)(Math.random()*( h-roomSize.y-1- 1)+1));
