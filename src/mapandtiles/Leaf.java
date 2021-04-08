@@ -164,35 +164,39 @@ public class Leaf{
     	int w = point2.x - point1.x;
     	int h = point2.y - point1.y;
 
-    	System.out.println(point1);
-    	System.out.println(point2);
+    	System.out.println("1) "+point1);
+    	System.out.println("2) "+point2);
+    	System.out.println(Math.abs(w));
+    	System.out.println(Math.abs(h));
     	
     	if (w < 0)
     	{
     		if (h < 0)
     		{
+    			System.out.println("ECCOMI");
     			if (Math.random() < 0.5)
     			{
-    				halls.add(new Rectangle(point2.x, point1.y, Math.abs(w), 1));
-    				halls.add(new Rectangle(point2.x, point2.y, 1, Math.abs(h)));
+    				halls.add(new Rectangle(point2.x, point1.y, Math.abs(w)+1, 1));
+    				halls.add(new Rectangle(point2.x, point2.y, 1, Math.abs(h)+1));
     			}
     			else
     			{
-    				halls.add(new Rectangle(point2.x, point2.y, Math.abs(w), 1));
-    				halls.add(new Rectangle(point1.x, point2.y, 1, Math.abs(h)));
+    				halls.add(new Rectangle(point2.x, point2.y, Math.abs(w)+1, 1));
+    				halls.add(new Rectangle(point1.x, point2.y, 1, Math.abs(h)+1));
     			}
     		}
     		else if (h > 0)
     		{
+    			//maybe here the bug
     			if (Math.random() < 0.5)
     			{
-    				halls.add(new Rectangle(point2.x, point1.y, Math.abs(w), 1));
-    				halls.add(new Rectangle(point2.x, point1.y, 1, Math.abs(h)));
+    				halls.add(new Rectangle(point2.x, point1.y, Math.abs(w)+1, 1));
+    				halls.add(new Rectangle(point2.x, point1.y, 1, Math.abs(h)+1));
     			}
     			else
     			{
-    				halls.add(new Rectangle(point2.x, point2.y, Math.abs(w), 1));
-    				halls.add(new Rectangle(point1.x, point1.y, 1, Math.abs(h)));
+    				halls.add(new Rectangle(point2.x, point2.y, Math.abs(w)+1, 1));
+    				halls.add(new Rectangle(point1.x, point1.y, 1, Math.abs(h)+1));
     			}
     		}
     		else // if (h == 0)
@@ -207,19 +211,17 @@ public class Leaf{
     		{
     			if (Math.random() < 0.5)
     			{
-    				halls.add(new Rectangle(point1.x, point2.y, Math.abs(w), 1));
+    				halls.add(new Rectangle(point1.x, point2.y, Math.abs(w)+1, 1));
     				halls.add(new Rectangle(point1.x, point2.y, 1, Math.abs(h)));
     			}
     			else
     			{
-    				halls.add(new Rectangle(point1.x, point1.y, Math.abs(w), 1));
-    				halls.add(new Rectangle(point2.x, point2.y, 1, Math.abs(h)));
+    				halls.add(new Rectangle(point1.x, point1.y, Math.abs(w)+1, 1));
+    				halls.add(new Rectangle(point2.x, point2.y, 1, Math.abs(h)+1));
     			}
     		}
     		else if (h > 0)
     		{
-    			//here the bug, maybe
-    			
     			if (Math.random() < 0.5)
     			{
     				halls.add(new Rectangle(point1.x, point1.y, Math.abs(w), 1));
@@ -230,6 +232,7 @@ public class Leaf{
     				halls.add(new Rectangle(point1.x, point2.y, Math.abs(w), 1));
     				halls.add(new Rectangle(point1.x, point1.y, 1, Math.abs(h)));
     			}
+    			
     		}
     		else // if (h == 0)
     		{
@@ -240,7 +243,7 @@ public class Leaf{
     	{
     		if (h < 0)
     		{
-    			halls.add(new Rectangle(point2.x, point2.y, 1, Math.abs(h)));
+    			halls.add(new Rectangle(point2.x, point2.y, 1, Math.abs(h)+1));
     		}
     		else if (h > 0)
     		{
