@@ -28,6 +28,8 @@ public class Player extends Entity {
 
 	public Player(int x, int y, ID id, CombatSystem combat, int level, int hp, int attack, int magic_attack, int defence, AbsFloor floor) throws IOException {
 		super(x, y, id, combat, level, hp, attack, magic_attack, defence, floor);
+
+		hp_bar = ImageIO.read(new File("data/hpbar.png"));
 		sprite = new SpriteSheet(ImageIO.read(new File("data/player.png")));
 		this.img_matrix = new BufferedImage[4][3];
 		for(int row=0; row<4; row++)
@@ -127,24 +129,34 @@ public class Player extends Entity {
 		g.setColor(Color.GREEN);
 		
 		if(this.getHp() > 0) {
-			if(this.getHp()==this.getHp()) {
-				g.fillRect((x-getFloor().getOffsetX())*32, 
-						(y-getFloor().getOffsetY())*32, 
-						30, 10);
+			if(this.getMax_hp()/this.getHp() < 2) {
+				
+				g.fillRect((x-getFloor().getOffsetX())*32,
+						(y-getFloor().getOffsetY()-1)*32-11, 
+						(this.getHp()*54)/this.getMax_hp(), 14);
+				
+				g.drawImage(hp_bar,(x-getFloor().getOffsetX())*32-14,
+						(y-getFloor().getOffsetY()-2)*32+19,null);
 			}
-			else if ( this.getHp()/this.getHp() <= 2)
-			{
+			else if ( this.getMax_hp()/this.getHp() <= 4 && this.getMax_hp()/this.getHp() >= 2)
+			{		
 				g.setColor(Color.orange);
 				g.fillRect((x-getFloor().getOffsetX())*32,
-						(y-getFloor().getOffsetY())*32-1, 
-						(this.getHp()*30)/this.getHp(), 10);
+						(y-getFloor().getOffsetY()-1)*32-11, 
+						(this.getHp()*54)/this.getMax_hp(), 14);
+				
+				g.drawImage(hp_bar,(x-getFloor().getOffsetX())*32-14,
+						(y-getFloor().getOffsetY()-2)*32+19,null);
 			}
-			else if (this.getHp()/this.getHp() <= 3)
+			else if (this.getMax_hp()/this.getHp() > 4)
 			{
 				g.setColor(Color.red);
 				g.fillRect((x-getFloor().getOffsetX())*32, 
-						(y-getFloor().getOffsetY())*32-1, 
-						(this.getHp()*30)/this.getHp(), 10);
+						(y-getFloor().getOffsetY()-1)*32-11, 
+						(this.getHp()*54)/this.getMax_hp(), 14);
+				
+				g.drawImage(hp_bar,(x-getFloor().getOffsetX())*32-14,
+						(y-getFloor().getOffsetY()-2)*32+19,null);
 			}
 		}
 		
@@ -232,9 +244,6 @@ public class Player extends Entity {
  				case KeyEvent.VK_RIGHT:
  					this.changeDirection(Direction.Right);
  					break;
- 				case KeyEvent.VK_T:
- 				     this.cut();
- 				     break;
  				     
 				case KeyEvent.VK_J:
 					

@@ -207,6 +207,7 @@ public class Enemy extends Entity{
 				
 				if(box1.collides(player_parameter.getBox()))
 				{
+					combat.EnemyAttack(this);
 					clip.loop(1);
 				}
 				      

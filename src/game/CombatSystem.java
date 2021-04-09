@@ -102,4 +102,53 @@ public class CombatSystem {
 				break;
 		}
 	}
+	
+	public void EnemyAttack(Enemy enemy)
+	{
+		collide = false;
+		
+		switch(enemy.getDirection())
+		{
+			case Down:
+				direction_box = new AABB(new Point(enemy.getX(), enemy.getY()+1), 1, 2);
+				
+				if(direction_box.collides(player.getBox()))
+				{
+					player.setHp(player.getHp()-(enemy.getAttack()-player.getDefence()));
+				}
+				
+				break;
+				
+			case Left:
+				direction_box = new AABB(new Point(enemy.getX()-1, enemy.getY()), 1, 2);
+				
+				if(direction_box.collides(player.getBox()))
+				{
+					player.setHp(player.getHp()-(enemy.getAttack()-player.getDefence()));
+				}
+				
+				break;
+				
+			case Right:
+				direction_box = new AABB(new Point(enemy.getX()+1, enemy.getY()), 1, 2);
+				
+				if(direction_box.collides(player.getBox()))
+				{
+					player.setHp(player.getHp()-(enemy.getAttack()-player.getDefence()));
+				}
+				
+				break;
+				
+			case Up:
+				direction_box = new AABB(new Point(enemy.getX(), enemy.getY()-1), 1, 2);
+				
+				if(direction_box.collides(player.getBox()))
+				{
+					player.setHp(player.getHp()-(enemy.getAttack()-player.getDefence()));
+				}
+				
+				break;
+				
+		}
+	}
 }

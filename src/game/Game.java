@@ -44,14 +44,14 @@ public class Game extends Canvas implements Runnable{
 		new Window(WIDTH,HEIGHT,"Re:Dungeon",this);
 		this.f= new Floor(level,MAPW,MAPH,WIDTH,HEIGHT);
 		handler.addObject(f);
-		this.p=new Player(15, 15, ID.Player, combat, 1, 30, 12, 10, 5,f);
+		this.p=new Player(15, 15, ID.Player, combat, 1, 200, 12, 10, 5,f);
 		combat.addPlayer(p);
 		f.placeEntity(p);
 		handler.addObject(p);
 		this.ef=new EnemyFactory();
 		
 		for(int j=0;j<level;j++) {
-			Enemy enemy=ef.normalEnemy(0, 0, ID.Enemy, combat, level, 100, 30, 20, 10, f, p);
+			Enemy enemy=ef.normalEnemy(0, 0, ID.Enemy, combat, level, 100, 7, 20, 8, f, p);
 			f.placeEntity(enemy);
 			handler.addObject(enemy);
 			combat.addEnemy(enemy);
@@ -148,7 +148,7 @@ public class Game extends Canvas implements Runnable{
 			this.f= new Floor(level,MAPW,MAPH,WIDTH,HEIGHT);
 			handler.object.set(0, (GameObject) f);
 			for(int j=0;j<level;j++) {
-				Enemy enemy=ef.normalEnemy(0, 0, ID.Enemy, combat, level, 100, 30, 20, 10, f, p);
+				Enemy enemy=ef.normalEnemy(0, 0, ID.Enemy, combat, level, 100, 7, 20, 8, f, p);
 				handler.addObject(enemy);
 				combat.addEnemy(enemy);
 				f.placeEntity(enemy);
