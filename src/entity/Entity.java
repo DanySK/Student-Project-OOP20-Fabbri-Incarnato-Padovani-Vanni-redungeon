@@ -13,6 +13,7 @@ public abstract class Entity extends GameObject{
 	BufferedImage[][] img_matrix; 
 	BufferedImage img;
 	BufferedImage hp_bar;
+	CombatSystem combat;
 	protected AABB box;
 	private int level;
 	private int hp;
@@ -29,7 +30,7 @@ public abstract class Entity extends GameObject{
 
 	
 	
-	public Entity(int x, int y, ID id, int level, int hp, int attack, int magic_attack, int defence, AbsFloor floor) {
+	public Entity(int x, int y, ID id, CombatSystem combat, int level, int hp, int attack, int magic_attack, int defence, AbsFloor floor) {
 		super(x, y, id);
 		this.setLevel(level);
 		this.setHp(hp);
@@ -39,6 +40,7 @@ public abstract class Entity extends GameObject{
 		this.setDefence(defence);
 		this.setFloor(floor);
 		this.setBox(new AABB(new Point(this.x, this.y), 1, 2));
+		this.combat = combat;
 	}
 	
 	public void changeDirection(Direction direction)

@@ -14,7 +14,7 @@ import java.util.List;
 import javax.imageio.ImageIO;
 
 import mapandtiles.*;
-import game.ID;
+import game.*;
 import mapandtiles.Floor;
 import utilities.AABB;
 import utilities.SpriteSheet;
@@ -26,8 +26,8 @@ public class Player extends Entity {
 	long lastime;
 	int column = 0;
 
-	public Player(int x, int y, ID id, int level, int hp, int attack, int magic_attack, int defence, AbsFloor floor) throws IOException {
-		super(x, y, id, level, hp, attack, magic_attack, defence, floor);
+	public Player(int x, int y, ID id, CombatSystem combat, int level, int hp, int attack, int magic_attack, int defence, AbsFloor floor) throws IOException {
+		super(x, y, id, combat, level, hp, attack, magic_attack, defence, floor);
 		sprite = new SpriteSheet(ImageIO.read(new File("data/player.png")));
 		this.img_matrix = new BufferedImage[4][3];
 		for(int row=0; row<4; row++)
@@ -235,8 +235,11 @@ public class Player extends Entity {
  				case KeyEvent.VK_T:
  				     this.cut();
  				     break;
+ 				     
 				case KeyEvent.VK_Z:
 				case KeyEvent.VK_J:
+					
+					combat.PlayerAttack();
 					/*attack case*/
 					break;
 					

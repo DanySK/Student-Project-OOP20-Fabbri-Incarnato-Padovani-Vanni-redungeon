@@ -31,8 +31,8 @@ public class Boss extends Entity{
 	long timer;
 	long lastime;
 	
-	public Boss(int x, int y, ID id, int level, int hp, int attack, int magic_attack, int defence,AbsFloor floor, Player player) throws IOException, LineUnavailableException, UnsupportedAudioFileException{
-		super(x, y, id, level, hp, attack, magic_attack, defence, floor);
+	public Boss(int x, int y, ID id, CombatSystem combat, int level, int hp, int attack, int magic_attack, int defence,AbsFloor floor, Player player) throws IOException, LineUnavailableException, UnsupportedAudioFileException{
+		super(x, y, id, combat, level, hp, attack, magic_attack, defence, floor);
 		// TODO Auto-generated constructor stub
 		sprite = new SpriteSheet(ImageIO.read(new File("data/boss.png")));
 		this.player_parameter = player;

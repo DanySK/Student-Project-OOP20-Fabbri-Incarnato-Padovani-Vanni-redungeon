@@ -35,21 +35,26 @@ public class Game extends Canvas implements Runnable{
 	private EnemyFactory ef;
 	private int level=1;
 	private Handler handler;
+	private CombatSystem combat;
 
 	public Game() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
 		handler=new Handler();
+		combat = new CombatSystem();
 		this.addKeyListener(new KeyInput(handler));
 		new Window(WIDTH,HEIGHT,"Re:Dungeon",this);
 		this.f= new Floor(level,MAPW,MAPH,WIDTH,HEIGHT);
 		handler.addObject(f);
-		this.p=new Player(15, 15, ID.Player, 1, 30, 12, 10, 5,f);
+		this.p=new Player(15, 15, ID.Player, combat, 1, 30, 12, 10, 5,f);
+		combat.addPlayer(p);
 		f.placeEntity(p);
 		handler.addObject(p);
 		this.ef=new EnemyFactory();
+		
 		for(int j=0;j<level;j++) {
-			Enemy enemy=ef.normalEnemy(0, 0, ID.Enemy, level, 100, 30, 20, 10, f, p);
-			handler.addObject(enemy);
+			Enemy enemy=ef.normalEnemy(0, 0, ID.Enemy, combat, level, 100, 30, 20, 10, f, p);
 			f.placeEntity(enemy);
+			handler.addObject(enemy);
+			combat.addEnemy(enemy);
 		}
 	}
 	
@@ -134,13 +139,14 @@ public class Game extends Canvas implements Runnable{
 	public void nextLevel() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
 		for(int i=handler.object.size()-1;i>1;i--) {
 			handler.removeObject(handler.object.get(i));
+			combat.removeEnemy((Enemy) handler.object.get(i));
 		}
 		level++;
 		if(level%5 !=0) {
 			this.f= new Floor(level,MAPW,MAPH,WIDTH,HEIGHT);
 			handler.object.set(0, (GameObject) f);
 			for(int j=0;j<level;j++) {
-				Enemy enemy=ef.normalEnemy(0, 0, ID.Enemy, level, 100, 30, 20, 10, f, p);
+				Enemy enemy=ef.normalEnemy(0, 0, ID.Enemy, combat, level, 100, 30, 20, 10, f, p);
 				handler.addObject(enemy);
 				f.placeEntity(enemy);
 			}
@@ -148,7 +154,7 @@ public class Game extends Canvas implements Runnable{
 		else if(level%5==0) {
 			this.f= new BossFloor(level,MAPW,MAPH,WIDTH,HEIGHT);
 			handler.object.set(0, (GameObject) f);
-			Boss boss=ef.commonBoss(0, 0, ID.Boss, level, 100, 30, 20, 10, f, p);
+			Boss boss=ef.commonBoss(0, 0, ID.Boss, combat, level, 100, 30, 20, 10, f, p);
 			handler.addObject(boss);
 			f.placeEntity(boss);
 			
