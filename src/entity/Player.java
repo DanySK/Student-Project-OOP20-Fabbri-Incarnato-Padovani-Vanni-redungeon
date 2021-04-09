@@ -236,18 +236,16 @@ public class Player extends Entity {
  				     this.cut();
  				     break;
  				     
-				case KeyEvent.VK_Z:
 				case KeyEvent.VK_J:
 					
 					combat.PlayerAttack();
 					/*attack case*/
 					break;
-					
-				case KeyEvent.VK_X:
+				
 				case KeyEvent.VK_K:
-					/*magic attack case*/
-					break;
 					
+					//magic attack
+					break;
 			}
 			
 		collisions.add(box);
