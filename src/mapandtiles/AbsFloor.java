@@ -29,4 +29,8 @@ public abstract class AbsFloor extends GameObject {
 	public HashMap<Point,Tile> getMap(){return tilestate;}
 	public int getOffsetX() {return this.offsetX;}
 	public int getOffsetY() {return this.offsetY;}
+	public int getScreenw() {return this.screenw;}
+	 public int getScreenh() {return this.screenh;}
+	 public int getWidth() {return this.width;}
+	   public int getHeight() {return this.height;}
 }

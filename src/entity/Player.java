@@ -106,7 +106,16 @@ public class Player extends Entity {
 			if(this.getHp() < this.getMax_hp() ) {
 				this.setHp(this.getHp()+1);
 			}
-			this.getFloor().moveCam(this.velX,this.velY);
+			int opvelx,opvely;
+			if(this.getX()-this.getFloor().getScreenw()/(32*2) >0 && this.getX()+this.getFloor().getScreenw()/(32*2)<this.getFloor().getWidth()/32) {
+				opvelx=this.velX;
+			}
+			else {opvelx=0;}
+			if(this.getY()-this.getFloor().getScreenh()/(32*2) >0 && this.getY()+this.getFloor().getScreenh()/(32*2)<this.getFloor().getHeight()/32) {
+				opvely=this.velY;
+			}
+			else {opvely=0;}
+			this.getFloor().moveCam(opvelx,opvely);
 			x+=velX;
 			y+=velY;
 			box.setpos(new Point(x,y));
