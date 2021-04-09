@@ -65,7 +65,7 @@ public class BossFloor extends AbsFloor {
 	void exitCreate(Point p) {
 		this.tilestate.replace(p, new Tile(p,tiletype.Exit,sprite));
 	}
-
+	
 	@Override
 	public void tick() {
 		// TODO Auto-generated method stub
