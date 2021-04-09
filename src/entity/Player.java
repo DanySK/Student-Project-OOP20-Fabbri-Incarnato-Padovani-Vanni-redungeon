@@ -101,26 +101,23 @@ public class Player extends Entity {
 			velX=0;
 			velY=0;
 		}
-		this.getFloor().moveCam(this.velX,this.velY);
-		x+=velX;
-		y+=velY;
-		box.setpos(new Point(x,y));
-		if(this.getFloor().getMap().get(this.box.getpos()).gettype()==tiletype.Heal) {
-			this.setHp(this.getMax_hp());
-			this.getFloor().setTile(this.getBox().getpos());
+		else
+		{	
+			if(this.getHp() < this.getMax_hp() ) {
+				this.setHp(this.getHp()+1);
+			}
+			this.getFloor().moveCam(this.velX,this.velY);
+			x+=velX;
+			y+=velY;
+			box.setpos(new Point(x,y));
+			if(this.getFloor().getMap().get(this.box.getpos()).gettype()==tiletype.Heal) {
+				this.setHp(this.getMax_hp());
+				this.getFloor().setTile(this.getBox().getpos());
+
+				velX=0;
+				velY=0;
+			}
 		}
-		velX=0;
-		velY=0;
-		
-		if(this.getHp() < this.getMax_hp() ) {
-			this.setHp(this.getHp()+1);
-		}
-	}
-	
-	public void combat() {
-		int atk=this.getAttack();
-		int m_atk=this.getMagic_attack();
-		
 	}
 
 	@Override

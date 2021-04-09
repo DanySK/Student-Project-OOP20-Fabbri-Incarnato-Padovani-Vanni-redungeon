@@ -16,8 +16,9 @@ public class Handler {
 			tempobj.tick();
 			if(tempobj.getID()==ID.Player) {
 				Player obj= (Player) tempobj;
-				if(obj.isOut()) {
-					next = true;
+				if(obj.isDead())
+				{
+					this.removeObject(obj);
 				}
 			}
 			
