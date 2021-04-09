@@ -138,8 +138,10 @@ public class Game extends Canvas implements Runnable{
 	}
 	public void nextLevel() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
 		for(int i=handler.object.size()-1;i>1;i--) {
+			if(handler.object.get(i).getID()==ID.Enemy)
+				combat.removeEnemy((Enemy) handler.object.get(i));
+			
 			handler.removeObject(handler.object.get(i));
-			combat.removeEnemy((Enemy) handler.object.get(i));
 		}
 		level++;
 		if(level%5 !=0) {
@@ -148,6 +150,7 @@ public class Game extends Canvas implements Runnable{
 			for(int j=0;j<level;j++) {
 				Enemy enemy=ef.normalEnemy(0, 0, ID.Enemy, combat, level, 100, 30, 20, 10, f, p);
 				handler.addObject(enemy);
+				combat.addEnemy(enemy);
 				f.placeEntity(enemy);
 			}
 		}
