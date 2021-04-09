@@ -3,7 +3,7 @@ package game;
 import java.awt.Graphics2D;
 import java.util.LinkedList;
 
-import entity.Player;
+import entity.*;
 
 public class Handler {
 	
@@ -18,6 +18,14 @@ public class Handler {
 				Player obj= (Player) tempobj;
 				if(obj.isOut()) {
 					next = true;
+				}
+			}
+			
+			if(tempobj.getID()==ID.Enemy) {
+				Enemy obj= (Enemy) tempobj;
+				if(obj.isDead())
+				{
+					this.removeObject(obj);
 				}
 			}
 		}
