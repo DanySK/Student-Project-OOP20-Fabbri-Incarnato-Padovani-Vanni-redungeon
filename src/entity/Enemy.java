@@ -111,16 +111,16 @@ public class Enemy extends Entity{
 		//with a proportion the render function set the hp of the monster
 		
 		if(this.getHp() > 0) {
-			if(this.getHp()==this.getMax_hp()) {
+			if(this.getMax_hp()/this.getHp() < 2) {
 				
-				g.fillRect((x-getFloor().getOffsetX())*32, 
+				g.fillRect((x-getFloor().getOffsetX())*32,
 						(y-getFloor().getOffsetY()-1)*32-11, 
-						54, 14);
+						(this.getHp()*54)/this.getMax_hp(), 14);
 				
 				g.drawImage(hp_bar,(x-getFloor().getOffsetX())*32-14,
 						(y-getFloor().getOffsetY()-2)*32+19,null);
 			}
-			else if ( this.getMax_hp()/this.getHp() <= 2)
+			else if ( this.getMax_hp()/this.getHp() <= 4 && this.getMax_hp()/this.getHp() >= 2)
 			{		
 				g.setColor(Color.orange);
 				g.fillRect((x-getFloor().getOffsetX())*32,
@@ -130,7 +130,7 @@ public class Enemy extends Entity{
 				g.drawImage(hp_bar,(x-getFloor().getOffsetX())*32-14,
 						(y-getFloor().getOffsetY()-2)*32+19,null);
 			}
-			else if (this.getMax_hp()/this.getHp() <= 3)
+			else if (this.getMax_hp()/this.getHp() > 4)
 			{
 				g.setColor(Color.red);
 				g.fillRect((x-getFloor().getOffsetX())*32, 

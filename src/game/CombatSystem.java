@@ -60,7 +60,7 @@ public class CombatSystem {
 				
 				if(collide)
 				{
-					enemy.setHp(player.getAttack()-enemy.getDefence());
+					enemy.setHp(enemy.getHp()-(player.getAttack()-enemy.getDefence()));
 					if(enemy.isDead())
 					{
 						enemies.remove(enemy);
@@ -76,7 +76,7 @@ public class CombatSystem {
 				
 				if(collide)
 				{
-					enemy.setHp(player.getAttack()-enemy.getDefence());
+					enemy.setHp(enemy.getHp()-(player.getAttack()-enemy.getDefence()));
 					if(enemy.isDead())
 					{
 						enemies.remove(enemy);
@@ -92,7 +92,7 @@ public class CombatSystem {
 				
 				if(collide)
 				{
-					enemy.setHp(player.getAttack()-enemy.getDefence());
+					enemy.setHp(enemy.getHp()-(player.getAttack()-enemy.getDefence()));
 					if(enemy.isDead())
 					{
 						enemies.remove(enemy);
