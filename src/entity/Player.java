@@ -15,7 +15,6 @@ import javax.imageio.ImageIO;
 
 import mapandtiles.*;
 import game.*;
-import mapandtiles.Floor;
 import utilities.AABB;
 import utilities.SpriteSheet;
 
