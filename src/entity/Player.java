@@ -24,13 +24,13 @@ public class Player extends Entity {
 	long timer;
 	long lastime;
 	int column = 0;
-
+    Inventory inventory;
 	int experience;
 	int maxExperience=100;
 
 	public Player(int x, int y, ID id, CombatSystem combat, int level, int hp, int attack, int magic_attack, int defence, AbsFloor floor) throws IOException {
 		super(x, y, id, combat, level, hp, attack, magic_attack, defence, floor);
-
+         this.inventory= new Inventory();
 		hp_bar = ImageIO.read(new File("data/hpbar.png"));
 		sprite = new SpriteSheet(ImageIO.read(new File("data/player.png")));
 		this.img_matrix = new BufferedImage[4][3];
@@ -124,6 +124,13 @@ public class Player extends Entity {
 			box.setpos(new Point(x,y));
 			if(this.getFloor().getMap().get(this.box.getpos()).gettype()==tiletype.Heal) {
 				this.setHp(this.getMax_hp());
+				this.getFloor().setTile(this.getBox().getpos());
+
+				velX=0;
+				velY=0;
+			}
+			if(this.getFloor().getMap().get(this.box.getpos()).gettype()==tiletype.Key) {
+				this.inventory.setKey(true);
 				this.getFloor().setTile(this.getBox().getpos());
 
 				velX=0;
@@ -297,7 +304,9 @@ public class Player extends Entity {
 		this.maxExperience=this.maxExperience+newMaxExp;
 	}
 	
-	public boolean isOut() {if(this.getFloor().getMap().get(this.box.getpos()).gettype()==tiletype.Exit) {
+	public boolean isOut() {if(this.getFloor().getMap().get(this.box.getpos()).gettype()==tiletype.Exit || (this.getFloor().getMap().get(this.box.getpos()).gettype()==tiletype.LockedExit &&
+			this.inventory.hasKey())) {
+		this.inventory.setKey(false);
 		return true;
 		}
 	else return false;
