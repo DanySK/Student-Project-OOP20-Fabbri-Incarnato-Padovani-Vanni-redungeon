@@ -285,7 +285,7 @@ public class Player extends Entity {
 		this.setMaxExp();
 	}
 	
-	private void addExp(int additionalExp) {
+	public void addExp(int additionalExp) {
 		this.experience+=additionalExp;
 		if(this.experience >= this.maxExperience) {
 			this.levelUp();
@@ -293,7 +293,8 @@ public class Player extends Entity {
 	}
 	
 	private void setMaxExp() {
-		this.maxExperience=this.maxExperience*this.getLevel();
+		int newMaxExp=this.maxExperience/2;
+		this.maxExperience=this.maxExperience+newMaxExp;
 	}
 	
 	public boolean isOut() {if(this.getFloor().getMap().get(this.box.getpos()).gettype()==tiletype.Exit) {
