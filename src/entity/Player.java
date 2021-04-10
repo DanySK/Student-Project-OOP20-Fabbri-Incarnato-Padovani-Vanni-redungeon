@@ -199,82 +199,82 @@ public class Player extends Entity {
 			System.out.println("son qua dentro coglione");
 		}
 		
-			switch (e)
-			{
- 				case KeyEvent.VK_W:
-					box1 = new AABB(new Point(box.getX(), box.getY()-1), 1, 2);
-					collisions.forEach(x -> {if(box1.collides(x)) {flag=true;}});	
-					if(!flag)
-					{
-						this.changeDirection(Direction.Up);
-						this.setvelY(-1);
-						//this.setvelX(0);
-						this.move();
-					}
-					break;
-				case KeyEvent.VK_A:
-					box1 = new AABB(new Point(box.getX()-1, box.getY()), 1, 2);
-					collisions.forEach(x -> {if(box1.collides(x)) {flag=true;}});	
-					if(!flag)
-					{
-						this.changeDirection(Direction.Left);
-						this.setvelX(-1);
-						//this.setvelY(0);
-						this.move();
-					}
-					break;
+		switch (e)
+		{	
+ 			case KeyEvent.VK_W:
+				box1 = new AABB(new Point(box.getX(), box.getY()-1), 1, 2);
+				collisions.forEach(x -> {if(box1.collides(x)) {flag=true;}});	
+				if(!flag)
+				{
+					this.changeDirection(Direction.Up);
+					this.setvelY(-1);
+					//this.setvelX(0);
+					this.move();
+				}
+				break;
+			case KeyEvent.VK_A:
+				box1 = new AABB(new Point(box.getX()-1, box.getY()), 1, 2);
+				collisions.forEach(x -> {if(box1.collides(x)) {flag=true;}});	
+				if(!flag)
+				{
+					this.changeDirection(Direction.Left);
+					this.setvelX(-1);
+					//this.setvelY(0);
+					this.move();
+				}
+				break;
 					
-				case KeyEvent.VK_S:
-					box1 = new AABB(new Point(box.getX(), box.getY()+1), 1, 2);
-					collisions.forEach(x -> {if(box1.collides(x)) {flag=true;}});	
-					if(!flag)
-					{
-						this.changeDirection(Direction.Down);
-						this.setvelY(1);
-						//this.setvelX(0);
-						this.move();
-					}
-					break;
+			case KeyEvent.VK_S:
+				box1 = new AABB(new Point(box.getX(), box.getY()+1), 1, 2);
+				collisions.forEach(x -> {if(box1.collides(x)) {flag=true;}});	
+				if(!flag)
+				{
+					this.changeDirection(Direction.Down);
+					this.setvelY(1);
+					//this.setvelX(0);
+					this.move();
+				}
+				break;
 
-				case KeyEvent.VK_D:
-					box1 = new AABB(new Point(box.getX()+1, box.getY()), 1, 2);
-					collisions.forEach(x -> {if(box1.collides(x)) {flag=true;}});	
-					if(!flag)
-					{
-						this.changeDirection(Direction.Right);
-						this.setvelX(1);
-						//this.setvelY(0);
-						this.move();
-					}
-					break;
+			case KeyEvent.VK_D:
+				box1 = new AABB(new Point(box.getX()+1, box.getY()), 1, 2);
+				collisions.forEach(x -> {if(box1.collides(x)) {flag=true;}});	
+				if(!flag)
+				{
+					this.changeDirection(Direction.Right);
+					this.setvelX(1);
+					//this.setvelY(0);
+					this.move();
+				}
+				break;
 					
- 				case KeyEvent.VK_LEFT:
- 					this.changeDirection(Direction.Left);
- 					break;
+ 			case KeyEvent.VK_LEFT:
+ 				this.changeDirection(Direction.Left);
+				break;
  					
- 				case KeyEvent.VK_UP:
- 					this.changeDirection(Direction.Up);
- 					break;
+ 			case KeyEvent.VK_UP:
+ 				this.changeDirection(Direction.Up);
+ 				break;
  					
- 				case KeyEvent.VK_DOWN:
- 					this.changeDirection(Direction.Down);
- 					break;
+ 			case KeyEvent.VK_DOWN:
+ 				this.changeDirection(Direction.Down);
+ 				break;
  					
- 				case KeyEvent.VK_RIGHT:
- 					this.changeDirection(Direction.Right);
- 					break;
+ 			case KeyEvent.VK_RIGHT:
+ 				this.changeDirection(Direction.Right);
+ 				break;
  				     
-				case KeyEvent.VK_J:
+			case KeyEvent.VK_J:
 					
-					combat.PlayerAttack();
-					/*attack case*/
-					break;
+				combat.PlayerAttack();
+				/*attack case*/
+				break;
 				
-				case KeyEvent.VK_K:
+			case KeyEvent.VK_K:
 					
-					//magic attack
-					break;
-			}
+				//magic attack
+				break;
+		}
 			
 		collisions.add(box);
 	}
