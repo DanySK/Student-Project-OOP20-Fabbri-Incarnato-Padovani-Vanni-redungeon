@@ -41,15 +41,7 @@ public class CombatSystem {
 				direction_box = new AABB(new Point(player.getX(), player.getY()+1), 1, 2);
 				
 				enemies.forEach(x -> {if(direction_box.collides(x.getBox())) {collide = true; enemy = x;} });
-				
-				if(collide)
-				{
-					enemy.setHp(enemy.getHp()-(player.getAttack()-enemy.getDefence()));
-					if(enemy.isDead())
-					{
-						this.removeEnemy(enemy);
-					}
-				}
+				this.damagePlayer(collide);
 				
 				break;
 				
@@ -57,15 +49,7 @@ public class CombatSystem {
 				direction_box = new AABB(new Point(player.getX()-1, player.getY()), 1, 2);
 				
 				enemies.forEach(x -> {if(direction_box.collides(x.getBox())) {collide = true; enemy = x;} });
-				
-				if(collide)
-				{
-					enemy.setHp(enemy.getHp()-(player.getAttack()-enemy.getDefence()));
-					if(enemy.isDead())
-					{
-						enemies.remove(enemy);
-					}
-				}
+				this.damagePlayer(collide);
 				
 				break;
 				
@@ -73,15 +57,7 @@ public class CombatSystem {
 				direction_box = new AABB(new Point(player.getX()+1, player.getY()), 1, 2);
 				
 				enemies.forEach(x -> {if(direction_box.collides(x.getBox())) {collide = true; enemy = x;} });
-				
-				if(collide)
-				{
-					enemy.setHp(enemy.getHp()-(player.getAttack()-enemy.getDefence()));
-					if(enemy.isDead())
-					{
-						enemies.remove(enemy);
-					}
-				}
+				this.damagePlayer(collide);
 				
 				break;
 				
@@ -89,17 +65,21 @@ public class CombatSystem {
 				direction_box = new AABB(new Point(player.getX(), player.getY()-1), 1, 2);
 				
 				enemies.forEach(x -> {if(direction_box.collides(x.getBox())) {collide = true; enemy = x;} });
-				
-				if(collide)
-				{
-					enemy.setHp(enemy.getHp()-(player.getAttack()-enemy.getDefence()));
-					if(enemy.isDead())
-					{
-						enemies.remove(enemy);
-					}
-				}
+				this.damagePlayer(collide);
 				
 				break;
+		}
+	}
+	
+	private void damagePlayer(boolean collide)
+	{
+		if(collide)
+		{
+			enemy.setHp(enemy.getHp()-(player.getAttack()-enemy.getDefence()));
+			if(enemy.isDead())
+			{
+				this.removeEnemy(enemy);
+			}
 		}
 	}
 	
