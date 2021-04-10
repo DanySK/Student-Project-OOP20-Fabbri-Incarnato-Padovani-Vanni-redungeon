@@ -6,6 +6,8 @@ public enum tiletype {
 	ON,
 	Heal,
 	Exit,
+	LockedExit,
+	Key,
 	Occupied;
 }
  

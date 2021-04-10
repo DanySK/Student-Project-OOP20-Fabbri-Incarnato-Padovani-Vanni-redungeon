@@ -105,10 +105,21 @@ public class Floor extends AbsFloor {
 	}
    //create the floor exit choosing a random room and a random available tile in that room
    public void exitCreate() {
+	   if((this.level+1)%5 ==0) {
+		   Random r= new Random();
+			int a=r.nextInt(rooms.size());
+			Point rpos = rooms.get(a).get(r.nextInt(rooms.get(a).size()));
+			this.tilestate.replace(rpos, new Tile(rpos,tiletype.LockedExit,sprite));
+			int b=r.nextInt(rooms.size());
+			Point kpos = rooms.get(b).get(r.nextInt(rooms.get(b).size()));
+			this.tilestate.replace(kpos, new Tile(kpos,tiletype.Key,sprite));
+			
+	   }
+	   else {
 		Random r= new Random();
 		int a=r.nextInt(rooms.size());
 		Point rpos = rooms.get(a).get(r.nextInt(rooms.get(a).size()));
-		this.tilestate.replace(rpos, new Tile(rpos,tiletype.Exit,sprite));
+		this.tilestate.replace(rpos, new Tile(rpos,tiletype.Exit,sprite));}
 		
 	}
    //create a special heal tile 

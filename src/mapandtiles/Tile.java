@@ -34,6 +34,12 @@ public class Tile {
 		if(this.t==tiletype.Heal) {
 			this.img = sprite.grabImage(1, 4, 32, 32);
 		}
+		if(this.t==tiletype.LockedExit) {
+			this.img=sprite.grabImage(2, 3, 32, 32);
+		}
+		if(this.t==tiletype.Key) {
+			this.img=sprite.grabImage(3, 4, 32, 32);
+		}
 		
 		
 	}
