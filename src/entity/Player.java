@@ -131,6 +131,17 @@ public class Player extends Entity {
 
 	@Override
 	public void render(Graphics2D g) {
+		
+		// TODO Experience bar has to be changed the getHp to getExp(<-TODO)
+		g.setColor(Color.blue);
+		g.fillRect((x-getFloor().getOffsetX())*32,
+				(y-getFloor().getOffsetY()-1)*32, 
+				(this.getHp()*54)/this.getMax_hp(), 8);
+		g.drawImage(null,(x-getFloor().getOffsetX())*32,
+				(y-getFloor().getOffsetY()-1)*32,null);
+		
+		
+		
 		g.setColor(Color.GREEN);
 		
 		if(this.getHp() > 0) {
