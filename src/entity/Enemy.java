@@ -30,6 +30,7 @@ public class Enemy extends Entity{
 	AudioInputStream audio;
 	long timer;
 	long lastime;
+	int expGaranted;
 	
 	public Enemy(int x, int y, ID id, CombatSystem combat, int level, int hp, int attack, int magic_attack, int defence,AbsFloor floor, Player player) throws IOException, LineUnavailableException, UnsupportedAudioFileException{
 		super(x, y, id, combat, level, hp, attack, magic_attack, defence, floor);
@@ -214,6 +215,14 @@ public class Enemy extends Entity{
 		}
 		
 		collisions.add(box);
+	}
+	
+	public int getExpGaranted() {
+		return expGaranted;
+	}
+	
+	public void setExpGaranted(int expGranted) {
+		this.expGaranted=this.expGaranted*this.getLevel();
 	}
 
 }
