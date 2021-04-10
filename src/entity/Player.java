@@ -25,7 +25,7 @@ public class Player extends Entity {
 	long lastime;
 	int column = 0;
 
-	int experience=0;
+	int experience;
 	int maxExperience=100;
 
 	public Player(int x, int y, ID id, CombatSystem combat, int level, int hp, int attack, int magic_attack, int defence, AbsFloor floor) throws IOException {
@@ -280,19 +280,21 @@ public class Player extends Entity {
 	}
 	
 	private void levelUp(){
-		/*
-		 * esperienza ottenuta <= esperienza totale * livello del player
-		 * 
-		 */
-		int maxExp=this.maxExperience*this.getLevel();
-		
-		if(this.experience >= maxExp) {
-			this.experience = maxExp - this.experience;
-			this.setLevel(this.getLevel()+1);
+		this.experience = 0;
+		this.setLevel(this.getLevel()+1);
+		this.setMaxExp();
+	}
+	
+	private void addExp(int additionalExp) {
+		this.experience+=additionalExp;
+		if(this.experience >= this.maxExperience) {
+			this.levelUp();
 		}
 	}
 	
-	
+	private void setMaxExp() {
+		this.maxExperience=this.maxExperience*this.getLevel();
+	}
 	
 	public boolean isOut() {if(this.getFloor().getMap().get(this.box.getpos()).gettype()==tiletype.Exit) {
 		return true;
