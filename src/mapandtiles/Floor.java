@@ -42,9 +42,15 @@ public class Floor extends AbsFloor {
 	   this.width=w;
 	   this.screenw=screenw;
 	   this.screenh=screenh;
+	   int floorseed=1;
+	   if(l>5 && l<=10) {
+		   floorseed=2;
+	   }
+	   else if(l>10 && l<=15) {floorseed=3;}
+	   else if(l>15) {floorseed=4;}
 	   try 
 		{
-			sprite = new SpriteSheet(ImageIO.read(new File("data/tiles.png")));
+			sprite = new SpriteSheet(ImageIO.read(new File("data/tiles"+floorseed+".png")));
 			
 		}	catch(IOException e) 
 			{
@@ -69,7 +75,7 @@ public class Floor extends AbsFloor {
    }
    //use a BSP algorithm to create the rooms and halls through a vector of Leaf
    void roomsCreate() {
-		Leaf root = new Leaf(0,0,width/tilesize,height/tilesize);
+		Leaf root = new Leaf(0,0,width/tilesize,height/tilesize,this.sprite);
 		leaves.add(root);
 		boolean didsplit= true;
 		while (didsplit)
