@@ -78,6 +78,7 @@ public class CombatSystem {
 			enemy.setHp(enemy.getHp()-(player.getAttack()-enemy.getDefence()));
 			if(enemy.isDead())
 			{
+				this.player.addExp(this.enemy.getExpGaranted());
 				this.removeEnemy(enemy);
 			}
 		}
