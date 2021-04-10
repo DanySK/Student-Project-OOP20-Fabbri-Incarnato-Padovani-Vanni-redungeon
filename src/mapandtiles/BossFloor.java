@@ -36,9 +36,15 @@ public class BossFloor extends AbsFloor {
 		   this.width=screenw;
 		   this.screenw=screenw;
 		   this.screenh=screenh;
+		   int floorseed=1;
+		   if(l>5 && l<=10) {
+			   floorseed=2;
+		   }
+		   else if(l>10 && l<=15) {floorseed=3;}
+		   else if(l>15) {floorseed=4;}
 		   try 
 			{
-				sprite = new SpriteSheet(ImageIO.read(new File("data/tiles.png")));
+				sprite = new SpriteSheet(ImageIO.read(new File("data/tiles"+floorseed+".png")));
 				
 			}	catch(IOException e) 
 				{
@@ -59,6 +65,7 @@ public class BossFloor extends AbsFloor {
 			   this.tilestate.put(new Point(i, j), new Tile(new Point(i, j),tiletype.OFF,sprite));
 		   }
 			   }
+		 this.exitCreate(new Point(10,10));
 		   
 	   }
 	 

@@ -25,21 +25,22 @@ public class Leaf{
     public Vector<Rectangle> halls; // hallways to connect this Leaf to other Leafs
     public HashMap<Point,Tile> tilestate= new HashMap<>();
     SpriteSheet s;
-    public  Leaf(int x, int y, int w, int h)
+    public  Leaf(int x, int y, int w, int h, SpriteSheet s)
     {
         // initialize our leaf
         this.x = x;
         this.y = y;
         this.w = w;
         this.h = h;
-        try 
+        this.s=s;
+      /*  try 
 		{
 			s = new SpriteSheet(ImageIO.read(new File("data/tiles.png")));
 			
 		}	catch(IOException e) 
 			{
 			
-			}
+			}*/
       
     }
  
@@ -68,13 +69,13 @@ public class Leaf{
         // create our left and right children based on the direction of the split
         if (splitH)
         {
-            leftChild = new Leaf(x, y, w, split);
-            rightChild = new Leaf(x, y + split, w, h - split);
+            leftChild = new Leaf(x, y, w, split,s);
+            rightChild = new Leaf(x, y + split, w, h - split,s);
         }
         else
         {
-            leftChild = new Leaf(x, y, split, h);
-            rightChild = new Leaf(x + split, y, w - split, h);
+            leftChild = new Leaf(x, y, split, h,s);
+            rightChild = new Leaf(x + split, y, w - split, h,s);
         }
         return true; // split successful!
     }
