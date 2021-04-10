@@ -44,10 +44,10 @@ public class Floor extends AbsFloor {
 	   this.screenh=screenh;
 	   int floorseed=1;
 	   if(l>5 && l<=10) {
-		   floorseed=2;
+		   floorseed=4;
 	   }
-	   else if(l>10 && l<=15) {floorseed=3;}
-	   else if(l>15) {floorseed=4;}
+	   else if(l>10 && l<=15) {floorseed=2;}
+	   else if(l>15) {floorseed=3;}
 	   try 
 		{
 			sprite = new SpriteSheet(ImageIO.read(new File("data/tiles"+floorseed+".png")));
