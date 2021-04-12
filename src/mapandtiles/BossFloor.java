@@ -105,9 +105,9 @@ public class BossFloor extends AbsFloor {
 	    e.setY(screenh/tilesize-10);
 	    e.setBox(new AABB(new Point(screenw/(tilesize*2),screenh/tilesize-10),1,2));}
 		if (e.getID()==ID.Boss) {
-			e.setX(screenw/(tilesize*2));
+			e.setX(screenw/(tilesize*2)-1);
 			e.setY(10);
-			e.setBox(new AABB(new Point(screenw/(tilesize*2),10),6,4));
+			e.setBox(new AABB(new Point(screenw/(tilesize*2)-1,10),6,4));
 		}
 	}
 	public void moveCam(int x,int y) {}
