@@ -30,11 +30,16 @@ public class Boss extends Entity{
 	AudioInputStream audio;
 	long timer;
 	long lastime;
+	int hp_barx;
+	int hp_bary;
+	
 	
 	public Boss(int x, int y, ID id, CombatSystem combat, int level, int hp, int attack, int magic_attack, int defence,AbsFloor floor, Player player) throws IOException, LineUnavailableException, UnsupportedAudioFileException{
 		super(x, y, id, combat, level, hp, attack, magic_attack, defence, floor);
 		// TODO Auto-generated constructor stub
 		hp_bar = ImageIO.read(new File("data/bosshpbar.png"));
+		hp_barx = x-getFloor().getOffsetX();
+		hp_bary = y-getFloor().getOffsetY();
 		sprite = new SpriteSheet(ImageIO.read(new File("data/boss.png")));
 		this.setBox(new AABB(new Point(this.x, this.y), 6, 4));
 		this.player_parameter = player;
@@ -112,30 +117,32 @@ public class Boss extends Entity{
 		g.setColor(Color.green);
 		
 		//with a proportion the render function set the hp of the monster
-		g.drawImage(hp_bar,(x-getFloor().getOffsetX()),
-				(y-getFloor().getOffsetY()),null);
 		
 		if(this.getHp() > 0) {
 			if(this.getHp()==this.getHp()) {
-				g.fillRect((x-getFloor().getOffsetX())*32, 
-						(y-getFloor().getOffsetY())*32, 
-						30, 10);
+				g.fillRect(hp_barx*32+48, 
+						hp_bary*32+10, 
+						906, 44);
 			}
 			else if ( this.getHp()/this.getHp() <= 2)
 			{
 				g.setColor(Color.orange);
-				g.fillRect((x-getFloor().getOffsetX())*32,
-						(y-getFloor().getOffsetY())*32-1, 
-						(this.getHp()*30)/this.getHp(), 10);
+				g.fillRect(hp_barx*32+48,
+						hp_bary*32+10, 
+						(this.getHp()*906)/this.getHp(), 44);
 			}
 			else if (this.getHp()/this.getHp() <= 3)
 			{
 				g.setColor(Color.red);
-				g.fillRect((x-getFloor().getOffsetX())*32, 
-						(y-getFloor().getOffsetY())*32-1, 
-						(this.getHp()*30)/this.getHp(), 10);
+				g.fillRect(hp_barx*32+48, 
+						hp_bary*32+10, 
+						(this.getHp()*906)/this.getHp(), 44);
 			}
 		}
+
+		g.drawImage(hp_bar,hp_barx,
+				hp_barx,null);
+		
 		g.drawImage(img,(x-getFloor().getOffsetX())*32,
 				(y-getFloor().getOffsetY()-1)*32,null);
 	}
