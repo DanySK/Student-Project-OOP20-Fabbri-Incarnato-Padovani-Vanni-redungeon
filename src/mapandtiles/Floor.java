@@ -18,9 +18,11 @@ import entity.*;
 import game.*;
 import utilities.SpriteSheet;
 import utilities.AABB;
+import utilities.Maputil;
+import utilities.Maputil.corner;
 
 public class Floor extends AbsFloor {
-	
+	private Maputil util= new Maputil();
 	private int level;
 	private int screenw,screenh;
 	private int width;
@@ -69,6 +71,12 @@ public class Floor extends AbsFloor {
 			   if(!(tilestate.containsKey(new Point(i,j))))
 		   this.tilestate.put(new Point(i, j), new Tile(new Point(i, j),tiletype.OFF,sprite));
 	   }
+	   }
+	   for(int p=1;p<width/tilesize-1;p++) {
+		   for(int l=1;l<height/tilesize-1;l++) {
+			  corner corner= util.cornercheck(tilestate, new Point(p,l));
+			  
+		   }
 	   }
 	   
 	   
