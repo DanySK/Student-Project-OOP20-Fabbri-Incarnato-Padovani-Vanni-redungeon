@@ -43,6 +43,7 @@ public class Tile {
 		
 		
 	}
+	public void setImg(BufferedImage im) {this.img=im;}
 	public AABB getbox() {return this.box;}
 	public void setSprite(File f) {
 		
