@@ -149,7 +149,7 @@ public class Boss extends Entity{
 		
 		//the enemy find the position of the player like it is in a cartesian system
 		
-		if(this.getY()<player_parameter.getY())
+		if(this.getY()+3<player_parameter.getY())
 		{
 			if(!(this.getFloor().getMap().get(new Point((this.x),(this.y+1))).gettype()==tiletype.OFF))
 			{
@@ -169,7 +169,7 @@ public class Boss extends Entity{
 			}
 		}
 		
-		if(this.getX()<player_parameter.getX())
+		if(this.getX()+5<player_parameter.getX())
 		{
 			if(!(this.getFloor().getMap().get(new Point((this.x+1),(this.y+velY))).gettype()==tiletype.OFF))
 			{
@@ -179,7 +179,7 @@ public class Boss extends Entity{
 			}
 		}
 		
-		if(this.getX()>=player_parameter.getX())
+		if(this.getX()>player_parameter.getX())
 		{
 			if(!(this.getFloor().getMap().get(new Point((this.x-1),(this.y+velY))).gettype()==tiletype.OFF))
 			{	
