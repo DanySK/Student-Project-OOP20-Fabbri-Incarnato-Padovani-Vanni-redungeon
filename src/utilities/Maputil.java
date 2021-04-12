@@ -9,6 +9,10 @@ import mapandtiles.tiletype;
 public class Maputil {
 	public Maputil() {}
    public enum corner{
+	   TR,
+	   TL,
+	   BR,
+	   BL,
 	   N,
 	   S,
 	   W,
@@ -29,8 +33,19 @@ public class Maputil {
 	 Point p20= new Point(p.x-1,p.y+1);
 	 Point p21=new Point(p.x,p.y+1);
 	 Point p22=new Point(p.x+1,p.y+1);
-	
-	  if(t.get(p01).gettype()!=tiletype.OFF) {
+	 if(t.get(p20).gettype()!=tiletype.OFF && t.get(p21).gettype()!=tiletype.OFF && t.get(p10).gettype()!=tiletype.OFF) {
+		 return corner.TR;
+	 }
+	 else if(t.get(p12).gettype()!=tiletype.OFF && t.get(p21).gettype()!=tiletype.OFF && t.get(p22).gettype()!=tiletype.OFF) {
+		 return corner.TL;
+	 }
+	 else if(t.get(p01).gettype()!=tiletype.OFF && t.get(p12).gettype()!=tiletype.OFF && t.get(p02).gettype()!=tiletype.OFF) {
+		 return corner.BL;
+	 }
+	 else if(t.get(p00).gettype()!=tiletype.OFF && t.get(p10).gettype()!=tiletype.OFF&&t.get(p01).gettype()!=tiletype.OFF) {
+		 return corner.BR;
+	 }
+	 else if(t.get(p01).gettype()!=tiletype.OFF) {
 		 return corner.S;
 	 }
 	 else if(t.get(p10).gettype()!=tiletype.OFF) {
