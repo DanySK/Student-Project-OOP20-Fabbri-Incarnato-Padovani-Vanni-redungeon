@@ -37,6 +37,7 @@ public class Enemy extends Entity{
 		// TODO Auto-generated constructor stub
 		hp_bar = ImageIO.read(new File("data/hpbar.png"));
 		sprite = new SpriteSheet(ImageIO.read(new File("data/enemy1.png")));
+		this.setBox(new AABB(new Point(this.x, this.y), 1, 2));
 		this.player_parameter = player;
 		this.img_matrix = new BufferedImage[4][3];
 		for(int row=0; row<4; row++)

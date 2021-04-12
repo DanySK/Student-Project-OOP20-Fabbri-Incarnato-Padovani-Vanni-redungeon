@@ -35,6 +35,7 @@ public class Boss extends Entity{
 		super(x, y, id, combat, level, hp, attack, magic_attack, defence, floor);
 		// TODO Auto-generated constructor stub
 		sprite = new SpriteSheet(ImageIO.read(new File("data/boss.png")));
+		this.setBox(new AABB(new Point(this.x-1, this.y), 6, 4));
 		this.player_parameter = player;
 		this.img_matrix = new BufferedImage[4][3];
 		for(int row=0; row<4; row++)
@@ -54,6 +55,8 @@ public class Boss extends Entity{
 
 		lastime = System.currentTimeMillis();
 		timer = 0;
+		
+		System.out.println(this.x+ " " + this.velY);
 	}
 
 	@Override
@@ -131,13 +134,13 @@ public class Boss extends Entity{
 			}
 		}
 		g.drawImage(img,(x-getFloor().getOffsetX()-1)*32,
-				(y-getFloor().getOffsetY()-1)*32,null);
+				(y-getFloor().getOffsetY())*32,null);
 	}
 
 	@Override
 	public void input(KeyEvent key, List<AABB> collisions) {
 		// TODO Auto-generated method stub
-		box1 = new AABB(new Point(this.getBox().getX(), getBox().getY()), 1, 2);
+		box1 = new AABB(new Point(this.getBox().getX(), getBox().getY()), 6, 4);
 		collisions.remove(box);
 		collide = false;
 		

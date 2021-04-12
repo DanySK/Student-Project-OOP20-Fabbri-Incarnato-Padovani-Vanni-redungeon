@@ -33,6 +33,7 @@ public class Player extends Entity {
          this.inventory= new Inventory();
 		hp_bar = ImageIO.read(new File("data/hpbar.png"));
 		sprite = new SpriteSheet(ImageIO.read(new File("data/player.png")));
+		this.setBox(new AABB(new Point(this.x, this.y), 1, 2));
 		this.img_matrix = new BufferedImage[4][3];
 		for(int row=0; row<4; row++)
 		{
