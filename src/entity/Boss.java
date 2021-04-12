@@ -34,8 +34,9 @@ public class Boss extends Entity{
 	public Boss(int x, int y, ID id, CombatSystem combat, int level, int hp, int attack, int magic_attack, int defence,AbsFloor floor, Player player) throws IOException, LineUnavailableException, UnsupportedAudioFileException{
 		super(x, y, id, combat, level, hp, attack, magic_attack, defence, floor);
 		// TODO Auto-generated constructor stub
+		hp_bar = ImageIO.read(new File("data/bosshpbar.png"));
 		sprite = new SpriteSheet(ImageIO.read(new File("data/boss.png")));
-		this.setBox(new AABB(new Point(this.x-1, this.y), 6, 4));
+		this.setBox(new AABB(new Point(this.x, this.y), 6, 4));
 		this.player_parameter = player;
 		this.img_matrix = new BufferedImage[4][3];
 		for(int row=0; row<4; row++)
@@ -111,6 +112,8 @@ public class Boss extends Entity{
 		g.setColor(Color.green);
 		
 		//with a proportion the render function set the hp of the monster
+		g.drawImage(hp_bar,(x-getFloor().getOffsetX()),
+				(y-getFloor().getOffsetY()),null);
 		
 		if(this.getHp() > 0) {
 			if(this.getHp()==this.getHp()) {
@@ -133,8 +136,8 @@ public class Boss extends Entity{
 						(this.getHp()*30)/this.getHp(), 10);
 			}
 		}
-		g.drawImage(img,(x-getFloor().getOffsetX()-1)*32,
-				(y-getFloor().getOffsetY())*32,null);
+		g.drawImage(img,(x-getFloor().getOffsetX())*32,
+				(y-getFloor().getOffsetY()-1)*32,null);
 	}
 
 	@Override
