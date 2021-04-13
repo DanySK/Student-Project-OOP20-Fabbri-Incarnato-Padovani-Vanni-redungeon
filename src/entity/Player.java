@@ -273,7 +273,7 @@ public class Player extends Entity {
  				break;
  				     
 			case KeyEvent.VK_J:
-					
+				this.setAttacking(true);
 				combat.PlayerAttack();
 				/*attack case*/
 				break;
