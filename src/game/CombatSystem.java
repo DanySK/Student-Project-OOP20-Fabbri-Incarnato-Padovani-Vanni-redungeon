@@ -47,7 +47,7 @@ public class CombatSystem {
 		try {
 			
 			if(this.player.isAttacking()) {
-				g.drawImage(img, this.direction_box.getX(), this.direction_box.getY(), null);
+				g.drawImage(img, (this.direction_box.getX()-player.getFloor().getOffsetX())*32, (this.direction_box.getY()-player.getFloor().getOffsetY())*32, null);
 			   }
 		}
 		catch(Exception e)
