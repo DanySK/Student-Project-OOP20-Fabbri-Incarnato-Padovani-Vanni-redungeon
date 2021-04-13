@@ -31,7 +31,7 @@ public class Floor extends AbsFloor {
 	private int tilesize=32;
 	private Vector<Leaf> leaves= new Vector<Leaf>();
 	private Vector<Vector<Point>> rooms = new Vector<Vector<Point>>();
-	private final int MAX_LEAF_SIZE=24;
+	private final int MAX_LEAF_SIZE=20;
 	private Random r= new Random();
 	SpriteSheet sprite;
 	private int offsetX=0;
@@ -119,7 +119,7 @@ public class Floor extends AbsFloor {
    }
    //use a BSP algorithm to create the rooms and halls through a vector of Leaf
    void roomsCreate() {
-		Leaf root = new Leaf(0,0,width/tilesize,height/tilesize,this.sprite);
+		Leaf root = new Leaf(1,1,width/tilesize-1,height/tilesize-1,this.sprite);
 		leaves.add(root);
 		boolean didsplit= true;
 		while (didsplit)

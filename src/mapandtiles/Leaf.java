@@ -15,7 +15,7 @@ import utilities.*;
 
 public class Leaf{
  
-    private int MIN_LEAF_SIZE = 12;
+    private int MIN_LEAF_SIZE = 9;
  
     public  int y,  x,  w,  h; // the position and size of this Leaf
  
