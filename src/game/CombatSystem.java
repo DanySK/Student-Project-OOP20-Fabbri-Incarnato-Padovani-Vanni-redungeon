@@ -26,7 +26,7 @@ public class CombatSystem {
 	public CombatSystem() throws IOException
 	{
 		enemies = new ArrayList<Enemy>();
-		img=ImageIO.read(new File("data/zelda.png"));
+		img=ImageIO.read(new File("data/punch.png"));
 	}
 	
 	public void addPlayer(Player player)
@@ -68,6 +68,7 @@ public class CombatSystem {
 				enemies.forEach(x -> {if(direction_box.collides(x.getBox())) {collide = true; enemy = x;} });
 				this.damagePlayer(collide);
 				
+				
 				break;
 				
 			case Left:
@@ -75,6 +76,8 @@ public class CombatSystem {
 				
 				enemies.forEach(x -> {if(direction_box.collides(x.getBox())) {collide = true; enemy = x;} });
 				this.damagePlayer(collide);
+				
+				direction_box = new AABB(new Point(player.getX()-1, player.getY()-1), 1, 2);
 				
 				break;
 				
@@ -84,6 +87,8 @@ public class CombatSystem {
 				enemies.forEach(x -> {if(direction_box.collides(x.getBox())) {collide = true; enemy = x;} });
 				this.damagePlayer(collide);
 				
+				direction_box = new AABB(new Point(player.getX()+1, player.getY()-1), 1, 2);
+				
 				break;
 				
 			case Up:
@@ -91,6 +96,8 @@ public class CombatSystem {
 				
 				enemies.forEach(x -> {if(direction_box.collides(x.getBox())) {collide = true; enemy = x;} });
 				this.damagePlayer(collide);
+				
+				direction_box = new AABB(new Point(player.getX(), player.getY()-2), 1, 2);
 				
 				break;
 		}
