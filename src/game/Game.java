@@ -25,7 +25,7 @@ public class Game extends Canvas implements Runnable{
 	private static final long serialVersionUID = -8647713295702872480L;
 	
 	public static final int WIDTH =1080, HEIGHT=WIDTH/12*9;
-	public static final int MAPW=3600,MAPH=MAPW/12*9;
+	public static final int MAPW=3600,MAPH=HEIGHT;
 	
 	private Thread thread;
 	
@@ -49,6 +49,7 @@ public class Game extends Canvas implements Runnable{
 		combat.addPlayer(p);
 		f.placeEntity(p);
 		handler.addObject(p);
+		
 		this.ef=new EnemyFactory();
 		
 		for(int j=0;j<level;j++) {
@@ -132,9 +133,8 @@ public class Game extends Canvas implements Runnable{
 		g.setColor(Color.black);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		
-		combat.render(g);
-		
 		handler.render(g);
+		combat.render(g);
 		
 		g.dispose();
 		bs.show();

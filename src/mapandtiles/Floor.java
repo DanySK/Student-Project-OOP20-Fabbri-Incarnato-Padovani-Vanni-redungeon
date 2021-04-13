@@ -31,7 +31,7 @@ public class Floor extends AbsFloor {
 	private int tilesize=32;
 	private Vector<Leaf> leaves= new Vector<Leaf>();
 	private Vector<Vector<Point>> rooms = new Vector<Vector<Point>>();
-	private final int MAX_LEAF_SIZE=20;
+	private final int MAX_LEAF_SIZE=24;
 	private Random r= new Random();
 	SpriteSheet sprite;
 	private int offsetX=0;
@@ -44,7 +44,7 @@ public class Floor extends AbsFloor {
 	   this.width=w;
 	   this.screenw=screenw;
 	   this.screenh=screenh;
-	   int floorseed=4;
+	   int floorseed=1;
 	   if(l>5 && l<=10) {
 		   floorseed=2;
 	   }
