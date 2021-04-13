@@ -4,7 +4,6 @@ import java.awt.Color;
 
 import java.awt.Graphics2D;
 import java.awt.Point;
-import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -19,7 +18,7 @@ import utilities.AABB;
 import utilities.SpriteSheet;
 
 public class Player extends Entity {
-
+	
 	boolean flag;
 	long timer;
 	long lastime;
@@ -31,6 +30,7 @@ public class Player extends Entity {
 	public Player(int x, int y, ID id, CombatSystem combat, int level, int hp, int attack, int magic_attack, int defence, AbsFloor floor) throws IOException {
 		super(x, y, id, combat, level, hp, attack, magic_attack, defence, floor);
          this.inventory= new Inventory();
+         setAttacking(false);
 		hp_bar = ImageIO.read(new File("data/hpbar.png"));
 		sprite = new SpriteSheet(ImageIO.read(new File("data/player.png")));
 		this.setBox(new AABB(new Point(this.x, this.y), 1, 2));

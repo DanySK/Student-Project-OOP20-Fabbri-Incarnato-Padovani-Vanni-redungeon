@@ -24,15 +24,18 @@ public class KeyInput extends KeyAdapter {
 			GameObject tempobj=handler.object.get(i);
 			
 			if(tempobj.getID()==ID.Player) {
+				((Entity) tempobj).setAttacking(true);
 				tempobj.input(key, collisions);
 			}
 			
 			if(key.getKeyCode()==KeyEvent.VK_A || key.getKeyCode()==KeyEvent.VK_S || key.getKeyCode()==KeyEvent.VK_D || key.getKeyCode()==KeyEvent.VK_W || key.getKeyCode()==KeyEvent.VK_J || key.getKeyCode()==KeyEvent.VK_K)
 			{
 				if(tempobj.getID()==ID.Enemy) {
+					((Entity) tempobj).setAttacking(true);
 					tempobj.input(key, collisions);
 				} 
 				if(tempobj.getID()==ID.Boss) {
+					((Entity) tempobj).setAttacking(true);
 					tempobj.input(key, collisions);
 				}
 			}
@@ -48,18 +51,22 @@ public class KeyInput extends KeyAdapter {
 				if(key==KeyEvent.VK_W) {
 					tempobj.setvelY(0);
 					((Entity) tempobj).setMovement(false);
+					((Entity) tempobj).setAttacking(false);
 				}
 				if(key==KeyEvent.VK_A) {
 					tempobj.setvelX(0);
 					((Entity) tempobj).setMovement(false);
+					((Entity) tempobj).setAttacking(false);
 				}
 				if(key==KeyEvent.VK_S) {
 					tempobj.setvelY(0);
 					((Entity) tempobj).setMovement(false);
+					((Entity) tempobj).setAttacking(false);
 				}
 				if(key==KeyEvent.VK_D) {
 					tempobj.setvelX(0);
 					((Entity) tempobj).setMovement(false);
+					((Entity) tempobj).setAttacking(false);
 				}
 			}
 		}

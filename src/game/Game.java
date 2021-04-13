@@ -29,6 +29,7 @@ public class Game extends Canvas implements Runnable{
 	
 	private Thread thread;
 	
+	private Graphics2D g;
 	private boolean running= false;
 	private AbsFloor f;
 	private Player p;
@@ -126,10 +127,12 @@ public class Game extends Canvas implements Runnable{
 			this.createBufferStrategy(3);
 			return;
 		}
-		Graphics2D g= (Graphics2D) bs.getDrawGraphics();
+		g= (Graphics2D) bs.getDrawGraphics();
 		
 		g.setColor(Color.black);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
+		
+		combat.render(g);
 		
 		handler.render(g);
 		

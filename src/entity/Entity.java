@@ -25,6 +25,7 @@ public abstract class Entity extends GameObject{
 
 	private Direction direction;
 	private boolean movement; //false the entity steady, true is moving 
+	private boolean attacking;
 
 	private AbsFloor floor;
 
@@ -121,6 +122,9 @@ public abstract class Entity extends GameObject{
 	public boolean isMoving() {
 		return movement;
 	}
+	public boolean isAttacking() {
+		return attacking;
+	}
 
 
 	
@@ -164,5 +168,8 @@ public abstract class Entity extends GameObject{
 	public void setMovement(boolean movement) 
 	{
 		this.movement = movement;
+	}
+	public void setAttacking(boolean attacking) {
+		this.attacking = attacking;
 	}
 }

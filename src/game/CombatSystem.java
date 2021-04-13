@@ -1,21 +1,33 @@
 package game;
 
+import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 import entity.*;
 import utilities.*;
 
 public class CombatSystem {
 	
+	private Graphics2D g;
 	private Player player;
 	private Enemy enemy;
 	private List<Enemy> enemies;
 	private AABB direction_box;
 	private boolean collide;
+	private BufferedImage img;
 	
-	public CombatSystem(){enemies = new ArrayList<Enemy>();}
+	public CombatSystem() throws IOException
+	{
+		enemies = new ArrayList<Enemy>();
+		img=ImageIO.read(new File("data/zelda.png"));
+	}
 	
 	public void addPlayer(Player player)
 	{
@@ -29,6 +41,18 @@ public class CombatSystem {
 	public void removeEnemy(Enemy enemy)
 	{
 		this.enemies.remove(enemy);
+	}
+	public void render(Graphics2D g)
+	{
+		try {
+			
+			if(this.player.isAttacking())
+				g.drawImage(img, this.direction_box.getX(), this.direction_box.getY(), null);
+		}
+		catch(Exception e)
+		{
+			
+		}
 	}
 	
 	public void PlayerAttack()
