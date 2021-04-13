@@ -68,6 +68,11 @@ public class KeyInput extends KeyAdapter {
 					((Entity) tempobj).setMovement(false);
 					((Entity) tempobj).setAttacking(false);
 				}
+				if(key==KeyEvent.VK_J) {
+					tempobj.setvelX(0);
+					((Entity) tempobj).setMovement(false);
+					((Entity) tempobj).setAttacking(false);
+				}
 			}
 		}
 	}
