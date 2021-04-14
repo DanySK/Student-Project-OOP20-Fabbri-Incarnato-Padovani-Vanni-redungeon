@@ -131,7 +131,8 @@ public class CombatSystem {
 
 				if(direction_box.collides(player.getBox()))
 				{
-					player.setHp(player.getHp()-(enemy.getAttack()-player.getDefence()));
+					if(enemy.getAttack()-player.getDefence()>0)
+						player.setHp(player.getHp()-(enemy.getAttack()-player.getDefence()));
 				}
 				
 				break;
