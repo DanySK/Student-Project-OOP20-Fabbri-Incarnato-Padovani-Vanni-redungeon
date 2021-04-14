@@ -76,6 +76,27 @@ public class Floor extends AbsFloor {
 		   for(int l=1;l<height/tilesize-1;l++) {
 			   if(this.tilestate.get(new Point(p,l)).gettype()==tiletype.OFF) {
 			  corner corner= util.cornercheck(tilestate, new Point(p,l));
+			  if(corner== corner.INS) {
+				  tilestate.get(new Point(p,l)).setImg(sprite.grabImage(2, 2, 32, 32));
+			  }
+			  if(corner== corner.CR) {
+				  tilestate.get(new Point(p,l)).setImg(sprite.grabImage(2, 8, 32, 32));
+			  }
+			  if(corner== corner.CL) {
+				  tilestate.get(new Point(p,l)).setImg(sprite.grabImage(1, 8, 32, 32));
+			  }
+			  if(corner== corner.CT) {
+				  tilestate.get(new Point(p,l)).setImg(sprite.grabImage(4, 8, 32, 32));
+			  }
+			  if(corner== corner.CB) {
+				  tilestate.get(new Point(p,l)).setImg(sprite.grabImage(3, 8, 32, 32));
+			  }
+			  if(corner== corner.CO) {
+				  tilestate.get(new Point(p,l)).setImg(sprite.grabImage(2, 9, 32, 32));
+			  }
+			  if(corner== corner.CV) {
+				  tilestate.get(new Point(p,l)).setImg(sprite.grabImage(1, 9, 32, 32));
+			  }
 			  if(corner== corner.BL) {
 				  tilestate.get(new Point(p,l)).setImg(sprite.grabImage(4, 7, 32, 32));
 			  }
