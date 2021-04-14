@@ -6,8 +6,12 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.image.BufferStrategy;
+import java.io.File;
 import java.io.IOException;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
@@ -37,15 +41,22 @@ public class Game extends Canvas implements Runnable{
 	private int level=1;
 	private Handler handler;
 	private CombatSystem combat;
+	private Clip clip;
+	private AudioInputStream audio;
 
 	public Game() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
+		
+		clip = AudioSystem.getClip();
+		audio= AudioSystem.getAudioInputStream(new File("data/cavalcata.wav"));
+		clip.open(audio);
+		
 		handler=new Handler();
 		combat = new CombatSystem();
 		this.addKeyListener(new KeyInput(handler));
 		new Window(WIDTH,HEIGHT,"Re:Dungeon",this);
 		this.f= new Floor(level,MAPW,MAPH,WIDTH,HEIGHT);
 		handler.addObject(f);
-		this.p=new Player(15, 15, ID.Player, combat, 1, 200, 12, 10, 5,f);
+		this.p=new Player(15, 15, ID.Player, combat, 1, 200, 15, 10, 5,f);
 		combat.addPlayer(p);
 		f.placeEntity(p);
 		handler.addObject(p);
@@ -61,6 +72,9 @@ public class Game extends Canvas implements Runnable{
 	}
 	
 	public synchronized void start() {
+		
+		clip.loop(Clip.LOOP_CONTINUOUSLY);
+		
 		thread= new Thread(this);
 		thread.start();
 		running = true;
@@ -140,6 +154,9 @@ public class Game extends Canvas implements Runnable{
 		bs.show();
 	}
 	public void nextLevel() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
+		
+		p.addExp(level*10);
+		
 		for(int i=handler.object.size()-1;i>1;i--) {
 			if(handler.object.get(i).getID()==ID.Enemy)
 				combat.removeEnemy((Enemy) handler.object.get(i));
