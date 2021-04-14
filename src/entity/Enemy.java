@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioInputStream;
@@ -226,6 +227,17 @@ public class Enemy extends Entity{
 	
 	public void setExpGaranted(int expGranted) {/*isdead true -> player_stat.setExp(expgranted)*/
 		this.expGaranted=expGranted+this.getLevel();
+	}
+	
+	public void augmStat() {
+		Random rng = new Random();
+		int minRange=2;
+		int maxRange=4;
+		int range=maxRange-minRange+1;
+		
+		this.setAttack(this.getAttack() + ((rng.nextInt(range) + minRange)*this.getLevel()) );
+		this.setMax_hp(this.getMax_hp() + ((rng.nextInt(range) + minRange)*this.getLevel()) );
+		this.setDefence(this.getDefence() + ((rng.nextInt(range) + minRange)*this.getLevel()) );
 	}
 
 }
