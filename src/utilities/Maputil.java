@@ -11,8 +11,8 @@ import mapandtiles.tiletype;
 public class Maputil {
 	public Maputil() {}
    public enum corner{
-	   INS,
-	   CL,
+	   INS, //insulated tile
+	   CL,  
 	   CR,
 	   CT,
 	   CB,
@@ -31,7 +31,7 @@ public class Maputil {
 	   SE,
 	   SW;
    }
-   
+   //checks for the adjacent tiles to determine the type of wall that has to be drawn
    public corner cornercheck(HashMap<Point,Tile> t,Point p) {
 	 ArrayList<Point> neartiles= new ArrayList<Point>();
 	 Point  p00= new Point(p.x-1,p.y-1);
@@ -42,7 +42,6 @@ public class Maputil {
 	 neartiles.add(p02);
 	 Point p10= new Point(p.x-1,p.y);
 	 neartiles.add(p10);
-	 Point p11=p;
 	 Point p12=new Point(p.x+1,p.y);
 	 neartiles.add(p12);
 	 Point p20= new Point(p.x-1,p.y+1);
