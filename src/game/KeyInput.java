@@ -30,7 +30,7 @@ public class KeyInput extends KeyAdapter {
 			
 			if(key.getKeyCode()==KeyEvent.VK_A || key.getKeyCode()==KeyEvent.VK_S || key.getKeyCode()==KeyEvent.VK_D || key.getKeyCode()==KeyEvent.VK_W || key.getKeyCode()==KeyEvent.VK_J || key.getKeyCode()==KeyEvent.VK_K)
 			{
-				if(key.getKeyCode()!=KeyEvent.VK_J || key.getKeyCode()!=KeyEvent.VK_K)
+				if(key.getKeyCode()!=KeyEvent.VK_J && key.getKeyCode()!=KeyEvent.VK_K)
 				{
 					if(tempobj.getID()==ID.Player) {
 						((Player) tempobj).setAttacking(false);
