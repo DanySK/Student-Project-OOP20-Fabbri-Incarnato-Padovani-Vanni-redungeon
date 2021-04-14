@@ -51,11 +51,12 @@ public class CombatSystem {
 			if(this.player.isAttacking()) {
 				g.drawImage(img, (this.punch_box.getX()-player.getFloor().getOffsetX())*32, (this.punch_box.getY()-player.getFloor().getOffsetY())*32, null);
 			   }
+			if(this.enemy.isAttacking()) {
+				g.drawImage(img, (this.punch_box.getX()-player.getFloor().getOffsetX())*32, (this.punch_box.getY()-player.getFloor().getOffsetY())*32, null);
+			   }
 		}
 		catch(Exception e)
-		{
-			
-		}
+		{}
 	}
 	
 	public void PlayerAttack()
