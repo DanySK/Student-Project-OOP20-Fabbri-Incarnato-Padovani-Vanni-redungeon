@@ -75,64 +75,8 @@ public class Floor extends AbsFloor {
 	   for(int p=1;p<width/tilesize-1;p++) {
 		   for(int l=1;l<height/tilesize-1;l++) {
 			   if(this.tilestate.get(new Point(p,l)).gettype()==tiletype.OFF) {
-			  corner corner= util.cornercheck(tilestate, new Point(p,l));
-			  if(corner== corner.INS) {
-				  tilestate.get(new Point(p,l)).setImg(sprite.grabImage(2, 2, 32, 32));
-			  }
-			  if(corner== corner.CR) {
-				  tilestate.get(new Point(p,l)).setImg(sprite.grabImage(2, 8, 32, 32));
-			  }
-			  if(corner== corner.CL) {
-				  tilestate.get(new Point(p,l)).setImg(sprite.grabImage(1, 8, 32, 32));
-			  }
-			  if(corner== corner.CT) {
-				  tilestate.get(new Point(p,l)).setImg(sprite.grabImage(4, 8, 32, 32));
-			  }
-			  if(corner== corner.CB) {
-				  tilestate.get(new Point(p,l)).setImg(sprite.grabImage(3, 8, 32, 32));
-			  }
-			  if(corner== corner.CO) {
-				  tilestate.get(new Point(p,l)).setImg(sprite.grabImage(2, 9, 32, 32));
-			  }
-			  if(corner== corner.CV) {
-				  tilestate.get(new Point(p,l)).setImg(sprite.grabImage(1, 9, 32, 32));
-			  }
-			  if(corner== corner.BL) {
-				  tilestate.get(new Point(p,l)).setImg(sprite.grabImage(4, 7, 32, 32));
-			  }
-			  if(corner== corner.BR) {
-				  tilestate.get(new Point(p,l)).setImg(sprite.grabImage(3, 7, 32, 32));
-			  }
-			  if(corner == corner.TL) {
-				  tilestate.get(new Point(p,l)).setImg(sprite.grabImage(2, 7, 32, 32));
-			  }
-			  if(corner== corner.TR) {
-				  tilestate.get(new Point(p,l)).setImg(sprite.grabImage(1, 7, 32, 32));
-			  }
-			  if(corner == corner.E) {
-				  tilestate.get(new Point(p,l)).setImg(sprite.grabImage(4, 5, 32, 32));
-			  }
-			  if(corner == corner.N) {
-				  tilestate.get(new Point(p,l)).setImg(sprite.grabImage(2, 5, 32, 32));
-			  }
-			  if(corner == corner.S) {
-				  tilestate.get(new Point(p,l)).setImg(sprite.grabImage(1, 5, 32, 32));
-			  }
-			  if(corner == corner.W) {
-				  tilestate.get(new Point(p,l)).setImg(sprite.grabImage(3, 5, 32, 32));
-			  }
-			  if(corner == corner.SW) {
-				  tilestate.get(new Point(p,l)).setImg(sprite.grabImage(3, 6, 32, 32));
-			  }
-			  if(corner == corner.NW) {
-				  tilestate.get(new Point(p,l)).setImg(sprite.grabImage(1, 6, 32, 32));
-			  }
-			  if(corner == corner.SE) {
-				  tilestate.get(new Point(p,l)).setImg(sprite.grabImage(4, 6, 32, 32));
-			  }
-			  if(corner == corner.NE) {
-				  tilestate.get(new Point(p,l)).setImg(sprite.grabImage(2, 6, 32, 32));
-			  }
+				   choosetile(new Point(p,l));
+			  
 		   }
 	   }}
 	   
@@ -268,6 +212,68 @@ public class Floor extends AbsFloor {
 		tilestate.replace(p, new Tile(p,tiletype.ON,sprite));
 	}
 
+//set the sprite of the tile according to the maputil check
+	private void choosetile(Point p) {
+		corner corner= util.cornercheck(tilestate, p);
+	  if(corner== corner.INS) {
+		  tilestate.get(p).setImg(sprite.grabImage(2, 2, 32, 32));
+	  }
+	  if(corner== corner.CR) {
+		  tilestate.get(p).setImg(sprite.grabImage(2, 8, 32, 32));
+	  }
+	  if(corner== corner.CL) {
+		  tilestate.get(p).setImg(sprite.grabImage(1, 8, 32, 32));
+	  }
+	  if(corner== corner.CT) {
+		  tilestate.get(p).setImg(sprite.grabImage(4, 8, 32, 32));
+	  }
+	  if(corner== corner.CB) {
+		  tilestate.get(p).setImg(sprite.grabImage(3, 8, 32, 32));
+	  }
+	  if(corner== corner.CO) {
+		  tilestate.get(p).setImg(sprite.grabImage(2, 9, 32, 32));
+	  }
+	  if(corner== corner.CV) {
+		  tilestate.get(p).setImg(sprite.grabImage(1, 9, 32, 32));
+	  }
+	  if(corner== corner.BL) {
+		  tilestate.get(p).setImg(sprite.grabImage(4, 7, 32, 32));
+	  }
+	  if(corner== corner.BR) {
+		  tilestate.get(p).setImg(sprite.grabImage(3, 7, 32, 32));
+	  }
+	  if(corner == corner.TL) {
+		  tilestate.get(p).setImg(sprite.grabImage(2, 7, 32, 32));
+	  }
+	  if(corner== corner.TR) {
+		  tilestate.get(p).setImg(sprite.grabImage(1, 7, 32, 32));
+	  }
+	  if(corner == corner.E) {
+		  tilestate.get(p).setImg(sprite.grabImage(4, 5, 32, 32));
+	  }
+	  if(corner == corner.N) {
+		  tilestate.get(p).setImg(sprite.grabImage(2, 5, 32, 32));
+	  }
+	  if(corner == corner.S) {
+		  tilestate.get(p).setImg(sprite.grabImage(1, 5, 32, 32));
+	  }
+	  if(corner == corner.W) {
+		  tilestate.get(p).setImg(sprite.grabImage(3, 5, 32, 32));
+	  }
+	  if(corner == corner.SW) {
+		  tilestate.get(p).setImg(sprite.grabImage(3, 6, 32, 32));
+	  }
+	  if(corner == corner.NW) {
+		  tilestate.get(p).setImg(sprite.grabImage(1, 6, 32, 32));
+	  }
+	  if(corner == corner.SE) {
+		  tilestate.get(p).setImg(sprite.grabImage(4, 6, 32, 32));
+	  }
+	  if(corner == corner.NE) {
+		  tilestate.get(p).setImg(sprite.grabImage(2, 6, 32, 32));
+	  }
+		
+	}
 	@Override
 	public void input(KeyEvent key, List<AABB> collisions) {
 		
@@ -278,7 +284,6 @@ public class Floor extends AbsFloor {
 		// TODO Auto-generated method stub
 		
 	}
-	
 	@Override
 	public void tick() {
 		// TODO Auto-generated method stub
