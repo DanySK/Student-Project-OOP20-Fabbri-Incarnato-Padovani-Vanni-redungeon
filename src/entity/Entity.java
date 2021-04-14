@@ -72,7 +72,10 @@ public abstract class Entity extends GameObject{
 	{
 		
 		if(this.hp <= 0)
+		{
+			this.setAttacking(false);
 			return true;
+		}
 		
 		else
 			return false;
