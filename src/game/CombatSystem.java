@@ -72,7 +72,7 @@ public class CombatSystem {
 				punch_sound.loop(1);
 				g.drawImage(punch_img, (this.punch_box.getX()-player.getFloor().getOffsetX())*32, (this.punch_box.getY()-player.getFloor().getOffsetY())*32, null);
 			   }
-			if((!this.enemies.isEmpty()) && this.enemy.isAttacking()) {
+			if(this.enemy.isAttacking()) {
 				bone_sound.loop(1);
 				//g.drawImage(bone_img, (this.punch_box.getX()-player.getFloor().getOffsetX())*32, (this.punch_box.getY()-player.getFloor().getOffsetY())*32, null);
 			   }
