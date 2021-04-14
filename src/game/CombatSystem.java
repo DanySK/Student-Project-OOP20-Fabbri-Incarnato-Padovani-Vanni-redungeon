@@ -22,6 +22,8 @@ public class CombatSystem {
 	private AABB direction_box;
 	private boolean collide;
 	private BufferedImage img;
+	private AABB punch_box;
+	private AABB bone_box;
 	
 	public CombatSystem() throws IOException
 	{
@@ -47,7 +49,7 @@ public class CombatSystem {
 		try {
 			
 			if(this.player.isAttacking()) {
-				g.drawImage(img, (this.direction_box.getX()-player.getFloor().getOffsetX())*32, (this.direction_box.getY()-player.getFloor().getOffsetY())*32, null);
+				g.drawImage(img, (this.punch_box.getX()-player.getFloor().getOffsetX())*32, (this.punch_box.getY()-player.getFloor().getOffsetY())*32, null);
 			   }
 		}
 		catch(Exception e)
@@ -77,7 +79,7 @@ public class CombatSystem {
 				enemies.forEach(x -> {if(direction_box.collides(x.getBox())) {collide = true; enemy = x;} });
 				this.damagePlayer(collide);
 				
-				direction_box = new AABB(new Point(player.getX()-1, player.getY()-1), 1, 2);
+				punch_box = new AABB(new Point(player.getX()-1, player.getY()-1), 1, 2);
 				
 				break;
 				
@@ -87,7 +89,7 @@ public class CombatSystem {
 				enemies.forEach(x -> {if(direction_box.collides(x.getBox())) {collide = true; enemy = x;} });
 				this.damagePlayer(collide);
 				
-				direction_box = new AABB(new Point(player.getX()+1, player.getY()-1), 1, 2);
+				punch_box = new AABB(new Point(player.getX()+1, player.getY()-1), 1, 2);
 				
 				break;
 				
@@ -97,7 +99,7 @@ public class CombatSystem {
 				enemies.forEach(x -> {if(direction_box.collides(x.getBox())) {collide = true; enemy = x;} });
 				this.damagePlayer(collide);
 				
-				direction_box = new AABB(new Point(player.getX(), player.getY()-2), 1, 2);
+				punch_box = new AABB(new Point(player.getX(), player.getY()-2), 1, 2);
 				
 				break;
 		}
@@ -125,43 +127,39 @@ public class CombatSystem {
 			case Down:
 				direction_box = new AABB(new Point(enemy.getX(), enemy.getY()+1), 1, 2);
 				
-				if(direction_box.collides(player.getBox()))
-				{
-					player.setHp(player.getHp()-(enemy.getAttack()-player.getDefence()));
-				}
+				this.damageEnemy(direction_box.collides(player.getBox()));
 				
 				break;
 				
 			case Left:
 				direction_box = new AABB(new Point(enemy.getX()-1, enemy.getY()), 1, 2);
 				
-				if(direction_box.collides(player.getBox()))
-				{
-					player.setHp(player.getHp()-(enemy.getAttack()-player.getDefence()));
-				}
+				this.damageEnemy(direction_box.collides(player.getBox()));
 				
 				break;
 				
 			case Right:
 				direction_box = new AABB(new Point(enemy.getX()+1, enemy.getY()), 1, 2);
 				
-				if(direction_box.collides(player.getBox()))
-				{
-					player.setHp(player.getHp()-(enemy.getAttack()-player.getDefence()));
-				}
+				this.damageEnemy(direction_box.collides(player.getBox()));
 				
 				break;
 				
 			case Up:
 				direction_box = new AABB(new Point(enemy.getX(), enemy.getY()-1), 1, 2);
 				
-				if(direction_box.collides(player.getBox()))
-				{
-					player.setHp(player.getHp()-(enemy.getAttack()-player.getDefence()));
-				}
+				this.damageEnemy(direction_box.collides(player.getBox()));
 				
 				break;
 				
+		}
+	}
+	
+	private void damageEnemy(boolean collide)
+	{
+		if(collide)
+		{
+			player.setHp(player.getHp()-(enemy.getAttack()-player.getDefence()));
 		}
 	}
 }
