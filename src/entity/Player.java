@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 
@@ -17,16 +18,17 @@ import game.*;
 import utilities.AABB;
 import utilities.SpriteSheet;
 
+
+
 public class Player extends Entity {
-	
 	boolean flag;
 	long timer;
 	long lastime;
 	int column = 0;
     Inventory inventory;
 	int experience;
-	int maxExperience=100;
-
+	int maxExperience=50;
+	
 	public Player(int x, int y, ID id, CombatSystem combat, int level, int hp, int attack, int magic_attack, int defence, AbsFloor floor) throws IOException {
 		super(x, y, id, combat, level, hp, attack, magic_attack, defence, floor);
          this.inventory= new Inventory();
@@ -43,7 +45,7 @@ public class Player extends Entity {
 			}
 		}
 
-		
+		//this.setMaxExp();
 		this.setDirection(Direction.Left);
 		
 		img = img_matrix[0][1];
@@ -109,7 +111,7 @@ public class Player extends Entity {
 		{	
 			if(this.getHp() < this.getMax_hp() ) {
 				this.setHp(this.getHp()+1);
-			}
+			}			
 			int opvelx,opvely;
 			if(this.getX()-this.getFloor().getScreenw()/(32*2) >0 && this.getX()+this.getFloor().getScreenw()/(32*2)<this.getFloor().getWidth()/32) {
 				opvelx=this.velX;
@@ -143,11 +145,12 @@ public class Player extends Entity {
 	@Override
 	public void render(Graphics2D g) {
 		
-		// TODO Experience bar has to be changed the getHp to getExp(<-TODO)
+		// Experience bar
 		g.setColor(Color.blue);
 		g.fillRect((x-getFloor().getOffsetX())*32,
-				(y-getFloor().getOffsetY()-1)*32, 
-				(this.getHp()*54)/this.getMax_hp(), 8);
+				(y-getFloor().getOffsetY()+1)*32,
+				(this.getActualExp()*54)/this.getMaxExp(), 8);
+		
 		g.drawImage(null,(x-getFloor().getOffsetX())*32,
 				(y-getFloor().getOffsetY()-1)*32,null);
 		
@@ -288,9 +291,28 @@ public class Player extends Entity {
 	}
 	
 	private void levelUp(){
-		this.experience = 0;
+		this.setExperience(0);
 		this.setLevel(this.getLevel()+1);
 		this.setMaxExp();
+		//this.setMaxExp();
+		
+		/*stats augm.*/
+		Random rng = new Random();
+		int minRange=3;
+		int maxRange=6;
+		int range=maxRange-minRange+1;
+		
+		this.setAttack(this.getAttack() + (rng.nextInt(range) + minRange) );
+		
+		this.setDefence(this.getDefence() + (rng.nextInt(range) + minRange) );
+		
+		this.setMagic_Attack(this.getMagic_attack() + (rng.nextInt(range) + minRange) );
+		
+		this.setMax_hp(this.getMax_hp() + ((rng.nextInt(range) + minRange)*10) );
+		
+		//this.setHp(this.getMax_hp());
+		
+		System.out.println(this.getAttack() + " " + this.getDefence() + " " + this.getMagic_attack() + " " + this.getHp() + " / " + this.getMax_hp() + " " + this.getLevel());
 	}
 	
 	public void addExp(int additionalExp) {
@@ -305,6 +327,16 @@ public class Player extends Entity {
 		this.maxExperience=this.maxExperience+newMaxExp;
 	}
 	
+	private int getActualExp() {
+		return this.experience;
+	}
+	private int getMaxExp() {
+		return this.maxExperience;
+	}
+	
+	private void setExperience(int exp) {
+		this.experience = exp;
+	}
 	public boolean isOut() {if(this.getFloor().getMap().get(this.box.getpos()).gettype()==tiletype.Exit || (this.getFloor().getMap().get(this.box.getpos()).gettype()==tiletype.LockedExit &&
 			this.inventory.hasKey())) {
 		this.inventory.setKey(false);

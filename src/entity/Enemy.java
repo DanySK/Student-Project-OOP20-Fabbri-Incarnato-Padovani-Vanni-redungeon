@@ -57,6 +57,8 @@ public class Enemy extends Entity{
 
 		lastime = System.currentTimeMillis();
 		timer = 0;
+		
+		this.setExpGaranted(30);
 	}
 
 	@Override
@@ -222,8 +224,8 @@ public class Enemy extends Entity{
 		return expGaranted;
 	}
 	
-	public void setExpGaranted(int expGranted) {
-		this.expGaranted=this.expGaranted*this.getLevel();
+	public void setExpGaranted(int expGranted) {/*isdead true -> player_stat.setExp(expgranted)*/
+		this.expGaranted=this.expGaranted+this.getLevel();
 	}
 
 }
