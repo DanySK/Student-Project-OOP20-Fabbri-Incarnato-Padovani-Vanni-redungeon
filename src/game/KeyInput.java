@@ -28,21 +28,21 @@ public class KeyInput extends KeyAdapter {
 				tempobj.input(key, collisions);
 			}
 			
-			if(key.getKeyCode()==KeyEvent.VK_A || key.getKeyCode()==KeyEvent.VK_S || key.getKeyCode()==KeyEvent.VK_D || key.getKeyCode()==KeyEvent.VK_W)
+			if(key.getKeyCode()==KeyEvent.VK_A || key.getKeyCode()==KeyEvent.VK_S || key.getKeyCode()==KeyEvent.VK_D || key.getKeyCode()==KeyEvent.VK_W || key.getKeyCode()==KeyEvent.VK_J || key.getKeyCode()==KeyEvent.VK_K)
 			{
-				if(tempobj.getID()==ID.Player) {
-					((Player) tempobj).setAttacking(false);
-				} 
-				
-				if(key.getKeyCode()==KeyEvent.VK_J || key.getKeyCode()==KeyEvent.VK_K)
+				if(key.getKeyCode()!=KeyEvent.VK_J || key.getKeyCode()!=KeyEvent.VK_K)
 				{
+					if(tempobj.getID()==ID.Player) {
+						((Player) tempobj).setAttacking(false);
+					} 
+				}
+				
 					if(tempobj.getID()==ID.Enemy) {
 						tempobj.input(key, collisions);
 					} 
 					if(tempobj.getID()==ID.Boss) {
 						tempobj.input(key, collisions);
 					}
-				}
 			}
 		}
 		collisions.clear();
