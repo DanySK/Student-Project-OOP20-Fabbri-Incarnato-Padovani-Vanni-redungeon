@@ -70,6 +70,7 @@ public class CombatSystem {
 				enemies.forEach(x -> {if(direction_box.collides(x.getBox())) {collide = true; enemy = x;} });
 				this.damagePlayer(collide);
 				
+				punch_box = new AABB(new Point(player.getX(), player.getY()+1), 1, 2);
 				
 				break;
 				
