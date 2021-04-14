@@ -291,12 +291,21 @@ public class Player extends Entity {
 	}
 	
 	private void levelUp(){
-		this.setExperience(0);
 		this.setLevel(this.getLevel()+1);
+		
+		int expOverflow=this.getActualExp()-this.getMaxExp();
+		if(expOverflow > 0) {
+			this.setExperience(expOverflow);
+		}
+		else {
+			this.setExperience(0);
+		}
+		
 		this.setMaxExp();
 		//this.setMaxExp();
 		
 		/*stats augm.*/
+		
 		Random rng = new Random();
 		int minRange=3;
 		int maxRange=6;
@@ -310,9 +319,7 @@ public class Player extends Entity {
 		
 		this.setMax_hp(this.getMax_hp() + ((rng.nextInt(range) + minRange)*10) );
 		
-		//this.setHp(this.getMax_hp());
-		
-		System.out.println(this.getAttack() + " " + this.getDefence() + " " + this.getMagic_attack() + " " + this.getHp() + " / " + this.getMax_hp() + " " + this.getLevel());
+		this.setHp(this.getMax_hp());
 	}
 	
 	public void addExp(int additionalExp) {
