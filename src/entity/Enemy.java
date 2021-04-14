@@ -27,8 +27,6 @@ public class Enemy extends Entity{
 	Player player_parameter;
 	AABB box1;
 	boolean collide;
-	Clip clip;
-	AudioInputStream audio;
 	long timer;
 	long lastime;
 	private int expGaranted;
@@ -49,9 +47,6 @@ public class Enemy extends Entity{
 				img_matrix[row][column] = sprite.grabImage(column+1, row+1, 38, 66); 
 			}
 		}
-		clip = AudioSystem.getClip();
-		audio= AudioSystem.getAudioInputStream(new File("data/bonk.wav"));
-		clip.open(audio);
 		
 		this.setDirection(Direction.Left);
 		
@@ -213,8 +208,8 @@ public class Enemy extends Entity{
 				
 				if(box1.collides(player_parameter.getBox()))
 				{
+					this.setAttacking(true);
 					combat.EnemyAttack(this);
-					clip.loop(1);
 				}
 				      
 		}

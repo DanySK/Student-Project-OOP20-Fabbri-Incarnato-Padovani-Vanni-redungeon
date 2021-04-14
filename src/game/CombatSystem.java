@@ -9,6 +9,11 @@ import java.util.List;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 import entity.*;
 import utilities.*;
@@ -21,16 +26,31 @@ public class CombatSystem {
 	private List<Enemy> enemies;
 	private AABB direction_box;
 	private boolean collide;
-	private BufferedImage img;
+	private BufferedImage punch_img;
+	private BufferedImage bone_img;
 	private AABB punch_box;
 	private AABB bone_box;
+
+	private Clip bone_sound;
+	private AudioInputStream bone_audio;
 	
-	public CombatSystem() throws IOException
+	private Clip punch_sound;
+	private AudioInputStream punch_audio;
+	
+	public CombatSystem() throws IOException, LineUnavailableException, UnsupportedAudioFileException
 	{
 		enemies = new ArrayList<Enemy>();
-		img=ImageIO.read(new File("data/punch.png"));
+		punch_img=ImageIO.read(new File("data/punch.png"));
+
+		bone_sound = AudioSystem.getClip();
+		bone_audio= AudioSystem.getAudioInputStream(new File("data/bonk.wav"));
+		bone_sound.open(bone_audio);
+		
+		punch_sound = AudioSystem.getClip();
+		punch_audio= AudioSystem.getAudioInputStream(new File("data/punch.wav"));
+		punch_sound.open(punch_audio);
 	}
-	
+
 	public void addPlayer(Player player)
 	{
 		this.player = player;
@@ -49,10 +69,12 @@ public class CombatSystem {
 		try {
 			
 			if(this.player.isAttacking()) {
-				g.drawImage(img, (this.punch_box.getX()-player.getFloor().getOffsetX())*32, (this.punch_box.getY()-player.getFloor().getOffsetY())*32, null);
+				punch_sound.loop(1);
+				g.drawImage(punch_img, (this.punch_box.getX()-player.getFloor().getOffsetX())*32, (this.punch_box.getY()-player.getFloor().getOffsetY())*32, null);
 			   }
-			if(this.enemy.isAttacking()) {
-				g.drawImage(img, (this.punch_box.getX()-player.getFloor().getOffsetX())*32, (this.punch_box.getY()-player.getFloor().getOffsetY())*32, null);
+			if((!this.enemies.isEmpty()) && this.enemy.isAttacking()) {
+				bone_sound.loop(1);
+				//g.drawImage(bone_img, (this.punch_box.getX()-player.getFloor().getOffsetX())*32, (this.punch_box.getY()-player.getFloor().getOffsetY())*32, null);
 			   }
 		}
 		catch(Exception e)
