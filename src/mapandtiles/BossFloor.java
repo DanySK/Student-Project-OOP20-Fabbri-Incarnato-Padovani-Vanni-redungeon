@@ -99,6 +99,12 @@ public class BossFloor extends AbsFloor {
 		
 	}
 	//fiammelle del boss con box e render
+	public void placeFlames(AABB flame) {
+		Random r = new Random();
+		int randx = r.nextInt(this.getWidth()/32-4)+4;
+		int randy= r.nextInt(this.getHeight()/32-4)+4;
+			flame.setpos(new Point(randx,randy));
+	}
 	public void placeEntity(Entity e) {
 		if(e.getID()== ID.Player){
 		e.setX(screenw/(tilesize*2));
