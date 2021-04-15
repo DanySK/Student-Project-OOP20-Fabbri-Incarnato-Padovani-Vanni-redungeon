@@ -82,8 +82,10 @@ public class CombatSystem {
 				g.drawImage(punch_img, (this.punch_box.getX()-player.getFloor().getOffsetX())*32, (this.punch_box.getY()-player.getFloor().getOffsetY())*32, null);
 			   }
 			if(this.enemy.isAttacking()) {
-				bone_sound.loop(1);
 				//g.drawImage(bone_img, (this.punch_box.getX()-player.getFloor().getOffsetX())*32, (this.punch_box.getY()-player.getFloor().getOffsetY())*32, null);
+			   }
+			if(!this.player.isAttacking()) {
+				punch_sound.stop();
 			   }
 		}
 		catch(Exception e)
@@ -164,6 +166,8 @@ public class CombatSystem {
 				{
 					if(enemy.getAttack()-player.getDefence()>0)
 						player.setHp(player.getHp()-(enemy.getAttack()-player.getDefence()));
+
+					bone_sound.loop(1);
 				}
 				
 				break;
@@ -175,6 +179,8 @@ public class CombatSystem {
 				{
 					if(enemy.getAttack()-player.getDefence()>0)
 						player.setHp(player.getHp()-(enemy.getAttack()-player.getDefence()));
+					
+					bone_sound.loop(1);
 				}
 				
 				break;
@@ -186,6 +192,8 @@ public class CombatSystem {
 				{
 					if(enemy.getAttack()-player.getDefence()>0)
 						player.setHp(player.getHp()-(enemy.getAttack()-player.getDefence()));
+					
+					bone_sound.loop(1);
 				}
 				
 				break;
@@ -197,6 +205,8 @@ public class CombatSystem {
 				{
 					if(enemy.getAttack()-player.getDefence()>0)
 						player.setHp(player.getHp()-(enemy.getAttack()-player.getDefence()));
+					
+					bone_sound.loop(1);
 				}
 				
 				break;
