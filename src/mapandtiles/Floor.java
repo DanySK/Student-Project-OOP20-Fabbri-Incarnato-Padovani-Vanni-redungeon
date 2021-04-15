@@ -216,7 +216,7 @@ public class Floor extends AbsFloor {
 	private void choosetile(Point p) {
 		corner corner= util.cornercheck(tilestate, p);
 	  if(corner== corner.INS) {
-		  tilestate.get(p).setImg(sprite.grabImage(2, 2, 32, 32));
+		  tilestate.get(p).setImg(sprite.grabImage(3, 9, 32, 32));
 	  }
 	  if(corner== corner.CR) {
 		  tilestate.get(p).setImg(sprite.grabImage(2, 8, 32, 32));
