@@ -17,6 +17,7 @@ import javax.imageio.ImageIO;
 import mapandtiles.*;
 import game.*;
 import utilities.AABB;
+import utilities.CustomFontUtil;
 import utilities.SpriteSheet;
 
 
@@ -29,6 +30,8 @@ public class Player extends Entity {
     Inventory inventory;
 	int experience;
 	int maxExperience=50;
+	/*CustomFontUtil customFont = new CustomFontUtil(true, 15);
+	Font fonts=this.customFont.getCustomFont();*/
 	
 	public Player(int x, int y, ID id, CombatSystem combat, int level, int hp, int attack, int magic_attack, int defence, AbsFloor floor) throws IOException {
 		super(x, y, id, combat, level, floor);
@@ -46,12 +49,6 @@ public class Player extends Entity {
 			}
 		}
 
-
-		this.setHp(hp);
-		this.setMax_hp(hp);
-		this.setAttack(attack);
-		this.setMagic_Attack(magic_attack);
-		this.setDefence(defence);
 		//this.setMaxExp();
 		this.setDirection(Direction.Left);
 		
@@ -203,16 +200,6 @@ public class Player extends Entity {
 				(y-getFloor().getOffsetY()-1)*32,null);
         g.setColor(Color.black);
         //g.draw(getBounds()); g.setColor(Color.BLACK);
-        Font font=null;
-        
-        try {
-            font=Font.createFont( Font.TRUETYPE_FONT,
-                new FileInputStream(new File("data/fonts/pkmndpb.ttf")) );
-        } catch(Exception e) {
-            System.out.println(e);
-        }
-        font=font.deriveFont(Font.PLAIN, 15	);
-        g.setFont(font);
         
         String level;
         if(this.getLevel()<10) {
