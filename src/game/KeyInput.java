@@ -34,7 +34,6 @@ public class KeyInput extends KeyAdapter {
 	}
 	
 	public void keyPressed(KeyEvent key) {
-		System.out.println(key);
 		if(key.getKeyCode()==107)
 		{
 			if(gain<1.0)
