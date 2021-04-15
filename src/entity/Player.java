@@ -46,6 +46,12 @@ public class Player extends Entity {
 			}
 		}
 
+
+		this.setHp(hp);
+		this.setMax_hp(hp);
+		this.setAttack(attack);
+		this.setMagic_Attack(magic_attack);
+		this.setDefence(defence);
 		//this.setMaxExp();
 		this.setDirection(Direction.Left);
 		

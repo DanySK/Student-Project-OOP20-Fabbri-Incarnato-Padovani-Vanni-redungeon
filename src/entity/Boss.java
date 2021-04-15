@@ -7,7 +7,9 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioInputStream;
@@ -33,6 +35,10 @@ public class Boss extends Entity{
 	int hp_barx;
 	int hp_bary;
 	
+	int flames_number;
+	
+	List<AABB> flames = new ArrayList<AABB>();
+	
 	
 	public Boss(int x, int y, ID id, CombatSystem combat, int level, AbsFloor floor, Player player) throws IOException, LineUnavailableException, UnsupportedAudioFileException{
 		super(x, y, id, combat, level, floor);
@@ -51,6 +57,16 @@ public class Boss extends Entity{
 				img_matrix[row][column] = sprite.grabImage(column+1, row+1, 192, 128); 
 			}
 		}
+		
+		Random rand = new Random();
+		flames_number = rand.nextInt(3)+3;
+		
+		for(int i=0; i<flames_number; i++)
+		{
+			
+		}
+		
+		
 		clip = AudioSystem.getClip();
 		audio= AudioSystem.getAudioInputStream(new File("data/bonk.wav"));
 		clip.open(audio);
