@@ -168,7 +168,7 @@ public class Game extends Canvas implements Runnable{
 		if(level%5 !=0) {
 			this.f= ff.standardFloor(level,MAPW,MAPH,WIDTH,HEIGHT);
 			handler.object.set(0, (GameObject) f);
-			for(int j=0;j<level;j++) {
+			for(int j=0;j<(level<=15 ? level:15);j++) {
 				Enemy enemy=ef.normalEnemy(0, 0, ID.Enemy, combat, level, 100, 7, 20, 8, f, p);
 				handler.addObject(enemy);
 				combat.addEnemy(enemy);
