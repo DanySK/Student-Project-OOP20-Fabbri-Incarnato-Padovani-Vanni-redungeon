@@ -31,7 +31,7 @@ public abstract class Entity extends GameObject{
 
 	
 	
-	public Entity(int x, int y, ID id, CombatSystem combat, int level, int hp, int attack, int magic_attack, int defence, AbsFloor floor) {
+	public Entity(int x, int y, ID id, CombatSystem combat, int level, AbsFloor floor) {
 		super(x, y, id);
 		this.setLevel(level);
 		this.setHp(hp);

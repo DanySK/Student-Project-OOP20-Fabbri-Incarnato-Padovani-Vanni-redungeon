@@ -31,7 +31,7 @@ public class Player extends Entity {
 	int maxExperience=50;
 	
 	public Player(int x, int y, ID id, CombatSystem combat, int level, int hp, int attack, int magic_attack, int defence, AbsFloor floor) throws IOException {
-		super(x, y, id, combat, level, hp, attack, magic_attack, defence, floor);
+		super(x, y, id, combat, level, floor);
          this.inventory= new Inventory();
          setAttacking(false);
 		hp_bar = ImageIO.read(new File("data/hpbar.png"));
