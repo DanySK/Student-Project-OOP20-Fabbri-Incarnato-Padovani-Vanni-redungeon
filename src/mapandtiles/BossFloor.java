@@ -98,7 +98,17 @@ public class BossFloor extends AbsFloor {
 		// TODO Auto-generated method stub
 		
 	}
-	
+	//fiammelle del boss con box e render
+	public void placeFlames(AABB flame) {
+		Random r = new Random();
+		int randx = r.nextInt(this.getWidth()/32-4)+4;
+		int randy= r.nextInt(this.getHeight()/32-4)+4;
+		if(new Point(randx,randy)!= new Point(screenw/(tilesize*2),screenh/tilesize-10))
+			flame.setpos(new Point(randx,randy));
+		else {
+			placeFlames(flame);
+		}
+	}
 	public void placeEntity(Entity e) {
 		if(e.getID()== ID.Player){
 		e.setX(screenw/(tilesize*2));
@@ -106,8 +116,8 @@ public class BossFloor extends AbsFloor {
 	    e.setBox(new AABB(new Point(screenw/(tilesize*2),screenh/tilesize-10),1,2));}
 		if (e.getID()==ID.Boss) {
 			e.setX(screenw/(tilesize*2)-1);
-			e.setY(10);
-			e.setBox(new AABB(new Point(screenw/(tilesize*2)-1,10),6,4));
+			e.setY(5);
+			e.setBox(new AABB(new Point(screenw/(tilesize*2)-1,5),6,4));
 		}
 	}
 	public void moveCam(int x,int y) {}

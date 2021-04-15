@@ -64,8 +64,8 @@ public class Floor extends AbsFloor {
    //generate the pesudorandom floor calling roomscreate
    void floorGenner(int w,int h) {
 	   roomsCreate();
-	   exitCreate();
 	   healCreate();
+	   exitCreate();
 	   for(int i=0;i<w/tilesize;i++) {
 		   for(int j=0;j<h/tilesize;j++) {
 			   if(!(tilestate.containsKey(new Point(i,j))))
@@ -148,6 +148,12 @@ public class Floor extends AbsFloor {
 		e.setX(rpos.x);
 		e.setY(rpos.y);
 		e.setBox(new AABB(rpos,1,2));
+		if(e.getID()==ID.Enemy) {
+			Enemy tempen = (Enemy) e;
+			if(tempen.getBox().collides(tempen.getPlayerparameter().getBox())){
+				placeEntity(e);
+			}
+		}
 		if(e.getID()==ID.Player) {
 			this.setCamera(e);
 		}

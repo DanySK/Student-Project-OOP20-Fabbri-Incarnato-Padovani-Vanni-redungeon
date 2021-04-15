@@ -31,8 +31,8 @@ public class Enemy extends Entity{
 	long lastime;
 	private int expGaranted;
 	
-	public Enemy(int x, int y, ID id, CombatSystem combat, int level, int hp, int attack, int magic_attack, int defence,AbsFloor floor, Player player) throws IOException, LineUnavailableException, UnsupportedAudioFileException{
-		super(x, y, id, combat, level, hp, attack, magic_attack, defence, floor);
+	public Enemy(int x, int y, ID id, CombatSystem combat, int level,AbsFloor floor, Player player) throws IOException, LineUnavailableException, UnsupportedAudioFileException{
+		super(x, y, id, combat, level,floor);
 		// TODO Auto-generated constructor stub
 		
 		hp_bar = ImageIO.read(new File("data/hpbar.png"));
@@ -55,6 +55,7 @@ public class Enemy extends Entity{
 		lastime = System.currentTimeMillis();
 		timer = 0;
 		
+		this.setMax_hp(100);
 		this.setExpGaranted(30);
 		this.augmStat();
 	}
@@ -230,14 +231,14 @@ public class Enemy extends Entity{
 	public void augmStat() {
 
 		Random rng = new Random();
-		int minRange=1;
-		int maxRange=3;
-		int range=maxRange-minRange;
-		int modifier=this.getLevel() + (this.player_parameter.getLevel()/2);
+		int attack = this.player_parameter.getDefence() + ((this.getLevel()*2)-rng.nextInt(this.getLevel()));
 		
-		this.setAttack(this.getAttack()   + ((rng.nextInt(range) + minRange) + modifier ) );
-		this.setMax_hp(this.getMax_hp()   + ((rng.nextInt(range) + minRange) + modifier ) );
-		this.setDefence(this.getDefence() + ((rng.nextInt(range) + minRange) + modifier ) );
+		this.setAttack(attack);
+		this.setMax_hp(this.getMax_hp()   + ( this.getLevel()*10 ) );
+		this.setHp(this.getMax_hp());
+		this.setDefence(( (int)(this.player_parameter.getAttack()/2.5) + this.getLevel())  );
 	}
-
+  public Player getPlayerparameter() {return this.player_parameter;}
+	//attacco nemico = difesa del player + ((level*2)-random(level))
+	
 }

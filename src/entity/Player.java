@@ -31,7 +31,7 @@ public class Player extends Entity {
 	int maxExperience=50;
 	
 	public Player(int x, int y, ID id, CombatSystem combat, int level, int hp, int attack, int magic_attack, int defence, AbsFloor floor) throws IOException {
-		super(x, y, id, combat, level, hp, attack, magic_attack, defence, floor);
+		super(x, y, id, combat, level, floor);
          this.inventory= new Inventory();
          setAttacking(false);
 		hp_bar = ImageIO.read(new File("data/hpbar.png"));
@@ -46,6 +46,12 @@ public class Player extends Entity {
 			}
 		}
 
+
+		this.setHp(hp);
+		this.setMax_hp(hp);
+		this.setAttack(attack);
+		this.setMagic_Attack(magic_attack);
+		this.setDefence(defence);
 		//this.setMaxExp();
 		this.setDirection(Direction.Left);
 		
@@ -111,7 +117,7 @@ public class Player extends Entity {
 		else
 		{	
 			if(this.getHp() < this.getMax_hp() ) {
-				this.setHp(this.getHp()+1);
+				this.setHp(this.getHp()+this.getLevel());
 			}			
 			int opvelx,opvely;
 			if(this.getX()-this.getFloor().getScreenw()/(32*2) >0 && this.getX()+this.getFloor().getScreenw()/(32*2)<this.getFloor().getWidth()/32) {
@@ -205,10 +211,18 @@ public class Player extends Entity {
         } catch(Exception e) {
             System.out.println(e);
         }
-        font=font.deriveFont(Font.PLAIN, 17	);
+        font=font.deriveFont(Font.PLAIN, 15	);
         g.setFont(font);
-
-        g.drawString((this.getLevel()+""), (x-getFloor().getOffsetX())*32-10, 
+        
+        String level;
+        if(this.getLevel()<10) {
+        	level="0"+this.getLevel();
+        }
+        else {
+        	level=""+this.getLevel();
+        }
+        
+        g.drawString(level, (x-getFloor().getOffsetX())*32-11, 
 				(y-getFloor().getOffsetY()-2)*32+32);
 	}
 
