@@ -60,7 +60,8 @@ public class Boss extends Entity{
 			}
 		}
 		
-		
+
+		sprite = new SpriteSheet(ImageIO.read(new File("data/flame.png")));
 		this.flame_img_matrix = new BufferedImage[1][3];
 		for(int column=0; column<3; column++)
 		{
