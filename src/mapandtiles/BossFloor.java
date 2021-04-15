@@ -100,7 +100,6 @@ public class BossFloor extends AbsFloor {
 	}
 	//fiammelle del boss con box e render
 	public void placeFlames(AABB flame) {
-		Random r = new Random();
 		int randx = (int) (Math.random()*(this.width/32 -4)+2);
 		int randy= (int) (Math.random()*(this.height/32 -4)+2);
 		if(new Point(randx,randy)!= new Point(screenw/(tilesize*2),screenh/tilesize-10))
