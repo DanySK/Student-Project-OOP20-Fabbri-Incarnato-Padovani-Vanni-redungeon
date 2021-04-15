@@ -111,7 +111,7 @@ public class Player extends Entity {
 		else
 		{	
 			if(this.getHp() < this.getMax_hp() ) {
-				this.setHp(this.getHp()+1);
+				this.setHp(this.getHp()+this.getLevel());
 			}			
 			int opvelx,opvely;
 			if(this.getX()-this.getFloor().getScreenw()/(32*2) >0 && this.getX()+this.getFloor().getScreenw()/(32*2)<this.getFloor().getWidth()/32) {

@@ -230,14 +230,14 @@ public class Enemy extends Entity{
 	public void augmStat() {
 
 		Random rng = new Random();
-		int minRange=1;
-		int maxRange=3;
-		int range=maxRange-minRange;
-		int modifier=this.getLevel() + (this.player_parameter.getLevel()/2);
+		int attack = this.player_parameter.getDefence() + ((this.getLevel()*2)-rng.nextInt(this.getLevel()));
 		
-		this.setAttack(this.getAttack()   + ((rng.nextInt(range) + minRange) + modifier ) );
-		this.setMax_hp(this.getMax_hp()   + ((rng.nextInt(range) + minRange) + modifier ) );
-		this.setDefence(this.getDefence() + ((rng.nextInt(range) + minRange) + modifier ) );
+		this.setAttack(attack);
+		this.setMax_hp(this.getMax_hp()   + ( this.getLevel()*10 ) );
+		this.setHp(this.getMax_hp());
+		this.setDefence(( (int)(this.player_parameter.getAttack()/2.5) + this.getLevel())  );
 	}
 
+	//attacco nemico = difesa del player + ((level*2)-random(level))
+	
 }
