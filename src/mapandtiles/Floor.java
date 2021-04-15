@@ -148,6 +148,12 @@ public class Floor extends AbsFloor {
 		e.setX(rpos.x);
 		e.setY(rpos.y);
 		e.setBox(new AABB(rpos,1,2));
+		if(e.getID()==ID.Enemy) {
+			Enemy tempen = (Enemy) e;
+			if(tempen.getBox().collides(tempen.getPlayerparameter().getBox())){
+				placeEntity(e);
+			}
+		}
 		if(e.getID()==ID.Player) {
 			this.setCamera(e);
 		}
