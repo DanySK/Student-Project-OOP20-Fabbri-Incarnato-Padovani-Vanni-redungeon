@@ -6,30 +6,18 @@ import java.io.FileInputStream;
 
 public class CustomFontUtil {
 
-	private static Font font;
+	Font CustomFont;
 
-	public static Font getFont() {
-		return font;
+	public Font getCustomFont() {
+		return CustomFont;
 	}
 
-	public static void setFontBold(int fontSize) {
-		try {
-        	CustomFontUtil.font=Font.createFont( Font.TRUETYPE_FONT,
-                new FileInputStream(new File("data/fonts/pkmndpb.ttf")) );
-        } catch(Exception e) {
-            System.out.println(e);
-        }
-        CustomFontUtil.font=font.deriveFont(Font.PLAIN, fontSize);
+	public void setCustomFontBold(int fontSize) {
+		CustomFont = new Font("data/font/pkmndpb.ftt", Font.PLAIN, fontSize);
+	}
+
+	public void setCustomFont(int fontSize) {
+		CustomFont = new Font("data/font/pkmndp.ftt", Font.PLAIN, fontSize);
 	}
 	
-	public static void setFontNormal(int fontSize) {
-        
-        try {
-        	CustomFontUtil.font=Font.createFont( Font.TRUETYPE_FONT,
-                new FileInputStream(new File("data/fonts/pkmndp.ttf")) );
-        } catch(Exception e) {
-            System.out.println(e);
-        }
-        CustomFontUtil.font=font.deriveFont(Font.PLAIN, fontSize);
-	}
 }
