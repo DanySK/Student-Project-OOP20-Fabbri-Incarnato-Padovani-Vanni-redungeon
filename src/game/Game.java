@@ -175,9 +175,10 @@ public class Game extends Canvas implements Runnable{
 			}
 		}
 		else if(level%5==0) {
-			this.f= ff.bossFloor(level,MAPW,MAPH,WIDTH,HEIGHT);
+			BossFloor bossf= ff.bossFloor(level,MAPW,MAPH,WIDTH,HEIGHT);
+			this.f = bossf;
 			handler.object.set(0, (GameObject) f);
-			Boss boss=ef.commonBoss(0, 0, ID.Boss, combat, level, f, p);
+			Boss boss=ef.commonBoss(0, 0, ID.Boss, combat, level, bossf, p);
 			handler.addObject(boss);
 			f.placeEntity(boss);
 			

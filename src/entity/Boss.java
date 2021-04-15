@@ -36,11 +36,13 @@ public class Boss extends Entity{
 	int hp_bary;
 	
 	int flames_number;
+	BufferedImage flame_img_matrix[][];
+	BufferedImage flame_img;
 	
 	List<AABB> flames = new ArrayList<AABB>();
 	
 	
-	public Boss(int x, int y, ID id, CombatSystem combat, int level, AbsFloor floor, Player player) throws IOException, LineUnavailableException, UnsupportedAudioFileException{
+	public Boss(int x, int y, ID id, CombatSystem combat, int level, BossFloor floor, Player player) throws IOException, LineUnavailableException, UnsupportedAudioFileException{
 		super(x, y, id, combat, level, floor);
 		// TODO Auto-generated constructor stub
 		hp_bar = ImageIO.read(new File("data/bosshpbar.png"));
@@ -58,12 +60,21 @@ public class Boss extends Entity{
 			}
 		}
 		
+		
+		this.flame_img_matrix = new BufferedImage[1][3];
+		for(int column=0; column<3; column++)
+		{
+			flame_img_matrix[0][column] = sprite.grabImage(column+1, 1, 32, 32); 
+		}
+		
 		Random rand = new Random();
 		flames_number = rand.nextInt(3)+3;
 		
 		for(int i=0; i<flames_number; i++)
 		{
-			
+			AABB flame = new AABB(new Point(0,0), 1, 1);
+			floor.placeFlames(flame);
+			flames.add(flame);
 		}
 		
 		
@@ -105,6 +116,8 @@ public class Boss extends Entity{
 					img = img_matrix [0][this.column];
 					break;
 			}
+			
+			flame_img = flame_img_matrix[0][column];
 			
 			if(this.column==2)
 				this.column=0;
@@ -154,6 +167,12 @@ public class Boss extends Entity{
 						hp_bary*32+10, 
 						(this.getHp()*906)/this.getHp(), 44);
 			}
+		}
+		
+		for(AABB x : this.flames)
+		{
+			g.drawImage(flame_img,(x.getX())*32,
+					(x.getY())*32,null);
 		}
 
 		g.drawImage(hp_bar,hp_barx,
