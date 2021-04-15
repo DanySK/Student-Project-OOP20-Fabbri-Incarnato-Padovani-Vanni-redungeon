@@ -5,6 +5,10 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
+
 import game.*;
 import utilities.*;
 import entity.*;
@@ -13,11 +17,44 @@ import entity.*;
 public class KeyInput extends KeyAdapter {
 	
 	private Handler handler;
-	public KeyInput(Handler handler) {
+	FloatControl punch_control;
+	FloatControl bonk_control;
+	double gain;
+	float dB;
+	
+	public KeyInput(Handler handler, FloatControl punch, FloatControl bonk) {
 		this.handler=handler;
+		
+		punch_control = punch;
+		
+		bonk_control = bonk;
+		
+		gain = 0.5;   
+		dB = (float) (Math.log(gain) / Math.log(10.0) * 20.0);
 	}
 	
 	public void keyPressed(KeyEvent key) {
+		System.out.println(key);
+		if(key.getKeyCode()==107)
+		{
+			if(gain<1.0)
+			{
+				gain+=0.1;
+				dB = (float) (Math.log(gain) / Math.log(10.0) * 20.0);
+				this.punch_control.setValue(dB);
+				this.bonk_control.setValue(dB);
+			}
+		}
+		if(key.getKeyCode()==109)
+		{
+			if(gain>0.15)
+			{
+				gain-=0.1;
+				dB = (float) (Math.log(gain) / Math.log(10.0) * 20.0);
+				this.punch_control.setValue(dB);
+				this.bonk_control.setValue(dB);
+			}
+		}
 		List<AABB> collisions = new ArrayList<AABB>();
 		handler.object.stream().filter(x->x.getID() != ID.Floor).forEach( x -> collisions.add(((Entity) x).getBox()));
 		for(int i=0;i<handler.object.size();i++) {

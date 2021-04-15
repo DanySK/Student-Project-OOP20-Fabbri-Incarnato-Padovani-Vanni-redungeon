@@ -51,6 +51,15 @@ public class CombatSystem {
 		punch_sound.open(punch_audio);
 	}
 
+	public Clip getBonk()
+	{
+		return bone_sound;
+	}
+	public Clip getPunch()
+	{
+		return punch_sound;
+	}
+	
 	public void addPlayer(Player player)
 	{
 		this.player = player;
