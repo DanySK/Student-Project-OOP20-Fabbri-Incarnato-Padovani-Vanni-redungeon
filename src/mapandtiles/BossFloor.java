@@ -98,7 +98,7 @@ public class BossFloor extends AbsFloor {
 		// TODO Auto-generated method stub
 		
 	}
-	
+	//fiammelle del boss con box e render
 	public void placeEntity(Entity e) {
 		if(e.getID()== ID.Player){
 		e.setX(screenw/(tilesize*2));

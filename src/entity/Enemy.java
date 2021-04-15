@@ -238,7 +238,7 @@ public class Enemy extends Entity{
 		this.setHp(this.getMax_hp());
 		this.setDefence(( (int)(this.player_parameter.getAttack()/2.5) + this.getLevel())  );
 	}
-
+  public Player getPlayerparameter() {return this.player_parameter;}
 	//attacco nemico = difesa del player + ((level*2)-random(level))
 	
 }

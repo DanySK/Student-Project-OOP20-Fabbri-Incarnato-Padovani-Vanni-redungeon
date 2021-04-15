@@ -205,10 +205,18 @@ public class Player extends Entity {
         } catch(Exception e) {
             System.out.println(e);
         }
-        font=font.deriveFont(Font.PLAIN, 17	);
+        font=font.deriveFont(Font.PLAIN, 15	);
         g.setFont(font);
-
-        g.drawString((this.getLevel()+""), (x-getFloor().getOffsetX())*32-10, 
+        
+        String level;
+        if(this.getLevel()<10) {
+        	level="0"+this.getLevel();
+        }
+        else {
+        	level=""+this.getLevel();
+        }
+        
+        g.drawString(level, (x-getFloor().getOffsetX())*32-11, 
 				(y-getFloor().getOffsetY()-2)*32+32);
 	}
 
