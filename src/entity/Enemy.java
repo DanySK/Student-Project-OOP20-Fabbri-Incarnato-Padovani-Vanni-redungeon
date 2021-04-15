@@ -34,7 +34,7 @@ public class Enemy extends Entity{
 	public Enemy(int x, int y, ID id, CombatSystem combat, int level, int hp, int attack, int magic_attack, int defence,AbsFloor floor, Player player) throws IOException, LineUnavailableException, UnsupportedAudioFileException{
 		super(x, y, id, combat, level, hp, attack, magic_attack, defence, floor);
 		// TODO Auto-generated constructor stub
-		this.augmStat();
+		
 		hp_bar = ImageIO.read(new File("data/hpbar.png"));
 		sprite = new SpriteSheet(ImageIO.read(new File("data/enemy1.png")));
 		this.setBox(new AABB(new Point(this.x, this.y), 1, 2));
@@ -56,6 +56,7 @@ public class Enemy extends Entity{
 		timer = 0;
 		
 		this.setExpGaranted(30);
+		this.augmStat();
 	}
 
 	@Override
@@ -107,6 +108,7 @@ public class Enemy extends Entity{
 	@Override
 	public void render(Graphics2D g) {
 		// TODO Auto-generated method stub
+		
 		g.setColor(Color.green);
 		
 		//with a proportion the render function set the hp of the monster
@@ -226,14 +228,16 @@ public class Enemy extends Entity{
 	}
 	
 	public void augmStat() {
+
 		Random rng = new Random();
 		int minRange=1;
-		int maxRange=2;
+		int maxRange=3;
 		int range=maxRange-minRange;
+		int modifier=this.getLevel() + (this.player_parameter.getLevel()/2);
 		
-		this.setAttack(this.getAttack() + ((rng.nextInt(range) + minRange)+this.getLevel()) );
-		this.setMax_hp(this.getMax_hp() + ((rng.nextInt(range) + minRange)+this.getLevel()) );
-		this.setDefence(this.getDefence() + ((rng.nextInt(range) + minRange)+this.getLevel()) );
+		this.setAttack(this.getAttack()   + ((rng.nextInt(range) + minRange) + modifier ) );
+		this.setMax_hp(this.getMax_hp()   + ((rng.nextInt(range) + minRange) + modifier ) );
+		this.setDefence(this.getDefence() + ((rng.nextInt(range) + minRange) + modifier ) );
 	}
 
 }

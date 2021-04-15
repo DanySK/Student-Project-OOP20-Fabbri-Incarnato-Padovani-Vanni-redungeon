@@ -1,12 +1,13 @@
 package entity;
 
 import java.awt.Color;
-
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.Random;
@@ -167,6 +168,8 @@ public class Player extends Entity {
 				
 				g.drawImage(hp_bar,(x-getFloor().getOffsetX())*32-14,
 						(y-getFloor().getOffsetY()-2)*32+19,null);
+				
+				
 			}
 			else if ( this.getMax_hp()/this.getHp() <= 4 && this.getMax_hp()/this.getHp() >= 2)
 			{		
@@ -194,7 +197,19 @@ public class Player extends Entity {
 				(y-getFloor().getOffsetY()-1)*32,null);
         g.setColor(Color.black);
         //g.draw(getBounds()); g.setColor(Color.BLACK);
-       
+        Font font=null;
+        
+        try {
+            font=Font.createFont( Font.TRUETYPE_FONT,
+                new FileInputStream(new File("data/fonts/pkmndpb.ttf")) );
+        } catch(Exception e) {
+            System.out.println(e);
+        }
+        font=font.deriveFont(Font.PLAIN, 17	);
+        g.setFont(font);
+
+        g.drawString((this.getLevel()+""), (x-getFloor().getOffsetX())*32-10, 
+				(y-getFloor().getOffsetY()-2)*32+32);
 	}
 
 	@Override
