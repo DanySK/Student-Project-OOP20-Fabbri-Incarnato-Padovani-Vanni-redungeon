@@ -64,8 +64,8 @@ public class Floor extends AbsFloor {
    //generate the pesudorandom floor calling roomscreate
    void floorGenner(int w,int h) {
 	   roomsCreate();
-	   exitCreate();
 	   healCreate();
+	   exitCreate();
 	   for(int i=0;i<w/tilesize;i++) {
 		   for(int j=0;j<h/tilesize;j++) {
 			   if(!(tilestate.containsKey(new Point(i,j))))
