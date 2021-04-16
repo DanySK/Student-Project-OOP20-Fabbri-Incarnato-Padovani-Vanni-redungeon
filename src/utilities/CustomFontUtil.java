@@ -21,7 +21,7 @@ public class CustomFontUtil {
 	}
 
 	private void setCustomFontBold(int fontSize) {
-		CustomFont = new Font("data/font/pkmndpb.ftt", Font.PLAIN, fontSize);
+		CustomFont = new Font("data/font/pkmndpb.ftt", Font.BOLD, fontSize);
 	}
 
 	private void setCustomFont(int fontSize) {
