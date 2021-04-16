@@ -155,24 +155,24 @@ public class Boss extends Entity{
 		//with a proportion the render function set the hp of the monster
 		
 		if(this.getHp() > 0) {
-			if(this.getHp()==this.getHp()) {
+			if(this.getMax_hp()/this.getHp() < 2) {
 				g.fillRect(hp_barx*32+48, 
 						hp_bary*32+10, 
 						906, 44);
 			}
-			else if ( this.getHp()/this.getHp() <= 2)
-			{
+			else if ( this.getMax_hp()/this.getHp() <= 4 && this.getMax_hp()/this.getHp() >= 2)
+			{		
 				g.setColor(Color.orange);
-				g.fillRect(hp_barx*32+48,
+				g.fillRect(hp_barx*32+48, 
 						hp_bary*32+10, 
-						(this.getHp()*906)/this.getHp(), 44);
+						(this.getHp()*906)/this.getMax_hp(), 44);
 			}
-			else if (this.getHp()/this.getHp() <= 3)
+			else if (this.getMax_hp()/this.getHp() > 4)
 			{
 				g.setColor(Color.red);
 				g.fillRect(hp_barx*32+48, 
 						hp_bary*32+10, 
-						(this.getHp()*906)/this.getHp(), 44);
+						(this.getHp()*906)/this.getMax_hp(), 44);
 			}
 		}
 		
