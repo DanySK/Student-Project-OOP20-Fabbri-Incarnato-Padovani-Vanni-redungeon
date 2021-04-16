@@ -66,6 +66,9 @@ public class BossFloor extends AbsFloor {
 		   }
 			   }
 		 this.exitCreate(new Point(10,10));
+		 for(int i=0;i<3;i++) {
+			 powerstoneCreate();
+		 }
 		   
 	   }
 	 
@@ -107,6 +110,15 @@ public class BossFloor extends AbsFloor {
 		else {
 			placeFlames(flame);
 		}
+	}
+	
+	public void powerstoneCreate() {
+		int randx = (int) (Math.random()*(this.width/32 -4)+2);
+		int randy= (int) (Math.random()*(this.height/32 -4)+2);
+		if(new Point(randx,randy)!= new Point(screenw/(tilesize*2),screenh/tilesize-10) || tilestate.get(new Point(randx,randy)).gettype()!=tiletype.Powerstone)
+			this.tilestate.replace(new Point (randx,randy), new Tile(new Point(randx,randy),tiletype.Powerstone,sprite));
+		else
+			powerstoneCreate();
 	}
 	public void placeEntity(Entity e) {
 		if(e.getID()== ID.Player){
