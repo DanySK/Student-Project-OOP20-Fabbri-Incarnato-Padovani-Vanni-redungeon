@@ -231,11 +231,6 @@ public class Player extends Entity {
 		flag=false;
 		AABB box1;
 		
-		if(e==KeyEvent.VK_D && e==KeyEvent.VK_S)
-		{
-			System.out.println("son qua dentro coglione");
-		}
-		
 		switch (e)
 		{	
  			case KeyEvent.VK_W:
@@ -343,7 +338,7 @@ public class Player extends Entity {
 		
 		this.setAttack(this.getAttack() + (rng.nextInt(range) + minRange) );
 		
-		this.setDefence(this.getDefence() + (rng.nextInt(range) + minRange) );
+		this.setDefence((this.getDefence() + (rng.nextInt(range) + minRange))-2 );
 		
 		this.setMagic_Attack(this.getMagic_attack() + (rng.nextInt(range) + minRange) );
 		
