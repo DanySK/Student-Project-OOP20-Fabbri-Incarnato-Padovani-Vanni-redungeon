@@ -55,7 +55,7 @@ public class BossFloor extends AbsFloor {
 	}
 	void bossfloorGenner(int w,int h) {
 		 for(int i=border;i<w/tilesize-border;i++) {
-			   for(int j=border;j<h/tilesize-border;j++) {
+			   for(int j=border+1;j<h/tilesize-border;j++) {
 				   this.tilestate.put(new Point(i, j), new Tile(new Point(i, j),tiletype.ON,sprite));
 			   }
 		   }

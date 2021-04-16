@@ -9,7 +9,7 @@ public class Handler {
 	
 	LinkedList<GameObject> object= new LinkedList<GameObject>();
      public boolean next= false;
-
+     public boolean dead=false;
 	public void tick() {
 		for(int i=0;i<object.size();i++) {
 			GameObject tempobj=object.get(i);
@@ -20,6 +20,7 @@ public class Handler {
 					next = true;}
 				if(obj.isDead())
 				{
+					this.dead=true;
 					this.removeObject(obj);
 				}
 			}
