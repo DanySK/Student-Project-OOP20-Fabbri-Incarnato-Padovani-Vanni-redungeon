@@ -101,6 +101,9 @@ public class BossFloor extends AbsFloor {
 		// TODO Auto-generated method stub
 		
 	}
+	public void setTile(Point p) {
+		tilestate.replace(p, new Tile(p,tiletype.ON,sprite));
+	}
 	//fiammelle del boss con box e render
 	public void placeFlames(AABB flame) {
 		int randx = (int) (Math.random()*(this.width/32 -4)+2);
