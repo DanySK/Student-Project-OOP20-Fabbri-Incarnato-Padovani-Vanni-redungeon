@@ -144,9 +144,17 @@ public class Player extends Entity {
 				velY=0;
 			}
 			if(this.getFloor().getMap().get(this.box.getpos()).gettype()==tiletype.Key) {
-				this.inventory.setKey(true);
+				this.inventory.gotKey();
 				this.getFloor().setTile(this.getBox().getpos());
 
+				velX=0;
+				velY=0;
+			}
+			if(this.getFloor().getMap().get(this.box.getpos()).gettype()==tiletype.Powerstone) {
+				this.inventory.increasePowerStone();
+				this.getFloor().setTile(this.getBox().getpos());
+				this.combat.lowerBossStats();
+				
 				velX=0;
 				velY=0;
 			}
@@ -371,10 +379,15 @@ public class Player extends Entity {
 	}
 	public boolean isOut() {if(this.getFloor().getMap().get(this.box.getpos()).gettype()==tiletype.Exit || (this.getFloor().getMap().get(this.box.getpos()).gettype()==tiletype.LockedExit &&
 			this.inventory.hasKey())) {
-		this.inventory.setKey(false);
+		this.inventory.clearInventory();
 		return true;
 		}
 	else return false;
+	}
+	
+	public Inventory getInventory()
+	{
+		return this.inventory;
 	}
 
 	/*public Rectangle getBounds()

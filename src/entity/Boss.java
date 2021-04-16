@@ -34,6 +34,8 @@ public class Boss extends Entity{
 	long lastime;
 	int hp_barx;
 	int hp_bary;
+
+	private int expGuaranteed;
 	
 	int flames_number;
 	BufferedImage flame_img_matrix[][];
@@ -91,6 +93,10 @@ public class Boss extends Entity{
 		timer = 0;
 		
 		System.out.println(this.x+ " " + this.velY);
+		
+		this.setMax_hp(300);
+		this.setExpGuaranteed(30);
+		this.augmStat();
 	}
 
 	@Override
@@ -314,7 +320,6 @@ public class Boss extends Entity{
 				
 				if((new AABB(new Point(box.getX()+a,box.getY()+b+1),1,1)).collides(player_parameter.getBox()))
 				{
-					System.out.printf("Player point: " + player_parameter.getBox().getpos() + "Flames point: " + new Point(box.getX()+a,box.getY()+b),1,1 + "\n");
 					this.combat.flamesAttack();
 				}
 
@@ -326,6 +331,27 @@ public class Boss extends Entity{
 		}
 		
 		return true;
+	}
+	
+
+	
+	public int getExpGuaranteed() {
+		return expGuaranteed;
+	}
+	
+	public void setExpGuaranteed(int expGuaranteed) {/*is dead true -> player_stat.setExp(expgranted)*/
+		this.expGuaranteed=expGuaranteed+this.getLevel();
+	}
+	
+	public void augmStat() {
+
+		Random rng = new Random();
+		int attack = ( this.player_parameter.getDefence() + ((this.getLevel()*2)-rng.nextInt(this.getLevel())) )*2;
+		
+		this.setAttack(attack);
+		this.setMax_hp(this.getMax_hp()   + ( this.getLevel()*10 ) );
+		this.setHp(this.getMax_hp());
+		this.setDefence( player_parameter.getAttack() );
 	}
 
 }

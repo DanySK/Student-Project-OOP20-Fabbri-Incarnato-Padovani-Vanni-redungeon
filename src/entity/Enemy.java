@@ -29,7 +29,7 @@ public class Enemy extends Entity{
 	boolean collide;
 	long timer;
 	long lastime;
-	private int expGaranted;
+	private int expGuaranteed;
 	
 	public Enemy(int x, int y, ID id, CombatSystem combat, int level,AbsFloor floor, Player player) throws IOException, LineUnavailableException, UnsupportedAudioFileException{
 		super(x, y, id, combat, level,floor);
@@ -56,7 +56,7 @@ public class Enemy extends Entity{
 		timer = 0;
 		
 		this.setMax_hp(100);
-		this.setExpGaranted(30);
+		this.setExpGuaranteed(30);
 		this.augmStat();
 	}
 
@@ -220,12 +220,12 @@ public class Enemy extends Entity{
 		collisions.add(box);
 	}
 	
-	public int getExpGaranted() {
-		return expGaranted;
+	public int getExpGuaranteed() {
+		return expGuaranteed;
 	}
 	
-	public void setExpGaranted(int expGranted) {/*is dead true -> player_stat.setExp(expgranted)*/
-		this.expGaranted=expGranted+this.getLevel();
+	public void setExpGuaranteed(int expGuaranteed) {/*is dead true -> player_stat.setExp(expgranted)*/
+		this.expGuaranteed=expGuaranteed+this.getLevel();
 	}
 	
 	public void augmStat() {
@@ -236,8 +236,9 @@ public class Enemy extends Entity{
 		this.setAttack(attack);
 		this.setMax_hp(this.getMax_hp()   + ( this.getLevel()*10 ) );
 		this.setHp(this.getMax_hp());
-		this.setDefence(( (int)(this.player_parameter.getAttack()/2.5) + this.getLevel())  );
+		this.setDefence(( (int)(this.player_parameter.getAttack()/2) + this.getLevel())  );
 	}
+	
   public Player getPlayerparameter() {return this.player_parameter;}
 	//attacco nemico = difesa del player + ((level*2)-random(level))
 	

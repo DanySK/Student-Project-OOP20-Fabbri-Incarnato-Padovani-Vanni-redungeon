@@ -180,6 +180,7 @@ public class Game extends Canvas implements Runnable{
 			handler.object.set(0, (GameObject) f);
 			Boss boss=ef.commonBoss(0, 0, ID.Boss, combat, level, bossf, p);
 			handler.addObject(boss);
+			combat.addBoss(boss);
 			f.placeEntity(boss);
 			
 		}

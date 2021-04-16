@@ -18,12 +18,15 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import entity.*;
 import utilities.*;
 
+// this is how raphael works 
+
 public class CombatSystem {
 	
 	private Graphics2D g;
 	private Player player;
 	private Enemy enemy;
 	private List<Enemy> enemies;
+	private Boss boss;
 	private AABB direction_box;
 	private boolean collide;
 	private BufferedImage punch_img;
@@ -73,6 +76,13 @@ public class CombatSystem {
 	{
 		this.enemies.remove(enemy);
 	}
+	
+	public void addBoss(Boss boss)
+	{
+		this.boss = boss;
+	}
+	
+	
 	public void render(Graphics2D g)
 	{
 		try {
@@ -147,7 +157,7 @@ public class CombatSystem {
 			enemy.setHp(enemy.getHp()-(player.getAttack()-enemy.getDefence()));
 			if(enemy.isDead())
 			{
-				this.player.addExp(this.enemy.getExpGaranted());
+				this.player.addExp(this.enemy.getExpGuaranteed());
 				this.removeEnemy(enemy);
 			}
 		}
@@ -217,5 +227,29 @@ public class CombatSystem {
 	public void flamesAttack()
 	{
 		player.setHp(player.getHp()-((int) (player.getMax_hp()*20/100)));
+	}
+	
+	public void lowerBossStats()
+	{
+		switch(player.getInventory().getPowerStone())
+		{
+			case 0:
+				break;
+				
+			case 1:
+				this.boss.setAttack(((int)this.boss.getAttack()/2));
+				this.boss.setDefence(((int)this.boss.getDefence()/2));
+				break;
+				
+			case 2:
+				this.boss.setAttack(((int) this.boss.getAttack()/2));
+				this.boss.setDefence(((int) this.boss.getDefence()/2));
+				break;
+				
+			case 3:
+				this.boss.setAttack(((int)this.boss.getAttack()/2));
+				this.boss.setDefence(0);
+				break;
+		}
 	}
 }
