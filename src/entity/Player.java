@@ -30,8 +30,8 @@ public class Player extends Entity {
     Inventory inventory;
 	int experience;
 	int maxExperience=50;
-	/*CustomFontUtil customFont = new CustomFontUtil(true, 15);
-	Font fonts=this.customFont.getCustomFont();*/
+	
+	CustomFontUtil customFont=new CustomFontUtil(true, 15);
 	
 	public Player(int x, int y, ID id, CombatSystem combat, int level, int hp, int attack, int magic_attack, int defence, AbsFloor floor) throws IOException {
 		super(x, y, id, combat, level, floor);
@@ -58,6 +58,8 @@ public class Player extends Entity {
 		this.setDirection(Direction.Left);
 		
 		img = img_matrix[0][1];
+		
+		
 	}
 
 	@Override
@@ -206,6 +208,9 @@ public class Player extends Entity {
         g.setColor(Color.black);
         //g.draw(getBounds()); g.setColor(Color.BLACK);
         
+                
+    	
+            
         String level;
         if(this.getLevel()<10) {
         	level="0"+this.getLevel();
@@ -213,7 +218,7 @@ public class Player extends Entity {
         else {
         	level=""+this.getLevel();
         }
-        
+        g.setFont(this.customFont.getCustomFont());
         g.drawString(level, (x-getFloor().getOffsetX())*32-11, 
 				(y-getFloor().getOffsetY()-2)*32+32);
 	}
