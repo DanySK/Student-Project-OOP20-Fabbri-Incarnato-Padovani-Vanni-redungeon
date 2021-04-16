@@ -3,7 +3,6 @@ package utilities;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.stream.Collector;
 
 import mapandtiles.Tile;
 import mapandtiles.tiletype;

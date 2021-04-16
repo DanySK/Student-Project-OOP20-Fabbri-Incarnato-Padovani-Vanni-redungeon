@@ -10,7 +10,6 @@ import utilities.SpriteSheet;
 public abstract class AbsFloor extends GameObject {
 	
 	private HashMap<Point,Tile> tilestate= new HashMap<>();
-	private int level;
 	private int screenw,screenh;
 	private int width;
 	private int height;

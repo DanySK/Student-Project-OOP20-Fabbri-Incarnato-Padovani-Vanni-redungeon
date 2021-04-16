@@ -7,7 +7,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.Random;
 import utilities.*;
-import game.*;
 
 public class Tile {
 	private AABB box;

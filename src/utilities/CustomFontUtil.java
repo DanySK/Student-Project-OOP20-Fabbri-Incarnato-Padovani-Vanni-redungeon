@@ -1,8 +1,6 @@
 package utilities;
 
 import java.awt.Font;
-import java.io.File;
-import java.io.FileInputStream;
 
 public class CustomFontUtil {
 
