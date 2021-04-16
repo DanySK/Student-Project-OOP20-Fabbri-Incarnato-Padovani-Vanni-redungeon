@@ -40,7 +40,9 @@ public class Tile {
 		if(this.t==tiletype.Key) {
 			this.img=sprite.grabImage(3, 4, 32, 32);
 		}
-		
+		if(this.t==tiletype.Powerstone) {
+			this.img=sprite.grabImage(3, 4, 32, 32);
+		}
 		
 	}
 	public void setImg(BufferedImage im) {this.img=im;}

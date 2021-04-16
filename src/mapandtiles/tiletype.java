@@ -8,6 +8,6 @@ public enum tiletype {
 	Exit,
 	LockedExit,
 	Key,
-	Occupied;
+	Powerstone;
 }
  
