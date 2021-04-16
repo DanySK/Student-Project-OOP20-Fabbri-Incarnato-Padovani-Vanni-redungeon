@@ -31,7 +31,7 @@ public class Player extends Entity {
 	int experience;
 	int maxExperience=50;
 	
-	CustomFontUtil customFont=new CustomFontUtil(true, 14);//true for bold font
+	CustomFontUtil customFont = new CustomFontUtil(true, 14);//true for bold font
 	
 	public Player(int x, int y, ID id, CombatSystem combat, int level, int hp, int attack, int magic_attack, int defence, AbsFloor floor) throws IOException {
 		super(x, y, id, combat, level, floor);
