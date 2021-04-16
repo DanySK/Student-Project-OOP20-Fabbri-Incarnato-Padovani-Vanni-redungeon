@@ -343,7 +343,7 @@ public class Boss extends Entity{
 	public void setExpGuaranteed(int expGuaranteed) {/*is dead true -> player_stat.setExp(expgranted)*/
 		this.expGuaranteed=expGuaranteed+this.getLevel();
 	}
-	
+	public BossFloor getBossFloor() {return (BossFloor) this.getFloor();}
 	public void augmStat() {
 
 		Random rng = new Random();

@@ -211,6 +211,7 @@ public class CombatSystem {
 				if(boss.isDead())
 				{
 					this.player.addExp(this.boss.getExpGuaranteed());
+					boss.getBossFloor().exitCreate(boss.getBox().getpos());
 				}
 			}
 		}

@@ -64,14 +64,13 @@ public class BossFloor extends AbsFloor {
 			   this.tilestate.put(new Point(i, j), new Tile(new Point(i, j),tiletype.OFF,sprite));
 		   }
 			   }
-		 this.exitCreate(new Point(10,10));
 		 for(int i=0;i<3;i++) {
 			 powerstoneCreate();
 		 }
 		   
 	   }
 	 
-	void exitCreate(Point p) {
+	public void exitCreate(Point p) {
 		this.tilestate.replace(p, new Tile(p,tiletype.Exit,sprite));
 	}
 	
