@@ -69,7 +69,7 @@ public class Boss extends Entity{
 		}
 		
 		Random rand = new Random();
-		flames_number = rand.nextInt(3)+3;
+		flames_number = rand.nextInt(7)+10;
 		
 		for(int i=0; i<flames_number; i++)
 		{
@@ -312,12 +312,14 @@ public class Boss extends Entity{
 		if(!(this.getFloor().getMap().get(new Point((box.getX()+a),(box.getY()+b))).gettype()==tiletype.OFF))
 		{
 				
-				this.flames.get(this.flames.indexOf(box)).setpos(new Point(box.getX()+a, box.getY()+b));
-				
-				if((new AABB(new Point(box.getX()+a,box.getY()+b),1,1)).collides(player_parameter.getBox()))
+				if((new AABB(new Point(box.getX()+a,box.getY()+b+1),1,1)).collides(player_parameter.getBox()))
 				{
+					System.out.printf("Player point: " + player_parameter.getBox().getpos() + "Flames point: " + new Point(box.getX()+a,box.getY()+b),1,1 + "\n");
 					this.combat.flamesAttack();
 				}
+
+				
+				this.flames.get(this.flames.indexOf(box)).setpos(new Point(box.getX()+a, box.getY()+b));
 				
 				return false;
 			
