@@ -30,7 +30,7 @@ public class Game extends Canvas implements Runnable{
 	 */
 	private static final long serialVersionUID = -8647713295702872480L;
 	
-	public static final int WIDTH =1080, HEIGHT=WIDTH/12*9;
+	public static final int WIDTH =1200, HEIGHT=WIDTH/12*9;
 	public static final int MAPW=3600,MAPH=HEIGHT;
 	
 	private Thread thread;
@@ -119,6 +119,7 @@ public class Game extends Canvas implements Runnable{
 			}
 			if(System.currentTimeMillis()-timer>1000) {
 				timer+=1000;
+			
 			}
 		}
 		
@@ -197,6 +198,7 @@ public class Game extends Canvas implements Runnable{
 		p.setFloor(f);
 		f.placeEntity(p);
 	}
+	
 	public static void main(String[] args) throws IOException, LineUnavailableException, UnsupportedAudioFileException {
 		new Game();
 	}
