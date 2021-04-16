@@ -190,7 +190,7 @@ public class Boss extends Entity{
 		collisions.remove(box);
 		collide = false;
 		
-		//the enemy find the position of the player like it is in a cartesian system
+		//the enemy finds the position of the player like it is in a cartesian system
 		
 		if(this.getY()+3<player_parameter.getY())
 		{
@@ -245,7 +245,88 @@ public class Boss extends Entity{
 				      
 		}
 		
+		this.moveFlames();
+		
 		collisions.add(box);
+	}
+	
+	public void moveFlames()
+	{
+		Random rand = new Random();
+		for(AABB i : this.flames)
+		{
+			boolean flag=true;
+			
+			while(flag)
+			{
+				switch(rand.nextInt(8))
+				{
+					//the south tile
+					case 0:
+						flag = this.flamesCollide(i, 0, -1);
+						break;
+						
+					//the south-east tile
+					case 1:
+						flag = this.flamesCollide(i, +1, -1);
+						break;
+						
+					//the east tile
+					case 2:
+						flag = this.flamesCollide(i, +1, 0);
+						break;
+						
+					//the north-east tile	
+					case 3:
+						flag = this.flamesCollide(i, +1, +1);
+						break;
+						
+					//the north tile	
+					case 4:
+						flag = this.flamesCollide(i, 0, +1);
+						break;
+						
+					//the north-west tile	
+					case 5:
+						flag = this.flamesCollide(i, -1, +1);
+						break;
+						
+					//the west tile	
+					case 6:
+						flag = this.flamesCollide(i, -1, 0);
+						break;
+						
+					//the south-west tile
+					case 7 :
+						flag = this.flamesCollide(i, -1, -1);
+						break;
+						
+				}
+			}
+			
+		}
+	}
+	
+	public boolean flamesCollide(AABB box, int a, int b)
+	{
+		if(!(this.getFloor().getMap().get(new Point((box.getX()+a),(box.getY()+b))).gettype()==tiletype.OFF))
+		{
+			if(!(new AABB(new Point(box.getX()+a,box.getY()+b),1,1)).collides(this.box))
+			{
+				// System.out.println("Boss point: " + this.box.getpos() + "/n Player point : " + player_parameter.getBox().getpos() + "/n Flame point:" + new Point(box.getX()+a, box.getY()+b));
+				this.flames.get(this.flames.indexOf(box)).setpos(new Point(box.getX()+a, box.getY()+b));
+				
+				if((new AABB(new Point(box.getX()+a,box.getY()+b),1,1)).collides(player_parameter.getBox()))
+				{
+					this.combat.flamesAttack();
+				}
+				
+				return false;
+			}
+			
+		}
+		
+		return true;
 	}
 
 }

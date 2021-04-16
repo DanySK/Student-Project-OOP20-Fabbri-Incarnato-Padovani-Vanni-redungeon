@@ -234,6 +234,7 @@ public class Player extends Entity {
 		switch (e)
 		{	
  			case KeyEvent.VK_W:
+				this.changeDirection(Direction.Up);
 				box1 = new AABB(new Point(box.getX(), box.getY()-1), 1, 2);
 				collisions.forEach(x -> {if(box1.collides(x)) {flag=true;}});	
 				if(!flag)
@@ -245,6 +246,7 @@ public class Player extends Entity {
 				}
 				break;
 			case KeyEvent.VK_A:
+				this.changeDirection(Direction.Left);
 				box1 = new AABB(new Point(box.getX()-1, box.getY()), 1, 2);
 				collisions.forEach(x -> {if(box1.collides(x)) {flag=true;}});	
 				if(!flag)
@@ -257,6 +259,7 @@ public class Player extends Entity {
 				break;
 					
 			case KeyEvent.VK_S:
+				this.changeDirection(Direction.Down);
 				box1 = new AABB(new Point(box.getX(), box.getY()+1), 1, 2);
 				collisions.forEach(x -> {if(box1.collides(x)) {flag=true;}});	
 				if(!flag)
@@ -269,6 +272,7 @@ public class Player extends Entity {
 				break;
 
 			case KeyEvent.VK_D:
+				this.changeDirection(Direction.Right);
 				box1 = new AABB(new Point(box.getX()+1, box.getY()), 1, 2);
 				collisions.forEach(x -> {if(box1.collides(x)) {flag=true;}});	
 				if(!flag)

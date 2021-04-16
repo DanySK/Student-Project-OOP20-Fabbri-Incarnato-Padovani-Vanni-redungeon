@@ -213,4 +213,9 @@ public class CombatSystem {
 				
 		}
 	}
+	
+	public void flamesAttack()
+	{
+		player.setHp(player.getHp()-(int) (player.getHp()*20/100));
+	}
 }
