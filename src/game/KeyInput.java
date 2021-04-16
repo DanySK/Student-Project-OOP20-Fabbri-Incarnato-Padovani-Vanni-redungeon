@@ -6,10 +6,8 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 
-import game.*;
 import utilities.*;
 import entity.*;
 

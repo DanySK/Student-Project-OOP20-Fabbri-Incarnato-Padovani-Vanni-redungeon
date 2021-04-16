@@ -22,7 +22,6 @@ import utilities.*;
 
 public class CombatSystem {
 	
-	private Graphics2D g;
 	private Player player;
 	private Enemy enemy;
 	private List<Enemy> enemies;
@@ -33,6 +32,7 @@ public class CombatSystem {
 	private BufferedImage bone_img;
 	private AABB punch_box;
 	private AABB bone_box;
+	private int dungeon_level;
 
 	private Clip bone_sound;
 	private AudioInputStream bone_audio;
@@ -42,7 +42,9 @@ public class CombatSystem {
 	
 	public CombatSystem() throws IOException, LineUnavailableException, UnsupportedAudioFileException
 	{
+		this.dungeon_level = 1; 
 		enemies = new ArrayList<Enemy>();
+		
 		punch_img=ImageIO.read(new File("data/punch.png"));
 
 		bone_sound = AudioSystem.getClip();
@@ -82,6 +84,11 @@ public class CombatSystem {
 		this.boss = boss;
 	}
 	
+	public void setDungeonLevel()
+	{
+		this.dungeon_level++;
+	}
+	
 	
 	public void render(Graphics2D g)
 	{
@@ -102,7 +109,7 @@ public class CombatSystem {
 		{}
 	}
 	
-	public void PlayerAttack()
+	public void playerAttack()
 	{
 		collide = false;
 		
@@ -111,8 +118,19 @@ public class CombatSystem {
 			case Down:
 				direction_box = new AABB(new Point(player.getX(), player.getY()+1), 1, 2);
 				
-				enemies.forEach(x -> {if(direction_box.collides(x.getBox())) {collide = true; enemy = x;} });
-				this.damagePlayer(collide);
+				if(!this.enemies.isEmpty())
+				{
+					enemies.forEach(x -> {if(direction_box.collides(x.getBox())) {collide = true; enemy = x;} });
+					this.damagePlayer(collide);
+				}
+				else if(this.dungeon_level == 5)
+				{
+					if(direction_box.collides(this.boss.getBox()))
+					{
+						this.collide = true;
+						this.damagePlayer(collide);
+					}
+				}
 				
 				punch_box = new AABB(new Point(player.getX(), player.getY()+1), 1, 2);
 				
@@ -121,8 +139,19 @@ public class CombatSystem {
 			case Left:
 				direction_box = new AABB(new Point(player.getX()-1, player.getY()), 1, 2);
 				
-				enemies.forEach(x -> {if(direction_box.collides(x.getBox())) {collide = true; enemy = x;} });
-				this.damagePlayer(collide);
+				if(!this.enemies.isEmpty())
+				{
+					enemies.forEach(x -> {if(direction_box.collides(x.getBox())) {collide = true; enemy = x;} });
+					this.damagePlayer(collide);
+				}
+				else if(this.dungeon_level == 5)
+				{
+					if(direction_box.collides(this.boss.getBox()))
+					{
+						this.collide = true;
+						this.damagePlayer(collide);
+					}
+				}
 				
 				punch_box = new AABB(new Point(player.getX()-1, player.getY()-1), 1, 2);
 				
@@ -131,8 +160,19 @@ public class CombatSystem {
 			case Right:
 				direction_box = new AABB(new Point(player.getX()+1, player.getY()), 1, 2);
 				
-				enemies.forEach(x -> {if(direction_box.collides(x.getBox())) {collide = true; enemy = x;} });
-				this.damagePlayer(collide);
+				if(!this.enemies.isEmpty())
+				{
+					enemies.forEach(x -> {if(direction_box.collides(x.getBox())) {collide = true; enemy = x;} });
+					this.damagePlayer(collide);
+				}
+				else if(this.dungeon_level == 5)
+				{
+					if(direction_box.collides(this.boss.getBox()))
+					{
+						this.collide = true;
+						this.damagePlayer(collide);
+					}
+				}
 				
 				punch_box = new AABB(new Point(player.getX()+1, player.getY()-1), 1, 2);
 				
@@ -141,8 +181,19 @@ public class CombatSystem {
 			case Up:
 				direction_box = new AABB(new Point(player.getX(), player.getY()-1), 1, 2);
 				
-				enemies.forEach(x -> {if(direction_box.collides(x.getBox())) {collide = true; enemy = x;} });
-				this.damagePlayer(collide);
+				if(!this.enemies.isEmpty())
+				{
+					enemies.forEach(x -> {if(direction_box.collides(x.getBox())) {collide = true; enemy = x;} });
+					this.damagePlayer(collide);
+				}
+				else if(this.dungeon_level == 5)
+				{
+					if(direction_box.collides(this.boss.getBox()))
+					{
+						this.collide = true;
+						this.damagePlayer(collide);
+					}
+				}
 				
 				punch_box = new AABB(new Point(player.getX(), player.getY()-2), 1, 2);
 				
@@ -163,65 +214,20 @@ public class CombatSystem {
 		}
 	}
 	
-	public void EnemyAttack(Enemy enemy)
+	public void enemyAttack(Enemy enemy)
 	{
-		collide = false;
-		
-		switch(enemy.getDirection())
-		{
-			case Down:
-				direction_box = new AABB(new Point(enemy.getX(), enemy.getY()+1), 1, 2);
+		if(enemy.getAttack()-player.getDefence()>0)
+			player.setHp(player.getHp()-(enemy.getAttack()-player.getDefence()));
 
-				if(direction_box.collides(player.getBox()))
-				{
-					if(enemy.getAttack()-player.getDefence()>0)
-						player.setHp(player.getHp()-(enemy.getAttack()-player.getDefence()));
+		bone_sound.loop(1);
+	}
+	
+	public void bossAttack(Boss boss)
+	{
+		if(boss.getAttack()-player.getDefence()>0)
+			player.setHp(player.getHp()-(boss.getAttack()-player.getDefence()));
 
-					bone_sound.loop(1);
-				}
-				
-				break;
-				
-			case Left:
-				direction_box = new AABB(new Point(enemy.getX()-1, enemy.getY()), 1, 2);
-
-				if(direction_box.collides(player.getBox()))
-				{
-					if(enemy.getAttack()-player.getDefence()>0)
-						player.setHp(player.getHp()-(enemy.getAttack()-player.getDefence()));
-					
-					bone_sound.loop(1);
-				}
-				
-				break;
-				
-			case Right:
-				direction_box = new AABB(new Point(enemy.getX()+1, enemy.getY()), 1, 2);
-
-				if(direction_box.collides(player.getBox()))
-				{
-					if(enemy.getAttack()-player.getDefence()>0)
-						player.setHp(player.getHp()-(enemy.getAttack()-player.getDefence()));
-					
-					bone_sound.loop(1);
-				}
-				
-				break;
-				
-			case Up:
-				direction_box = new AABB(new Point(enemy.getX(), enemy.getY()-1), 1, 2);
-
-				if(direction_box.collides(player.getBox()))
-				{
-					if(enemy.getAttack()-player.getDefence()>0)
-						player.setHp(player.getHp()-(enemy.getAttack()-player.getDefence()));
-					
-					bone_sound.loop(1);
-				}
-				
-				break;
-				
-		}
+		bone_sound.loop(1);
 	}
 	
 	public void flamesAttack()

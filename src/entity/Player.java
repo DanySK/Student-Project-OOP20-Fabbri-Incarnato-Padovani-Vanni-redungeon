@@ -1,13 +1,11 @@
 package entity;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.Random;
@@ -31,7 +29,7 @@ public class Player extends Entity {
 	int experience;
 	int maxExperience=50;
 	
-	CustomFontUtil customFont = new CustomFontUtil(true, 14);//true for bold font
+	CustomFontUtil customFont=new CustomFontUtil(true, 15);
 	
 	public Player(int x, int y, ID id, CombatSystem combat, int level, int hp, int attack, int magic_attack, int defence, AbsFloor floor) throws IOException {
 		super(x, y, id, combat, level, floor);
@@ -150,6 +148,7 @@ public class Player extends Entity {
 				velX=0;
 				velY=0;
 			}
+			
 			if(this.getFloor().getMap().get(this.box.getpos()).gettype()==tiletype.Powerstone) {
 				this.inventory.increasePowerStone();
 				this.getFloor().setTile(this.getBox().getpos());
@@ -310,7 +309,7 @@ public class Player extends Entity {
  				     
 			case KeyEvent.VK_J:
 				this.setAttacking(true);
-				combat.PlayerAttack();
+				combat.playerAttack();
 				/*attack case*/
 				break;
 				

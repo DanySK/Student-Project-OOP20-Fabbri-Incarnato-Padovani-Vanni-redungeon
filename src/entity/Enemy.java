@@ -11,9 +11,6 @@ import java.util.List;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
@@ -212,7 +209,7 @@ public class Enemy extends Entity{
 				if(box1.collides(player_parameter.getBox()))
 				{
 					this.setAttacking(true);
-					combat.EnemyAttack(this);
+					combat.enemyAttack(this);
 				}
 				      
 		}

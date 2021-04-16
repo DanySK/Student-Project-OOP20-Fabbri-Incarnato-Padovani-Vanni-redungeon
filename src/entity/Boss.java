@@ -246,6 +246,7 @@ public class Boss extends Entity{
 		else {
 				if(box1.collides(player_parameter.getBox()))
 				{
+					this.combat.bossAttack(this);
 					clip.loop(1);
 				}
 				      

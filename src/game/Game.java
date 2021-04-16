@@ -99,7 +99,6 @@ public class Game extends Canvas implements Runnable{
 		double nanoseconds= 1000000000/numberofticks;
 		double delta=0;
 		long timer= System.currentTimeMillis();
-		int frames=0;
 		while(running) {
 			long now= System.nanoTime();
 			delta+=(now-lastTime)/nanoseconds;
@@ -116,11 +115,8 @@ public class Game extends Canvas implements Runnable{
 			if(running) {
 				render();
 			}
-			frames++;
-			
 			if(System.currentTimeMillis()-timer>1000) {
 				timer+=1000;
-				frames=0;
 			}
 		}
 		
@@ -193,6 +189,8 @@ public class Game extends Canvas implements Runnable{
 			f.placeEntity(boss);
 			
 		}
+		
+		combat.setDungeonLevel();
 		
 		p.setFloor(f);
 		f.placeEntity(p);

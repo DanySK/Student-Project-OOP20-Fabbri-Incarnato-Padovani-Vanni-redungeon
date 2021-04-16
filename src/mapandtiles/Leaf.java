@@ -4,12 +4,8 @@ import java.awt.Point;
 
 
 import java.awt.Rectangle;
-import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
-import java.util.Random;
 import java.util.Vector;
-import javax.imageio.ImageIO;
 import utilities.*;
 
 
