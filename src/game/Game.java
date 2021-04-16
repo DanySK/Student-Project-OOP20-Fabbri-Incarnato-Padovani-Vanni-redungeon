@@ -152,7 +152,7 @@ public class Game extends Canvas implements Runnable{
 			g.setFont(new CustomFontUtil(true, 50).getCustomFont());
 				g.drawString("GAME OVER", WIDTH/2-200,HEIGHT/2);
 				g.drawString("Continue?", WIDTH/2-150, HEIGHT/2+50);
-				g.drawString("Y        N", WIDTH/2-150,HEIGHT-100);
+				g.drawString("Y        N", WIDTH/2-130,HEIGHT-250);
 				
 		}
 		g.dispose();
