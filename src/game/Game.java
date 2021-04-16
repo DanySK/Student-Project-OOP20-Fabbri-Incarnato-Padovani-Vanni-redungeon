@@ -16,6 +16,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 import mapandtiles.*;
+import utilities.CustomFontUtil;
 import entity.*;
 
 
@@ -117,8 +118,8 @@ public class Game extends Canvas implements Runnable{
 			if(System.currentTimeMillis()-timer>1000) {
 				timer+=1000;
 			}
-			
 		}
+		
 		stop();
 		
 	}
@@ -129,6 +130,7 @@ public class Game extends Canvas implements Runnable{
 			handler.next=false;
 			nextLevel();
 		}
+		
 		
 	}
 	
@@ -145,7 +147,12 @@ public class Game extends Canvas implements Runnable{
 		
 		handler.render(g);
 		combat.render(g);
-		
+		if(handler.dead) {
+			g.setColor(Color.black);
+			g.setFont(new CustomFontUtil(true, 50).getCustomFont());
+				g.drawString("GAME OVER", WIDTH/2-200,HEIGHT/2);
+				
+		}
 		g.dispose();
 		bs.show();
 	}
