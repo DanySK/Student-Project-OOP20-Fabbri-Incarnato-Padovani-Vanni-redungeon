@@ -121,14 +121,14 @@ public class CombatSystem {
 				if(!this.enemies.isEmpty())
 				{
 					enemies.forEach(x -> {if(direction_box.collides(x.getBox())) {collide = true; enemy = x;} });
-					this.damagePlayer(collide);
+					this.damagePlayer("enemy",collide);
 				}
 				else if(this.dungeon_level == 5)
 				{
 					if(direction_box.collides(this.boss.getBox()))
 					{
 						this.collide = true;
-						this.damagePlayer(collide);
+						this.damagePlayer("boss",collide);
 					}
 				}
 				
@@ -142,14 +142,14 @@ public class CombatSystem {
 				if(!this.enemies.isEmpty())
 				{
 					enemies.forEach(x -> {if(direction_box.collides(x.getBox())) {collide = true; enemy = x;} });
-					this.damagePlayer(collide);
+					this.damagePlayer("enemy",collide);
 				}
 				else if(this.dungeon_level == 5)
 				{
 					if(direction_box.collides(this.boss.getBox()))
 					{
 						this.collide = true;
-						this.damagePlayer(collide);
+						this.damagePlayer("boss",collide);
 					}
 				}
 				
@@ -163,14 +163,14 @@ public class CombatSystem {
 				if(!this.enemies.isEmpty())
 				{
 					enemies.forEach(x -> {if(direction_box.collides(x.getBox())) {collide = true; enemy = x;} });
-					this.damagePlayer(collide);
+					this.damagePlayer("enemy",collide);
 				}
 				else if(this.dungeon_level == 5)
 				{
 					if(direction_box.collides(this.boss.getBox()))
 					{
 						this.collide = true;
-						this.damagePlayer(collide);
+						this.damagePlayer("boss",collide);
 					}
 				}
 				
@@ -184,14 +184,14 @@ public class CombatSystem {
 				if(!this.enemies.isEmpty())
 				{
 					enemies.forEach(x -> {if(direction_box.collides(x.getBox())) {collide = true; enemy = x;} });
-					this.damagePlayer(collide);
+					this.damagePlayer("enemy",collide);
 				}
 				else if(this.dungeon_level == 5)
 				{
 					if(direction_box.collides(this.boss.getBox()))
 					{
 						this.collide = true;
-						this.damagePlayer(collide);
+						this.damagePlayer("boss",collide);
 					}
 				}
 				
@@ -201,15 +201,29 @@ public class CombatSystem {
 		}
 	}
 	
-	private void damagePlayer(boolean collide)
+	private void damagePlayer(String type,boolean collide)
 	{
-		if(collide)
+		if(type=="boss")
 		{
-			enemy.setHp(enemy.getHp()-(player.getAttack()-enemy.getDefence()));
-			if(enemy.isDead())
+			if(collide)
 			{
-				this.player.addExp(this.enemy.getExpGuaranteed());
-				this.removeEnemy(enemy);
+				boss.setHp(boss.getHp()-(player.getAttack()-boss.getDefence()));
+				if(boss.isDead())
+				{
+					this.player.addExp(this.boss.getExpGuaranteed());
+				}
+			}
+		}
+		else if(type=="enemy")
+		{
+			if(collide)
+			{
+				enemy.setHp(enemy.getHp()-(player.getAttack()-enemy.getDefence()));
+				if(enemy.isDead())
+				{
+					this.player.addExp(this.enemy.getExpGuaranteed());
+					this.removeEnemy(enemy);
+				}
 			}
 		}
 	}
@@ -232,7 +246,7 @@ public class CombatSystem {
 	
 	public void flamesAttack()
 	{
-		player.setHp(player.getHp()-((int) (player.getMax_hp()*20/100)));
+		// player.setHp(player.getHp()-((int) (player.getMax_hp()*20/100)));
 	}
 	
 	public void lowerBossStats()
