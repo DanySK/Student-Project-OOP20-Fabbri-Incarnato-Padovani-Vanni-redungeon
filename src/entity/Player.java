@@ -35,6 +35,11 @@ public class Player extends Entity {
 	
 	public Player(int x, int y, ID id, CombatSystem combat, int level, int hp, int attack, int magic_attack, int defence, AbsFloor floor) throws IOException {
 		super(x, y, id, combat, level, floor);
+		this.setHp(hp);
+		this.setMax_hp(hp);
+		this.setAttack(attack);
+		this.setMagic_Attack(magic_attack);
+		this.setDefence(defence);
          this.inventory= new Inventory();
          setAttacking(false);
 		hp_bar = ImageIO.read(new File("data/hpbar.png"));
