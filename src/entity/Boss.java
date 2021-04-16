@@ -311,9 +311,7 @@ public class Boss extends Entity{
 	{
 		if(!(this.getFloor().getMap().get(new Point((box.getX()+a),(box.getY()+b))).gettype()==tiletype.OFF))
 		{
-			if(!(new AABB(new Point(box.getX()+a,box.getY()+b),1,1)).collides(this.box))
-			{
-				// System.out.println("Boss point: " + this.box.getpos() + "/n Player point : " + player_parameter.getBox().getpos() + "/n Flame point:" + new Point(box.getX()+a, box.getY()+b));
+				
 				this.flames.get(this.flames.indexOf(box)).setpos(new Point(box.getX()+a, box.getY()+b));
 				
 				if((new AABB(new Point(box.getX()+a,box.getY()+b),1,1)).collides(player_parameter.getBox()))
@@ -322,7 +320,6 @@ public class Boss extends Entity{
 				}
 				
 				return false;
-			}
 			
 		}
 		
