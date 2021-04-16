@@ -6,7 +6,7 @@ import java.io.FileInputStream;
 
 public class CustomFontUtil {
 
-	Font CustomFont;
+	private Font CustomFont;
 	
 	public CustomFontUtil(boolean bold, int size) {
 		if(bold) {
