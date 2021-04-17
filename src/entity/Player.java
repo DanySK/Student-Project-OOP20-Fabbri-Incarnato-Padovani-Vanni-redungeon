@@ -28,6 +28,8 @@ public class Player extends Entity {
     Inventory inventory;
 	int experience;
 	int maxExperience=50;
+	int max_spell=1;
+	int spell_remain=0;
 	
 	CustomFontUtil customFont=new CustomFontUtil(true, 15);
 	
@@ -38,12 +40,16 @@ public class Player extends Entity {
 		this.setAttack(attack);
 		this.setMagic_Attack(magic_attack);
 		this.setDefence(defence);
+		this.setAttribute(Attribute.Fire);
          this.inventory= new Inventory();
          setAttacking(false);
 		hp_bar = ImageIO.read(new File("data/hpbar.png"));
 		sprite = new SpriteSheet(ImageIO.read(new File("data/player.png")));
 		this.setBox(new AABB(new Point(this.x, this.y), 1, 2));
 		this.img_matrix = new BufferedImage[4][3];
+		
+		spell_remain=max_spell;
+		
 		for(int row=0; row<4; row++)
 		{
 			for(int column=0; column<3; column++)
@@ -352,6 +358,11 @@ public class Player extends Entity {
 		this.setMax_hp(this.getMax_hp() + ((rng.nextInt(range) + minRange)*10) );
 		
 		this.setHp(this.getMax_hp());
+		
+		if(this.getLevel()%5 == 0)
+		{
+			this.max_spell++;
+		}
 	}
 	
 	public void addExp(int additionalExp) {
@@ -379,6 +390,7 @@ public class Player extends Entity {
 	public boolean isOut() {if(this.getFloor().getMap().get(this.box.getpos()).gettype()==tiletype.Exit || (this.getFloor().getMap().get(this.box.getpos()).gettype()==tiletype.LockedExit &&
 			this.inventory.hasKey())) {
 		this.inventory.clearInventory();
+		this.spell_remain=this.max_spell;
 		return true;
 		}
 	else return false;

@@ -178,7 +178,7 @@ public class Boss extends Entity{
 				
 				g.fillRect(hp_barx*32+48, 
 						hp_bary*32+10, 
-						(this.getHp()*906)/this.getMax_hp(), 14);
+						(this.getHp()*906)/this.getMax_hp(), 44);
 				
 			}
 			else if ( this.getMax_hp()/this.getHp() <= 4 && this.getMax_hp()/this.getHp() >= 2)

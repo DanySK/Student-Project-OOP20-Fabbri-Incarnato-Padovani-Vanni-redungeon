@@ -16,6 +16,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 import entity.*;
+import mapandtiles.tiletype;
 import utilities.*;
 
 // this is how raphael works 
@@ -199,39 +200,42 @@ public class CombatSystem {
 	
 	private void damagePlayer(String type,boolean collide)
 	{
-		if(type=="boss")
+		if(!(this.player.getFloor().getMap().get(direction_box.getpos()).gettype()==tiletype.OFF))
 		{
-			if(collide)
+			if(type=="boss")
 			{
-				boss.setHp(boss.getHp()-(player.getAttack()-boss.getDefence()));
-				
-				if(!punch_sound.isRunning())
+				if(collide)
 				{
-					punch_sound.loop(1);
-				}
-				
-				if(boss.isDead())
-				{
-					this.player.addExp(this.boss.getExpGuaranteed());
-					boss.getBossFloor().exitCreate(boss.getBox().getpos());
+					boss.setHp(boss.getHp()-(player.getAttack()-boss.getDefence()));
+					
+					if(!punch_sound.isRunning())
+					{
+						punch_sound.loop(1);
+					}
+					
+					if(boss.isDead())
+					{
+						this.player.addExp(this.boss.getExpGuaranteed());
+						boss.getBossFloor().exitCreate(boss.getBox().getpos());
+					}
 				}
 			}
-		}
-		else if(type=="enemy")
-		{
-			if(collide)
+			else if(type=="enemy")
 			{
-				enemy.setHp(enemy.getHp()-(player.getAttack()-enemy.getDefence()));
-				
-				if(!punch_sound.isRunning())
+				if(collide)
 				{
-					punch_sound.loop(1);
-				}
-				
-				if(enemy.isDead())
-				{
-					this.player.addExp(this.enemy.getExpGuaranteed());
-					this.removeEnemy(enemy);
+					enemy.setHp(enemy.getHp()-(player.getAttack()-enemy.getDefence()));
+					
+					if(!punch_sound.isRunning())
+					{
+						punch_sound.loop(1);
+					}
+					
+					if(enemy.isDead())
+					{
+						this.player.addExp(this.enemy.getExpGuaranteed());
+						this.removeEnemy(enemy);
+					}
 				}
 			}
 		}
