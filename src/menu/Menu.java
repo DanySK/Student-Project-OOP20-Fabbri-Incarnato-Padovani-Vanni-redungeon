@@ -1,15 +1,15 @@
 package menu;
 
 import java.awt.*;
+import javax.swing.*;
 
-import game.Window;
+//import game.Window;
 
 
-public class Menu extends Canvas{
+public class Menu{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -5685652752362930028L;
 	
 	public static int width=1366;
 	public static int height=768;
@@ -17,7 +17,27 @@ public class Menu extends Canvas{
 	public Menu() {
 		
 	//new game.Window(width,height,"Re:Dungeon");
-	Menu1 m= new Menu1();
+	final JFrame f =new JFrame("Re:dungeon");
+	f.setSize(width,height);
+	final JPanel panel = new JPanel();
+	panel.setBackground(Color.BLACK);
+	panel.setLayout(null);
+	f.getContentPane().add(panel);
+	
+	final JButton b1=new JButton ("Inizia Gioco") ;
+	final JButton b2=new JButton ("Opzioni") ;
+	final JButton b3=new JButton ("Esci");
+	panel.add ( b1 );
+	panel.add ( b2 );
+	panel.add ( b3 );
+	
+	Dimension size = b1.getPreferredSize () ;
+	b1.setBounds ( width/2, height/5 , size.width, size.height );
+	size = b2.getPreferredSize () ;
+	b2 . setBounds (55 , 40 , size.width*3, size.height *3) ;
+	
+	
+	
 		
 		
 	}
@@ -26,17 +46,16 @@ public class Menu extends Canvas{
 	
 }
 
-class Menu1 extends Canvas  {
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 2436650669201065499L;
 
-	public void paint(Graphics g)  {
-		
-		g.setColor(Color.black);
-		g.drawString("Re:Dungeon", Menu.width/2, Menu.height/5);
-		
-	}
+class OptionsMenu{
+	
+	
+	
 }
+
+class GameMenu{
+	
+}
+
+
+
