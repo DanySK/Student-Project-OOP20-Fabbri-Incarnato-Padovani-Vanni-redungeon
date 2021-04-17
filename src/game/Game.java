@@ -177,6 +177,8 @@ public class Game extends Canvas implements Runnable{
 		if(level%5 !=0) {
 			this.f= ff.standardFloor(level,MAPW,MAPH,WIDTH,HEIGHT);
 			handler.object.set(0, (GameObject) f);
+			p.setFloor(f);
+			f.placeEntity(p);
 			for(int j=0;j<(level<=15 ? level:15);j++) {
 				Enemy enemy=ef.normalEnemy(0, 0, ID.Enemy, combat, level, f, p);
 				handler.addObject(enemy);
@@ -188,6 +190,8 @@ public class Game extends Canvas implements Runnable{
 			BossFloor bossf= ff.bossFloor(level,MAPW,MAPH,WIDTH,HEIGHT);
 			this.f = bossf;
 			handler.object.set(0, (GameObject) f);
+			p.setFloor(f);
+			f.placeEntity(p);
 			Boss boss=ef.commonBoss(0, 0, ID.Boss, combat, level, bossf, p);
 			handler.addObject(boss);
 			combat.addBoss(boss);
@@ -197,8 +201,6 @@ public class Game extends Canvas implements Runnable{
 		
 		combat.setDungeonLevel();
 		
-		p.setFloor(f);
-		f.placeEntity(p);
 	}
 	
 	public static void main(String[] args) throws IOException, LineUnavailableException, UnsupportedAudioFileException {
