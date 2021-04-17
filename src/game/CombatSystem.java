@@ -30,10 +30,10 @@ public class CombatSystem {
 	private AABB direction_box;
 	private boolean collide;
 	private BufferedImage punch_img;
-	private BufferedImage bone_img;
+	private BufferedImage flame_img;
 	private AABB punch_box;
-	private AABB bone_box;
 	private int dungeon_level;
+	AABB magic_boxes[];
 
 	private Clip bone_sound;
 	private AudioInputStream bone_audio;
@@ -45,6 +45,9 @@ public class CombatSystem {
 	{
 		this.dungeon_level = 1; 
 		enemies = new ArrayList<Enemy>();
+
+		SpriteSheet sprite = new SpriteSheet(ImageIO.read(new File("data/flame.png")));
+		flame_img = sprite.grabImage(1, 1, 32, 32); 
 		
 		punch_img=ImageIO.read(new File("data/punch.png"));
 
@@ -98,9 +101,13 @@ public class CombatSystem {
 			if(this.player.isAttacking()) {
 				g.drawImage(punch_img, (this.punch_box.getX()-player.getFloor().getOffsetX())*32, (this.punch_box.getY()-player.getFloor().getOffsetY())*32, null);
 			   }
-			if(this.enemy.isAttacking()) {
-				//g.drawImage(bone_img, (this.punch_box.getX()-player.getFloor().getOffsetX())*32, (this.punch_box.getY()-player.getFloor().getOffsetY())*32, null);
-			   }
+			if(this.player.isMagicAttacking())
+			{
+					for(AABB box : this.magic_boxes)
+					{
+						g.drawImage(flame_img, (box.getX()-player.getFloor().getOffsetX())*32, (box.getY()-player.getFloor().getOffsetY())*32, null);
+					}
+			}
 		}
 		catch(Exception e)
 		{}
@@ -120,7 +127,7 @@ public class CombatSystem {
 					enemies.forEach(x -> {if(direction_box.collides(x.getBox())) {collide = true; enemy = x;} });
 					this.damagePlayer("enemy",collide);
 				}
-				else if(this.dungeon_level%5 == 0)
+				else if(this.dungeon_level%5 == 0 && boss!=null)
 				{
 					if(direction_box.collides(this.boss.getBox()))
 					{
@@ -141,7 +148,7 @@ public class CombatSystem {
 					enemies.forEach(x -> {if(direction_box.collides(x.getBox())) {collide = true; enemy = x;} });
 					this.damagePlayer("enemy",collide);
 				}
-				else if(this.dungeon_level%5 == 0)
+				else if(this.dungeon_level%5 == 0 && boss!=null)
 				{
 					if(direction_box.collides(this.boss.getBox()))
 					{
@@ -162,7 +169,7 @@ public class CombatSystem {
 					enemies.forEach(x -> {if(direction_box.collides(x.getBox())) {collide = true; enemy = x;} });
 					this.damagePlayer("enemy",collide);
 				}
-				else if(this.dungeon_level%5 == 0)
+				else if(this.dungeon_level%5 == 0 && boss!=null)
 				{
 					if(direction_box.collides(this.boss.getBox()))
 					{
@@ -183,7 +190,7 @@ public class CombatSystem {
 					enemies.forEach(x -> {if(direction_box.collides(x.getBox())) {collide = true; enemy = x;} });
 					this.damagePlayer("enemy",collide);
 				}
-				else if(this.dungeon_level%5 == 0)
+				else if(this.dungeon_level%5 == 0 && boss!=null)
 				{
 					if(direction_box.collides(this.boss.getBox()))
 					{
@@ -217,6 +224,7 @@ public class CombatSystem {
 					{
 						this.player.addExp(this.boss.getExpGuaranteed());
 						boss.getBossFloor().exitCreate(boss.getBox().getpos());
+						boss=null;
 					}
 				}
 			}
@@ -238,6 +246,81 @@ public class CombatSystem {
 					}
 				}
 			}
+		}
+	}
+	
+	public void playerMagicAttack()
+	{
+		this.player.setSpells();
+		AABB magic_boxes[] = 
+			{
+					new AABB(new Point(this.player.getX()-1,this.player.getY()-1),1,1),
+					new AABB(new Point(this.player.getX(),this.player.getY()-1),1,1),
+					new AABB(new Point(this.player.getX()+1,this.player.getY()-1),1,1),
+					new AABB(new Point(this.player.getX()-1,this.player.getY()),1,1),
+					new AABB(new Point(this.player.getX()+1,this.player.getY()),1,1),
+					new AABB(new Point(this.player.getX()-1,this.player.getY()+1),1,1),
+					new AABB(new Point(this.player.getX(),this.player.getY()+1),1,1),
+					new AABB(new Point(this.player.getX()+1,this.player.getY()+1),1,1)	
+			};
+		
+		this.magic_boxes = magic_boxes;
+		
+		if(this.dungeon_level%5 != 0 && !(this.enemies.isEmpty()))
+		{
+			for(AABB box : magic_boxes)
+			{
+				this.enemies.forEach(x -> {
+
+					if(box.collides(x.getBox())) 
+					{
+						collide = true; 
+						this.enemy = x;
+					} 
+					
+					});
+				if(collide)
+					this.magicDamage();
+			}
+			
+		}
+		else if(this.dungeon_level%5 == 0)
+			this.magicDamageBoss();
+		
+	}
+	
+	public void magicDamage()
+	{
+		enemy.setHp(enemy.getHp()-this.player.getMagic_attack());
+		
+		if(enemy.isDead())
+		{
+			this.player.addExp(enemy.getExpGuaranteed());
+			this.removeEnemy(enemy);
+		}
+	}
+	
+	public void magicDamageBoss()
+	{
+		switch(this.player.getInventory().getPowerStone())
+		{
+			case 1:
+				boss.setHp((boss.getHp()-this.player.getMagic_attack())/2);
+				break;
+				
+			case 2:
+				boss.setHp((int) ((boss.getHp()-this.player.getMagic_attack())/1.5));
+				break;
+				
+			case 3:
+				boss.setHp(boss.getHp()-this.player.getMagic_attack());
+				break;
+				
+		}
+		
+		if(boss.isDead())
+		{
+			this.player.addExp(this.boss.getExpGuaranteed());
 		}
 	}
 	
@@ -270,17 +353,17 @@ public class CombatSystem {
 				break;
 				
 			case 1:
-				this.boss.setAttack(((int) this.boss.getAttack()/2));
-				this.boss.setDefence(((int) this.boss.getDefence()/2));
+				this.boss.setAttack(this.boss.getAttack()/2);
+				this.boss.setDefence(this.boss.getDefence()/2);
 				break;
 				
 			case 2:
-				this.boss.setAttack(((int) this.boss.getAttack()/2));
-				this.boss.setDefence(((int) this.boss.getDefence()/2));
+				this.boss.setAttack(this.boss.getAttack()/2);
+				this.boss.setDefence(this.boss.getDefence()/2);
 				break;
 				
 			case 3:
-				this.boss.setAttack(((int) this.boss.getAttack()/2));
+				this.boss.setAttack(this.boss.getAttack()/2);
 				this.boss.setDefence(0);
 				break;
 		}

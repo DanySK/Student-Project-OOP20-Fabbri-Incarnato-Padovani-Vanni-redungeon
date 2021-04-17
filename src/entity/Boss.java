@@ -113,7 +113,7 @@ public class Boss extends Entity{
 		
 		System.out.println(this.x+ " " + this.velY);
 		
-		this.setMax_hp(300);
+		this.setMax_hp(500);
 		this.setExpGuaranteed(30);
 		this.augmStat();
 	}

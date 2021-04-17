@@ -30,6 +30,7 @@ public class Player extends Entity {
 	int maxExperience=50;
 	int max_spell=1;
 	int spell_remain=0;
+	boolean magic_attacking;
 	
 	CustomFontUtil customFont=new CustomFontUtil(true, 15);
 	
@@ -320,7 +321,11 @@ public class Player extends Entity {
 				break;
 				
 			case KeyEvent.VK_K:
-					
+				//if(this.spell_remain != 0)
+				{
+					this.setMagicAttacking(true);
+					combat.playerMagicAttack();
+				}
 				//magic attack
 				break;
 		}
@@ -399,6 +404,21 @@ public class Player extends Entity {
 	public Inventory getInventory()
 	{
 		return this.inventory;
+	}
+	
+	public void setSpells()
+	{
+		this.spell_remain--;
+	}
+	
+	public boolean isMagicAttacking()
+	{
+		return this.magic_attacking;
+	}
+	
+	public void setMagicAttacking(boolean bool)
+	{
+		this.magic_attacking = bool;
 	}
 
 	/*public Rectangle getBounds()
