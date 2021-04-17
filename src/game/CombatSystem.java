@@ -95,14 +95,10 @@ public class CombatSystem {
 		try {
 			
 			if(this.player.isAttacking()) {
-				punch_sound.loop(1);
 				g.drawImage(punch_img, (this.punch_box.getX()-player.getFloor().getOffsetX())*32, (this.punch_box.getY()-player.getFloor().getOffsetY())*32, null);
 			   }
 			if(this.enemy.isAttacking()) {
 				//g.drawImage(bone_img, (this.punch_box.getX()-player.getFloor().getOffsetX())*32, (this.punch_box.getY()-player.getFloor().getOffsetY())*32, null);
-			   }
-			if(!this.player.isAttacking()) {
-				punch_sound.stop();
 			   }
 		}
 		catch(Exception e)
@@ -207,7 +203,20 @@ public class CombatSystem {
 		{
 			if(collide)
 			{
-				boss.setHp(boss.getHp()-(player.getAttack()-boss.getDefence()));
+				if((boss.getHp()-(player.getAttack()-boss.getDefence()))>0)
+				{
+					boss.setHp(boss.getHp()-(player.getAttack()-boss.getDefence()));
+				}
+				else if((boss.getHp()-(player.getAttack()-boss.getDefence()))<=0 && this.player.getInventory().getPowerStone()!=3)
+				{
+					boss.setHp(1);
+				}
+				
+				if(!punch_sound.isRunning())
+				{
+					punch_sound.loop(1);
+				}
+				
 				if(boss.isDead())
 				{
 					this.player.addExp(this.boss.getExpGuaranteed());
@@ -220,6 +229,12 @@ public class CombatSystem {
 			if(collide)
 			{
 				enemy.setHp(enemy.getHp()-(player.getAttack()-enemy.getDefence()));
+				
+				if(!punch_sound.isRunning())
+				{
+					punch_sound.loop(1);
+				}
+				
 				if(enemy.isDead())
 				{
 					this.player.addExp(this.enemy.getExpGuaranteed());
@@ -252,6 +267,7 @@ public class CombatSystem {
 	
 	public void lowerBossStats()
 	{
+		System.out.println("Son entrato nel bosse");
 		switch(player.getInventory().getPowerStone())
 		{
 			case 0:
