@@ -40,7 +40,7 @@ public class Tile {
 			this.img=sprite.grabImage(3, 4, 32, 32);
 		}
 		if(this.t==tiletype.Powerstone) {
-			this.img=sprite.grabImage(3, 4, 32, 32);
+			this.img=sprite.grabImage(4, 4, 32, 32);
 		}
 		
 	}
