@@ -1,6 +1,8 @@
 package entity;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
@@ -32,7 +34,6 @@ public class Player extends Entity {
 	int spell_remain=0;
 	boolean magic_attacking;
 	
-	CustomFontUtil customFont=new CustomFontUtil(true, 15);
 	
 	public Player(int x, int y, ID id, CombatSystem combat, int level, int hp, int attack, int magic_attack, int defence, AbsFloor floor) throws IOException {
 		super(x, y, id, combat, level, floor);
@@ -232,9 +233,11 @@ public class Player extends Entity {
         else {
         	level=""+this.getLevel();
         }
-        g.setFont(this.customFont.getCustomFont());
-        g.drawString(level, (x-getFloor().getOffsetX())*32-11, 
+        
+        g.setFont(new CustomFontUtil(true, 18).getCustomFont());
+        g.drawString(level, (x-getFloor().getOffsetX())*32-13, 
 				(y-getFloor().getOffsetY()-2)*32+32);
+    
 	}
 
 	@Override

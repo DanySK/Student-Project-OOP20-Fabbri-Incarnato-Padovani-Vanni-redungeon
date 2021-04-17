@@ -3,6 +3,7 @@ package game;
 import java.awt.Canvas;
 
 import java.awt.Color;
+import java.awt.FontFormatException;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -152,10 +153,11 @@ public class Game extends Canvas implements Runnable{
 		combat.render(g);
 		if(handler.dead) {
 			g.setColor(Color.black);
+			
 			g.setFont(new CustomFontUtil(true, 50).getCustomFont());
-				g.drawString("GAME OVER", WIDTH/2-200,HEIGHT/2);
-				//g.drawString("Continue?", WIDTH/2-150, HEIGHT/2+50);
-				//g.drawString("Y        N", WIDTH/2-130,HEIGHT-250);
+			g.drawString("GAME OVER", WIDTH/2-200,HEIGHT/2);
+			//g.drawString("Continue?", WIDTH/2-150, HEIGHT/2+50);
+			//g.drawString("Y        N", WIDTH/2-130,HEIGHT-250);
 				
 		}
 		g.dispose();
@@ -175,6 +177,8 @@ public class Game extends Canvas implements Runnable{
 		if(level%5 !=0) {
 			this.f= ff.standardFloor(level,MAPW,MAPH,WIDTH,HEIGHT);
 			handler.object.set(0, (GameObject) f);
+			p.setFloor(f);
+			f.placeEntity(p);
 			for(int j=0;j<(level<=15 ? level:15);j++) {
 				Enemy enemy=ef.normalEnemy(0, 0, ID.Enemy, combat, level, f, p);
 				handler.addObject(enemy);
@@ -186,6 +190,8 @@ public class Game extends Canvas implements Runnable{
 			BossFloor bossf= ff.bossFloor(level,MAPW,MAPH,WIDTH,HEIGHT);
 			this.f = bossf;
 			handler.object.set(0, (GameObject) f);
+			p.setFloor(f);
+			f.placeEntity(p);
 			Boss boss=ef.commonBoss(0, 0, ID.Boss, combat, level, bossf, p);
 			handler.addObject(boss);
 			combat.addBoss(boss);
@@ -195,8 +201,6 @@ public class Game extends Canvas implements Runnable{
 		
 		combat.setDungeonLevel();
 		
-		p.setFloor(f);
-		f.placeEntity(p);
 	}
 	
 	public static void main(String[] args) throws IOException, LineUnavailableException, UnsupportedAudioFileException {
