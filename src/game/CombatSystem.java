@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
@@ -105,7 +106,7 @@ public class CombatSystem {
 			{
 					for(AABB box : this.magic_boxes)
 					{
-						g.drawImage(flame_img, (box.getX()-player.getFloor().getOffsetX())*32, (box.getY()-player.getFloor().getOffsetY())*32, null);
+						g.drawImage(flame_img, (box.getX()-player.getFloor().getOffsetX())*32, (box.getY()-player.getFloor().getOffsetY()-1)*32, null);
 					}
 			}
 		}
@@ -259,9 +260,11 @@ public class CombatSystem {
 					new AABB(new Point(this.player.getX()+1,this.player.getY()-1),1,1),
 					new AABB(new Point(this.player.getX()-1,this.player.getY()),1,1),
 					new AABB(new Point(this.player.getX()+1,this.player.getY()),1,1),
+					new AABB(new Point(this.player.getX()+1,this.player.getY()+1),1,1),
 					new AABB(new Point(this.player.getX()-1,this.player.getY()+1),1,1),
-					new AABB(new Point(this.player.getX(),this.player.getY()+1),1,1),
-					new AABB(new Point(this.player.getX()+1,this.player.getY()+1),1,1)	
+					new AABB(new Point(this.player.getX()-1,this.player.getY()+2),1,1),
+					new AABB(new Point(this.player.getX(),this.player.getY()+2),1,1),
+					new AABB(new Point(this.player.getX()+1,this.player.getY()+2),1,1)	
 			};
 		
 		this.magic_boxes = magic_boxes;
@@ -275,28 +278,31 @@ public class CombatSystem {
 					if(box.collides(x.getBox())) 
 					{
 						collide = true; 
-						this.enemy = x;
+						if(collide)
+							this.magicDamage(x);
 					} 
 					
 					});
-				if(collide)
-					this.magicDamage();
+				
 			}
 			
+			this.enemies= removethedead(enemies);
+			
 		}
-		else if(this.dungeon_level%5 == 0)
+		else if(this.dungeon_level%5 == 0 && !this.boss.isDead())
 			this.magicDamageBoss();
 		
 	}
 	
-	public void magicDamage()
+	public void magicDamage(Enemy e)
 	{
+		this.enemy=e;
 		enemy.setHp(enemy.getHp()-this.player.getMagic_attack());
 		
 		if(enemy.isDead())
 		{
 			this.player.addExp(enemy.getExpGuaranteed());
-			this.removeEnemy(enemy);
+			//this.removeEnemy(enemy);
 		}
 	}
 	
@@ -305,11 +311,11 @@ public class CombatSystem {
 		switch(this.player.getInventory().getPowerStone())
 		{
 			case 1:
-				boss.setHp((boss.getHp()-this.player.getMagic_attack())/2);
+				boss.setHp((boss.getHp()-(this.player.getMagic_attack()/2)));
 				break;
 				
 			case 2:
-				boss.setHp((int) ((boss.getHp()-this.player.getMagic_attack())/1.5));
+				boss.setHp((int) ((boss.getHp()-(this.player.getMagic_attack())/1.5)));
 				break;
 				
 			case 3:
@@ -321,6 +327,8 @@ public class CombatSystem {
 		if(boss.isDead())
 		{
 			this.player.addExp(this.boss.getExpGuaranteed());
+			boss.getBossFloor().exitCreate(boss.getBox().getpos());
+			
 		}
 	}
 	
@@ -367,5 +375,8 @@ public class CombatSystem {
 				this.boss.setDefence(0);
 				break;
 		}
+	}
+	private List<Enemy> removethedead( List<Enemy> enemies){
+		return enemies.stream().filter(x-> x.isDead()==false).collect(Collectors.toList());
 	}
 }
