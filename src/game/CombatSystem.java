@@ -119,7 +119,7 @@ public class CombatSystem {
 					enemies.forEach(x -> {if(direction_box.collides(x.getBox())) {collide = true; enemy = x;} });
 					this.damagePlayer("enemy",collide);
 				}
-				else if(this.dungeon_level == 5)
+				else if(this.dungeon_level%5 == 0)
 				{
 					if(direction_box.collides(this.boss.getBox()))
 					{
@@ -140,7 +140,7 @@ public class CombatSystem {
 					enemies.forEach(x -> {if(direction_box.collides(x.getBox())) {collide = true; enemy = x;} });
 					this.damagePlayer("enemy",collide);
 				}
-				else if(this.dungeon_level == 5)
+				else if(this.dungeon_level%5 == 0)
 				{
 					if(direction_box.collides(this.boss.getBox()))
 					{
@@ -161,7 +161,7 @@ public class CombatSystem {
 					enemies.forEach(x -> {if(direction_box.collides(x.getBox())) {collide = true; enemy = x;} });
 					this.damagePlayer("enemy",collide);
 				}
-				else if(this.dungeon_level == 5)
+				else if(this.dungeon_level%5 == 0)
 				{
 					if(direction_box.collides(this.boss.getBox()))
 					{
@@ -182,7 +182,7 @@ public class CombatSystem {
 					enemies.forEach(x -> {if(direction_box.collides(x.getBox())) {collide = true; enemy = x;} });
 					this.damagePlayer("enemy",collide);
 				}
-				else if(this.dungeon_level == 5)
+				else if(this.dungeon_level%5 == 0)
 				{
 					if(direction_box.collides(this.boss.getBox()))
 					{
@@ -266,8 +266,8 @@ public class CombatSystem {
 				break;
 				
 			case 1:
-				this.boss.setAttack(((int)this.boss.getAttack()/2));
-				this.boss.setDefence(((int)this.boss.getDefence()/2));
+				this.boss.setAttack(((int) this.boss.getAttack()/2));
+				this.boss.setDefence(((int) this.boss.getDefence()/2));
 				break;
 				
 			case 2:
@@ -276,7 +276,7 @@ public class CombatSystem {
 				break;
 				
 			case 3:
-				this.boss.setAttack(((int)this.boss.getAttack()/2));
+				this.boss.setAttack(((int) this.boss.getAttack()/2));
 				this.boss.setDefence(0);
 				break;
 		}

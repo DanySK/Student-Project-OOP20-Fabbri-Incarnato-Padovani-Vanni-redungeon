@@ -162,6 +162,10 @@ public abstract class Entity extends GameObject{
 	{
 		this.direction = direction;
 	}
+	public void setAttribute(Attribute attribute)
+	{
+		this.attribute = attribute;
+	}
 	public void setMovement(boolean movement) 
 	{
 		this.movement = movement;

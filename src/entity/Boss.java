@@ -50,6 +50,34 @@ public class Boss extends Entity{
 		hp_bar = ImageIO.read(new File("data/bosshpbar.png"));
 		hp_barx = x-getFloor().getOffsetX();
 		hp_bary = y-getFloor().getOffsetY();
+
+		Random rng = new Random();
+		
+		switch(rng.nextInt(3))
+		{
+			case 0:
+				this.
+				sprite = new SpriteSheet(ImageIO.read(new File("data/flame.png")));
+				this.setAttribute(Attribute.Fire);
+				break;
+				
+			case 1:
+				sprite = new SpriteSheet(ImageIO.read(new File("data/waternado.png")));
+				this.setAttribute(Attribute.Water);
+				break;
+				
+			case 2:
+				sprite = new SpriteSheet(ImageIO.read(new File("data/leafnado.png")));
+				this.setAttribute(Attribute.Grass);
+				break;
+		}
+		
+		this.flame_img_matrix = new BufferedImage[1][3];
+		for(int column=0; column<3; column++)
+		{
+			flame_img_matrix[0][column] = sprite.grabImage(column+1, 1, 32, 32); 
+		}
+		
 		sprite = new SpriteSheet(ImageIO.read(new File("data/boss.png")));
 		this.setBox(new AABB(new Point(this.x, this.y), 6, 4));
 		this.player_parameter = player;
@@ -62,16 +90,7 @@ public class Boss extends Entity{
 			}
 		}
 		
-
-		sprite = new SpriteSheet(ImageIO.read(new File("data/flame.png")));
-		this.flame_img_matrix = new BufferedImage[1][3];
-		for(int column=0; column<3; column++)
-		{
-			flame_img_matrix[0][column] = sprite.grabImage(column+1, 1, 32, 32); 
-		}
-		
-		Random rand = new Random();
-		flames_number = rand.nextInt(7)+10;
+		flames_number = rng.nextInt(7)+10;
 		
 		for(int i=0; i<flames_number; i++)
 		{
@@ -157,9 +176,9 @@ public class Boss extends Entity{
 		if(this.getHp() > 0) {
 			if(this.getMax_hp()/this.getHp() < 2) {
 				
-				g.fillRect((x-getFloor().getOffsetX())*32,
-						(y-getFloor().getOffsetY()-1)*32-11, 
-						(this.getHp()*54)/this.getMax_hp(), 14);
+				g.fillRect(hp_barx*32+48, 
+						hp_bary*32+10, 
+						(this.getHp()*906)/this.getMax_hp(), 14);
 				
 			}
 			else if ( this.getMax_hp()/this.getHp() <= 4 && this.getMax_hp()/this.getHp() >= 2)
