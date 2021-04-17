@@ -3,6 +3,7 @@ package game;
 import java.awt.Canvas;
 
 import java.awt.Color;
+import java.awt.FontFormatException;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -152,10 +153,11 @@ public class Game extends Canvas implements Runnable{
 		combat.render(g);
 		if(handler.dead) {
 			g.setColor(Color.black);
+			
 			g.setFont(new CustomFontUtil(true, 50).getCustomFont());
-				g.drawString("GAME OVER", WIDTH/2-200,HEIGHT/2);
-				//g.drawString("Continue?", WIDTH/2-150, HEIGHT/2+50);
-				//g.drawString("Y        N", WIDTH/2-130,HEIGHT-250);
+			g.drawString("GAME OVER", WIDTH/2-200,HEIGHT/2);
+			//g.drawString("Continue?", WIDTH/2-150, HEIGHT/2+50);
+			//g.drawString("Y        N", WIDTH/2-130,HEIGHT-250);
 				
 		}
 		g.dispose();
