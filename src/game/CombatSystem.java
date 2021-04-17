@@ -203,14 +203,7 @@ public class CombatSystem {
 		{
 			if(collide)
 			{
-				if((boss.getHp()-(player.getAttack()-boss.getDefence()))>0)
-				{
-					boss.setHp(boss.getHp()-(player.getAttack()-boss.getDefence()));
-				}
-				else if((boss.getHp()-(player.getAttack()-boss.getDefence()))<=0 && this.player.getInventory().getPowerStone()!=3)
-				{
-					boss.setHp(1);
-				}
+				boss.setHp(boss.getHp()-(player.getAttack()-boss.getDefence()));
 				
 				if(!punch_sound.isRunning())
 				{
@@ -262,12 +255,11 @@ public class CombatSystem {
 	
 	public void flamesAttack()
 	{
-		// player.setHp(player.getHp()-((int) (player.getMax_hp()*20/100)));
+		player.setHp(player.getHp()-((int) (player.getMax_hp()*20/100)));
 	}
 	
 	public void lowerBossStats()
 	{
-		System.out.println("Son entrato nel bosse");
 		switch(player.getInventory().getPowerStone())
 		{
 			case 0:
