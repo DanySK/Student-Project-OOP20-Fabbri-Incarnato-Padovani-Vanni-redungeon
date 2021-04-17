@@ -23,7 +23,7 @@ public class CustomFontUtil {
 
 	private void setCustomFontBold(int fontSize) {
 		try {
-			CustomFont = Font.createFont(Font.TRUETYPE_FONT, new File("data/fonts/pkmndpb.ttf")).deriveFont(Font.BOLD, fontSize);
+			CustomFont = Font.createFont(Font.TRUETYPE_FONT, new File("data/fonts/pkmndpb.ttf")).deriveFont(Font.PLAIN, fontSize);
 		} catch (FontFormatException | IOException e) {
 			e.printStackTrace();
 		}
