@@ -35,9 +35,9 @@ public class BossFloor extends AbsFloor {
 		   this.width=screenw;
 		   this.screenw=screenw;
 		   this.screenh=screenh;
-		   int floorseed=1;
+		   int floorseed=2;
 		   if(l>5 && l<=10) {
-			   floorseed=2;
+			   floorseed=1;
 		   }
 		   else if(l>10 && l<=15) {floorseed=3;}
 		   else if(l>15) {floorseed=4;}
