@@ -104,6 +104,8 @@ public class CombatSystem {
 	
 	public void render(Graphics2D g)
 	{
+
+		timer += System.currentTimeMillis() - lastime;
 		try {
 			
 			if(this.player.isAttacking()) {
@@ -112,15 +114,13 @@ public class CombatSystem {
 			
 			if(this.player.isMagicAttacking())
 			{
-				if(timer<=10000)
+				if(timer<=500)
 				{
 					for(AABB box : this.magic_boxes)
 					{
 						g.drawImage(flame_img, (box.getX()-player.getFloor().getOffsetX())*32, (box.getY()-player.getFloor().getOffsetY()-1)*32, null);
 					}
 
-					timer += System.currentTimeMillis() - lastime;
-					lastime = System.currentTimeMillis();
 				}
 				else
 				{
@@ -134,6 +134,8 @@ public class CombatSystem {
 		}
 		catch(Exception e)
 		{}
+
+		lastime = System.currentTimeMillis();
 	}
 	
 	public void playerAttack()
