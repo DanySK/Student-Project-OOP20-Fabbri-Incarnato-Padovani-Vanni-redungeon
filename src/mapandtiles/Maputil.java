@@ -1,11 +1,8 @@
-package utilities;
+package mapandtiles;
 
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import mapandtiles.Tile;
-import mapandtiles.tiletype;
 
 public class Maputil {
 	public Maputil() {}
