@@ -59,7 +59,7 @@ public class Boss extends Entity{
 			case 0:
 				this.
 				sprite2 = new SpriteSheet(ImageIO.read(new File("data/flame.png")));
-				sprite = new SpriteSheet(ImageIO.read(new File("data/boss3.png")));
+				sprite = new SpriteSheet(ImageIO.read(new File("data/boss1.png")));
 				this.setAttribute(Attribute.Fire);
 				break;
 				
