@@ -34,6 +34,10 @@ public class CombatSystem {
 	private BufferedImage flame_img;
 	private AABB punch_box;
 	private int dungeon_level;
+
+	long timer;
+	long lastime;
+	
 	AABB magic_boxes[];
 
 	private Clip bone_sound;
@@ -59,6 +63,9 @@ public class CombatSystem {
 		punch_sound = AudioSystem.getClip();
 		punch_audio= AudioSystem.getAudioInputStream(new File("data/punch.wav"));
 		punch_sound.open(punch_audio);
+		
+		timer=0;
+		lastime = 0;
 	}
 
 	public Clip getBonk()
@@ -102,12 +109,27 @@ public class CombatSystem {
 			if(this.player.isAttacking()) {
 				g.drawImage(punch_img, (this.punch_box.getX()-player.getFloor().getOffsetX())*32, (this.punch_box.getY()-player.getFloor().getOffsetY())*32, null);
 			   }
+			
 			if(this.player.isMagicAttacking())
 			{
+				if(timer<=10000)
+				{
 					for(AABB box : this.magic_boxes)
 					{
 						g.drawImage(flame_img, (box.getX()-player.getFloor().getOffsetX())*32, (box.getY()-player.getFloor().getOffsetY()-1)*32, null);
 					}
+
+					timer += System.currentTimeMillis() - lastime;
+					lastime = System.currentTimeMillis();
+				}
+				else
+				{
+					this.player.setMagicAttacking(false);
+				}
+			}
+			else if(!this.player.isMagicAttacking())
+			{
+				timer = 0;
 			}
 		}
 		catch(Exception e)
@@ -212,20 +234,22 @@ public class CombatSystem {
 		{
 			if(type=="boss")
 			{
-				if(collide)
+				if(!boss.isDead())
 				{
-					boss.setHp(boss.getHp()-(player.getAttack()-boss.getDefence()));
-					
-					if(!punch_sound.isRunning())
+					if(collide)
 					{
-						punch_sound.loop(1);
-					}
-					
-					if(boss.isDead())
-					{
-						this.player.addExp(this.boss.getExpGuaranteed());
-						boss.getBossFloor().exitCreate(boss.getBox().getpos());
-						boss=null;
+						boss.setHp(boss.getHp()-(player.getAttack()-boss.getDefence()));
+						
+						if(!punch_sound.isRunning())
+						{
+							punch_sound.loop(1);
+						}
+						
+						if(boss.isDead())
+						{
+							this.player.addExp(this.boss.getExpGuaranteed());
+							boss.getBossFloor().exitCreate(boss.getBox().getpos());
+						}
 					}
 				}
 			}
@@ -302,7 +326,6 @@ public class CombatSystem {
 		if(enemy.isDead())
 		{
 			this.player.addExp(enemy.getExpGuaranteed());
-			//this.removeEnemy(enemy);
 		}
 	}
 	
