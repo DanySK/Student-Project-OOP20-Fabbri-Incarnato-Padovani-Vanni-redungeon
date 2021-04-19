@@ -16,10 +16,9 @@ import java.util.Vector;
 import javax.imageio.ImageIO;
 import entity.*;
 import game.*;
+import mapandtiles.Maputil.corner;
 import utilities.SpriteSheet;
 import utilities.AABB;
-import utilities.Maputil;
-import utilities.Maputil.corner;
 
 public class Floor extends AbsFloor {
 	private Maputil util= new Maputil();
@@ -44,9 +43,9 @@ public class Floor extends AbsFloor {
 	   this.width=w;
 	   this.screenw=screenw;
 	   this.screenh=screenh;
-	   int floorseed=1;
+	   int floorseed=2;
 	   if(l>5 && l<=10) {
-		   floorseed=2;
+		   floorseed=1;
 	   }
 	   else if(l>10 && l<=15) {floorseed=3;}
 	   else if(l>15) {floorseed=4;}

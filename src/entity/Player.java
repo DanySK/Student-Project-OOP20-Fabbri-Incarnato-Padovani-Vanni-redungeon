@@ -175,7 +175,7 @@ public class Player extends Entity {
 		g.setColor(Color.blue);
 		g.fillRect((x-getFloor().getOffsetX())*32,
 				(y-getFloor().getOffsetY()+1)*32,
-				(this.getActualExp()*54)/this.getMaxExp(), 8);
+				(this.getActualExp()*32)/this.getMaxExp(), 8);
 		
 		g.drawImage(null,(x-getFloor().getOffsetX())*32,
 				(y-getFloor().getOffsetY()-1)*32,null);
@@ -227,16 +227,19 @@ public class Player extends Entity {
     	
             
         String level;
-        if(this.getLevel()<10) {
-        	level="0"+this.getLevel();
-        }
-        else {
         	level=""+this.getLevel();
+        if(this.getLevel()<10)
+        {
+            g.setFont(new CustomFontUtil(true, 12).getCustomFont());
+            g.drawString(level, (x-getFloor().getOffsetX())*32-7, 
+    				(y-getFloor().getOffsetY()-2)*32+33);
         }
-        
-        g.setFont(new CustomFontUtil(true, 18).getCustomFont());
-        g.drawString(level, (x-getFloor().getOffsetX())*32-13, 
-				(y-getFloor().getOffsetY()-2)*32+32);
+        else if(this.getLevel()>=10)
+        {
+            g.setFont(new CustomFontUtil(true, 12).getCustomFont());
+            g.drawString(level, (x-getFloor().getOffsetX())*32-11, 
+    				(y-getFloor().getOffsetY()-2)*32+32);
+        }
     
 	}
 
@@ -324,7 +327,7 @@ public class Player extends Entity {
 				break;
 				
 			case KeyEvent.VK_K:
-				//if(this.spell_remain != 0)
+				if(this.spell_remain != 0)
 				{
 					this.setMagicAttacking(true);
 					combat.playerMagicAttack();

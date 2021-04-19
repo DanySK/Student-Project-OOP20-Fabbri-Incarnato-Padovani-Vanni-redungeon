@@ -1,12 +1,9 @@
 package game;
 
-import java.awt.Canvas;
+import java.awt.Canvas; 
 
 import java.awt.Color;
-import java.awt.FontFormatException;
 import java.awt.Graphics2D;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
 import java.io.File;
 import java.io.IOException;
@@ -45,14 +42,14 @@ public class Game extends Canvas implements Runnable{
 	private int level=1;
 	private Handler handler;
 	private CombatSystem combat;
-	private Clip clip;
-	private AudioInputStream audio;
+	//private Clip clip;
+	//private AudioInputStream audio;
 
 	public Game() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
 		
-		clip = AudioSystem.getClip();
-		audio= AudioSystem.getAudioInputStream(new File("data/cavalcata.wav"));
-		clip.open(audio);
+		//clip = AudioSystem.getClip();
+		//audio= AudioSystem.getAudioInputStream(new File("data/cavalcata.wav"));
+		//clip.open(audio);
 		
 		handler=new Handler();
 		combat = new CombatSystem();
@@ -155,7 +152,7 @@ public class Game extends Canvas implements Runnable{
 			g.setColor(Color.black);
 			
 			g.setFont(new CustomFontUtil(true, 50).getCustomFont());
-			g.drawString("GAME OVER", WIDTH/2-200,HEIGHT/2);
+			g.drawString("GAME OVER", WIDTH/2-100,HEIGHT/2);
 			//g.drawString("Continue?", WIDTH/2-150, HEIGHT/2+50);
 			//g.drawString("Y        N", WIDTH/2-130,HEIGHT-250);
 				

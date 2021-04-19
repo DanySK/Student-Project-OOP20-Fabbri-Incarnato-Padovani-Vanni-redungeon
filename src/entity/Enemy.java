@@ -144,6 +144,23 @@ public class Enemy extends Entity{
 		}
 		g.drawImage(img,(x-getFloor().getOffsetX())*32,
 				(y-getFloor().getOffsetY()-1)*32,null);
+		
+		
+		g.setColor(Color.black);
+		String level;
+    	level=""+this.getLevel();
+	    if(this.getLevel()<10)
+	    {
+	        g.setFont(new CustomFontUtil(true, 12).getCustomFont());
+	        g.drawString(level, (x-getFloor().getOffsetX())*32-7, 
+					(y-getFloor().getOffsetY()-2)*32+33);
+	    }
+	    else if(this.getLevel()>=10)
+	    {
+	        g.setFont(new CustomFontUtil(true, 12).getCustomFont());
+	        g.drawString(level, (x-getFloor().getOffsetX())*32-11, 
+					(y-getFloor().getOffsetY()-2)*32+32);
+	    }
 	}
 
 	@Override
@@ -222,7 +239,7 @@ public class Enemy extends Entity{
 	}
 	
 	public void setExpGuaranteed(int expGuaranteed) {/*is dead true -> player_stat.setExp(expgranted)*/
-		this.expGuaranteed=expGuaranteed+this.getLevel();
+		this.expGuaranteed=expGuaranteed+(this.getLevel()*10);
 	}
 	
 	public void augmStat() {

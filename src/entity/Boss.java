@@ -40,6 +40,7 @@ public class Boss extends Entity{
 	int flames_number;
 	BufferedImage flame_img_matrix[][];
 	BufferedImage flame_img;
+	SpriteSheet sprite2;
 	
 	List<AABB> flames = new ArrayList<AABB>();
 	
@@ -57,17 +58,20 @@ public class Boss extends Entity{
 		{
 			case 0:
 				this.
-				sprite = new SpriteSheet(ImageIO.read(new File("data/flame.png")));
+				sprite2 = new SpriteSheet(ImageIO.read(new File("data/flame.png")));
+				sprite = new SpriteSheet(ImageIO.read(new File("data/boss1.png")));
 				this.setAttribute(Attribute.Fire);
 				break;
 				
 			case 1:
-				sprite = new SpriteSheet(ImageIO.read(new File("data/waternado.png")));
+				sprite2 = new SpriteSheet(ImageIO.read(new File("data/waternado.png")));
+				sprite = new SpriteSheet(ImageIO.read(new File("data/boss3.png")));
 				this.setAttribute(Attribute.Water);
 				break;
 				
 			case 2:
-				sprite = new SpriteSheet(ImageIO.read(new File("data/leafnado.png")));
+				sprite2 = new SpriteSheet(ImageIO.read(new File("data/leafnado.png")));
+				sprite = new SpriteSheet(ImageIO.read(new File("data/boss2.png")));
 				this.setAttribute(Attribute.Grass);
 				break;
 		}
@@ -75,10 +79,9 @@ public class Boss extends Entity{
 		this.flame_img_matrix = new BufferedImage[1][3];
 		for(int column=0; column<3; column++)
 		{
-			flame_img_matrix[0][column] = sprite.grabImage(column+1, 1, 32, 32); 
+			flame_img_matrix[0][column] = sprite2.grabImage(column+1, 1, 32, 32); 
 		}
 		
-		sprite = new SpriteSheet(ImageIO.read(new File("data/boss.png")));
 		this.setBox(new AABB(new Point(this.x, this.y), 6, 4));
 		this.player_parameter = player;
 		this.img_matrix = new BufferedImage[4][3];
@@ -362,7 +365,7 @@ public class Boss extends Entity{
 	}
 	
 	public void setExpGuaranteed(int expGuaranteed) {/*is dead true -> player_stat.setExp(expgranted)*/
-		this.expGuaranteed=expGuaranteed+this.getLevel();
+		this.expGuaranteed=expGuaranteed+(this.getLevel()*10);
 	}
 	public BossFloor getBossFloor() {return (BossFloor) this.getFloor();}
 	public void augmStat() {
