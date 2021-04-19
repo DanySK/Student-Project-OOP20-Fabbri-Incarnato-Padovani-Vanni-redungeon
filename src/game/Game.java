@@ -45,14 +45,14 @@ public class Game extends Canvas implements Runnable{
 	private int level=1;
 	private Handler handler;
 	private CombatSystem combat;
-	private Clip clip;
-	private AudioInputStream audio;
+	//private Clip clip;
+	//private AudioInputStream audio;
 
 	public Game() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
 		
-		clip = AudioSystem.getClip();
-		audio= AudioSystem.getAudioInputStream(new File("data/cavalcata.wav"));
-		clip.open(audio);
+		//clip = AudioSystem.getClip();
+		//audio= AudioSystem.getAudioInputStream(new File("data/cavalcata.wav"));
+		//clip.open(audio);
 		
 		handler=new Handler();
 		combat = new CombatSystem();
