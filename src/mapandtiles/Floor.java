@@ -3,6 +3,7 @@ package mapandtiles;
 import java.awt.Color;
 
 
+
 import java.awt.Graphics2D;
 
 import java.awt.Point;
@@ -16,7 +17,6 @@ import java.util.Vector;
 import javax.imageio.ImageIO;
 import entity.*;
 import game.*;
-import mapandtiles.Maputil.corner;
 import utilities.SpriteSheet;
 import utilities.AABB;
 
@@ -220,61 +220,61 @@ public class Floor extends AbsFloor {
 //set the sprite of the tile according to the maputil check
 	private void choosetile(Point p) {
 		corner corner= util.cornercheck(tilestate, p);
-	  if(corner== corner.INS) {
+	  if(corner== mapandtiles.corner.INS) {
 		  tilestate.get(p).setImg(sprite.grabImage(3, 9, 32, 32));
 	  }
-	  if(corner== corner.CR) {
+	  if(corner== mapandtiles.corner.CR) {
 		  tilestate.get(p).setImg(sprite.grabImage(2, 8, 32, 32));
 	  }
-	  if(corner== corner.CL) {
+	  if(corner== mapandtiles.corner.CL) {
 		  tilestate.get(p).setImg(sprite.grabImage(1, 8, 32, 32));
 	  }
-	  if(corner== corner.CT) {
+	  if(corner== mapandtiles.corner.CT) {
 		  tilestate.get(p).setImg(sprite.grabImage(4, 8, 32, 32));
 	  }
-	  if(corner== corner.CB) {
+	  if(corner== mapandtiles.corner.CB) {
 		  tilestate.get(p).setImg(sprite.grabImage(3, 8, 32, 32));
 	  }
-	  if(corner== corner.CO) {
+	  if(corner== mapandtiles.corner.CO) {
 		  tilestate.get(p).setImg(sprite.grabImage(2, 9, 32, 32));
 	  }
-	  if(corner== corner.CV) {
+	  if(corner== mapandtiles.corner.CV) {
 		  tilestate.get(p).setImg(sprite.grabImage(1, 9, 32, 32));
 	  }
-	  if(corner== corner.BL) {
+	  if(corner== mapandtiles.corner.BL) {
 		  tilestate.get(p).setImg(sprite.grabImage(4, 7, 32, 32));
 	  }
-	  if(corner== corner.BR) {
+	  if(corner== mapandtiles.corner.BR) {
 		  tilestate.get(p).setImg(sprite.grabImage(3, 7, 32, 32));
 	  }
-	  if(corner == corner.TL) {
+	  if(corner == mapandtiles.corner.TL) {
 		  tilestate.get(p).setImg(sprite.grabImage(2, 7, 32, 32));
 	  }
-	  if(corner== corner.TR) {
+	  if(corner== mapandtiles.corner.TR) {
 		  tilestate.get(p).setImg(sprite.grabImage(1, 7, 32, 32));
 	  }
-	  if(corner == corner.E) {
+	  if(corner == mapandtiles.corner.E) {
 		  tilestate.get(p).setImg(sprite.grabImage(4, 5, 32, 32));
 	  }
-	  if(corner == corner.N) {
+	  if(corner == mapandtiles.corner.N) {
 		  tilestate.get(p).setImg(sprite.grabImage(2, 5, 32, 32));
 	  }
-	  if(corner == corner.S) {
+	  if(corner == mapandtiles.corner.S) {
 		  tilestate.get(p).setImg(sprite.grabImage(1, 5, 32, 32));
 	  }
-	  if(corner == corner.W) {
+	  if(corner == mapandtiles.corner.W) {
 		  tilestate.get(p).setImg(sprite.grabImage(3, 5, 32, 32));
 	  }
-	  if(corner == corner.SW) {
+	  if(corner == mapandtiles.corner.SW) {
 		  tilestate.get(p).setImg(sprite.grabImage(3, 6, 32, 32));
 	  }
-	  if(corner == corner.NW) {
+	  if(corner == mapandtiles.corner.NW) {
 		  tilestate.get(p).setImg(sprite.grabImage(1, 6, 32, 32));
 	  }
-	  if(corner == corner.SE) {
+	  if(corner == mapandtiles.corner.SE) {
 		  tilestate.get(p).setImg(sprite.grabImage(4, 6, 32, 32));
 	  }
-	  if(corner == corner.NE) {
+	  if(corner == mapandtiles.corner.NE) {
 		  tilestate.get(p).setImg(sprite.grabImage(2, 6, 32, 32));
 	  }
 		

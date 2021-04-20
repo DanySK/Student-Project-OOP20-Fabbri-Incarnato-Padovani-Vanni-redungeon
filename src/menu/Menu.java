@@ -30,7 +30,7 @@ public class Menu{
 	
 	String[] resolution = {"800x600","1280x768","1440x900","1920x1080"};
 	
-	JComboBox comboBox = new JComboBox(resolution);
+	JComboBox<?> comboBox = new JComboBox<Object>(resolution);
 	
 	ActionListener NewGame = (e)->{
 		//inizia nuovo gioco
