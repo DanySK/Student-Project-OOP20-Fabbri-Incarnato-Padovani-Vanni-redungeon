@@ -242,6 +242,7 @@ public class Enemy extends Entity{
 		this.expGuaranteed=expGuaranteed+(this.getLevel()*10);
 	}
 	
+	@Override
 	public void augmStat() {
 
 		Random rng = new Random();

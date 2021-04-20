@@ -22,6 +22,17 @@ import utilities.*;
 import game.*;
 import mapandtiles.*;
 
+/**
+ * Extended from Entity, is a particular type of Enemy with some different function
+ * 
+ * @author Francesco Padovani
+ * @author Luigi Incarnato
+ * @author Leroy Fabbri
+ * @author Matteo Vanni
+ *
+ * @see game.CombatSystem
+ *
+ */
 public class Boss extends Entity{
 	
 	int column=0;
@@ -42,9 +53,26 @@ public class Boss extends Entity{
 	BufferedImage flame_img;
 	SpriteSheet sprite2;
 	
+	/**
+	 * Extended from Entity is an Enemy with particular statistic
+	 */
 	List<AABB> flames = new ArrayList<AABB>();
 	
-	
+	/**
+	 * Constructor
+	 * 
+	 * @param x 		horizontal position
+	 * @param y 		vertical position
+	 * @param id 	 	game.ID
+	 * @param combat	Type of combat
+	 * @param level		Used for stats modifier
+	 * @param floor		Used for positioning
+	 * @param player	Used for damage and statistics
+	 * 
+	 * @throws IOException
+	 * @throws LineUnavailableException
+	 * @throws UnsupportedAudioFileException
+	 */
 	public Boss(int x, int y, ID id, CombatSystem combat, int level, BossFloor floor, Player player) throws IOException, LineUnavailableException, UnsupportedAudioFileException{
 		super(x, y, id, combat, level, floor);
 		// TODO Auto-generated constructor stub
@@ -121,6 +149,7 @@ public class Boss extends Entity{
 		this.augmStat();
 	}
 
+	
 	@Override
 	public void tick() {
 		timer += System.currentTimeMillis() - lastime;
@@ -212,6 +241,7 @@ public class Boss extends Entity{
 		g.drawImage(img,(x-getFloor().getOffsetX())*32,
 				(y-getFloor().getOffsetY()-1)*32,null);
 	}
+	
 
 	@Override
 	public void input(KeyEvent key, List<AABB> collisions) {
@@ -220,7 +250,7 @@ public class Boss extends Entity{
 		collisions.remove(box);
 		collide = false;
 		
-		//the enemy finds the position of the player like it is in a cartesian system
+		/**the enemy finds the position of the player like it is in a cartesian system*/
 		
 		if(this.getY()+3<player_parameter.getY())
 		{
@@ -281,6 +311,10 @@ public class Boss extends Entity{
 		collisions.add(box);
 	}
 	
+	
+	/**
+	 * Boss special attack that moves around the map
+	 */
 	public void moveFlames()
 	{
 		Random rand = new Random();
@@ -338,6 +372,13 @@ public class Boss extends Entity{
 		}
 	}
 	
+	/**
+	 * Collision for the flames so they never go out of the map or block with walls
+	 * @param box	Collision box 
+	 * @param a		horizontal modifiers
+	 * @param b		vertical modifiers
+	 * @return boolean
+	 */
 	public boolean flamesCollide(AABB box, int a, int b)
 	{
 		if(!(this.getFloor().getMap().get(new Point((box.getX()+a),(box.getY()+b))).gettype()==tiletype.OFF))
@@ -359,15 +400,31 @@ public class Boss extends Entity{
 	}
 	
 
-	
+	/**
+	 * 
+	 * @return the experience given to player on kill
+	 */
 	public int getExpGuaranteed() {
 		return expGuaranteed;
 	}
 	
+	/**
+	 * Set the experience given to player on kill
+	 * 
+	 * @param expGuaranteed	experience modifier
+	 */
 	public void setExpGuaranteed(int expGuaranteed) {/*is dead true -> player_stat.setExp(expgranted)*/
 		this.expGuaranteed=expGuaranteed+(this.getLevel()*10);
 	}
+	
+	/**
+	 * Used to get the boss floor
+	 * @return the boss floor to generate
+	 */
 	public BossFloor getBossFloor() {return (BossFloor) this.getFloor();}
+	
+
+	@Override
 	public void augmStat() {
 
 		Random rng = new Random();

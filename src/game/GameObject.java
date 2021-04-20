@@ -56,7 +56,7 @@ public abstract class GameObject {
 	public abstract void render(Graphics2D g);
 	
 	/**
-	 * Take input from user keyboard
+	 * Take input from user keyboard or update entity action after key press
 	 * @param key
 	 * 		The keyboard key(Es.: KeyEvent.VK_W)
 	 * @param collisions

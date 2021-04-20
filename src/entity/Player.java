@@ -350,26 +350,8 @@ public class Player extends Entity {
 		//this.setMaxExp();
 		
 		/*stats augm.*/
+		this.augmStat();
 		
-		Random rng = new Random();
-		int minRange=3;
-		int maxRange=6;
-		int range=maxRange-minRange+1;
-		
-		this.setAttack(this.getAttack() + (rng.nextInt(range) + minRange) );
-		
-		this.setDefence((this.getDefence() + (rng.nextInt(range) + minRange))-2 );
-		
-		this.setMagic_Attack(this.getMagic_attack() + (rng.nextInt(range) + minRange) );
-		
-		this.setMax_hp(this.getMax_hp() + ((rng.nextInt(range) + minRange)*10) );
-		
-		this.setHp(this.getMax_hp());
-		
-		if(this.getLevel()%5 == 0)
-		{
-			this.max_spell++;
-		}
 	}
 	
 	public void addExp(int additionalExp) {
@@ -421,6 +403,29 @@ public class Player extends Entity {
 	public void setMagicAttacking(boolean bool)
 	{
 		this.magic_attacking = bool;
+	}
+
+	@Override
+	public void augmStat() {
+		Random rng = new Random();
+		int minRange=3;
+		int maxRange=6;
+		int range=maxRange-minRange+1;
+		
+		this.setAttack(this.getAttack() + (rng.nextInt(range) + minRange) );
+		
+		this.setDefence((this.getDefence() + (rng.nextInt(range) + minRange))-2 );
+		
+		this.setMagic_Attack(this.getMagic_attack() + (rng.nextInt(range) + minRange) );
+		
+		this.setMax_hp(this.getMax_hp() + ((rng.nextInt(range) + minRange)*10) );
+		
+		this.setHp(this.getMax_hp());
+		
+		if(this.getLevel()%5 == 0)
+		{
+			this.max_spell++;
+		}
 	}
 
 	/*public Rectangle getBounds()
