@@ -22,8 +22,8 @@ public class Game extends Canvas implements Runnable{
 	 */
 	private static final long serialVersionUID = -8647713295702872480L;
 	
-	public static final int WIDTH =1200, HEIGHT=WIDTH/12*9;
-	public static final int MAPW=3600,MAPH=HEIGHT;
+	public int WIDTH =1200, HEIGHT=WIDTH/12*9;
+	public int MAPW=3600,MAPH=HEIGHT;
 	
 	private Thread thread;
 	
@@ -39,11 +39,15 @@ public class Game extends Canvas implements Runnable{
 	//private Clip clip;
 	//private AudioInputStream audio;
 
-	public Game() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
+	public Game(int width, int height, int mapwidth, int mapheight) throws IOException, LineUnavailableException, UnsupportedAudioFileException {
 		
 		//clip = AudioSystem.getClip();
 		//audio= AudioSystem.getAudioInputStream(new File("data/cavalcata.wav"));
 		//clip.open(audio);
+		this.WIDTH=width;
+		this.HEIGHT=height;
+		this.MAPW=mapwidth;
+		this.MAPH=mapheight;
 		
 		handler=new Handler();
 		combat = new CombatSystem();
@@ -194,8 +198,5 @@ public class Game extends Canvas implements Runnable{
 		
 	}
 	
-	public static void main(String[] args) throws IOException, LineUnavailableException, UnsupportedAudioFileException {
-		new Game();
-	}
 
 }

@@ -2,17 +2,28 @@ package menu;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 
+import game.Game;
 import utilities.*;
-//import game.Window;
 
 
-public class Menu{
+public class Menu extends JFrame{
 
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8098037462564546327L;
 	
 	public static int width=1366;
 	public static int height=768;
+	public static int mapwidth=3200;
+	public static int mapheight=3200;
 	
 	public Menu() {
 
@@ -23,6 +34,7 @@ public class Menu{
 	menupanel.setBackground(Color.BLACK);
 	menupanel.setLayout(null);
 	f.getContentPane().add(menupanel);
+	f.setVisible(true);
 	
 	
 	final JPanel Optionspanel= new JPanel();
@@ -33,7 +45,19 @@ public class Menu{
 	JComboBox<?> comboBox = new JComboBox<Object>(resolution);
 	
 	ActionListener NewGame = (e)->{
-		//inizia nuovo gioco
+		try {
+			new Game(width,height,mapwidth,mapheight);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (LineUnavailableException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (UnsupportedAudioFileException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		f.dispose();
 	};
 	
 	ActionListener Options = (e)->{
@@ -85,7 +109,6 @@ public class Menu{
 	
 	
 	final JButton b1=new JButton ("Inizia Gioco") ;
-	
 	final JButton b2=new JButton ("Opzioni") ;
 	final JButton b3=new JButton ("Esci");
 	menupanel.add ( b1 );
@@ -135,6 +158,10 @@ public class Menu{
 	
 		
 		
+	}
+	
+	public static void main(String[] args) throws IOException, LineUnavailableException, UnsupportedAudioFileException {
+		new Menu();
 	}
 
 }
