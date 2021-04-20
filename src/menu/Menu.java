@@ -20,7 +20,7 @@ public class Menu extends JFrame{
 	 */
 	private static final long serialVersionUID = -8098037462564546327L;
 	
-	public static int width=1366;
+	public static int width=1360;
 	public static int height=768;
 	public static int mapwidth=3200;
 	public static int mapheight=3200;
