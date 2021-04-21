@@ -124,18 +124,18 @@ public class Menu extends JFrame{
 		difficultyBox.getSelectedIndex();
 		if(difficultyBox.getSelectedIndex()==0)
 		{
-			mapwidth=2000;
-			mapheight=2000;
+			mapwidth=1000;
+			mapheight=1000;
 		}
 		else if(difficultyBox.getSelectedIndex()==1)
 		{
-			mapwidth=3000;
-			mapheight=3000;
+			mapwidth=1500;
+			mapheight=1500;
 		}
 		else if(difficultyBox.getSelectedIndex()==2)
 		{
-			mapwidth=4000;
-			mapheight=4000;
+			mapwidth=2000;
+			mapheight=2000;
 		}
 	};
 	
@@ -188,6 +188,19 @@ public class Menu extends JFrame{
 	b4.setFocusable(false);
 	b4.addActionListener(Back);
 	Optionspanel.add(b4);
+	
+	final JButton musicB=new JButton ();
+	musicB.setBounds(200, height/5*3, 25, 25);
+	musicB.setFont(new CustomFontUtil(true, 18).getCustomFont());
+	musicB.setFocusable(false);
+	Optionspanel.add(musicB);
+	
+	final JButton effectB=new JButton ();
+	effectB.setBounds(200, height/5*4, 25, 25);
+	effectB.setFont(new CustomFontUtil(true, 18).getCustomFont());
+	effectB.setFocusable(false);
+	Optionspanel.add(effectB);
+	
 	
 	
 JSlider musicSlider = new JSlider(JSlider.HORIZONTAL,0,100,50);
