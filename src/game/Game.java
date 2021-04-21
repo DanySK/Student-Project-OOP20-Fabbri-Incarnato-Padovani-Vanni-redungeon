@@ -9,9 +9,11 @@ import java.io.IOException;
 import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+
 import mapandtiles.*;
 import utilities.CustomFontUtil;
 import entity.*;
+import menu.Difficulty;
 
 /**
  * 
@@ -42,6 +44,8 @@ public class Game extends Canvas implements Runnable{
 	public int WIDTH =1280, HEIGHT=WIDTH/12*9;
 	public int MAPW=3600,MAPH=HEIGHT;
 	
+	private final int MAX_ENEMIES;
+	
 	private Thread thread;
 	
 	private Graphics2D g;
@@ -68,7 +72,7 @@ public class Game extends Canvas implements Runnable{
 	 * @throws LineUnavailableException
 	 * @throws UnsupportedAudioFileException
 	 */
-	public Game(int width, int height, int mapwidth, int mapheight) throws IOException, LineUnavailableException, UnsupportedAudioFileException {
+	public Game(int width, int height, int mapwidth, int mapheight, Difficulty difficulty, double music, double effect) throws IOException, LineUnavailableException, UnsupportedAudioFileException {
 		
 		//clip = AudioSystem.getClip();
 		//audio= AudioSystem.getAudioInputStream(new File("data/cavalcata.wav"));
@@ -78,9 +82,29 @@ public class Game extends Canvas implements Runnable{
 		this.MAPW=mapwidth;
 		this.MAPH=mapheight;
 		
+		switch(difficulty)
+		{
+		case Easy:
+			this.MAX_ENEMIES=30;
+			break;
+			
+		case Hard:
+			this.MAX_ENEMIES=40;
+			break;
+			
+		case Normal:
+			this.MAX_ENEMIES=50;
+			break;
+			
+		default:
+			this.MAX_ENEMIES=30;
+			break;
+		
+		}
+		
 		handler=new Handler();
-		combat = new CombatSystem();
-		keylistener = new KeyInput(handler, (FloatControl) combat.getPunch().getControl(FloatControl.Type.MASTER_GAIN), (FloatControl) combat.getBonk().getControl(FloatControl.Type.MASTER_GAIN));
+		combat = new CombatSystem(effect);
+		keylistener = new KeyInput(handler);
 		this.addKeyListener(keylistener);
 		new Window(WIDTH,HEIGHT,"Re:Dungeon",this);
 		this.f= ff.standardFloor(level,MAPW,MAPH,WIDTH,HEIGHT);
@@ -179,7 +203,7 @@ public class Game extends Canvas implements Runnable{
 			nextLevel();
 		}
 		
-		if(keylistener.getMoves()>=15 && level%5!=0)
+		if(keylistener.getMoves()>=50 && level%5!=0 && handler.enemies_number<=MAX_ENEMIES)
 		{
 			keylistener.setMoves();
 			Enemy enemy=ef.normalEnemy(0, 0, ID.Enemy, combat, level, f, p);
@@ -210,7 +234,7 @@ public class Game extends Canvas implements Runnable{
 			g.setColor(Color.black);
 			
 			g.setFont(new CustomFontUtil(true, 50).getCustomFont());
-			g.drawString("GAME OVER", WIDTH/2-100,HEIGHT/2);
+			g.drawString("GAME OVER " + handler.point , WIDTH/2-100,HEIGHT/2);
 			//g.drawString("Continue?", WIDTH/2-150, HEIGHT/2+50);
 			//g.drawString("Y        N", WIDTH/2-130,HEIGHT-250);
 				

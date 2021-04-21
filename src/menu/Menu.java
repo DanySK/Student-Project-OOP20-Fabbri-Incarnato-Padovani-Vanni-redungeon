@@ -8,9 +8,12 @@ import java.io.IOException;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import game.Game;
 import utilities.*;
@@ -26,6 +29,15 @@ public class Menu extends JFrame{
 	
 	private Clip menu_sound;
 	private AudioInputStream menu_audio;
+	private FloatControl menu_volume;
+	private double music_gain = 0.5;
+	private double effect_gain = 0.5;
+	
+	private Clip test_sound;
+	private AudioInputStream test_audio;
+	private FloatControl test_volume;
+	
+	private Difficulty difficulty;
 	
 	public static int width=800;
 	public static int height=600;
@@ -48,19 +60,27 @@ public class Menu extends JFrame{
 	menu_sound.open(menu_audio);
 	
 	menu_sound.loop(Clip.LOOP_CONTINUOUSLY);
+	
+	test_sound = AudioSystem.getClip();
+	test_audio= AudioSystem.getAudioInputStream(new File("data/bonk.wav"));
+	test_sound.open(test_audio);
+	
 	final JPanel Optionspanel= new JPanel();
 	
 	
 	String[] resolution = {"800x600","1280x768","1440x900","1920x1080"};
-	String[] difficulty = {"Facile","Normale","Difficile"};
+	String[] difficulty_selection = {"Facile","Normale","Difficile"};
 	
 	JComboBox<?> comboBox = new JComboBox<Object>(resolution);
-	JComboBox<?> difficultyBox= new JComboBox<Object>(difficulty);
+	JComboBox<?> difficultyBox= new JComboBox<Object>(difficulty_selection);
+	JSlider musicSlider = new JSlider(JSlider.HORIZONTAL,10,100,50);
+	JSlider effectSlider = new JSlider(JSlider.HORIZONTAL,10,100,50);
+	final JButton effectB=new JButton ();
 	
 	ActionListener NewGame = (e)->{
 		menu_sound.stop();
 		try {
-			new Game(width,height,mapwidth,mapheight);
+			new Game(width,height,mapwidth,mapheight, getDifficulty(), music_gain, effect_gain);
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -124,19 +144,27 @@ public class Menu extends JFrame{
 		difficultyBox.getSelectedIndex();
 		if(difficultyBox.getSelectedIndex()==0)
 		{
+			setDifficulty(Difficulty.Easy);
 			mapwidth=1000;
 			mapheight=1000;
 		}
 		else if(difficultyBox.getSelectedIndex()==1)
 		{
+			setDifficulty(Difficulty.Normal);
 			mapwidth=1500;
 			mapheight=1500;
 		}
 		else if(difficultyBox.getSelectedIndex()==2)
 		{
+			setDifficulty(Difficulty.Hard);
 			mapwidth=2000;
 			mapheight=2000;
 		}
+	};
+	
+	ActionListener test = (e)->{
+		if(!test_sound.isRunning())
+			test_sound.loop(1);
 	};
 	
 	
@@ -189,50 +217,59 @@ public class Menu extends JFrame{
 	b4.addActionListener(Back);
 	Optionspanel.add(b4);
 	
-	final JButton musicB=new JButton ();
-	musicB.setBounds(200, height/5*3, 25, 25);
-	musicB.setFont(new CustomFontUtil(true, 18).getCustomFont());
-	musicB.setFocusable(false);
-	Optionspanel.add(musicB);
-	
-	final JButton effectB=new JButton ();
 	effectB.setBounds(200, height/5*4, 25, 25);
 	effectB.setFont(new CustomFontUtil(true, 18).getCustomFont());
 	effectB.setFocusable(false);
+	effectB.addActionListener(test);
 	Optionspanel.add(effectB);
 	
 	
-	
-JSlider musicSlider = new JSlider(JSlider.HORIZONTAL,0,100,50);
 	musicSlider.setFont(new CustomFontUtil(true, 18).getCustomFont());
 	musicSlider.setMajorTickSpacing(10);
-	musicSlider.setMinorTickSpacing(1);
+	musicSlider.setMinorTickSpacing(10);
 	musicSlider.setPaintTicks(true);
 	musicSlider.setPaintLabels(true);
 	musicSlider.setBounds(300, height/5*3, size.width*7, size.height*2);
+	musicSlider.addChangeListener(new ChangeListener() {
+        public void stateChanged(ChangeEvent e) {
+        		music_gain = musicSlider.getValue()*0.01;
+        		float dB = (float) (Math.log(music_gain) / Math.log(10.0) * 20.0);
+        		menu_volume = (FloatControl) menu_sound.getControl(FloatControl.Type.MASTER_GAIN);
+        		menu_volume.setValue(dB);
+            }
+    });
 	Optionspanel.add(musicSlider);
-	
-JSlider effectSlider = new JSlider(JSlider.HORIZONTAL,0,100,50);
+		
+		
 	effectSlider.setFont(new CustomFontUtil(true, 18).getCustomFont());
 	effectSlider.setMajorTickSpacing(10);
-	effectSlider.setMinorTickSpacing(1);
+	effectSlider.setMinorTickSpacing(10);
 	effectSlider.setPaintTicks(true);
 	effectSlider.setPaintLabels(true);
 	effectSlider.setBounds(300, height/5*4, size.width*7, size.height*2);
+	effectSlider.addChangeListener(new ChangeListener() {
+        public void stateChanged(ChangeEvent e) {
+        	effect_gain = effectSlider.getValue()*0.01;
+        	float dB = (float) (Math.log(effect_gain) / Math.log(10.0) * 20.0);
+    		test_volume = (FloatControl) test_sound.getControl(FloatControl.Type.MASTER_GAIN);
+    		test_volume.setValue(dB);
+        }
+	});
 	Optionspanel.add(effectSlider);
 	
-	
-	
-	
-	
-	
-	
-		
 		
 	}
 	
 	public static void main(String[] args) throws IOException, LineUnavailableException, UnsupportedAudioFileException {
 		new Menu();
+	}
+
+	public Difficulty getDifficulty() {
+		return difficulty;
+	}
+
+	public void setDifficulty(Difficulty difficulty) {
+		this.difficulty = difficulty;
 	}
 
 }

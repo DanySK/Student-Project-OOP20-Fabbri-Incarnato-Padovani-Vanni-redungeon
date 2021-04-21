@@ -6,8 +6,6 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.sound.sampled.FloatControl;
-
 import utilities.*;
 import entity.*;
 
@@ -28,11 +26,7 @@ import entity.*;
 public class KeyInput extends KeyAdapter {
 	
 	private Handler handler;
-	FloatControl punch_control;
-	FloatControl bonk_control;
-	double gain;
-	float dB;
-	int move=0;
+	int moves=0;
 	
 	/**
 	 * Constructor
@@ -40,42 +34,15 @@ public class KeyInput extends KeyAdapter {
 	 * @param punch	  player hit sound
 	 * @param bonk	  enemy hit sound
 	 */
-	public KeyInput(Handler handler, FloatControl punch, FloatControl bonk) {
+	public KeyInput(Handler handler) {
 		this.handler=handler;
-		
-		punch_control = punch;
-		
-		bonk_control = bonk;
-		
-		gain = 0.5;   
-		dB = (float) (Math.log(gain) / Math.log(10.0) * 20.0);
 	}
 	/**
 	 * Control events when user press a key
 	 * @param key the key pressed
 	 */
 	public void keyPressed(KeyEvent key) {
-		if(key.getKeyCode()==107)
-		{
-			if(gain<1.0)
-			{
-				gain+=0.1;
-				dB = (float) (Math.log(gain) / Math.log(10.0) * 20.0);
-				this.punch_control.setValue(dB);
-				this.bonk_control.setValue(dB);
-			}
-		}
 		
-		if(key.getKeyCode()==109)
-		{
-			if(gain>0.15)
-			{
-				gain-=0.1;
-				dB = (float) (Math.log(gain) / Math.log(10.0) * 20.0);
-				this.punch_control.setValue(dB);
-				this.bonk_control.setValue(dB);
-			}
-		}
 		List<AABB> collisions = new ArrayList<AABB>();
 		handler.object.stream().filter(x->x.getID() != ID.Floor).forEach( x -> collisions.add(((Entity) x).getBox()));
 		for(int i=0;i<handler.object.size();i++) {
@@ -84,7 +51,9 @@ public class KeyInput extends KeyAdapter {
 			if(tempobj.getID()==ID.Player) {
 				//((Entity) tempobj).setAttacking(true);
 				tempobj.input(key, collisions);
-				move++;
+				if(key.getKeyCode()==KeyEvent.VK_A || key.getKeyCode()==KeyEvent.VK_S || key.getKeyCode()==KeyEvent.VK_D || key.getKeyCode()==KeyEvent.VK_W)
+					moves++;
+				
 			}
 			
 			if(key.getKeyCode()==KeyEvent.VK_A || key.getKeyCode()==KeyEvent.VK_S || key.getKeyCode()==KeyEvent.VK_D || key.getKeyCode()==KeyEvent.VK_W || key.getKeyCode()==KeyEvent.VK_J || key.getKeyCode()==KeyEvent.VK_K)
@@ -151,7 +120,7 @@ public class KeyInput extends KeyAdapter {
 	 */
 	public int getMoves()
 	{
-		return this.move;
+		return this.moves;
 	}
 	
 	/**
@@ -159,7 +128,7 @@ public class KeyInput extends KeyAdapter {
 	 */
 	public void setMoves()
 	{
-		this.move = 0;
+		this.moves = 0;
 	}
 	
 }

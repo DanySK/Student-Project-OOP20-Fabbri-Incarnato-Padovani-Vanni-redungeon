@@ -28,7 +28,8 @@ public class Handler {
 	LinkedList<GameObject> object= new LinkedList<GameObject>();
 	public boolean next= false;
     public boolean dead=false;
-    
+    public int point=0;
+    public int enemies_number=0;
     /**
      * Make control on game events 
      */
@@ -43,6 +44,7 @@ public class Handler {
 				if(obj.isDead())
 				{
 					this.dead=true;
+					point=point+(obj.getInventory().getgems()*500);
 					this.removeObject(obj);
 				}
 			}
@@ -51,6 +53,7 @@ public class Handler {
 				Enemy obj= (Enemy) tempobj;
 				if(obj.isDead())
 				{
+					point+=10;
 					this.removeObject(obj);
 				}
 			}
@@ -59,6 +62,7 @@ public class Handler {
 				Boss obj= (Boss) tempobj;
 				if(obj.isDead())
 				{
+					point+=100;
 					this.removeObject(obj);
 				}
 			}
@@ -82,6 +86,10 @@ public class Handler {
 	 * @param object GameObject
 	 */
 	public void addObject(GameObject object) {
+		if(object.getID()==ID.Enemy)
+		{
+			enemies_number++;
+		}
 		this.object.add(object);
 	}
 	/**

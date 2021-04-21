@@ -13,6 +13,7 @@ import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
@@ -57,9 +58,11 @@ public class CombatSystem {
 
 	private Clip bone_sound;
 	private AudioInputStream bone_audio;
+	private FloatControl bone_volume;
 	
 	private Clip punch_sound;
 	private AudioInputStream punch_audio;
+	private FloatControl punch_volume;
 	
 	/**
 	 * Constructor
@@ -67,8 +70,9 @@ public class CombatSystem {
 	 * @throws LineUnavailableException
 	 * @throws UnsupportedAudioFileException
 	 */
-	public CombatSystem() throws IOException, LineUnavailableException, UnsupportedAudioFileException
+	public CombatSystem(double effect) throws IOException, LineUnavailableException, UnsupportedAudioFileException
 	{
+    	float dB;
 		this.dungeon_level = 1; 
 		enemies = new ArrayList<Enemy>();
 
@@ -80,10 +84,16 @@ public class CombatSystem {
 		bone_sound = AudioSystem.getClip();
 		bone_audio= AudioSystem.getAudioInputStream(new File("data/bonk.wav"));
 		bone_sound.open(bone_audio);
+		bone_volume = (FloatControl) bone_sound.getControl(FloatControl.Type.MASTER_GAIN);
+    	dB = (float) (Math.log(effect) / Math.log(10.0) * 20.0);
+    	bone_volume.setValue(dB);
 		
 		punch_sound = AudioSystem.getClip();
 		punch_audio= AudioSystem.getAudioInputStream(new File("data/punch.wav"));
 		punch_sound.open(punch_audio);
+		punch_volume = (FloatControl) punch_sound.getControl(FloatControl.Type.MASTER_GAIN);
+    	dB = (float) (Math.log(effect) / Math.log(10.0) * 20.0);
+    	punch_volume.setValue(dB);
 		
 		timer=0;
 		lastime = 0;
