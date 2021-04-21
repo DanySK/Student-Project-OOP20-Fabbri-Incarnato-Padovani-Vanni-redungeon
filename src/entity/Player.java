@@ -201,6 +201,7 @@ public class Player extends Entity {
 			
 			if(this.getFloor().getMap().get(this.box.getpos()).gettype()==tiletype.Powerstone) {
 				this.inventory.increasePowerStone();
+				this.inventory.addGems(1);
 				this.getFloor().setTile(this.getBox().getpos());
 				this.combat.lowerBossStats();
 				
