@@ -1,8 +1,10 @@
 package mapandtiles;
 
 public enum corner {
-	 
-		   INS, //insulated tile
+	 /**
+	  * different codes for tile position 
+	  */
+		   INS, 
 		   CL,  
 		   CR,
 		   CT,
