@@ -7,6 +7,7 @@ public enum tiletype {
 	Heal,
 	Teleport,
 	Trap,
+	Gemstone,
 	Exit,
 	LockedExit,
 	Key,

@@ -209,13 +209,17 @@ public class Player extends Entity {
 			}
 			if(this.getFloor().getMap().get(this.box.getpos()).gettype()==tiletype.Teleport) {
 				this.getFloor().placeEntity(this);
-				this.getFloor().setTile(this.getBox().getpos());
-
 				velX=0;
 				velY=0;
 			}
 			if(this.getFloor().getMap().get(this.box.getpos()).gettype()==tiletype.Trap) {
 				this.setHp(this.getHp()-this.getHp()/2);
+
+				velX=0;
+				velY=0;
+			}
+			if(this.getFloor().getMap().get(this.box.getpos()).gettype()==tiletype.Gemstone) {
+				this.inventory.addGems(1);
 				this.getFloor().setTile(this.getBox().getpos());
 
 				velX=0;

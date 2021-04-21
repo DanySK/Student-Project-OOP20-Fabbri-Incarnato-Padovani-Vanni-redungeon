@@ -66,6 +66,7 @@ public class Floor extends AbsFloor {
 	   healCreate();
 	   trapCreate();
 	   teleportCreate();
+	   gemstoneCreate();
 	   exitCreate();
 	   for(int i=0;i<w/tilesize;i++) {
 		   for(int j=0;j<h/tilesize;j++) {
@@ -157,6 +158,15 @@ public class Floor extends AbsFloor {
 		this.tilestate.replace(rpos, new Tile(rpos,tiletype.Trap,sprite));
 		
 	}
+   public void gemstoneCreate() {
+	  if( Math.random()<0.3) {
+		  Random r= new Random();
+			int a=r.nextInt(rooms.size());
+			Point rpos = rooms.get(a).get(r.nextInt(rooms.get(a).size()));
+			if(tilestate.get(rpos).gettype()!=tiletype.Exit)
+			this.tilestate.replace(rpos, new Tile(rpos,tiletype.Gemstone,sprite));
+	  }
+   }
    
    //initializes the starting position of an Entity on a random valid tile. If the entity is the player call set camera
    public void placeEntity(Entity e) {

@@ -48,6 +48,9 @@ public class Tile {
 		if(this.t==tiletype.Trap){
 			this.img=sprite.grabImage(4, 4, 32, 32);
 		}
+		if(this.t==tiletype.Trap){
+			this.img=sprite.grabImage(4, 4, 32, 32);
+		}
 		
 	}
 	public void setImg(BufferedImage im) {this.img=im;}
