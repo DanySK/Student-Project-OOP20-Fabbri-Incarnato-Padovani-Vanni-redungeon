@@ -56,7 +56,7 @@ public class Menu extends JFrame{
 	f.setVisible(true);
 	
 	menu_sound = AudioSystem.getClip();
-	menu_audio= AudioSystem.getAudioInputStream(new File("data/RansLoveTheme.wav"));
+	menu_audio= AudioSystem.getAudioInputStream(new File("data/BeneaththeMask.wav"));
 	menu_sound.open(menu_audio);
 	
 	menu_sound.loop(Clip.LOOP_CONTINUOUSLY);
