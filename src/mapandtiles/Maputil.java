@@ -8,7 +8,15 @@ public class Maputil {
 	corner corner;
 	public Maputil() {}
    
-   //checks for the adjacent tiles to determine the type of wall that has to be drawn
+  /**
+   * takes a point in input, checks the adjacent tiles to determine the right sprite 
+   * @param t
+   * the map to check
+   * @param p
+   * the position of the tile we have to determine
+   * @return
+   * an enum used to assign the right sprite
+   */
    public corner cornercheck(HashMap<Point,Tile> t,Point p) {
 	 ArrayList<Point> neartiles= new ArrayList<Point>();
 	 Point  p00= new Point(p.x-1,p.y-1);
