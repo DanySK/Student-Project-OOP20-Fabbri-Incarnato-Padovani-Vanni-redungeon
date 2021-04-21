@@ -2,8 +2,12 @@ package menu;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 import java.io.IOException;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
@@ -20,12 +24,15 @@ public class Menu extends JFrame{
 	 */
 	private static final long serialVersionUID = -8098037462564546327L;
 	
-	public static int width=1360;
-	public static int height=768;
-	public static int mapwidth=3200;
-	public static int mapheight=3200;
+	private Clip menu_sound;
+	private AudioInputStream menu_audio;
 	
-	public Menu() {
+	public static int width=800;
+	public static int height=600;
+	public static int mapwidth=2000;
+	public static int mapheight=2000;
+	
+	public Menu() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 
 		
 	final JFrame f =new JFrame("Re:dungeon");
@@ -36,7 +43,11 @@ public class Menu extends JFrame{
 	f.getContentPane().add(menupanel);
 	f.setVisible(true);
 	
+	menu_sound = AudioSystem.getClip();
+	menu_audio= AudioSystem.getAudioInputStream(new File("data/RansLoveTheme.wav"));
+	menu_sound.open(menu_audio);
 	
+	menu_sound.loop(Clip.LOOP_CONTINUOUSLY);
 	final JPanel Optionspanel= new JPanel();
 	
 	
@@ -47,6 +58,7 @@ public class Menu extends JFrame{
 	JComboBox<?> difficultyBox= new JComboBox<Object>(difficulty);
 	
 	ActionListener NewGame = (e)->{
+		menu_sound.stop();
 		try {
 			new Game(width,height,mapwidth,mapheight);
 		} catch (IOException e1) {
@@ -157,10 +169,12 @@ public class Menu extends JFrame{
 	
 	
 	comboBox.setBounds(width/2, height/5, size.width*5/2, size.height);
+	comboBox.setFont(new CustomFontUtil(true, 18).getCustomFont());
 	comboBox.addActionListener(res);
 	Optionspanel.add(comboBox);
 	
 	difficultyBox.setBounds(width/2, height/5*2, size.width*5/2, size.height);
+	difficultyBox.setFont(new CustomFontUtil(true, 18).getCustomFont());
 	difficultyBox.addActionListener(diff);
 	Optionspanel.add(difficultyBox);
 	
@@ -170,9 +184,29 @@ public class Menu extends JFrame{
 	Optionspanel.setLayout(null);
 	final JButton b4=new JButton ("Indietro") ;
 	b4.setBounds(width/2, height/2, size.width*2, size.height*2);
+	b4.setFont(new CustomFontUtil(true, 18).getCustomFont());
 	b4.setFocusable(false);
 	b4.addActionListener(Back);
 	Optionspanel.add(b4);
+	
+	
+JSlider musicSlider = new JSlider(JSlider.HORIZONTAL,0,100,50);
+	musicSlider.setFont(new CustomFontUtil(true, 18).getCustomFont());
+	musicSlider.setMajorTickSpacing(10);
+	musicSlider.setMinorTickSpacing(1);
+	musicSlider.setPaintTicks(true);
+	musicSlider.setPaintLabels(true);
+	musicSlider.setBounds(300, height/5*3, size.width*7, size.height*2);
+	Optionspanel.add(musicSlider);
+	
+JSlider effectSlider = new JSlider(JSlider.HORIZONTAL,0,100,50);
+	effectSlider.setFont(new CustomFontUtil(true, 18).getCustomFont());
+	effectSlider.setMajorTickSpacing(10);
+	effectSlider.setMinorTickSpacing(1);
+	effectSlider.setPaintTicks(true);
+	effectSlider.setPaintLabels(true);
+	effectSlider.setBounds(300, height/5*4, size.width*7, size.height*2);
+	Optionspanel.add(effectSlider);
 	
 	
 	
