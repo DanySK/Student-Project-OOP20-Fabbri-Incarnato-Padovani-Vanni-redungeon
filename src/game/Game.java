@@ -13,7 +13,24 @@ import mapandtiles.*;
 import utilities.CustomFontUtil;
 import entity.*;
 
-
+/**
+ * 
+ * Principal class that generate floor and entity and manage the game flow
+ * 
+ * @author Francesco Padovani
+ * @author Luigi Incarnato
+ * @author Leroy Fabbri
+ * @author Matteo Vanni
+ * 
+ * @see java.awt.Canvas
+ * @see java.lang.Runnable
+ * @see java.lang.Thread
+ * @see java.awt.Graphics2D
+ * @see mapandtiles.AbsFloor
+ * @see entity.Player
+ * @see entity.EnemyFactory
+ * @see game.Handler
+ */
 public class Game extends Canvas implements Runnable{
 	
 	
@@ -40,7 +57,17 @@ public class Game extends Canvas implements Runnable{
 
 	//private Clip clip;
 	//private AudioInputStream audio;
-
+	/**
+	 * Constructor that generate the game object
+	 * @param width		screen width
+	 * @param height	screen height
+	 * @param mapwidth	map width
+	 * @param mapheight	map height
+	 * 
+	 * @throws IOException
+	 * @throws LineUnavailableException
+	 * @throws UnsupportedAudioFileException
+	 */
 	public Game(int width, int height, int mapwidth, int mapheight) throws IOException, LineUnavailableException, UnsupportedAudioFileException {
 		
 		//clip = AudioSystem.getClip();
@@ -73,6 +100,9 @@ public class Game extends Canvas implements Runnable{
 		}
 	}
 	
+	/**
+	 * Start game thread
+	 */
 	public synchronized void start() {
 		
 		//clip.loop(Clip.LOOP_CONTINUOUSLY);
@@ -83,6 +113,9 @@ public class Game extends Canvas implements Runnable{
 		
 	}
 	
+	/**
+	 * Stop game thread
+	 */
 	public synchronized void stop() {
 		try {
 			thread.join();
@@ -94,6 +127,9 @@ public class Game extends Canvas implements Runnable{
 		
 	}
 	
+	/**
+	 * Runnable function for thread execution
+	 */
 	public void run() {
 		long lastTime= System.nanoTime();
 		double numberofticks=60.0;
@@ -127,6 +163,14 @@ public class Game extends Canvas implements Runnable{
 		
 	}
 	
+	/**
+	 * Game updater that update for every moves done
+	 * 
+	 * @throws IOException
+	 * @throws LineUnavailableException
+	 * @throws UnsupportedAudioFileException
+	 * @throws InterruptedException
+	 */
 	private void tick() throws IOException, LineUnavailableException, UnsupportedAudioFileException, InterruptedException {
 		
 		handler.tick();
@@ -146,6 +190,9 @@ public class Game extends Canvas implements Runnable{
 		
 	}
 	
+	/**
+	 * Generate graphics elements
+	 */
 	private void render() {
 		BufferStrategy bs= this.getBufferStrategy();
 		if(bs==null) {
@@ -171,6 +218,15 @@ public class Game extends Canvas implements Runnable{
 		g.dispose();
 		bs.show();
 	}
+	
+	/**
+	 * 
+	 * Used to generate new tile layer and boss floor layer
+	 * 
+	 * @throws IOException
+	 * @throws LineUnavailableException
+	 * @throws UnsupportedAudioFileException
+	 */
 	public void nextLevel() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
 		
 		p.addExp(level*10);

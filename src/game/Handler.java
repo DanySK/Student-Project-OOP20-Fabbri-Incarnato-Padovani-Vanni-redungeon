@@ -5,12 +5,33 @@ import java.util.LinkedList;
 
 import entity.*;
 
+/**
+ * 
+ * Class that manage game events
+ * 
+ * @author Francesco Padovani
+ * @author Luigi Incarnato
+ * @author Leroy Fabbri
+ * @author Matteo Vanni
+ * 
+ * @see java.util.LinkedList
+ * @see game.GameObject
+ * @see game.ID
+ * @see entity.Entity
+ * @see entity.Player
+ * @see entity.Enemy
+ * @see entity.Boss
+ * @see java.awt.Graphics2D
+ */
 public class Handler {
 	
 	LinkedList<GameObject> object= new LinkedList<GameObject>();
-     public boolean next= false;
-     public boolean dead=false;
-  
+	public boolean next= false;
+    public boolean dead=false;
+    
+    /**
+     * Make control on game events 
+     */
 	public void tick() {
 		for(int i=0;i<object.size();i++) {
 			GameObject tempobj=object.get(i);
@@ -45,6 +66,10 @@ public class Handler {
 		
 	}
 	
+	/**
+	 * 
+	 * @param g
+	 */
 	public void render(Graphics2D g) {
 		for(int i=0;i<object.size();i++) {
 			GameObject tempobj=object.get(i);
@@ -52,9 +77,17 @@ public class Handler {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param object GameObject
+	 */
 	public void addObject(GameObject object) {
 		this.object.add(object);
 	}
+	/**
+	 * 
+	 * @param object GameObject
+	 */
 	public void removeObject(GameObject object) {
 		this.object.remove(object);
 	}

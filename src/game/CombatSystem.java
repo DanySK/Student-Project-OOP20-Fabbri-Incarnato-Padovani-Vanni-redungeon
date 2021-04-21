@@ -20,8 +20,23 @@ import entity.*;
 import mapandtiles.tiletype;
 import utilities.*;
 
-// this is how raphael works 
-
+/**
+ * Class used for entity combat system
+ * 
+ * @author Francesco Padovani
+ * @author Luigi Incarnato
+ * @author Leroy Fabbri
+ * @author Matteo Vanni
+ * 
+ * @see entity.Player
+ * @see entity.Enemy
+ * @see java.util.List
+ * @see entity.Boss
+ * @see utilities.AABB
+ * @see java.awt.image.BufferedImage
+ * @see javax.sound.sampled.AudioInputStream
+ * 
+ */
 public class CombatSystem {
 	
 	private Player player;
@@ -46,6 +61,12 @@ public class CombatSystem {
 	private Clip punch_sound;
 	private AudioInputStream punch_audio;
 	
+	/**
+	 * Constructor
+	 * @throws IOException
+	 * @throws LineUnavailableException
+	 * @throws UnsupportedAudioFileException
+	 */
 	public CombatSystem() throws IOException, LineUnavailableException, UnsupportedAudioFileException
 	{
 		this.dungeon_level = 1; 
@@ -68,20 +89,34 @@ public class CombatSystem {
 		lastime = 0;
 	}
 
+	/**
+	 * 
+	 * @return enemy hot sound
+	 */
 	public Clip getBonk()
 	{
 		return bone_sound;
 	}
+	/**
+	 * 
+	 * @return player hit sound
+	 */
 	public Clip getPunch()
 	{
 		return punch_sound;
 	}
-	
+	/**
+	 * Add entity Player
+	 * @param player
+	 */
 	public void addPlayer(Player player)
 	{
 		this.player = player;
 	}
-	
+	/**
+	 * Add entity enemy
+	 * @param enemy
+	 */
 	public void addEnemy(Enemy enemy)
 	{
 		this.enemies.add(enemy);
@@ -90,18 +125,26 @@ public class CombatSystem {
 	{
 		this.enemies.remove(enemy);
 	}
-	
+	/**
+	 * Add entity boss
+	 * @param boss
+	 */
 	public void addBoss(Boss boss)
 	{
 		this.boss = boss;
 	}
-	
+	/**
+	 * Update floor level when change floor
+	 */
 	public void setDungeonLevel()
 	{
 		this.dungeon_level++;
 	}
 	
-	
+	/**
+	 * Generate player attack sprites
+	 * @param g Graphics2D
+	 */
 	public void render(Graphics2D g)
 	{
 
@@ -138,6 +181,9 @@ public class CombatSystem {
 		lastime = System.currentTimeMillis();
 	}
 	
+	/**
+	 * Used when player make an attack
+	 */
 	public void playerAttack()
 	{
 		collide = false;
@@ -230,6 +276,11 @@ public class CombatSystem {
 		}
 	}
 	
+	/**
+	 * Used when player take damage from enemy/boss
+	 * @param type		type of enemy that damage the player
+	 * @param collide	boolean that control if the player box collides with entity attack 
+	 */
 	private void damagePlayer(String type,boolean collide)
 	{
 		if(!(this.player.getFloor().getMap().get(direction_box.getpos()).gettype()==tiletype.OFF))
@@ -276,6 +327,9 @@ public class CombatSystem {
 		}
 	}
 	
+	/**
+	 * Used when the player use the magic attack 
+	 */
 	public void playerMagicAttack()
 	{
 		this.player.setSpells();
@@ -320,6 +374,10 @@ public class CombatSystem {
 		
 	}
 	
+	/**
+	 * Used when player kill enemy with agic attack
+	 * @param e Enemy
+	 */
 	public void magicDamage(Enemy e)
 	{
 		this.enemy=e;
@@ -331,6 +389,9 @@ public class CombatSystem {
 		}
 	}
 	
+	/**
+	 * Used in boss floor for the moving boss magic attack
+	 */
 	public void magicDamageBoss()
 	{
 		switch(this.player.getInventory().getPowerStone())
@@ -357,6 +418,10 @@ public class CombatSystem {
 		}
 	}
 	
+	/**
+	 * Attack of the normal enemy
+	 * @param enemy
+	 */
 	public void enemyAttack(Enemy enemy)
 	{
 		if(enemy.getAttack()-player.getDefence()>0)
@@ -365,6 +430,10 @@ public class CombatSystem {
 		bone_sound.loop(1);
 	}
 	
+	/**
+	 * Attack of the boss
+	 * @param boss
+	 */
 	public void bossAttack(Boss boss)
 	{
 		if(boss.getAttack()-player.getDefence()>0)
@@ -373,11 +442,16 @@ public class CombatSystem {
 		bone_sound.loop(1);
 	}
 	
+	/**
+	 * Boss flame attack damage output
+	 */
 	public void flamesAttack()
 	{
 		player.setHp(player.getHp()-((int) (player.getMax_hp()*20/100)));
 	}
-	
+	/**
+	 * Decrease boss stats when player take power stone
+	 */
 	public void lowerBossStats()
 	{
 		switch(player.getInventory().getPowerStone())
