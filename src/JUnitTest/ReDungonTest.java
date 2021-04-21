@@ -20,12 +20,12 @@ public class ReDungonTest {
 	private BossFloor bFloor;
 	private Floor floor;
 	private CombatSystem combat;
-	private Player p;
+	private Player player;
 	private AABB box;
 	
 	static int level = 5;
-	static int mapWidth = 100;
-	static int mapHeight = 100;
+	static int mapWidth = 1000;
+	static int mapHeight = 1000;
 	static int screenWidth = 100;
 	static int screenHeight = 100;
 	static int posX=0;
@@ -37,7 +37,7 @@ public class ReDungonTest {
 		floor = new Floor(level, mapWidth, mapHeight, screenWidth, screenHeight);
 		bFloor = new BossFloor(level, mapWidth, mapHeight, screenWidth, screenHeight);
 		combat = new CombatSystem(0);
-		p = new Player(
+		player = new Player(
 				this.floor.getX(), 
 				this.floor.getY(), 
 				ID.Player, 
@@ -55,6 +55,35 @@ public class ReDungonTest {
 				this.combat, 
 				this.level, 
 				this.bFloor, 
-				this.p);
+				this.player);
 	}
+	
+	@org.junit.Test
+	public void PlayerTest() {
+
+	}
+	
+	@org.junit.Test
+	public void BossTest() {
+
+	}
+	
+	@org.junit.Test
+	public void MenuTest() {
+
+	}
+	
+	@org.junit.Test
+	public void EnemyTest() {
+
+	}
+	
+	@org.junit.Test
+	public void CombatSystemTest() {
+
+	}
+	
+	
+	
+	
 }
