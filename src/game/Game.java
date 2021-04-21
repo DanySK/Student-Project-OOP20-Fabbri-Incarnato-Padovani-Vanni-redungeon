@@ -135,7 +135,7 @@ public class Game extends Canvas implements Runnable{
 			nextLevel();
 		}
 		
-		if(keylistener.getMoves()>=15)
+		if(keylistener.getMoves()>=15 && level%5!=0)
 		{
 			keylistener.setMoves();
 			Enemy enemy=ef.normalEnemy(0, 0, ID.Enemy, combat, level, f, p);
