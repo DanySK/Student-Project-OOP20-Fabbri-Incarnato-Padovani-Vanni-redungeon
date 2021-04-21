@@ -27,7 +27,21 @@ public class Enemy extends Entity{
 	long timer;
 	long lastime;
 	private int expGuaranteed;
-	
+	/**
+	 * Constructor
+	 * 
+	 * @param x 		horizontal position
+	 * @param y 		vertical position
+	 * @param id 	 	game.ID
+	 * @param combat	Type of combat
+	 * @param level		Used for stats modifier
+	 * @param floor		Used for positioning
+	 * @param player	Used for damage and statistics
+	 * 
+	 * @throws IOException
+	 * @throws LineUnavailableException
+	 * @throws UnsupportedAudioFileException
+	 */
 	public Enemy(int x, int y, ID id, CombatSystem combat, int level,AbsFloor floor, Player player) throws IOException, LineUnavailableException, UnsupportedAudioFileException{
 		super(x, y, id, combat, level,floor);
 		// TODO Auto-generated constructor stub
