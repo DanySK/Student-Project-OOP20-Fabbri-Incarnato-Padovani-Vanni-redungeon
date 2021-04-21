@@ -37,7 +37,7 @@ public class Menu extends JFrame{
 	private AudioInputStream test_audio;
 	private FloatControl test_volume;
 	
-	private Difficulty difficulty;
+	private Difficulty difficulty = Difficulty.Easy;
 	
 	public static int width=800;
 	public static int height=600;
