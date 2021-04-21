@@ -64,6 +64,8 @@ public class Floor extends AbsFloor {
    void floorGenner(int w,int h) {
 	   roomsCreate();
 	   healCreate();
+	   trapCreate();
+	   teleportCreate();
 	   exitCreate();
 	   for(int i=0;i<w/tilesize;i++) {
 		   for(int j=0;j<h/tilesize;j++) {
@@ -139,6 +141,23 @@ public class Floor extends AbsFloor {
 		this.tilestate.replace(rpos, new Tile(rpos,tiletype.Heal,sprite));
 		
 	}
+   public void teleportCreate() {
+		Random r= new Random();
+		int a=r.nextInt(rooms.size());
+		Point rpos = rooms.get(a).get(r.nextInt(rooms.get(a).size()));
+		if(tilestate.get(rpos).gettype()!=tiletype.Exit)
+		this.tilestate.replace(rpos, new Tile(rpos,tiletype.Teleport,sprite));
+		
+	}
+   public void trapCreate() {
+		Random r= new Random();
+		int a=r.nextInt(rooms.size());
+		Point rpos = rooms.get(a).get(r.nextInt(rooms.get(a).size()));
+		if(tilestate.get(rpos).gettype()!=tiletype.Exit)
+		this.tilestate.replace(rpos, new Tile(rpos,tiletype.Trap,sprite));
+		
+	}
+   
    //initializes the starting position of an Entity on a random valid tile. If the entity is the player call set camera
    public void placeEntity(Entity e) {
 		Random r= new Random();
@@ -154,6 +173,9 @@ public class Floor extends AbsFloor {
 			}
 		}
 		if(e.getID()==ID.Player) {
+			if(this.tilestate.get(new Point(e.getX(),e.getY())).gettype()!= tiletype.ON) {
+				placeEntity(e);
+			}
 			this.setCamera(e);
 		}
 			
