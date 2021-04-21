@@ -41,8 +41,10 @@ public class Menu extends JFrame{
 	
 	
 	String[] resolution = {"800x600","1280x768","1440x900","1920x1080"};
+	String[] difficulty = {"Facile","Normale","Difficile"};
 	
 	JComboBox<?> comboBox = new JComboBox<Object>(resolution);
+	JComboBox<?> difficultyBox= new JComboBox<Object>(difficulty);
 	
 	ActionListener NewGame = (e)->{
 		try {
@@ -106,6 +108,25 @@ public class Menu extends JFrame{
 		}
 	};
 	
+	ActionListener diff= (e)->{
+		difficultyBox.getSelectedIndex();
+		if(difficultyBox.getSelectedIndex()==0)
+		{
+			mapwidth=2000;
+			mapheight=2000;
+		}
+		else if(difficultyBox.getSelectedIndex()==1)
+		{
+			mapwidth=3000;
+			mapheight=3000;
+		}
+		else if(difficultyBox.getSelectedIndex()==2)
+		{
+			mapwidth=4000;
+			mapheight=4000;
+		}
+	};
+	
 	
 	
 	final JButton b1=new JButton ("Inizia Gioco") ;
@@ -123,29 +144,32 @@ public class Menu extends JFrame{
 	
 	size = b2.getPreferredSize () ;
 	b2.setFont(new CustomFontUtil(true, 18).getCustomFont());
-	b2 . setBounds (55 , 40 , size.width*3, size.height *3) ;
+	b2 . setBounds (width/2 , height/5*2 , size.width*3, size.height *3) ;
 	b2.setFocusable(false);
 	b2.addActionListener(Options);
 	
 	size = b3.getPreferredSize () ;
 	b3.setFont(new CustomFontUtil(true, 18).getCustomFont());
-	b3.setBounds ( width/2, height/5*4 , size.width, size.height );
+	b3.setBounds ( width/2, height/5*4 , size.width*2, size.height*2 );
 	b3.setFocusable(false);
 	b3.addActionListener(Quit);
 	
 	
 	
-	comboBox.setBounds(100, 100, 100, 100);
+	comboBox.setBounds(width/2, height/5, size.width*5/2, size.height);
 	comboBox.addActionListener(res);
 	Optionspanel.add(comboBox);
 	
-	
+	difficultyBox.setBounds(width/2, height/5*2, size.width*5/2, size.height);
+	difficultyBox.addActionListener(diff);
+	Optionspanel.add(difficultyBox);
 	
 	
 	
 	
 	Optionspanel.setLayout(null);
 	final JButton b4=new JButton ("Indietro") ;
+	b4.setBounds(width/2, height/2, size.width*2, size.height*2);
 	b4.setFocusable(false);
 	b4.addActionListener(Back);
 	Optionspanel.add(b4);
