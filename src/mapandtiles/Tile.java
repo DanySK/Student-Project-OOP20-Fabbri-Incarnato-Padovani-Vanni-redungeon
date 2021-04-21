@@ -48,7 +48,7 @@ public class Tile {
 		if(this.t==tiletype.Trap){
 			this.img=sprite.grabImage(4, 4, 32, 32);
 		}
-		if(this.t==tiletype.Trap){
+		if(this.t==tiletype.Gemstone){
 			this.img=sprite.grabImage(4, 4, 32, 32);
 		}
 		
