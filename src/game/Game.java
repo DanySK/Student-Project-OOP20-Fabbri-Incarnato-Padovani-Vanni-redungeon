@@ -36,6 +36,8 @@ public class Game extends Canvas implements Runnable{
 	private int level=1;
 	private Handler handler;
 	private CombatSystem combat;
+	private KeyInput keylistener;
+
 	//private Clip clip;
 	//private AudioInputStream audio;
 
@@ -51,7 +53,8 @@ public class Game extends Canvas implements Runnable{
 		
 		handler=new Handler();
 		combat = new CombatSystem();
-		this.addKeyListener(new KeyInput(handler, (FloatControl) combat.getPunch().getControl(FloatControl.Type.MASTER_GAIN), (FloatControl) combat.getBonk().getControl(FloatControl.Type.MASTER_GAIN)));
+		keylistener = new KeyInput(handler, (FloatControl) combat.getPunch().getControl(FloatControl.Type.MASTER_GAIN), (FloatControl) combat.getBonk().getControl(FloatControl.Type.MASTER_GAIN));
+		this.addKeyListener(keylistener);
 		new Window(WIDTH,HEIGHT,"Re:Dungeon",this);
 		this.f= ff.standardFloor(level,MAPW,MAPH,WIDTH,HEIGHT);
 		handler.addObject(f);
@@ -61,9 +64,9 @@ public class Game extends Canvas implements Runnable{
 		handler.addObject(p);
 		
 		this.ef=new EnemyFactory();
+		Enemy enemy=ef.normalEnemy(0, 0, ID.Enemy, combat, level, f, p);
 		
 		for(int j=0;j<level;j++) {
-			Enemy enemy=ef.normalEnemy(0, 0, ID.Enemy, combat, level, f, p);
 			f.placeEntity(enemy);
 			handler.addObject(enemy);
 			combat.addEnemy(enemy);
@@ -104,7 +107,7 @@ public class Game extends Canvas implements Runnable{
 			while(delta>=1) {
 				try {
 					tick();
-				} catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
+				} catch (IOException | LineUnavailableException | UnsupportedAudioFileException | InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
@@ -113,6 +116,7 @@ public class Game extends Canvas implements Runnable{
 			if(running) {
 				render();
 			}
+			
 			if(System.currentTimeMillis()-timer>1000) {
 				timer+=1000;
 			
@@ -123,13 +127,23 @@ public class Game extends Canvas implements Runnable{
 		
 	}
 	
-	private void tick() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
+	private void tick() throws IOException, LineUnavailableException, UnsupportedAudioFileException, InterruptedException {
+		
 		handler.tick();
 		if(handler.next) {
 			handler.next=false;
 			nextLevel();
 		}
 		
+		if(keylistener.getMoves()>=15)
+		{
+			System.out.println("eccolo");
+			keylistener.setMoves();
+			Enemy enemy=ef.normalEnemy(0, 0, ID.Enemy, combat, level, f, p);
+			f.placeEntity(enemy);
+			handler.addObject(enemy);
+			combat.addEnemy(enemy);
+		}
 		
 	}
 	

@@ -33,6 +33,7 @@ public class Handler {
 					this.removeObject(obj);
 				}
 			}
+			
 			if(tempobj.getID()==ID.Boss) {
 				Boss obj= (Boss) tempobj;
 				if(obj.isDead())

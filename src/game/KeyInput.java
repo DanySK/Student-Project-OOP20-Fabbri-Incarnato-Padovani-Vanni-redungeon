@@ -19,6 +19,7 @@ public class KeyInput extends KeyAdapter {
 	FloatControl bonk_control;
 	double gain;
 	float dB;
+	int move=0;
 	
 	public KeyInput(Handler handler, FloatControl punch, FloatControl bonk) {
 		this.handler=handler;
@@ -42,6 +43,7 @@ public class KeyInput extends KeyAdapter {
 				this.bonk_control.setValue(dB);
 			}
 		}
+		
 		if(key.getKeyCode()==109)
 		{
 			if(gain>0.15)
@@ -60,6 +62,7 @@ public class KeyInput extends KeyAdapter {
 			if(tempobj.getID()==ID.Player) {
 				//((Entity) tempobj).setAttacking(true);
 				tempobj.input(key, collisions);
+				move++;
 			}
 			
 			if(key.getKeyCode()==KeyEvent.VK_A || key.getKeyCode()==KeyEvent.VK_S || key.getKeyCode()==KeyEvent.VK_D || key.getKeyCode()==KeyEvent.VK_W || key.getKeyCode()==KeyEvent.VK_J || key.getKeyCode()==KeyEvent.VK_K)
@@ -115,4 +118,15 @@ public class KeyInput extends KeyAdapter {
 			}
 		}
 	}
+	
+	public int getMoves()
+	{
+		return this.move;
+	}
+	
+	public void setMoves()
+	{
+		this.move = 0;
+	}
+	
 }
