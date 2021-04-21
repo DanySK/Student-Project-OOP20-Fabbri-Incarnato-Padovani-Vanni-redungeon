@@ -97,6 +97,10 @@ public class Handler {
 	 * @param object GameObject
 	 */
 	public void removeObject(GameObject object) {
+		if(object.getID()==ID.Enemy)
+		{
+			enemies_number--;
+		}
 		this.object.remove(object);
 	}
 	

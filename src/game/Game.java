@@ -85,15 +85,15 @@ public class Game extends Canvas implements Runnable{
 		switch(difficulty)
 		{
 		case Easy:
-			this.MAX_ENEMIES=30;
+			this.MAX_ENEMIES=15;
 			break;
 			
 		case Hard:
-			this.MAX_ENEMIES=40;
+			this.MAX_ENEMIES=45;
 			break;
 			
 		case Normal:
-			this.MAX_ENEMIES=50;
+			this.MAX_ENEMIES=30;
 			break;
 			
 		default:
