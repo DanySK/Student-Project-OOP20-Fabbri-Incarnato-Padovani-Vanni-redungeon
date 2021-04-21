@@ -18,7 +18,7 @@ import utilities.SpriteSheet;
 
 public class BossFloor extends AbsFloor {
 
-	//private int level;
+	private int level;
 	private HashMap<Point,Tile> tilestate= new HashMap<>();
 	private int tilesize=32;
 	private int screenw,screenh;
@@ -30,7 +30,7 @@ public class BossFloor extends AbsFloor {
 	private int border =2;
 	public BossFloor(int l, int w, int h,int screenw,int screenh) {
 		super(w, h, ID.Floor);
-		  // this.level=l;
+		   this.level=l;
 		   this.height=screenh;
 		   this.width=screenw;
 		   this.screenw=screenw;
@@ -139,5 +139,6 @@ public class BossFloor extends AbsFloor {
 		// TODO Auto-generated method stub
 		
 	}
+	public int getLevel() {return this.level;}
 
 }
