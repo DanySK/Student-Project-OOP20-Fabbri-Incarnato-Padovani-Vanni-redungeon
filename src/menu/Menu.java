@@ -145,20 +145,20 @@ public class Menu extends JFrame{
 		if(difficultyBox.getSelectedIndex()==0)
 		{
 			setDifficulty(Difficulty.Easy);
-			mapwidth=1000;
-			mapheight=1000;
+			mapwidth=1600;
+			mapheight=1600;
 		}
 		else if(difficultyBox.getSelectedIndex()==1)
 		{
 			setDifficulty(Difficulty.Normal);
-			mapwidth=1500;
-			mapheight=1500;
+			mapwidth=2000;
+			mapheight=2000;
 		}
 		else if(difficultyBox.getSelectedIndex()==2)
 		{
 			setDifficulty(Difficulty.Hard);
-			mapwidth=2000;
-			mapheight=2000;
+			mapwidth=3200;
+			mapheight=3200;
 		}
 	};
 	
