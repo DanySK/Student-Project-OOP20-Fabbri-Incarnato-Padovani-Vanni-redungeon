@@ -11,7 +11,20 @@ import javax.sound.sampled.FloatControl;
 import utilities.*;
 import entity.*;
 
-
+/**
+ * Class extended from KeyAdapter, used for user input
+ * 
+ * @author Francesco Padovani
+ * @author Luigi Incarnato
+ * @author Leroy Fabbri
+ * @author Matteo Vanni
+ * 
+ * @see entity.Player
+ * @see java.awt.event.KeyEvent
+ * @see java.awt.event.KeyAdapter
+ * @see game.Handler
+ * @see javax.sound.sampled.FloatControl
+ */
 public class KeyInput extends KeyAdapter {
 	
 	private Handler handler;
@@ -21,6 +34,12 @@ public class KeyInput extends KeyAdapter {
 	float dB;
 	int move=0;
 	
+	/**
+	 * Constructor
+	 * @param handler event controller
+	 * @param punch	  player hit sound
+	 * @param bonk	  enemy hit sound
+	 */
 	public KeyInput(Handler handler, FloatControl punch, FloatControl bonk) {
 		this.handler=handler;
 		
@@ -31,7 +50,10 @@ public class KeyInput extends KeyAdapter {
 		gain = 0.5;   
 		dB = (float) (Math.log(gain) / Math.log(10.0) * 20.0);
 	}
-	
+	/**
+	 * Control events when user press a key
+	 * @param key the key pressed
+	 */
 	public void keyPressed(KeyEvent key) {
 		if(key.getKeyCode()==107)
 		{
@@ -85,6 +107,10 @@ public class KeyInput extends KeyAdapter {
 		collisions.clear();
 	}
 	
+	/**
+	 * Control when user release the pressed key
+	 * @param e the event of the key pressed
+	 */
 	public void keyReleased(KeyEvent e) {
 		int key=e.getKeyCode();
 		for(int i=0; i<handler.object.size();i++) {
@@ -119,11 +145,18 @@ public class KeyInput extends KeyAdapter {
 		}
 	}
 	
+	/**
+	 * 
+	 * @return the entity movement
+	 */
 	public int getMoves()
 	{
 		return this.move;
 	}
 	
+	/**
+	 * Set the entity movement
+	 */
 	public void setMoves()
 	{
 		this.move = 0;

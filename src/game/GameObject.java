@@ -16,7 +16,9 @@ import utilities.*;
  * @author Matteo Vanni
  *
  * @see entity.Entity
- *
+ * @see java.awt.Graphics2
+ * @see java.awt.event.KeyEvent
+ * @see game.ID
  */
 public abstract class GameObject {
 	
