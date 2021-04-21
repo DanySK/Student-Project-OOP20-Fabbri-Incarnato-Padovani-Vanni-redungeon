@@ -137,7 +137,6 @@ public class Game extends Canvas implements Runnable{
 		
 		if(keylistener.getMoves()>=15)
 		{
-			System.out.println("eccolo");
 			keylistener.setMoves();
 			Enemy enemy=ef.normalEnemy(0, 0, ID.Enemy, combat, level, f, p);
 			f.placeEntity(enemy);
