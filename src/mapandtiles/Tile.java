@@ -13,7 +13,15 @@ public class Tile {
 	private tiletype t;
 	BufferedImage img;
 	SpriteSheet sprite;
-	
+	/**
+	 * create a new tile
+	 * @param p
+	 * the position of the tile
+	 * @param t
+	 * the type of tile
+	 * @param s
+	 * the spritesheet of this floor to pick up tile's image
+	 */
 	public Tile(Point p,tiletype t,SpriteSheet s) {
 		this.box=new AABB(p,1,1);
 		this.t= t;
@@ -53,6 +61,11 @@ public class Tile {
 		}
 		
 	}
+	/**
+	 * set this tile's sprite
+	 * @param im
+	 * the sprite
+	 */
 	public void setImg(BufferedImage im) {this.img=im;}
 	public AABB getbox() {return this.box;}
 	public void setSprite(File f) {

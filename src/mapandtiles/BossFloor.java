@@ -28,6 +28,19 @@ public class BossFloor extends AbsFloor {
 	//private int offsetY=0;
 	SpriteSheet sprite;
 	private int border =2;
+	/**
+	 * create a new boss floor
+	 * @param l
+	 * level of the floor
+	 * @param w
+	 * width of the floor in pixels
+	 * @param h
+	 * h of the floor in pixels
+	 * @param screenw
+	 * w of the screen in pixels
+	 * @param screenh
+	 * h of the screen in pixels
+	 */
 	public BossFloor(int l, int w, int h,int screenw,int screenh) {
 		super(w, h, ID.Floor);
 		   this.level=l;
@@ -52,6 +65,13 @@ public class BossFloor extends AbsFloor {
 		   bossfloorGenner(this.width,this.height);
 		// TODO Auto-generated constructor stub
 	}
+	/**
+	 * generate the floor
+	 * @param w
+	 * width of the floor
+	 * @param h
+	 * height of the floor
+	 */
 	void bossfloorGenner(int w,int h) {
 		 for(int i=border;i<w/tilesize-border;i++) {
 			   for(int j=border+1;j<h/tilesize-border;j++) {
@@ -70,6 +90,11 @@ public class BossFloor extends AbsFloor {
 		   
 	   }
 	 
+	/**
+	 * create the exit at a given point
+	 * @param p
+	 * point of the exit
+	 */
 	public void exitCreate(Point p) {
 		this.tilestate.replace(p, new Tile(p,tiletype.Exit,sprite));
 	}
@@ -86,6 +111,9 @@ public class BossFloor extends AbsFloor {
 		
 	}
     public HashMap<Point, Tile> getMap(){return this.tilestate;}
+    
+    
+    
 	@Override
 	public void render(Graphics2D g) {
 		g.setColor(Color.gray);
@@ -99,10 +127,17 @@ public class BossFloor extends AbsFloor {
 		// TODO Auto-generated method stub
 		
 	}
+	/**
+	 * replace the tile at point p with an ON tile
+	 */
 	public void setTile(Point p) {
 		tilestate.replace(p, new Tile(p,tiletype.ON,sprite));
 	}
-	//fiammelle del boss con box e render
+	/**
+	 * places the boss' attacks in random valid positions
+	 * @param flame
+	 * a flame to be placed
+	 */
 	public void placeFlames(AABB flame) {
 		int randx = (int) (Math.random()*(this.width/32 -4)+2);
 		int randy= (int) (Math.random()*(this.height/32 -4)+2);
@@ -112,7 +147,9 @@ public class BossFloor extends AbsFloor {
 			placeFlames(flame);
 		}
 	}
-	
+	/**
+	 * creates stones that help defeat the boss
+	 */
 	public void powerstoneCreate() {
 		int randx = (int) (Math.random()*(this.width/32 -5)+3);
 		int randy= (int) (Math.random()*(this.height/32 -5)+3);
@@ -121,6 +158,11 @@ public class BossFloor extends AbsFloor {
 		else
 			powerstoneCreate();
 	}
+	/**
+	 * places entity to their designated position
+	 * @param e
+	 * an entity, usually the boss and the player
+	 */
 	public void placeEntity(Entity e) {
 		if(e.getID()== ID.Player){
 		e.setX(screenw/(tilesize*2));

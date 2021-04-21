@@ -19,7 +19,14 @@ import entity.*;
 import game.*;
 import utilities.SpriteSheet;
 import utilities.AABB;
-
+/**
+ * 
+ * @author Francesco Padovani
+ * @author Luigi Incarnato
+ * @author Leroy Fabbri
+ * @author Matteo Vanni
+ *
+ */
 public class Floor extends AbsFloor {
 	private Maputil util= new Maputil();
 	private int level;
@@ -36,6 +43,19 @@ public class Floor extends AbsFloor {
 	private int offsetX=0;
 	private int offsetY=0;
 	//generate a Floor with level, width ,height,screen width and screen height
+	/**
+	 * 
+	 * @param l 
+	 * level of this floor
+	 * @param w
+	 * width of the floor in pixels
+	 * @param h
+	 * height of the floor in pixels
+	 * @param screenw
+	 * width of the window in pixels
+	 * @param screenh
+	 * height of the screen in pixels
+	 */
    public Floor(int l,int w, int h,int screenw,int screenh) {
 	   super(w, h, ID.Floor);
 	   this.level=l;
@@ -60,7 +80,13 @@ public class Floor extends AbsFloor {
 	   this.floorGenner(this.width,this.height);
    }
 
-   //generate the pesudorandom floor calling roomscreate
+   /**
+    * generate a pseudorandom floor using bsp algorithm
+    * @param w
+    * width of the map in pixels
+    * @param h
+    * height of the map in pixels
+    */
    void floorGenner(int w,int h) {
 	   roomsCreate();
 	   healCreate();
@@ -114,7 +140,9 @@ public class Floor extends AbsFloor {
 		
 		
 	}
-   //create the floor exit choosing a random room and a random available tile in that room
+   /**
+    * creates the exit of this floor in a pseudorandom position inside a room
+    */
    public void exitCreate() {
 	   if((this.level+1)%5 ==0) {
 		   Random r= new Random();
@@ -142,6 +170,9 @@ public class Floor extends AbsFloor {
 		this.tilestate.replace(rpos, new Tile(rpos,tiletype.Heal,sprite));
 		
 	}
+   /**
+    * create a teleport tile
+    */
    public void teleportCreate() {
 		Random r= new Random();
 		int a=r.nextInt(rooms.size());
@@ -150,6 +181,9 @@ public class Floor extends AbsFloor {
 		this.tilestate.replace(rpos, new Tile(rpos,tiletype.Teleport,sprite));
 		
 	}
+   /**
+    * create a trap that damages the player
+    */
    public void trapCreate() {
 		Random r= new Random();
 		int a=r.nextInt(rooms.size());
@@ -158,6 +192,9 @@ public class Floor extends AbsFloor {
 		this.tilestate.replace(rpos, new Tile(rpos,tiletype.Trap,sprite));
 		
 	}
+   /**
+    * creates a rare gem to pick up
+    */
    public void gemstoneCreate() {
 	  if( Math.random()<0.3) {
 		  Random r= new Random();
@@ -168,7 +205,11 @@ public class Floor extends AbsFloor {
 	  }
    }
    
-   //initializes the starting position of an Entity on a random valid tile. If the entity is the player call set camera
+   /**
+    * places the entity in a random available position. checks that no enemy gets moved on top of the player and moves the camera focus on the player when it moves it.
+    * @param e
+    * an entity to be placed
+    */
    public void placeEntity(Entity e) {
 		Random r= new Random();
 		int a=r.nextInt(rooms.size());
@@ -190,7 +231,11 @@ public class Floor extends AbsFloor {
 		}
 			
 	}
-   //called by place entity to initialize the camera offsets to be centered on the player if possible
+    /**
+     * moves the camera on the entity so the view results centered if possible
+     * @param e
+     * an entity, usually the player
+     */
    public void setCamera(Entity e) {
 		if(e.getX()-screenw/(tilesize*2) >0 && e.getX()+screenw/(tilesize*2)<width/tilesize) {
 			this.offsetX=e.getX()-screenw/64;
@@ -231,8 +276,9 @@ public class Floor extends AbsFloor {
    public HashMap <Point,Tile> getMap(){return this.tilestate;}
 	
 
-	
-	//moves the cam if possible
+	/**
+	 * updates the offset of the map view
+	 */
 	public void moveCam(int x,int y) {
 		this.velX=x;
 		this.velY=y;
@@ -245,11 +291,20 @@ public class Floor extends AbsFloor {
 		// TODO Auto-generated method stub
 		
 	}
+	/**
+	 * sets a tile to ON (called after picking up objects)
+	 * @param p
+	 * the position of the tile
+	 */
 	public void setTile(Point p) {
 		tilestate.replace(p, new Tile(p,tiletype.ON,sprite));
 	}
 
-//set the sprite of the tile according to the maputil check
+	/**
+	 * used when creating a floor to choose the right image for a given tile
+	 * @param p
+	 * the point of the tile on the map
+	 */
 	private void choosetile(Point p) {
 		corner corner= util.cornercheck(tilestate, p);
 	  if(corner== mapandtiles.corner.INS) {
