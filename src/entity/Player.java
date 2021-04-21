@@ -17,7 +17,18 @@ import utilities.CustomFontUtil;
 import utilities.SpriteSheet;
 
 
-
+/**
+ * Extended from Entity is the player controlled to the user with keyboard
+ * 
+ * @author Francesco Padovani
+ * @author Luigi Incarnato
+ * @author Leroy Fabbri
+ * @author Matteo Vanni
+ *
+ * @see entity.Entity
+ * @see game.GameObject
+ * @see game.CombatSystem
+ */
 public class Player extends Entity {
 	boolean flag;
 	long timer;
@@ -30,7 +41,42 @@ public class Player extends Entity {
 	int spell_remain=0;
 	boolean magic_attacking;
 	
-	
+	/**
+	 * 
+	 * Constructor
+	 * 
+	 * @param x 
+	 * 		Horizontal starting position
+	 * 
+	 * @param y
+	 * 		Vertical starting position
+	 * 
+	 * @param id
+	 * 		Id for the entity taken from ID enum class
+	 * 
+	 * @param combat
+	 * 		Combat system for the entity
+	 * 
+	 * @param level
+	 * 		Entity level for stats augmentation
+	 * 
+	 * @param hp
+	 * 		Health point
+	 * 
+	 * @param attack
+	 * 		Attack damage
+	 * 
+	 * @param magic_attack
+	 * 		Magic attack damage
+	 * 
+	 * @param defence
+	 * 		Player defense
+	 * 	
+	 * @param floor
+	 * 		Used to take level and position
+	 * 
+	 * @throws IOException
+	 */
 	public Player(int x, int y, ID id, CombatSystem combat, int level, int hp, int attack, int magic_attack, int defence, AbsFloor floor) throws IOException {
 		super(x, y, id, combat, level, floor);
 		this.setHp(hp);
@@ -335,6 +381,9 @@ public class Player extends Entity {
 		collisions.add(box);
 	}
 	
+	/**
+	 * Used to reset life and make control on experience gained from killed enemy
+	 */
 	private void levelUp(){
 		this.setLevel(this.getLevel()+1);
 		
@@ -354,6 +403,10 @@ public class Player extends Entity {
 		
 	}
 	
+	/**
+	 * Used as setter for experience and control for level up
+	 * @param additionalExp
+	 */
 	public void addExp(int additionalExp) {
 		this.experience+=additionalExp;
 		if(this.experience >= this.maxExperience) {
@@ -361,21 +414,39 @@ public class Player extends Entity {
 		}
 	}
 	
+	/**
+	 * Set player max experience
+	 */
 	private void setMaxExp() {
 		int newMaxExp=this.maxExperience/2;
 		this.maxExperience=this.maxExperience+newMaxExp;
 	}
-	
+	/**
+	 * 
+	 * @return the actual experience gained
+	 */
 	private int getActualExp() {
 		return this.experience;
 	}
+	/**
+	 * 
+	 * @return the max experience of the player
+	 */
 	private int getMaxExp() {
 		return this.maxExperience;
 	}
-	
+	/**
+	 * Set the actual experience, used also for experience overflow with player level up
+	 * @param exp
+	 */
 	private void setExperience(int exp) {
 		this.experience = exp;
 	}
+	
+	/**
+	 * Used as control for player floor change
+	 * @return boolean
+	 */
 	public boolean isOut() {if(this.getFloor().getMap().get(this.box.getpos()).gettype()==tiletype.Exit || (this.getFloor().getMap().get(this.box.getpos()).gettype()==tiletype.LockedExit &&
 			this.inventory.hasKey())) {
 		this.inventory.clearInventory();
@@ -384,22 +455,33 @@ public class Player extends Entity {
 		}
 	else return false;
 	}
-	
+	/**
+	 * 
+	 * @return the player inventory
+	 */
 	public Inventory getInventory()
 	{
 		return this.inventory;
 	}
-	
+	/**
+	 * Reduce the player spell usage when used 
+	 */
 	public void setSpells()
 	{
 		this.spell_remain--;
 	}
-	
+	/**
+	 * 
+	 * @return a control if the player is attacking with the magic attack
+	 */
 	public boolean isMagicAttacking()
 	{
 		return this.magic_attacking;
 	}
-	
+	/**
+	 * Used for magic attack control
+	 * @param bool
+	 */
 	public void setMagicAttacking(boolean bool)
 	{
 		this.magic_attacking = bool;

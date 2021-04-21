@@ -209,51 +209,97 @@ public abstract class Entity extends GameObject{
 
 
 	
-	
+	/**
+	 * Set entity level
+	 * @param level
+	 */
 	public void setLevel(int level)
 	{
 		this.level = level;
 	}
+	/**
+	 * Set entity health point
+	 * @param hp
+	 */
 	public void setHp(int hp)
 	{
 		this.hp = hp;
 	}
+	/**
+	 * Set entity attack damage
+	 * @param attack
+	 */
 	public void setAttack(int attack)
 	{
 		this.attack = attack;
 	}
+	/**
+	 * Set entity magic attack damage
+	 * @param magic_attack
+	 */
 	public void setMagic_Attack(int magic_attack)
 	{
 		this.magic_attack = magic_attack;
 	}
+	/**
+	 * Set entity defense
+	 * @param defence
+	 */
 	public void setDefence(int defence)
 	{
 		this.defence = defence;
 	}
+	/**
+	 * Set entity collision box
+	 * @param box
+	 */
 	public void setBox(AABB box) 
 	{
 		this.box = box;
 	}
+	/**
+	 * Set entity maximum health point
+	 * @param max_hp
+	 */
 	public void setMax_hp(int max_hp) 
 	{
 		this.max_hp = max_hp;
 	}
-
+	/**
+	 * Set entity floor 
+	 * @param floor
+	 */
 	public void setFloor(AbsFloor floor) {
 		this.floor = floor;
 	}
+	/**
+	 * Set entity movement direction
+	 * @param direction
+	 */
 	public void setDirection(Direction direction) 
 	{
 		this.direction = direction;
 	}
+	/**
+	 * Set entity magic attack element
+	 * @param attribute
+	 */
 	public void setAttribute(Attribute attribute)
 	{
 		this.attribute = attribute;
 	}
+	/**
+	 * Set entity movement
+	 * @param movement
+	 */
 	public void setMovement(boolean movement) 
 	{
 		this.movement = movement;
 	}
+	/**
+	 * Set attack state on entity
+	 * @param attacking
+	 */
 	public void setAttacking(boolean attacking) {
 		this.attacking = attacking;
 	}
