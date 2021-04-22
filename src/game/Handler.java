@@ -90,6 +90,7 @@ public class Handler {
 		{
 			enemies_number++;
 			this.object.add(2,object);
+
 		}
 		else
 			this.object.add(object);
