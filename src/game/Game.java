@@ -4,9 +4,9 @@ import java.awt.Canvas;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.image.BufferStrategy;
 import java.io.IOException;
-import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
@@ -14,6 +14,7 @@ import mapandtiles.*;
 import utilities.CustomFontUtil;
 import entity.*;
 import menu.Difficulty;
+import menu.HUD;
 
 /**
  * 
@@ -114,6 +115,7 @@ public class Game extends Canvas implements Runnable{
 		f.placeEntity(p);
 		handler.addObject(p);
 		
+		
 		this.ef=new EnemyFactory();
 		Enemy enemy=ef.normalEnemy(0, 0, ID.Enemy, combat, level, f, p);
 		
@@ -122,6 +124,9 @@ public class Game extends Canvas implements Runnable{
 			handler.addObject(enemy);
 			combat.addEnemy(enemy);
 		}
+		
+		HUD hud_menu=new HUD(f.getOffsetX(), f.getOffsetY(), ID.HUD);
+		handler.addObject(hud_menu);
 	}
 	
 	/**
@@ -257,9 +262,10 @@ public class Game extends Canvas implements Runnable{
 		
 		for(int i=handler.object.size()-1;i>1;i--) {
 			if(handler.object.get(i).getID()==ID.Enemy)
+			{
 				combat.removeEnemy((Enemy) handler.object.get(i));
-			
-			handler.removeObject(handler.object.get(i));
+				handler.removeObject(handler.object.get(i));
+			}
 		}
 		level++;
 		if(level%5 !=0) {

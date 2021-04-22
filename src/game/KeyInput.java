@@ -8,6 +8,7 @@ import java.util.List;
 
 import utilities.*;
 import entity.*;
+import menu.HUD;
 
 /**
  * Class extended from KeyAdapter, used for user input
@@ -44,7 +45,7 @@ public class KeyInput extends KeyAdapter {
 	public void keyPressed(KeyEvent key) {
 		
 		List<AABB> collisions = new ArrayList<AABB>();
-		handler.object.stream().filter(x->x.getID() != ID.Floor).forEach( x -> collisions.add(((Entity) x).getBox()));
+		handler.object.stream().filter(x->(x.getID() != ID.Floor && x.getID() != ID.HUD)).forEach( x -> collisions.add(((Entity) x).getBox()));
 		for(int i=0;i<handler.object.size();i++) {
 			GameObject tempobj=handler.object.get(i);
 			
@@ -71,6 +72,14 @@ public class KeyInput extends KeyAdapter {
 					if(tempobj.getID()==ID.Boss) {
 						tempobj.input(key, collisions);
 					}
+			}
+			
+			if(tempobj.getID()==ID.HUD)
+			{
+				if(key.getKeyCode()==KeyEvent.VK_Q)
+				{
+					((HUD) tempobj).setHud_display(true);;
+				}
 			}
 		}
 		collisions.clear();
@@ -110,6 +119,11 @@ public class KeyInput extends KeyAdapter {
 					((Entity) tempobj).setMovement(false);
 					((Entity) tempobj).setAttacking(false);
 				}
+			}
+
+			if(key==KeyEvent.VK_Q && tempobj.getID()==ID.HUD)
+			{
+				((HUD) tempobj).setHud_display(false);;
 			}
 		}
 	}

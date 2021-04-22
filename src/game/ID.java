@@ -15,5 +15,6 @@ public enum ID {
 	Currency(),
 	Floor(),
 	NPC(),
-	Boss();
+	Boss(),
+	HUD();
 }

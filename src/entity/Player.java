@@ -1,8 +1,10 @@
 package entity;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.RenderingHints;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -40,6 +42,10 @@ public class Player extends Entity {
 	int max_spell=1;
 	int spell_remain=0;
 	boolean magic_attacking;
+	boolean hud_display = false;
+	int HUD_x,HUD_y;
+	
+	BufferedImage HUD;
 	
 	/**
 	 * 
@@ -88,6 +94,9 @@ public class Player extends Entity {
          this.inventory= new Inventory();
          setAttacking(false);
 		hp_bar = ImageIO.read(new File("data/hpbar.png"));
+		
+		HUD = ImageIO.read(new File("data/HUD.png"));
+		
 		sprite = new SpriteSheet(ImageIO.read(new File("data/player.png")));
 		this.setBox(new AABB(new Point(this.x, this.y), 1, 2));
 		this.img_matrix = new BufferedImage[4][3];
@@ -283,7 +292,6 @@ public class Player extends Entity {
 				(y-getFloor().getOffsetY()-1)*32,null);
         g.setColor(Color.black);
         //g.draw(getBounds()); g.setColor(Color.BLACK);
-        
                 
     	
             
@@ -528,14 +536,6 @@ public class Player extends Entity {
 			this.max_spell++;
 		}
 	}
-
-	/*public Rectangle getBounds()
-	{
-		return new Rectangle((x-getFloor().getOffsetX())*32, 
-				(y-getFloor().getOffsetY())*32, 
-				img.getWidth(null), 
-				img.getHeight(null));
-	}*/
 	
 
 }
