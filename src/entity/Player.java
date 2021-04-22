@@ -495,6 +495,10 @@ public class Player extends Entity {
 	{
 		this.spell_remain--;
 	}
+	public int getSpells()
+	{
+		return this.spell_remain;
+	}
 	/**
 	 * 
 	 * @return a control if the player is attacking with the magic attack
