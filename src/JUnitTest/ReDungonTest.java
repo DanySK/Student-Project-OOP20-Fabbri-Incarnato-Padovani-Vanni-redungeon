@@ -87,7 +87,9 @@ public class ReDungonTest {
 	
 	@org.junit.Test
 	public void BossTest() {
-
+		boss.getBossFloor();
+		boss.augmStat();
+		//boss.moveFlames();
 	}
 	
 	@org.junit.Test
@@ -105,7 +107,18 @@ public class ReDungonTest {
 	
 	@org.junit.Test
 	public void CombatSystemTest() {
-
+		combat.addBoss(boss);
+		combat.addEnemy(enemy);
+		combat.addPlayer(player);
+		combat.magicDamage(enemy);
+		combat.flamesAttack();
+		combat.lowerBossStats();
+		combat.removeEnemy(enemy);
+		combat.playerMagicAttack();
+		combat.playerAttack();
+		combat.magicDamageBoss();
+		combat.setDungeonLevel();
+		combat.removeEnemy(enemy);
 	}
 	
 	
