@@ -41,13 +41,13 @@ public class ReDungonTest {
 				this.floor.getX(), 
 				this.floor.getY(), 
 				ID.Player, 
-				this.combat, 
-				this.level, 
-				this.mapWidth, 
-				this.mapHeight, 
-				this.screenWidth, 
-				this.screenHeight, 
-				this.floor);
+				combat, 
+				level, 
+				mapWidth, 
+				mapHeight, 
+				screenWidth, 
+				screenHeight, 
+				floor);
 		boss = new Boss(
 				this.posX, 
 				this.posY, 

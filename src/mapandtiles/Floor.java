@@ -185,12 +185,13 @@ public class Floor extends AbsFloor {
     * create a trap that damages the player
     */
    public void trapCreate() {
+	   for(int i=0;i<=this.width/1000;i++) {
 		Random r= new Random();
 		int a=r.nextInt(rooms.size());
 		Point rpos = rooms.get(a).get(r.nextInt(rooms.get(a).size()));
 		if(tilestate.get(rpos).gettype()!=tiletype.Exit)
 		this.tilestate.replace(rpos, new Tile(rpos,tiletype.Trap,sprite));
-		
+	   }
 	}
    /**
     * creates a rare gem to pick up
