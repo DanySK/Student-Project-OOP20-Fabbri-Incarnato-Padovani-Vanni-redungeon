@@ -116,8 +116,8 @@ public class Game extends Canvas implements Runnable{
 		keylistener = new KeyInput(handler);
 		this.addKeyListener(keylistener);
 		new Window(WIDTH,HEIGHT,"Re:Dungeon",this);
-		this.f= ff.standardFloor(level,MAPW,MAPH,WIDTH,HEIGHT);
-		handler.addObject((GameObject)f);
+		//this.f= ff.standardFloor(level,MAPW,MAPH,WIDTH,HEIGHT);
+		//handler.addObject((GameObject)f);
 		this.p=new Player(15, 15, ID.Player, combat, 1, 200, 15, 50, 5,f);
 		combat.addPlayer(p);
 		f.placeEntity(p);
@@ -143,7 +143,7 @@ public class Game extends Canvas implements Runnable{
 	public synchronized void start() {
 		
 		//clip.loop(Clip.LOOP_CONTINUOUSLY);
-		
+		this.f= ff.standardFloor(level,MAPW,MAPH,WIDTH,HEIGHT);
 		thread= new Thread(this);
 		thread.start();
 		running = true;
@@ -240,7 +240,7 @@ public class Game extends Canvas implements Runnable{
 		
 		g.setColor(Color.black);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
-		
+		f.render(g);
 		handler.render(g);
 		combat.render(g);
 		if(handler.dead) 
@@ -282,7 +282,7 @@ public class Game extends Canvas implements Runnable{
 		level++;
 		if(level%5 !=0) {
 			this.f= ff.standardFloor(level,MAPW,MAPH,WIDTH,HEIGHT);
-			handler.object.set(0, (GameObject) f);
+			//handler.object.set(0, (GameObject) f);
 			p.setFloor(f);
 			f.placeEntity(p);
 			for(int j=0;j<(level<=15 ? level:15);j++) {
@@ -295,7 +295,7 @@ public class Game extends Canvas implements Runnable{
 		else if(level%5==0) {
 			BossFloor bossf= ff.bossFloor(level,MAPW,MAPH,WIDTH,HEIGHT);
 			this.f = bossf;
-			handler.object.set(0, (GameObject) f);
+			//handler.object.set(0, (GameObject) f);
 			p.setFloor(f);
 			f.placeEntity(p);
 			Boss boss=ef.commonBoss(0, 0, ID.Boss, combat, level, bossf, p);

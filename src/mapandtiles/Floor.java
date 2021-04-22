@@ -27,7 +27,7 @@ import utilities.AABB;
  * @author Matteo Vanni
  *
  */
-public class Floor extends GameObject implements AbsFloor {
+public class Floor  implements AbsFloor {
 	private Maputil util= new Maputil();
 	private int level;
 	private int screenw,screenh;
@@ -57,7 +57,7 @@ public class Floor extends GameObject implements AbsFloor {
 	 * height of the screen in pixels
 	 */
    public Floor(int l,int w, int h,int screenw,int screenh) {
-	   super(w, h, ID.Floor);
+	 //  super(w, h, ID.Floor);
 	   this.level=l;
 	   this.height=h;
 	   this.width=w;
@@ -252,7 +252,6 @@ public class Floor extends GameObject implements AbsFloor {
 		
 	}
 
-   @Override
    public void render(Graphics2D g) {
 	   g.setColor(Color.gray);
 	   for(int i =0;i<screenw/tilesize;i++) {
@@ -281,14 +280,14 @@ public class Floor extends GameObject implements AbsFloor {
 	 * updates the offset of the map view
 	 */
 	public void moveCam(int x,int y) {
-		this.velX=x;
-		this.velY=y;
-		if(offsetX+velX<0 || offsetX+velX>width/tilesize-screenw/tilesize) {velX=0;}
-		if(offsetY+velY<0 || offsetY+velY>height/tilesize-screenh/tilesize) {velY=0;}
-		this.setOffsetX(offsetX+=velX);
-		this.setOffsetY(offsetY+=velY);
-		velX=0;
-		velY=0;
+		/*this.velX=x;
+		this.velY=y;*/
+		if(offsetX+x<0 || offsetX+x>width/tilesize-screenw/tilesize) {x=0;}
+		if(offsetY+y<0 || offsetY+y>height/tilesize-screenh/tilesize) {y=0;}
+		this.setOffsetX(offsetX+=x);
+		this.setOffsetY(offsetY+=y);
+		x=0;
+		y=0;
 		// TODO Auto-generated method stub
 		
 	}
@@ -367,21 +366,7 @@ public class Floor extends GameObject implements AbsFloor {
 	  }
 		
 	}
-	@Override
-	public void input(KeyEvent key, List<AABB> collisions) {
-		
-	}
 
-	@Override
-	public void move() {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void tick() {
-		// TODO Auto-generated method stub
-		
-	}
 
 
 
