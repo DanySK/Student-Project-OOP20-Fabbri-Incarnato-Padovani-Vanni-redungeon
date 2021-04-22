@@ -77,6 +77,16 @@ public class ReDungonTest {
 				level, 
 				bFloor, 
 				player);
+
+		floor.placeEntity(player);
+
+		floor.placeEntity(enemy);
+
+		floor.placeEntity(boss);
+		
+		combat.addBoss(boss);
+		combat.addEnemy(enemy);
+		combat.addPlayer(player);
 	}
 	
 	@org.junit.Test
@@ -88,7 +98,6 @@ public class ReDungonTest {
 		player.setMagicAttacking(true);
 		assertTrue(player.isMagicAttacking());
 		
-		floor.placeEntity(player);
 		assertFalse(player.isOut());
 		
 	}
@@ -96,6 +105,7 @@ public class ReDungonTest {
 	@org.junit.Test
 	public void BossTest() {
 		assertNotNull(boss.getBossFloor());
+		
 	}
 	
 	@org.junit.Test
@@ -118,18 +128,9 @@ public class ReDungonTest {
 	
 	@org.junit.Test
 	public void CombatSystemTest() {
-		combat.addBoss(boss);
-		combat.addEnemy(enemy);
-		combat.addPlayer(player);
-		combat.magicDamage(enemy);
-		combat.flamesAttack();
-		combat.lowerBossStats();
-		combat.removeEnemy(enemy);
-		combat.playerMagicAttack();
-		combat.playerAttack();
-		combat.magicDamageBoss();
-		combat.setDungeonLevel();
-		combat.removeEnemy(enemy);
+		
+		assertNotNull(combat.getBonk());
+		assertNotNull(combat.getPunch());
 	}
 	
 	
