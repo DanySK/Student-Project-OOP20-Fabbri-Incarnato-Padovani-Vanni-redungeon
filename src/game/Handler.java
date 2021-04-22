@@ -89,7 +89,7 @@ public class Handler {
 		if(object.getID()==ID.Enemy)
 		{
 			enemies_number++;
-			this.object.add(object);
+			this.object.add(1,object);
 		}
 		else
 			this.object.add(object);
