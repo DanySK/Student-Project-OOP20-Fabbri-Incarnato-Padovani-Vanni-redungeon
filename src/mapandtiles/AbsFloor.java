@@ -1,11 +1,11 @@
 package mapandtiles;
 
 import java.awt.Point;
+
 import java.util.HashMap;
 
 import entity.Entity;
-import game.*;
-import utilities.SpriteSheet;
+
 
 public interface AbsFloor {
 	
