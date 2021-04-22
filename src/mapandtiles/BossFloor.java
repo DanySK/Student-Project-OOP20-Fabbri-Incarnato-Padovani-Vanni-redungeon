@@ -12,11 +12,12 @@ import java.util.List;
 import javax.imageio.ImageIO;
 
 import entity.Entity;
+import game.GameObject;
 import game.ID;
 import utilities.AABB;
 import utilities.SpriteSheet;
 
-public class BossFloor extends AbsFloor {
+public class BossFloor extends GameObject implements AbsFloor {
 
 	private int level;
 	private HashMap<Point,Tile> tilestate= new HashMap<>();
@@ -182,5 +183,35 @@ public class BossFloor extends AbsFloor {
 		
 	}
 	public int getLevel() {return this.level;}
+	@Override
+	public int getOffsetX() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	public int getOffsetY() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	public int getScreenw() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	public int getScreenh() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	public int getWidth() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	public int getHeight() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 }

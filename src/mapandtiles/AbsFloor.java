@@ -1,35 +1,24 @@
 package mapandtiles;
 
 import java.awt.Point;
+
 import java.util.HashMap;
 
 import entity.Entity;
-import game.*;
-import utilities.SpriteSheet;
 
-public abstract class AbsFloor extends GameObject {
-	
-	private HashMap<Point,Tile> tilestate= new HashMap<>();
-	private int screenw,screenh;
-	private int width;
-	private int height;
-	private int offsetX=0;
-	private int offsetY=0;
-	SpriteSheet sprite;
+
+public interface AbsFloor {
 	
 
-	public AbsFloor(int x, int y, ID id) {
-		super(x, y, ID.Floor);
-		// TODO Auto-generated constructor stub
-	}
-	public void setTile(Point p) {}
-    public void placeEntity(Entity e) {};
-	public void moveCam(int x,int y) {};
-	public HashMap<Point,Tile> getMap(){return tilestate;}
-	public int getOffsetX() {return this.offsetX;}
-	public int getOffsetY() {return this.offsetY;}
-	public int getScreenw() {return this.screenw;}
-	 public int getScreenh() {return this.screenh;}
-	 public int getWidth() {return this.width;}
-	   public int getHeight() {return this.height;}
+	
+	public void setTile(Point p) ;
+    public void placeEntity(Entity e);
+	public void moveCam(int x,int y);
+	public HashMap<Point,Tile> getMap();
+	public int getOffsetX();
+	public int getOffsetY() ;
+	public int getScreenw() ;
+	public int getScreenh() ;
+	public int getWidth() ;
+	public int getHeight();
 }

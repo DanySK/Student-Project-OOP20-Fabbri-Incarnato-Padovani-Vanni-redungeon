@@ -44,16 +44,21 @@ public class Menu extends JFrame{
 	public static int mapwidth=2000;
 	public static int mapheight=2000;
 	
+	public Image background;
+	
+	
 	public Menu() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 
 		
 	final JFrame f =new JFrame("Re:dungeon");
 	f.setSize(width,height);
-	final JPanel menupanel = new JPanel();
+	final ImagePanel menupanel = new ImagePanel (new ImageIcon("data/GameBackground800x600.png").getImage()) ;
 	menupanel.setBackground(Color.BLACK);
 	menupanel.setLayout(null);
 	f.getContentPane().add(menupanel);
+	f.setResizable(false);
 	f.setVisible(true);
+	
 	
 	menu_sound = AudioSystem.getClip();
 	menu_audio= AudioSystem.getAudioInputStream(new File("data/BeneaththeMask.wav"));
@@ -119,24 +124,28 @@ public class Menu extends JFrame{
 			width=800;
 			height=600;
 			f.setSize(width,height);
+			menupanel.setImage(new ImageIcon("data/GameBackground800x600.png").getImage());
 		}
 		else if(comboBox.getSelectedIndex()==1)
 		{
 			width=1280;
 			height=768;
 			f.setSize(width,height);
+			menupanel.setImage(new ImageIcon("data/GameBackground1280x768.png").getImage());
 		}
 		else if(comboBox.getSelectedIndex()==2)
 		{
 			width=1440;
 			height=900;
 			f.setSize(width,height);
+			menupanel.setImage(new ImageIcon("data/GameBackground1440x900.png").getImage());
 		}
 		else if(comboBox.getSelectedIndex()==3)
 		{
 			width=1920;
 			height=1080;
 			f.setSize(width,height);
+			menupanel.setImage(new ImageIcon("data/GameBackground1920x1080.png").getImage());
 		}
 	};
 	
