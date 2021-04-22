@@ -27,7 +27,7 @@ import utilities.AABB;
  * @author Matteo Vanni
  *
  */
-public class Floor extends AbsFloor {
+public class Floor extends GameObject implements AbsFloor {
 	private Maputil util= new Maputil();
 	private int level;
 	private int screenw,screenh;
