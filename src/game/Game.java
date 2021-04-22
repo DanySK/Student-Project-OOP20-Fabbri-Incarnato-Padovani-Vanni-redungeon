@@ -251,7 +251,7 @@ public class Game extends Canvas implements Runnable{
 			
 			g.setFont(new CustomFontUtil(true, 50).getCustomFont());
 			g.drawString("GAME OVER" , WIDTH/2-100,HEIGHT/2);
-			g.drawString(String.valueOf(handler.point)+ " POINT" , WIDTH/2-100,HEIGHT/2+50);
+			g.drawString(String.valueOf(handler.point)+ " POINTS" , WIDTH/2-100,HEIGHT/2+50);
 				
 		}
 		g.dispose();
