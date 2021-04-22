@@ -59,6 +59,7 @@ public class Game extends Canvas implements Runnable{
 	private Handler handler;
 	private CombatSystem combat;
 	private KeyInput keylistener;
+	private HUD hud_menu;
 
 	//private Clip clip;
 	//private AudioInputStream audio;
@@ -125,7 +126,7 @@ public class Game extends Canvas implements Runnable{
 			combat.addEnemy(enemy);
 		}
 		
-		HUD hud_menu=new HUD(f.getOffsetX(), f.getOffsetY(), ID.HUD);
+		hud_menu=new HUD(32, 32, ID.HUD, p);
 		handler.addObject(hud_menu);
 	}
 	
@@ -257,6 +258,8 @@ public class Game extends Canvas implements Runnable{
 	 * @throws UnsupportedAudioFileException
 	 */
 	public void nextLevel() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
+		
+		hud_menu.setDungeonLevel();
 		
 		p.addExp(level*10);
 		
