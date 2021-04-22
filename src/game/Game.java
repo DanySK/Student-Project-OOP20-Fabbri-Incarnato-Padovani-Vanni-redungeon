@@ -4,9 +4,12 @@ import java.awt.Canvas;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.RenderingHints;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
+
+import javax.imageio.ImageIO;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
@@ -49,6 +52,8 @@ public class Game extends Canvas implements Runnable{
 	
 	private Thread thread;
 	
+	private BufferedImage gameover_bar;
+	
 	private Graphics2D g;
 	private boolean running= false;
 	private AbsFloor f;
@@ -75,6 +80,8 @@ public class Game extends Canvas implements Runnable{
 	 * @throws UnsupportedAudioFileException
 	 */
 	public Game(int width, int height, int mapwidth, int mapheight, Difficulty difficulty, double music, double effect) throws IOException, LineUnavailableException, UnsupportedAudioFileException {
+		
+		gameover_bar = ImageIO.read(new File("data/GameOverbar.png"));
 		
 		//clip = AudioSystem.getClip();
 		//audio= AudioSystem.getAudioInputStream(new File("data/cavalcata.wav"));
@@ -236,13 +243,15 @@ public class Game extends Canvas implements Runnable{
 		
 		handler.render(g);
 		combat.render(g);
-		if(handler.dead) {
+		if(handler.dead) 
+		{
+			g.drawImage(gameover_bar, WIDTH/2-110, HEIGHT/2-70, null);
+			
 			g.setColor(Color.black);
 			
 			g.setFont(new CustomFontUtil(true, 50).getCustomFont());
-			g.drawString("GAME OVER " + handler.point , WIDTH/2-100,HEIGHT/2);
-			//g.drawString("Continue?", WIDTH/2-150, HEIGHT/2+50);
-			//g.drawString("Y        N", WIDTH/2-130,HEIGHT-250);
+			g.drawString("GAME OVER" , WIDTH/2-100,HEIGHT/2);
+			g.drawString(String.valueOf(handler.point)+ " POINT" , WIDTH/2-100,HEIGHT/2+50);
 				
 		}
 		g.dispose();

@@ -43,7 +43,7 @@ public class HUD extends GameObject{
         	g.drawString(String.valueOf(this.dungeon_level), 
         			this.x+60, this.y+24);
         	
-        	g.drawString("x " + String.valueOf(this.player.getInventory().getPowerStone()), 
+        	g.drawString("x " + String.valueOf(this.player.getInventory().getgems()), 
         			this.x+60, this.y+54);
         	
         	g.drawString(String.valueOf(this.player.getAttack()), 
