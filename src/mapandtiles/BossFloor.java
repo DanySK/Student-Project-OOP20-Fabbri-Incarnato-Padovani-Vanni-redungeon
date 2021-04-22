@@ -1,19 +1,23 @@
 package mapandtiles;
 
 import java.awt.Color;
-
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
+
 import javax.imageio.ImageIO;
+
 import entity.Entity;
+import game.GameObject;
 import game.ID;
 import utilities.AABB;
 import utilities.SpriteSheet;
 
-public class BossFloor  implements AbsFloor {
+public class BossFloor extends GameObject implements AbsFloor {
 
 	private int level;
 	private HashMap<Point,Tile> tilestate= new HashMap<>();
@@ -21,8 +25,8 @@ public class BossFloor  implements AbsFloor {
 	private int screenw,screenh;
 	private int width;
 	private int height;
-	private int offsetX=0;
-	private int offsetY=0;
+	//private int offsetX=0;
+	//private int offsetY=0;
 	SpriteSheet sprite;
 	private int border =2;
 	/**
@@ -39,7 +43,7 @@ public class BossFloor  implements AbsFloor {
 	 * h of the screen in pixels
 	 */
 	public BossFloor(int l, int w, int h,int screenw,int screenh) {
-		
+		super(w, h, ID.Floor);
 		   this.level=l;
 		   this.height=screenh;
 		   this.width=screenw;
@@ -96,12 +100,22 @@ public class BossFloor  implements AbsFloor {
 		this.tilestate.replace(p, new Tile(p,tiletype.Exit,sprite));
 	}
 	
+	@Override
+	public void tick() {
+		// TODO Auto-generated method stub
+		
+	}
 
+	@Override
+	public void move() {
+		// TODO Auto-generated method stub
+		
+	}
     public HashMap<Point, Tile> getMap(){return this.tilestate;}
     
     
     
-
+	@Override
 	public void render(Graphics2D g) {
 		g.setColor(Color.gray);
 		   for(int i =0;i<width/tilesize;i++) {
@@ -163,37 +177,41 @@ public class BossFloor  implements AbsFloor {
 	}
 	public void moveCam(int x,int y) {}
 
-
+	@Override
+	public void input(KeyEvent key, List<AABB> collisions) {
+		// TODO Auto-generated method stub
+		
+	}
 	public int getLevel() {return this.level;}
 	@Override
 	public int getOffsetX() {
 		// TODO Auto-generated method stub
-		return this.offsetX;
+		return 0;
 	}
 	@Override
 	public int getOffsetY() {
 		// TODO Auto-generated method stub
-		return this.offsetY;
+		return 0;
 	}
 	@Override
 	public int getScreenw() {
 		// TODO Auto-generated method stub
-		return this.screenw;
+		return 0;
 	}
 	@Override
 	public int getScreenh() {
 		// TODO Auto-generated method stub
-		return this.screenh;
+		return 0;
 	}
 	@Override
 	public int getWidth() {
 		// TODO Auto-generated method stub
-		return this.width;
+		return 0;
 	}
 	@Override
 	public int getHeight() {
 		// TODO Auto-generated method stub
-		return this.height;
+		return 0;
 	}
 
 }
