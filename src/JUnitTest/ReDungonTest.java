@@ -1,5 +1,7 @@
 package JUnitTest;
 
+import static org.junit.Assert.*;
+
 import java.awt.Point;
 import java.io.IOException;
 
@@ -7,6 +9,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 import entity.Boss;
+import entity.Direction;
 import entity.Enemy;
 import entity.Player;
 import game.CombatSystem;
@@ -39,6 +42,8 @@ public class ReDungonTest {
 	public void initAll() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
 		box=new AABB(new Point(), mapWidth, mapHeight);
 		floor = new Floor(level, mapWidth, mapHeight, screenWidth, screenHeight);
+		
+		
 		bFloor = new BossFloor(level, mapWidth, mapHeight, screenWidth, screenHeight);
 		combat = new CombatSystem(0);
 		
@@ -76,20 +81,21 @@ public class ReDungonTest {
 	
 	@org.junit.Test
 	public void PlayerTest() {
-		player.addExp(1000);
-		player.augmStat();
-		player.isAttacking();
-		player.isDead();
-		player.isMagicAttacking();
-		player.isMoving();
-		//player.move();
+		
+		player.setHp(100);
+		assertFalse(player.isDead());
+
+		player.setMagicAttacking(true);
+		assertTrue(player.isMagicAttacking());
+		
+		floor.placeEntity(player);
+		assertFalse(player.isOut());
+		
 	}
 	
 	@org.junit.Test
 	public void BossTest() {
-		boss.getBossFloor();
-		boss.augmStat();
-		//boss.moveFlames();
+		assertNotNull(boss.getBossFloor());
 	}
 	
 	@org.junit.Test
@@ -99,10 +105,15 @@ public class ReDungonTest {
 	
 	@org.junit.Test
 	public void EnemyTest() {
-		enemy.isAttacking();
+		
+		enemy.setAttacking(true);
+		assertTrue(enemy.isAttacking());
+		
+		enemy.setHp(-1);
+		assertTrue(enemy.isDead());
+		
 		enemy.setMovement(true);
-		enemy.isMoving();
-		enemy.move();
+		assertTrue(enemy.isMoving());
 	}
 	
 	@org.junit.Test
