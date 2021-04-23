@@ -143,7 +143,7 @@ public class Floor extends GameObject implements AbsFloor {
    /**
     * creates the exit of this floor in a pseudorandom position inside a room
     */
-   public void exitCreate() {
+   private void exitCreate() {
 	   if((this.level+1)%5 ==0) {
 		   Random r= new Random();
 			int a=r.nextInt(rooms.size());
@@ -162,7 +162,7 @@ public class Floor extends GameObject implements AbsFloor {
 		
 	}
    //create a special heal tile 
-   public void healCreate() {
+   private void healCreate() {
 		Random r= new Random();
 		int a=r.nextInt(rooms.size());
 		Point rpos = rooms.get(a).get(r.nextInt(rooms.get(a).size()));
@@ -173,7 +173,7 @@ public class Floor extends GameObject implements AbsFloor {
    /**
     * create a teleport tile
     */
-   public void teleportCreate() {
+   private void teleportCreate() {
 		Random r= new Random();
 		int a=r.nextInt(rooms.size());
 		Point rpos = rooms.get(a).get(r.nextInt(rooms.get(a).size()));
@@ -184,7 +184,7 @@ public class Floor extends GameObject implements AbsFloor {
    /**
     * create a trap that damages the player
     */
-   public void trapCreate() {
+   private void trapCreate() {
 	   for(int i=0;i<=this.width/1000;i++) {
 		Random r= new Random();
 		int a=r.nextInt(rooms.size());
@@ -196,7 +196,7 @@ public class Floor extends GameObject implements AbsFloor {
    /**
     * creates a rare gem to pick up
     */
-   public void gemstoneCreate() {
+   private void gemstoneCreate() {
 	  if( Math.random()<0.3) {
 		  Random r= new Random();
 			int a=r.nextInt(rooms.size());
