@@ -52,6 +52,12 @@ public class Menu extends JFrame{
 		
 	final JFrame f =new JFrame("Re:dungeon");
 	f.setSize(width,height);
+	f.addWindowListener(new WindowAdapter(){
+        public void windowClosing(WindowEvent e){
+        		menu_sound.stop();
+                System.exit(0);
+        }
+    });
 	final ImagePanel menupanel = new ImagePanel (new ImageIcon("data/GameBackground800x600.png").getImage()) ;
 	menupanel.setBackground(Color.BLACK);
 	menupanel.setLayout(null);
@@ -107,6 +113,7 @@ public class Menu extends JFrame{
 	};
 	
 	ActionListener Quit = (e)->{
+		menu_sound.stop();
 		System.exit(0);
 	};
 	
