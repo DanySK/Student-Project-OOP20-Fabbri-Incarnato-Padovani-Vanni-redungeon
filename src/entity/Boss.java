@@ -117,7 +117,7 @@ public class Boss extends Entity{
 			}
 		}
 		
-		flames_number = rng.nextInt(7)+10;
+		flames_number = rng.nextInt(15)+10;
 		
 		for(int i=0; i<flames_number; i++)
 		{

@@ -200,7 +200,7 @@ public class Floor extends GameObject implements AbsFloor {
     * creates a rare gem to pick up
     */
    private void gemstoneCreate() {
-	  if( Math.random()<0.3) {
+	   for(int i=0;i<=this.width/1000;i++) {
 		  Random r= new Random();
 			int a=r.nextInt(rooms.size());
 			Point rpos = rooms.get(a).get(r.nextInt(rooms.get(a).size()));
