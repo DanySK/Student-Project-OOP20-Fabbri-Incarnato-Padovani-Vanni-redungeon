@@ -256,7 +256,12 @@ public class Floor extends GameObject implements AbsFloor {
 	   g.setColor(Color.gray);
 	   for(int i =0;i<screenw/tilesize;i++) {
 		   for(int j=0;j <screenh/tilesize;j++) {
-				   g.drawImage(tilestate.get(new Point(i+offsetX,j+offsetY)).getImg(),i*tilesize, j*tilesize,null);
+			   if(tilestate.containsKey(new Point(i+offsetX,j+offsetY))) {
+				   g.drawImage(tilestate.get(new Point(i+offsetX,j+offsetY)).getImg(),i*tilesize, j*tilesize,null);}
+			   else {
+				   g.setColor(Color.black);
+				   g.fillRect(i, j, 32, 32);
+			   }
 			   
 		   }
 	   }
