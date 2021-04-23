@@ -6,7 +6,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
-import java.io.File;
+import java.io.BufferedInputStream;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -19,6 +19,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 import mapandtiles.*;
 import utilities.CustomFontUtil;
+import utilities.ResourceLoader;
 import entity.*;
 import menu.Difficulty;
 import menu.HUD;
@@ -88,11 +89,18 @@ public class Game extends Canvas implements Runnable{
 	 * @throws UnsupportedAudioFileException
 	 */
 	public Game(int width, int height, int mapwidth, int mapheight, Difficulty difficulty, double music, double effect) throws IOException, LineUnavailableException, UnsupportedAudioFileException {
-		
-		gameover_bar = ImageIO.read(new File("data/GameOverbar.png"));
+
+ 		ResourceLoader resource = new ResourceLoader();
+ 		
+		gameover_bar = ImageIO.read(resource.getStreamImage("GameOverBar"));
 		
 		clip = AudioSystem.getClip();
-		audio= AudioSystem.getAudioInputStream(new File("data/GameBGM.wav"));
+		audio= 
+			    AudioSystem.getAudioInputStream(
+			            new BufferedInputStream(
+			                resource.getStreamAudio("GameBGM")
+			            )
+			         );
 		clip.open(audio);
 		clip_volume = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
     	float dB = (float) (Math.log(music) / Math.log(10.0) * 20.0);

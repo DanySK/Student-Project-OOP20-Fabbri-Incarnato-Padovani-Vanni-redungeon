@@ -5,7 +5,6 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Random;
@@ -14,6 +13,7 @@ import mapandtiles.*;
 import game.*;
 import utilities.AABB;
 import utilities.CustomFontUtil;
+import utilities.ResourceLoader;
 import utilities.SpriteSheet;
 
 
@@ -41,9 +41,6 @@ public class Player extends Entity {
 	int spell_remain=0;
 	boolean magic_attacking;
 	boolean hud_display = false;
-	int HUD_x,HUD_y;
-	
-	BufferedImage HUD;
 	
 	/**
 	 * 
@@ -90,12 +87,13 @@ public class Player extends Entity {
 		this.setDefence(defence);
 		this.setAttribute(Attribute.Fire);
          this.inventory= new Inventory();
+
+ 		ResourceLoader resource = new ResourceLoader();
+ 		
          setAttacking(false);
-		hp_bar = ImageIO.read(new File("data/hpbar.png"));
+		hp_bar = ImageIO.read(resource.getStreamImage("hpbar"));
 		
-		HUD = ImageIO.read(new File("data/HUD.png"));
-		
-		sprite = new SpriteSheet(ImageIO.read(new File("data/player.png")));
+		sprite = new SpriteSheet(ImageIO.read(resource.getStreamImage("player")));
 		this.setBox(new AABB(new Point(this.x, this.y), 1, 2));
 		this.img_matrix = new BufferedImage[4][3];
 		

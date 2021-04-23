@@ -5,16 +5,12 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
@@ -39,8 +35,6 @@ public class Boss extends Entity{
 	Player player_parameter;
 	AABB box1;
 	boolean collide;
-	Clip clip;
-	AudioInputStream audio;
 	long timer;
 	long lastime;
 	int hp_barx;
@@ -76,7 +70,9 @@ public class Boss extends Entity{
 	public Boss(int x, int y, ID id, CombatSystem combat, int level, BossFloor floor, Player player) throws IOException, LineUnavailableException, UnsupportedAudioFileException{
 		super(x, y, id, combat, level, floor);
 		// TODO Auto-generated constructor stub
-		hp_bar = ImageIO.read(new File("data/bosshpbar.png"));
+		ResourceLoader resource = new ResourceLoader();
+		
+		hp_bar = ImageIO.read(resource.getStreamImage("bosshpbar"));
 		hp_barx = x-getFloor().getOffsetX();
 		hp_bary = y-getFloor().getOffsetY();
 
@@ -86,20 +82,20 @@ public class Boss extends Entity{
 		{
 			case 0:
 				this.
-				sprite2 = new SpriteSheet(ImageIO.read(new File("data/flame.png")));
-				sprite = new SpriteSheet(ImageIO.read(new File("data/boss1.png")));
+				sprite2 = new SpriteSheet(ImageIO.read(resource.getStreamImage("flame")));
+				sprite = new SpriteSheet(ImageIO.read(resource.getStreamImage("boss1")));
 				this.setAttribute(Attribute.Fire);
 				break;
 				
 			case 1:
-				sprite2 = new SpriteSheet(ImageIO.read(new File("data/waternado.png")));
-				sprite = new SpriteSheet(ImageIO.read(new File("data/boss3.png")));
+				sprite2 = new SpriteSheet(ImageIO.read(resource.getStreamImage("waternado")));
+				sprite = new SpriteSheet(ImageIO.read(resource.getStreamImage("boss3")));
 				this.setAttribute(Attribute.Water);
 				break;
 				
 			case 2:
-				sprite2 = new SpriteSheet(ImageIO.read(new File("data/leafnado.png")));
-				sprite = new SpriteSheet(ImageIO.read(new File("data/boss2.png")));
+				sprite2 = new SpriteSheet(ImageIO.read(resource.getStreamImage("leafnado")));
+				sprite = new SpriteSheet(ImageIO.read(resource.getStreamImage("boss2")));
 				this.setAttribute(Attribute.Grass);
 				break;
 		}
@@ -129,11 +125,6 @@ public class Boss extends Entity{
 			floor.placeFlames(flame);
 			flames.add(flame);
 		}
-		
-		
-		clip = AudioSystem.getClip();
-		audio= AudioSystem.getAudioInputStream(new File("data/bonk.wav"));
-		clip.open(audio);
 		
 		this.setDirection(Direction.Down);
 		
@@ -299,7 +290,6 @@ public class Boss extends Entity{
 				if(box1.collides(player_parameter.getBox()))
 				{
 					this.combat.bossAttack(this);
-					clip.loop(1);
 				}
 				      
 		}

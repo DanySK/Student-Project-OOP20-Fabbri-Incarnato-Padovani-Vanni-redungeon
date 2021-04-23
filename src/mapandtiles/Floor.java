@@ -7,7 +7,6 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
-import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -19,6 +18,7 @@ import entity.*;
 import game.*;
 import utilities.SpriteSheet;
 import utilities.AABB;
+import utilities.ResourceLoader;
 /**
  * 
  * @author Francesco Padovani
@@ -63,6 +63,9 @@ public class Floor extends GameObject implements AbsFloor {
 	   this.width=w;
 	   this.screenw=screenw;
 	   this.screenh=screenh;
+	   
+	   ResourceLoader resource = new ResourceLoader();
+	   
 	   int floorseed=2;
 	   if(l>5 && l<=10) {
 		   floorseed=1;
@@ -71,7 +74,7 @@ public class Floor extends GameObject implements AbsFloor {
 	   else if(l>15) {floorseed=4;}
 	   try 
 		{
-			sprite = new SpriteSheet(ImageIO.read(new File("data/tiles"+floorseed+".png")));
+			sprite = new SpriteSheet(ImageIO.read(resource.getStreamImage("tiles"+floorseed)));
 			
 		}	catch(IOException e) 
 			{

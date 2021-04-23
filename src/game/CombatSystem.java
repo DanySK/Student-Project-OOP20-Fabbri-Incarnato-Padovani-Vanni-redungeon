@@ -3,7 +3,7 @@ package game;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
-import java.io.File;
+import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -76,31 +76,47 @@ public class CombatSystem {
 	 */
 	public CombatSystem(double effect) throws IOException, LineUnavailableException, UnsupportedAudioFileException
 	{
+		ResourceLoader resource = new ResourceLoader();
     	float dB;
 		this.dungeon_level = 1; 
 		enemies = new ArrayList<Enemy>();
 
-		SpriteSheet sprite = new SpriteSheet(ImageIO.read(new File("data/flame.png")));
+		SpriteSheet sprite = new SpriteSheet(ImageIO.read(resource.getStreamImage("flame")));
 		flame_img = sprite.grabImage(1, 1, 32, 32); 
 		
-		punch_img=ImageIO.read(new File("data/punch.png"));
-
+		punch_img=ImageIO.read(resource.getStreamImage("punch"));
+		
 		bone_sound = AudioSystem.getClip();
-		bone_audio= AudioSystem.getAudioInputStream(new File("data/bonk.wav"));
+		bone_audio= 
+			    AudioSystem.getAudioInputStream(
+			            new BufferedInputStream(
+			                resource.getStreamAudio("bonk")
+			            )
+			         );
 		bone_sound.open(bone_audio);
 		bone_volume = (FloatControl) bone_sound.getControl(FloatControl.Type.MASTER_GAIN);
     	dB = (float) (Math.log(effect) / Math.log(10.0) * 20.0);
     	bone_volume.setValue(dB);
 		
 		punch_sound = AudioSystem.getClip();
-		punch_audio= AudioSystem.getAudioInputStream(new File("data/punch.wav"));
+		punch_audio= 
+			    AudioSystem.getAudioInputStream(
+			            new BufferedInputStream(
+			                resource.getStreamAudio("punch")
+			            )
+			         );
 		punch_sound.open(punch_audio);
 		punch_volume = (FloatControl) punch_sound.getControl(FloatControl.Type.MASTER_GAIN);
     	dB = (float) (Math.log(effect) / Math.log(10.0) * 20.0);
     	punch_volume.setValue(dB);
     	
     	boss_sound = AudioSystem.getClip();
-		boss_audio= AudioSystem.getAudioInputStream(new File("data/bossroar.wav"));
+		boss_audio= 
+			    AudioSystem.getAudioInputStream(
+			            new BufferedInputStream(
+			                resource.getStreamAudio("bossroar")
+			            )
+			         );
 		boss_sound.open(boss_audio);
 		boss_volume = (FloatControl) boss_sound.getControl(FloatControl.Type.MASTER_GAIN);
     	dB = (float) (Math.log(effect) / Math.log(10.0) * 20.0);

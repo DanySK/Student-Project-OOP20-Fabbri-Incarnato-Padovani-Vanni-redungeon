@@ -46,8 +46,9 @@ public class CustomFontUtil {
 	 * @param fontSize
 	 */
 	private void setCustomFontBold(int fontSize) {
+		ResourceLoader resource = new ResourceLoader();
 		try {
-			CustomFont = Font.createFont(Font.TRUETYPE_FONT, new File("data/fonts/pkmndpb.ttf")).deriveFont(Font.PLAIN, fontSize);
+			CustomFont = Font.createFont(Font.TRUETYPE_FONT, resource.getStreamFont("pkmndpb")).deriveFont(Font.PLAIN, fontSize);
 		} catch (FontFormatException | IOException e) {
 			e.printStackTrace();
 		}

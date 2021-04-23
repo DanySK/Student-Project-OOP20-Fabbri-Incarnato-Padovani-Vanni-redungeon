@@ -2,9 +2,10 @@ package menu;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
+import java.io.BufferedInputStream;
 import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -28,6 +29,8 @@ public class Menu extends JFrame{
 	 */
 	private static final long serialVersionUID = -8098037462564546327L;
 	
+	private ResourceLoader resource;
+	
 	private Clip menu_sound;
 	private AudioInputStream menu_audio;
 	private FloatControl menu_volume;
@@ -40,15 +43,22 @@ public class Menu extends JFrame{
 	
 	private Difficulty difficulty = Difficulty.Easy;
 	
-	public static int width=800;
-	public static int height=600;
+	
+	public static int width=960;
+	public static int height=760;
 	public static int mapwidth=2000;
 	public static int mapheight=2000;
 
-	final ImageIcon backGroundImage = new ImageIcon("data/GameBackground1920x1080.png");
+	final ImageIcon backGroundImage;
 	
 	public Menu() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-
+	
+		resource = new ResourceLoader();
+		
+		//backGroundImage = new ImageIcon(resource.getStreamImage("GameBackground1920x1080"));
+		
+		backGroundImage = new ImageIcon();
+		backGroundImage.setImage(ImageIO.read(resource.getStreamImage("GameBackground1920x1080")));
 		
 	final JFrame f =new JFrame("Re:dungeon");
 	f.setSize(width,height);
@@ -74,19 +84,29 @@ public class Menu extends JFrame{
 	
 	
 	menu_sound = AudioSystem.getClip();
-	menu_audio= AudioSystem.getAudioInputStream(new File("data/BeneaththeMask.wav"));
+	menu_audio= 
+		    AudioSystem.getAudioInputStream(
+		            new BufferedInputStream(
+		                resource.getStreamAudio("BeneaththeMask")
+		            )
+		         );
 	menu_sound.open(menu_audio);
 	
 	menu_sound.loop(Clip.LOOP_CONTINUOUSLY);
 	
 	test_sound = AudioSystem.getClip();
-	test_audio= AudioSystem.getAudioInputStream(new File("data/bonk.wav"));
+	test_audio= 
+		    AudioSystem.getAudioInputStream(
+		            new BufferedInputStream(
+		                resource.getStreamAudio("bonk")
+		            )
+		         );
 	test_sound.open(test_audio);
 	
 	final JPanel Optionspanel= new JPanel();
 	
 	
-	String[] resolution = {"800x600","1280x720","1440x900", "1600x900", "1920x1080"};
+	String[] resolution = {"960x760","1280x720","1440x900", "1600x900", "1920x1080"};
 	String[] difficulty_selection = {"Facile","Normale","Difficile"};
 	
 	JComboBox<?> comboBox = new JComboBox<Object>(resolution);
@@ -135,8 +155,8 @@ public class Menu extends JFrame{
 		comboBox.getSelectedIndex();
 		if(comboBox.getSelectedIndex()==0)
 		{
-			width=800;
-			height=600;
+			width=960;
+			height=760;
 			f.setSize(width,height);
 			menupanel.setBorder(new EmptyBorder((int)f.getSize().getHeight()/5,(int)f.getSize().getWidth()/3,(int)f.getSize().getHeight()/5,(int)f.getSize().getWidth()/3));
 			menupanel.setImage(backgroundImageResizer(width, height, backGroundImage));
@@ -181,14 +201,14 @@ public class Menu extends JFrame{
 		if(difficultyBox.getSelectedIndex()==0)
 		{
 			setDifficulty(Difficulty.Easy);
-			mapwidth=1600;
-			mapheight=1600;
+			mapwidth=2000;
+			mapheight=2000;
 		}
 		else if(difficultyBox.getSelectedIndex()==1)
 		{
 			setDifficulty(Difficulty.Normal);
-			mapwidth=2000;
-			mapheight=2000;
+			mapwidth=2560;
+			mapheight=2560;
 		}
 		else if(difficultyBox.getSelectedIndex()==2)
 		{

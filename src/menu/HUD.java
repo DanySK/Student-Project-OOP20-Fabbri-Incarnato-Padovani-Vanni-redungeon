@@ -3,7 +3,6 @@ package menu;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -13,6 +12,7 @@ import entity.Player;
 import game.*;
 import utilities.AABB;
 import utilities.CustomFontUtil;
+import utilities.ResourceLoader;
 
 public class HUD extends GameObject{
 
@@ -27,8 +27,11 @@ public class HUD extends GameObject{
 	public HUD(int x, int y, ID id, Player p) throws IOException {
 		super(x, y, id);
 		// TODO Auto-generated constructor stub
-		this.HUD_menu = ImageIO.read(new File("data/HUD.png"));
-		this.key = ImageIO.read(new File("data/key.png"));
+		
+ 		ResourceLoader resource = new ResourceLoader();
+ 		
+		this.HUD_menu = ImageIO.read(resource.getStreamImage("HUD"));
+		this.key = ImageIO.read(resource.getStreamImage("key"));
 		this.player = p;
 		this.dungeon_level = 1;
 	}

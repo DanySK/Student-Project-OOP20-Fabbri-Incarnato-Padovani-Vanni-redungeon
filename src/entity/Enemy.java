@@ -5,7 +5,6 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Random;
@@ -46,8 +45,10 @@ public class Enemy extends Entity{
 		super(x, y, id, combat, level,floor);
 		// TODO Auto-generated constructor stub
 		
-		hp_bar = ImageIO.read(new File("data/hpbar.png"));
-		sprite = new SpriteSheet(ImageIO.read(new File("data/enemy1.png")));
+		ResourceLoader resource = new ResourceLoader();
+		
+		hp_bar = ImageIO.read(resource.getStreamImage("hpbar"));
+		sprite = new SpriteSheet(ImageIO.read(resource.getStreamImage("enemy1")));
 		this.setBox(new AABB(new Point(this.x, this.y), 1, 2));
 		this.player_parameter = player;
 		this.img_matrix = new BufferedImage[4][3];
