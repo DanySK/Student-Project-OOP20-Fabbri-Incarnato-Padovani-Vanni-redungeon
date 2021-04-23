@@ -134,7 +134,7 @@ public class Boss extends Entity{
 		timer = 0;
 		
 		this.setMax_hp(500);
-		this.setExpGuaranteed(30);
+		this.setExpGuaranteed(60);
 		this.augmStat();
 	}
 
