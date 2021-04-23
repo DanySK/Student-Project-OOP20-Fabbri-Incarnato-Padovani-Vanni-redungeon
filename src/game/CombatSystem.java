@@ -318,7 +318,7 @@ public class CombatSystem {
 	 * @param type		type of enemy that damage the player
 	 * @param collide	boolean that control if the player box collides with entity attack 
 	 */
-	private void damagePlayer(String type,boolean collide)
+	public void damagePlayer(String type,boolean collide)
 	{
 		if(!(this.player.getFloor().getMap().get(direction_box.getpos()).gettype()==tiletype.OFF))
 		{
