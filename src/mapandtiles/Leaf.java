@@ -18,8 +18,8 @@ public class Leaf{
     public Leaf leftChild; // the Leaf's left child Leaf
     public Leaf rightChild; // the Leaf's right child Leaf
     public Rectangle room; // the room that is inside this Leaf
-    public Vector<Rectangle> halls; // hallways to connect this Leaf to other Leafs
-    public HashMap<Point,Tile> tilestate= new HashMap<>();
+    private Vector<Rectangle> halls; // hallways to connect this Leaf to other Leafs
+    private HashMap<Point,Tile> tilestate= new HashMap<>();
     SpriteSheet s;
     public  Leaf(int x, int y, int w, int h, SpriteSheet s)
     {
