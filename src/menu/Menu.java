@@ -60,7 +60,7 @@ public class Menu extends JFrame{
     });
 	
 	final ImagePanel menupanel = new ImagePanel(backgroundImageResizer(width, height, backGroundImage));
-	menupanel.setBorder(new EmptyBorder((int)f.getSize().getHeight()/5,(int)f.getSize().getWidth()/4,(int)f.getSize().getHeight()/5,(int)f.getSize().getWidth()/2));
+	menupanel.setBorder(new EmptyBorder((int)f.getSize().getHeight()/5,(int)f.getSize().getWidth()/3,(int)f.getSize().getHeight()/5,(int)f.getSize().getWidth()/3));
 	menupanel.setLayout(new GridLayout(10, 1, 10, 5));
 	
 	menupanel.setBackground(Color.BLACK);
@@ -138,6 +138,7 @@ public class Menu extends JFrame{
 			width=800;
 			height=600;
 			f.setSize(width,height);
+			menupanel.setBorder(new EmptyBorder((int)f.getSize().getHeight()/5,(int)f.getSize().getWidth()/3,(int)f.getSize().getHeight()/5,(int)f.getSize().getWidth()/3));
 			menupanel.setImage(backgroundImageResizer(width, height, backGroundImage));
 		}
 		else if(comboBox.getSelectedIndex()==1)
@@ -145,6 +146,7 @@ public class Menu extends JFrame{
 			width=1280;
 			height=720;
 			f.setSize(width,height);
+			menupanel.setBorder(new EmptyBorder((int)f.getSize().getHeight()/5,(int)f.getSize().getWidth()/3,(int)f.getSize().getHeight()/5,(int)f.getSize().getWidth()/3));
 			menupanel.setImage(backgroundImageResizer(width, height, backGroundImage));
 		}
 		else if(comboBox.getSelectedIndex()==2)
@@ -152,6 +154,7 @@ public class Menu extends JFrame{
 			width=1440;
 			height=900;
 			f.setSize(width,height);
+			menupanel.setBorder(new EmptyBorder((int)f.getSize().getHeight()/5,(int)f.getSize().getWidth()/3,(int)f.getSize().getHeight()/5,(int)f.getSize().getWidth()/3));
 			menupanel.setImage(backgroundImageResizer(width, height, backGroundImage));
 		}
 
@@ -160,6 +163,7 @@ public class Menu extends JFrame{
 			width=1600;
 			height=900;
 			f.setSize(width,height);
+			menupanel.setBorder(new EmptyBorder((int)f.getSize().getHeight()/5,(int)f.getSize().getWidth()/3,(int)f.getSize().getHeight()/5,(int)f.getSize().getWidth()/3));
 			menupanel.setImage(backgroundImageResizer(width, height, backGroundImage));
 		}
 		else if(comboBox.getSelectedIndex()==4)
@@ -167,6 +171,7 @@ public class Menu extends JFrame{
 			width=1920;
 			height=1080;
 			f.setSize(width,height);
+			menupanel.setBorder(new EmptyBorder((int)f.getSize().getHeight()/5,(int)f.getSize().getWidth()/3,(int)f.getSize().getHeight()/5,(int)f.getSize().getWidth()/3));
 			menupanel.setImage(backgroundImageResizer(width, height, backGroundImage));
 		}
 	};
@@ -212,13 +217,11 @@ public class Menu extends JFrame{
 	
 	Dimension size = b1.getPreferredSize () ;
 	b1.setFont(new CustomFontUtil(true, 18).getCustomFont());
-	b1.setBounds ( width/2, height/5 , size.width, size.height );
 	b1.setFocusable(false);
 	b1.addActionListener(NewGame);
 	
 	size = b2.getPreferredSize () ;
 	b2.setFont(new CustomFontUtil(true, 18).getCustomFont());
-	b2 . setBounds (width/2 , height/5*2 , size.width*3, size.height *3);
 	b2.setFocusable(false);
 	b2.addActionListener(Options);
 	
