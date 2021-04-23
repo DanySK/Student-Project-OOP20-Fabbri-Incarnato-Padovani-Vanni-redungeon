@@ -12,6 +12,7 @@ import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -58,12 +59,16 @@ public class Menu extends JFrame{
         }
     });
 	
-	
 	final ImagePanel menupanel = new ImagePanel(backgroundImageResizer(width, height, backGroundImage));
+	menupanel.setBorder(new EmptyBorder((int)f.getSize().getHeight()/5,(int)f.getSize().getWidth()/4,(int)f.getSize().getHeight()/5,(int)f.getSize().getWidth()/2));
+	menupanel.setLayout(new GridLayout(10, 1, 10, 5));
 	
 	menupanel.setBackground(Color.BLACK);
-	menupanel.setLayout(null);
-	f.getContentPane().add(menupanel);
+	
+	
+
+	f.add(menupanel);
+	//f.getContentPane().add(menupanel);
 	f.setResizable(false);
 	f.setVisible(true);
 	
@@ -199,8 +204,11 @@ public class Menu extends JFrame{
 	final JButton b2=new JButton ("Opzioni") ;
 	final JButton b3=new JButton ("Esci");
 	menupanel.add ( b1 );
+	menupanel.add(Box.createRigidArea(new Dimension(20, 0)));
 	menupanel.add ( b2 );
+	menupanel.add(Box.createRigidArea(new Dimension(20, 0)));
 	menupanel.add ( b3 );
+
 	
 	Dimension size = b1.getPreferredSize () ;
 	b1.setFont(new CustomFontUtil(true, 18).getCustomFont());
@@ -210,7 +218,7 @@ public class Menu extends JFrame{
 	
 	size = b2.getPreferredSize () ;
 	b2.setFont(new CustomFontUtil(true, 18).getCustomFont());
-	b2 . setBounds (width/2 , height/5*2 , size.width*3, size.height *3) ;
+	b2 . setBounds (width/2 , height/5*2 , size.width*3, size.height *3);
 	b2.setFocusable(false);
 	b2.addActionListener(Options);
 	
@@ -282,6 +290,8 @@ public class Menu extends JFrame{
         }
 	});
 	Optionspanel.add(effectSlider);
+	
+	
 	
 		
 	}
