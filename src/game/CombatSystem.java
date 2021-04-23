@@ -64,6 +64,10 @@ public class CombatSystem {
 	private AudioInputStream punch_audio;
 	private FloatControl punch_volume;
 	
+	private Clip boss_sound;
+	private AudioInputStream boss_audio;
+	private FloatControl boss_volume;
+	
 	/**
 	 * Constructor
 	 * @throws IOException
@@ -94,6 +98,13 @@ public class CombatSystem {
 		punch_volume = (FloatControl) punch_sound.getControl(FloatControl.Type.MASTER_GAIN);
     	dB = (float) (Math.log(effect) / Math.log(10.0) * 20.0);
     	punch_volume.setValue(dB);
+    	
+    	boss_sound = AudioSystem.getClip();
+		boss_audio= AudioSystem.getAudioInputStream(new File("data/bossroar.wav"));
+		boss_sound.open(boss_audio);
+		boss_volume = (FloatControl) boss_sound.getControl(FloatControl.Type.MASTER_GAIN);
+    	dB = (float) (Math.log(effect) / Math.log(10.0) * 20.0);
+    	boss_volume.setValue(dB);
 		
 		timer=0;
 		lastime = 0;
@@ -449,7 +460,7 @@ public class CombatSystem {
 		if(boss.getAttack()-player.getDefence()>0)
 			player.setHp(player.getHp()-(boss.getAttack()-player.getDefence()));
 
-		bone_sound.loop(1);
+		boss_sound.loop(1);
 	}
 	
 	/**

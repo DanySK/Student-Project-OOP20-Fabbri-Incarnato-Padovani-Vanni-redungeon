@@ -84,8 +84,8 @@ public class Menu extends JFrame{
 	
 	JComboBox<?> comboBox = new JComboBox<Object>(resolution);
 	JComboBox<?> difficultyBox= new JComboBox<Object>(difficulty_selection);
-	JSlider musicSlider = new JSlider(JSlider.HORIZONTAL,10,100,50);
-	JSlider effectSlider = new JSlider(JSlider.HORIZONTAL,10,100,50);
+	JSlider musicSlider = new JSlider(JSlider.HORIZONTAL,0,100,50);
+	JSlider effectSlider = new JSlider(JSlider.HORIZONTAL,0,100,50);
 	final JButton effectB=new JButton ();
 	
 	ActionListener NewGame = (e)->{
