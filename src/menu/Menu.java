@@ -43,9 +43,8 @@ public class Menu extends JFrame{
 	public static int height=600;
 	public static int mapwidth=2000;
 	public static int mapheight=2000;
-	
-	public Image background;
-	
+
+	final ImageIcon backGroundImage = new ImageIcon("data/GameBackground1920x1080.png");
 	
 	public Menu() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
 
@@ -58,7 +57,10 @@ public class Menu extends JFrame{
                 System.exit(0);
         }
     });
-	final ImagePanel menupanel = new ImagePanel (new ImageIcon("data/GameBackground800x600.png").getImage()) ;
+	
+	
+	final ImagePanel menupanel = new ImagePanel(backgroundImageResizer(width, height, backGroundImage));
+	
 	menupanel.setBackground(Color.BLACK);
 	menupanel.setLayout(null);
 	f.getContentPane().add(menupanel);
@@ -79,7 +81,7 @@ public class Menu extends JFrame{
 	final JPanel Optionspanel= new JPanel();
 	
 	
-	String[] resolution = {"800x600","1280x768","1440x900","1920x1080"};
+	String[] resolution = {"800x600","1280x720","1440x900", "1600x900", "1920x1080"};
 	String[] difficulty_selection = {"Facile","Normale","Difficile"};
 	
 	JComboBox<?> comboBox = new JComboBox<Object>(resolution);
@@ -131,28 +133,36 @@ public class Menu extends JFrame{
 			width=800;
 			height=600;
 			f.setSize(width,height);
-			menupanel.setImage(new ImageIcon("data/GameBackground800x600.png").getImage());
+			menupanel.setImage(backgroundImageResizer(width, height, backGroundImage));
 		}
 		else if(comboBox.getSelectedIndex()==1)
 		{
 			width=1280;
-			height=768;
+			height=720;
 			f.setSize(width,height);
-			menupanel.setImage(new ImageIcon("data/GameBackground1280x768.png").getImage());
+			menupanel.setImage(backgroundImageResizer(width, height, backGroundImage));
 		}
 		else if(comboBox.getSelectedIndex()==2)
 		{
 			width=1440;
 			height=900;
 			f.setSize(width,height);
-			menupanel.setImage(new ImageIcon("data/GameBackground1440x900.png").getImage());
+			menupanel.setImage(backgroundImageResizer(width, height, backGroundImage));
 		}
+
 		else if(comboBox.getSelectedIndex()==3)
+		{
+			width=1600;
+			height=900;
+			f.setSize(width,height);
+			menupanel.setImage(backgroundImageResizer(width, height, backGroundImage));
+		}
+		else if(comboBox.getSelectedIndex()==4)
 		{
 			width=1920;
 			height=1080;
 			f.setSize(width,height);
-			menupanel.setImage(new ImageIcon("data/GameBackground1920x1080.png").getImage());
+			menupanel.setImage(backgroundImageResizer(width, height, backGroundImage));
 		}
 	};
 	
@@ -286,6 +296,21 @@ public class Menu extends JFrame{
 
 	public void setDifficulty(Difficulty difficulty) {
 		this.difficulty = difficulty;
+	}
+	
+	/**
+	 * Resize the given ImageIcon and convert it into an Image istance
+	 * 
+	 * @param width		new image width
+	 * @param height	new image height
+	 * @param imageIcon	the give image
+	 * @return a reized image
+	 */
+	private Image backgroundImageResizer(int width, int height, ImageIcon imageIcon) {
+		Image preResizedImage= imageIcon.getImage().getScaledInstance(width, height, java.awt.Image.SCALE_SMOOTH);
+		ImageIcon resizedImage=new ImageIcon(preResizedImage);
+		return resizedImage.getImage();
+		
 	}
 
 }
