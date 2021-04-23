@@ -318,21 +318,29 @@ public class Menu extends JFrame{
 	
 	Dimension size = b1.getPreferredSize () ;
 	b1.setFont(new CustomFontUtil(true, 18).getCustomFont());
+	b1.setForeground(Color.WHITE);
+	b1.setBackground(Color.BLACK);
 	b1.setFocusable(false);
 	b1.addActionListener(NewGame);
 	
 	size = b2.getPreferredSize () ;
 	b2.setFont(new CustomFontUtil(true, 18).getCustomFont());
+	b2.setForeground(Color.WHITE);
+	b2.setBackground(Color.BLACK);
 	b2.setFocusable(false);
 	b2.addActionListener(Options);
 	
 	size = b3.getPreferredSize () ;
 	b3.setFont(new CustomFontUtil(true, 18).getCustomFont());
+	b3.setForeground(Color.WHITE);
+	b3.setBackground(Color.BLACK);
 	b3.setFocusable(false);
 	b3.addActionListener(Quit);
 	
 	size = b6.getPreferredSize () ;
 	b6.setFont(new CustomFontUtil(true, 18).getCustomFont());
+	b6.setForeground(Color.WHITE);
+	b6.setBackground(Color.BLACK);
 	b6.setFocusable(false);
 	b6.addActionListener(Tutorial);
 	
@@ -341,11 +349,15 @@ public class Menu extends JFrame{
 	
 	comboBox.setBounds((int)f.getSize().getWidth()/4, (int)f.getSize().getHeight()/5, 150,50);
 	comboBox.setFont(new CustomFontUtil(true, 18).getCustomFont());
+	comboBox.setForeground(Color.WHITE);
+	comboBox.setBackground(Color.BLACK);
 	comboBox.addActionListener(res);
 	Optionspanel.add(comboBox);
 	
 	difficultyBox.setBounds((int)f.getSize().getWidth()/2, (int)f.getSize().getHeight()/5, 150, 50);
 	difficultyBox.setFont(new CustomFontUtil(true, 18).getCustomFont());
+	difficultyBox.setForeground(Color.WHITE);
+	difficultyBox.setBackground(Color.BLACK);
 	difficultyBox.addActionListener(diff);
 	Optionspanel.add(difficultyBox);
 	
@@ -356,12 +368,16 @@ public class Menu extends JFrame{
 
 	b4.setBounds((int)f.getSize().getWidth()/4, (int)f.getSize().getHeight()*4/5, 150,50);
 	b4.setFont(new CustomFontUtil(true, 18).getCustomFont());
+	b4.setForeground(Color.WHITE);
+	b4.setBackground(Color.BLACK);
 	b4.setFocusable(false);
 	b4.addActionListener(Back);
 	Optionspanel.add(b4);
 	
 	effectB.setBounds(150, height*2/3, 100, 25);
 	effectB.setFont(new CustomFontUtil(true, 18).getCustomFont());
+	effectB.setForeground(Color.WHITE);
+	effectB.setBackground(Color.BLACK);
 	effectB.setFocusable(false);
 	effectB.addActionListener(test);
 	Optionspanel.add(effectB);
@@ -382,6 +398,7 @@ public class Menu extends JFrame{
 	musicSlider.setPaintLabels(true);
 	musicSlider.setOpaque(false);
 	musicSlider.setForeground(Color.WHITE);
+	musicSlider.setBackground(Color.RED);
 	musicSlider.setBounds(300, height/2, size.width*7, size.height*2);
 	musicSlider.addChangeListener(new ChangeListener() {
         public void stateChanged(ChangeEvent e) {
@@ -417,6 +434,8 @@ public class Menu extends JFrame{
 	size = b5.getPreferredSize () ;
 	b5.setFont(new CustomFontUtil(true, 18).getCustomFont());
 	b5.setFocusable(false);
+	b5.setForeground(Color.WHITE);
+	b5.setBackground(Color.BLACK);
 	b5.addActionListener(Back2);
 	TutorialPanel.add(Box.createRigidArea(new Dimension(20, 0)));
 	TutorialPanel.add(Box.createRigidArea(new Dimension(20, 0)));
