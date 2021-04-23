@@ -19,6 +19,7 @@ public class HUD extends GameObject{
 	/* this class need only the rendere, because is a graphics clas */
 	private boolean hud_display = false;
 	private BufferedImage HUD_menu;
+	private BufferedImage key;
 	protected Player player;
 	protected int dungeon_level;
 	
@@ -27,6 +28,7 @@ public class HUD extends GameObject{
 		super(x, y, id);
 		// TODO Auto-generated constructor stub
 		this.HUD_menu = ImageIO.read(new File("data/HUD.png"));
+		this.key = ImageIO.read(new File("data/key.png"));
 		this.player = p;
 		this.dungeon_level = 1;
 	}
@@ -61,6 +63,13 @@ public class HUD extends GameObject{
         			+"/"+
         			String.valueOf(this.player.getMax_hp()), 
         			this.x+40, this.y+84);
+        	
+        	if(this.player.getInventory().hasKey())
+        	{
+            	g.drawImage(key, 
+            			this.x+30, this.y+185, 
+            			null);
+        	}
         }
 	}
 	public boolean isHud_display() {

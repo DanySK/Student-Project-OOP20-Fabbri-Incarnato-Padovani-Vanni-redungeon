@@ -10,6 +10,10 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
@@ -54,6 +58,10 @@ public class Game extends Canvas implements Runnable{
 	
 	private BufferedImage gameover_bar;
 	
+	private Clip clip;
+	private AudioInputStream audio;
+	private FloatControl clip_volume;
+	
 	private Graphics2D g;
 	private boolean running= false;
 	private AbsFloor f;
@@ -83,9 +91,13 @@ public class Game extends Canvas implements Runnable{
 		
 		gameover_bar = ImageIO.read(new File("data/GameOverbar.png"));
 		
-		//clip = AudioSystem.getClip();
-		//audio= AudioSystem.getAudioInputStream(new File("data/cavalcata.wav"));
-		//clip.open(audio);
+		clip = AudioSystem.getClip();
+		audio= AudioSystem.getAudioInputStream(new File("data/GameBGM.wav"));
+		clip.open(audio);
+		clip_volume = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+    	float dB = (float) (Math.log(music) / Math.log(10.0) * 20.0);
+    	clip_volume.setValue(dB);
+    	
 		this.WIDTH=width;
 		this.HEIGHT=height;
 		this.MAPW=mapwidth;
@@ -142,7 +154,7 @@ public class Game extends Canvas implements Runnable{
 	 */
 	public synchronized void start() {
 		
-		//clip.loop(Clip.LOOP_CONTINUOUSLY);
+		clip.loop(Clip.LOOP_CONTINUOUSLY);
 		
 		thread= new Thread(this);
 		thread.start();
@@ -157,6 +169,7 @@ public class Game extends Canvas implements Runnable{
 		try {
 			thread.join();
 			running=false;
+			clip.stop();
 			
 		}catch(Exception e) {
 			e.printStackTrace();
