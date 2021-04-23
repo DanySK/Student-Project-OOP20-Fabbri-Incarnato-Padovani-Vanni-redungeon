@@ -248,7 +248,6 @@ public class Floor extends GameObject implements AbsFloor {
 			}
 			else if(e.getY()-screenh/(tilesize*2) <=0) {this.offsetY=0;}
 			else if(e.getY()+screenh/(tilesize*2) >=height/tilesize) {this.offsetY= height/tilesize-screenh/tilesize;}
-			System.out.println("x:"+offsetX+"y:"+offsetY);
 		
 	}
 

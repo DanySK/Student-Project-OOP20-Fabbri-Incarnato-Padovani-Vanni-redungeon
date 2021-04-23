@@ -8,27 +8,22 @@ import java.io.IOException;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
-import entity.Boss;
-import entity.Direction;
-import entity.Enemy;
-import entity.Player;
-import game.CombatSystem;
-import game.ID;
-import mapandtiles.BossFloor;
-import mapandtiles.Floor;
+import entity.*;
+import game.*;
+import mapandtiles.*;
 import menu.Menu;
 import utilities.AABB;
 
 public class ReDungonTest {
 
-	private Boss boss;
-	private BossFloor bFloor;
-	private Floor floor;
-	private CombatSystem combat;
-	private Player player;
-	private AABB box;
-	private Menu menu;
-	private Enemy enemy;
+	public Boss boss;
+	public BossFloor bFloor;
+	public Floor floor;
+	public CombatSystem combat;
+	public Player player;
+	public AABB box;
+	public Menu menu;
+	public Enemy enemy;
 	
 	static int level = 5;
 	static int mapWidth = 1000;

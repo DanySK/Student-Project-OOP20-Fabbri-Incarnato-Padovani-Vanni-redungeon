@@ -142,8 +142,6 @@ public class Boss extends Entity{
 		lastime = System.currentTimeMillis();
 		timer = 0;
 		
-		System.out.println(this.x+ " " + this.velY);
-		
 		this.setMax_hp(500);
 		this.setExpGuaranteed(30);
 		this.augmStat();
