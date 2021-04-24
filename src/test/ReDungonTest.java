@@ -203,7 +203,8 @@ public class ReDungonTest {
 
   @org.junit.Test
   public void combatSystemTest() {
-    combat.damagePlayer("enemy", true);
+    
+    boss.getCombat().damagePlayer("boss", true);
 
   }
 
