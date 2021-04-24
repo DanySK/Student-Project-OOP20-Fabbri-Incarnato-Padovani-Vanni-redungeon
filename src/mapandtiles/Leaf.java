@@ -2,9 +2,10 @@ package mapandtiles;
 
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Vector;
 import utilities.SpriteSheet;
 
 /**
@@ -105,16 +106,16 @@ public class Leaf {
    * its children.
    *
    * @param tilestate2 the final state of tiles
-   * @param rv vector of points
+   * @param rooms vector of points
    */
-  public void createRooms(final Map<Point, Tile> tilestate2, final Vector<Vector<Point>> rv) {
+  public void createRooms(final Map<Point, Tile> tilestate2, final List<List<Point>> rooms) {
     if (leftChild != null || rightChild != null) {
       // this leaf has been split, so go into the children leafs
       if (leftChild != null) {
-        leftChild.createRooms(tilestate2, rv);
+        leftChild.createRooms(tilestate2, rooms);
       }
       if (rightChild != null) {
-        rightChild.createRooms(tilestate2, rv);
+        rightChild.createRooms(tilestate2, rooms);
       }
       if (leftChild != null && rightChild != null) {
         createHall(leftChild.getRoom(), rightChild.getRoom(), tilestate2);
@@ -131,7 +132,7 @@ public class Leaf {
       roomPos = new Point((int) (Math.random() * (width - roomSize.x - 1 - 1) + 1),
           (int) (Math.random() * (height - roomSize.y - 1 - 1) + 1));
       room = new Rectangle(coordX + roomPos.x, coordY + roomPos.y, roomSize.x, roomSize.y);
-      final Vector<Point> roomph = new Vector<Point>();
+      final List<Point> roomph = new ArrayList<>();
       for (int a = room.x; a < room.x + room.width; a++) {
         for (int b = room.y; b < room.y + room.height; b++) {
           tilestate2.put(new Point(a, b), new Tile(new Point(a, b), TileType.ON, sprite));
@@ -139,7 +140,7 @@ public class Leaf {
         }
 
       }
-      rv.add(roomph);
+      rooms.add(roomph);
 
     }
   }
@@ -196,8 +197,8 @@ public class Leaf {
     // you could do some extra logic to make your halls more bendy, or do some more
     // advanced things if you wanted.
 
-    Vector<Rectangle> halls; // hallways to connect this Leaf to other Leafs
-    halls = new Vector<Rectangle>();
+    List<Rectangle> halls; // hallways to connect this Leaf to other Leafs
+    halls = new ArrayList<>();
 
     final Point point1 = new Point((int) Math.random() * (l.width - l.x - 2) + l.x + 1,
         (int) Math.random() * (l.height - l.y - 2) + l.y + 1);

@@ -1,26 +1,28 @@
 package mapandtiles;
 
+import entity.Enemy;
+import entity.Entity;
+import game.GameObject;
+import game.Id;
 import java.awt.Color;
-
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.Vector;
 import javax.imageio.ImageIO;
-
-import entity.*;
-import game.*;
-import utilities.SpriteSheet;
 import utilities.AABB;
 import utilities.ResourceLoader;
+import utilities.SpriteSheet;
 
 /**
- * 
+ * generate a Floor with level, width ,
+ * height,screen width and screen height.
+ *
  * @author Francesco Padovani
  * @author Luigi Incarnato
  * @author Leroy Fabbri
@@ -36,8 +38,8 @@ public class Floor extends GameObject implements AbsFloor {
   private final int height;
   private final Map<Point, Tile> tilestate = new HashMap<>();
   private final int tilesize;
-  private final Vector<Leaf> leaves = new Vector<>();
-  private final Vector<Vector<Point>> rooms = new Vector<>();
+  private final List<Leaf> leaves = new ArrayList<>();
+  private final List<List<Point>> rooms = new ArrayList<>();
   private static final int MAX_LEAF_SIZE = 24;
   private final Random rand = new Random();
   private final SpriteSheet sprite;
@@ -45,8 +47,7 @@ public class Floor extends GameObject implements AbsFloor {
   private int offsetY;
 
   /**
-   * generate a Floor with level, width ,
-   * height,screen width and screen height.
+   * Costructor.
    *
    * @param l       level of this floor
    * @param w       width of the floor in pixels
@@ -126,7 +127,7 @@ public class Floor extends GameObject implements AbsFloor {
           // if this Leaf is too big, or 75% chance...
           if (l.width > MAX_LEAF_SIZE || l.height > MAX_LEAF_SIZE || rand.nextFloat() > 0.25) {
             if (l.split()) { // split the Leaf!
-              // if we did split, push the child leafs to the Vector so we can loop into them
+              // if we did split, push the child leafs to the List so we can loop into them
               // next
               leaves.add(l.leftChild);
               leaves.add(l.rightChild);

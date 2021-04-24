@@ -26,10 +26,9 @@ import menu.Hud;
 import utilities.CustomFontUtil;
 import utilities.ResourceLoader;
 
-/*
- * 
- * Principal class that generate floor and entity and manage the game flow
- * 
+/**
+ * Principal class that generate floor and entity and manage the game flow.
+ *
  * @author Francesco Padovani
  * @author Luigi Incarnato
  * @author Leroy Fabbri
@@ -179,17 +178,14 @@ public class Game extends Canvas implements Runnable {
 
   /**
    * Stop game thread.
+   *
+   * @throws InterruptedException 
    * 
    */
-  public synchronized void stop() {
-    try {
-      thread.join();
-      running = false;
-      clip.stop();
-
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
+  public synchronized void stop() throws InterruptedException {
+    thread.join();
+    running = false;
+    clip.stop();
 
   }
 
@@ -226,7 +222,12 @@ public class Game extends Canvas implements Runnable {
       }
     }
 
-    stop();
+    try {
+      stop();
+    } catch (InterruptedException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
 
   }
 
@@ -269,14 +270,13 @@ public class Game extends Canvas implements Runnable {
    * Generate graphics elements.
    */
   private void render() {
-    Graphics2D graphics;
     
     final BufferStrategy bs = this.getBufferStrategy();
     if (bs == null) {
       this.createBufferStrategy(3);
       return;
     }
-    graphics = (Graphics2D) bs.getDrawGraphics();
+    final Graphics2D graphics = (Graphics2D) bs.getDrawGraphics();
 
     graphics.setColor(Color.black);
     graphics.fillRect(0, 0, width, height);

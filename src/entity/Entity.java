@@ -1,10 +1,9 @@
 package entity;
 
-import java.awt.image.BufferedImage;
-
 import game.CombatSystem;
 import game.GameObject;
 import game.Id;
+import java.awt.image.BufferedImage;
 import mapandtiles.AbsFloor;
 import utilities.AABB;
 import utilities.SpriteSheet;

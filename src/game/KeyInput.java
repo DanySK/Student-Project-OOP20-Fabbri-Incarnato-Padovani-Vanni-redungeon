@@ -1,18 +1,17 @@
 package game;
 
+import entity.Entity;
+import entity.Player;
 import java.awt.event.KeyAdapter;
-
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
-
-import utilities.*;
-import entity.*;
 import menu.Hud;
+import utilities.AABB;
 
 /**
- * Class extended from KeyAdapter, used for user input
- * 
+ * Class extended from KeyAdapter, used for user input.
+ *
  * @author Francesco Padovani
  * @author Luigi Incarnato
  * @author Leroy Fabbri

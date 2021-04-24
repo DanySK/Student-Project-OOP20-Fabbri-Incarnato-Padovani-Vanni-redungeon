@@ -418,9 +418,10 @@ public class Player extends Entity {
 
   }
 
-  /*
-   * Used as setter for experience and control for level up
-   * @param additionalExp
+  /**
+   * Used as setter for experience and control for level up.
+   *
+   * @param additionalExp increase the exp
    */
   public void addExp(final int additionalExp) {
     this.experience += additionalExp;
@@ -463,10 +464,11 @@ public class Player extends Entity {
     this.experience = exp;
   }
 
-  /*
-   * Used as control for player floor change
-   * 
-   * @return boolean
+  /**
+   * Used as control for player floor change.
+   *
+   * @return boolean    true if has the key and the player is
+   *                    on lockedkey tiles or on exit, flase if not
    */
   public boolean isOut() {
     if (this.getFloor().getMap().get(this.box.getpos()).gettype() == TileType.EXIT

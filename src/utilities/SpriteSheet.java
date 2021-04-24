@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 /**
  * create a spreadsheet that can be divided
  * in columns and rows to get an accurate portion
- * of the image 
+ * of the image.
  *
  * @author Francesco Padovani
  * @author Luigi Incarnato

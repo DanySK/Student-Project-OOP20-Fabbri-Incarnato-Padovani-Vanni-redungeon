@@ -1,13 +1,11 @@
 package game;
 
-import java.awt.Graphics2D;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-
 import entity.Boss;
 import entity.Enemy;
 import entity.Player;
+import java.awt.Graphics2D;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -30,14 +28,24 @@ import entity.Player;
 public class Handler {
 
   protected final List<GameObject> object = new ArrayList<>();
-  public boolean next = false;
-  public boolean dead = false;
-  public int point = 0;
-  public int enemiesNumber = 0;
+  public boolean next;
+  public boolean dead;
+  public int point;
+  public int enemiesNumber;
 
   /**
-   * Make control on game events
+   * Costructor.
    */
+  public Handler() {
+    this.next = false;
+    this.dead = false;
+    this.point = 0;
+    this.enemiesNumber = 0;
+  }
+  /**
+   * Make control on game events.
+   */
+  
   public void tick() {
     for (int i = 0; i < object.size(); i++) {
       final GameObject tempobj = object.get(i);

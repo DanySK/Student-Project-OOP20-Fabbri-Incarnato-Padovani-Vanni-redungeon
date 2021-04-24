@@ -16,8 +16,8 @@ import java.awt.Point;
  */
 public class AABB {
   private Point pos;
-  private final int w;
-  private final int h;
+  private final int width;
+  private final int height;
   private final int size;
 
   /**
@@ -29,8 +29,8 @@ public class AABB {
    */
   public AABB(final Point p, final int w, final int h) {
     this.pos = p;
-    this.w = w;
-    this.h = h;
+    this.width = w;
+    this.height = h;
     this.size = Math.max(w, h);
   }
 
@@ -105,13 +105,12 @@ public class AABB {
    */
   public boolean collides(final AABB box) {
 
-    if (this.pos.x < (box.pos.x + box.w) && this.pos.x + this.w > box.pos.x 
-        && this.pos.y < box.pos.y + box.h
-        && this.pos.y + this.h > box.pos.y) {
+    if (this.pos.x < box.pos.x + box.width && this.pos.x + this.width > box.pos.x 
+        && this.pos.y < box.pos.y + box.height && this.pos.y + this.height > box.pos.y) {
       return true;
-    } else {
-      return false;
     }
+    
+    return false;
 
 
   }

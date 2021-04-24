@@ -92,7 +92,6 @@ public class Menu extends JFrame {
     f.addWindowListener(new WindowAdapter() {
       public void windowClosing(final WindowEvent e) {
         menuSound.stop();
-        System.exit(1);
       }
     });
 
@@ -490,8 +489,9 @@ public class Menu extends JFrame {
    * @param imageIcon the give image
    * @return a reized image
    */
-  private Image backgroundImageResizer(final int width, final int height, final ImageIcon imageIcon) {
-    Image preResizedImage = imageIcon.getImage().getScaledInstance(
+  private Image backgroundImageResizer(final int width, final int height,
+      final ImageIcon imageIcon) {
+    final Image preResizedImage = imageIcon.getImage().getScaledInstance(
         width, height, Image.SCALE_SMOOTH);
     final ImageIcon resizedImage = new ImageIcon(preResizedImage);
     return resizedImage.getImage();

@@ -26,7 +26,12 @@ import mapandtiles.Floor;
 import menu.Difficulty;
 import menu.Menu;
 import utilities.AABB;
-
+/**
+ * Class test
+ * 
+ * @author Luigi Incarnato
+ *
+ */
 public class ReDungonTest {
   public Boss boss;
   public BossFloor bfloor;
@@ -46,7 +51,21 @@ public class ReDungonTest {
   public static int mapHeight = 2000;
   public static int screenWidth = 960;
   public static int screenHeight = 720;
-
+  
+  /**
+   * initial all.
+   *
+   * @throws IOException If a function that handler
+   *                     call doesn't read a file
+   *                  
+   * @throws LineUnavailableException   If a function that handler
+   *                                    call doens't open a line beacuse
+   *                                    it's unavailable
+   *                                    
+   * @throws UnsupportedAudioFileException  If an audio file isn't supported
+   *
+   * @throws AWTException Signals that an Abstract Window Toolkit exception has occurred
+   */
   @org.junit.Before
   public void initAll() throws IOException, LineUnavailableException, 
       UnsupportedAudioFileException, AWTException {
