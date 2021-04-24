@@ -100,12 +100,14 @@ public class ReDungonTest {
   }
 
   @org.junit.Test
-  public void bossTest() {
+  public void bossTest() throws IOException, LineUnavailableException, 
+      UnsupportedAudioFileException {
     /* the boss exp increase ten by ten */
     assertEquals(70, boss.getExpGuaranteed());
-    boss.setLevel(2);
-    //boss.setExpGuaranteed(60); // by costructor it always have 30 + (leve*10)
-    assertEquals(80, boss.getExpGuaranteed());
+    boss.setLevel(2); 
+    Boss boss1 = new Boss(32, 32, Id.BOSS, combat, 
+        2, bfloor, player); // by costructor it always have 30 + (leve*10)
+    assertEquals(80, boss1.getExpGuaranteed());
 
     enemy.setLevel(1);
     /*
@@ -128,9 +130,9 @@ public class ReDungonTest {
 
     /* the enemy exp increase ten by ten getting to next levels */
     assertEquals(40, enemy.getExpGuaranteed());
-    enemy.setLevel(2);
-    //enemy.setExpGuaranteed(30); // by costructor it always have 30 + (leve*10)
-    assertEquals(50, enemy.getExpGuaranteed());
+    Enemy enemy1 = new Enemy(32, 32, Id.ENEMY, 
+        combat, 2, floor, player); // by costructor it always have 30 + (leve*10)
+    assertEquals(50, enemy1.getExpGuaranteed());
 
     enemy.setLevel(1);
     /* enemy by costructor has specif stats depending on floor and player level */
