@@ -64,7 +64,7 @@ public class HUD extends GameObject{
         	
         	g.drawString(String.valueOf(this.player.getHp())
         			+"/"+
-        			String.valueOf(this.player.getMax_hp()), 
+        			String.valueOf(this.player.getMaxHp()), 
         			this.x+40, this.y+84);
         	
         	if(this.player.getInventory().hasKey())

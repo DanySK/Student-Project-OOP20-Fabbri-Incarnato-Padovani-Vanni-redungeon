@@ -1,5 +1,7 @@
 package entity;
 
+import game.CombatSystem;
+import game.ID;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -8,268 +10,258 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;
 import java.util.Random;
-
 import javax.imageio.ImageIO;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import mapandtiles.AbsFloor;
+import mapandtiles.tiletype;
+import utilities.AABB;
+import utilities.CustomFontUtil;
+import utilities.ResourceLoader;
+import utilities.SpriteSheet;
 
-import utilities.*;
-import game.*;
-import mapandtiles.*;
+public class Enemy extends Entity {
 
-public class Enemy extends Entity{
-	
-	int column=0;
-	Player player_parameter;
-	AABB box1;
-	boolean collide;
-	long timer;
-	long lastime;
-	private int expGuaranteed;
-	/**
-	 * Constructor
-	 * 
-	 * @param x 		horizontal position
-	 * @param y 		vertical position
-	 * @param id 	 	game.ID
-	 * @param combat	Type of combat
-	 * @param level		Used for stats modifier
-	 * @param floor		Used for positioning
-	 * @param player	Used for damage and statistics
-	 * 
-	 * @throws IOException
-	 * @throws LineUnavailableException
-	 * @throws UnsupportedAudioFileException
-	 */
-	public Enemy(int x, int y, ID id, CombatSystem combat, int level,AbsFloor floor, Player player) throws IOException, LineUnavailableException, UnsupportedAudioFileException{
-		super(x, y, id, combat, level,floor);
-		// TODO Auto-generated constructor stub
-		
-		ResourceLoader resource = new ResourceLoader();
-		
-		hp_bar = ImageIO.read(resource.getStreamImage("hpbar"));
-		sprite = new SpriteSheet(ImageIO.read(resource.getStreamImage("enemy1")));
-		this.setBox(new AABB(new Point(this.x, this.y), 1, 2));
-		this.player_parameter = player;
-		this.img_matrix = new BufferedImage[4][3];
-		for(int row=0; row<4; row++)
-		{
-			for(int column=0; column<3; column++)
-			{
-				img_matrix[row][column] = sprite.grabImage(column+1, row+1, 38, 66); 
-			}
-		}
-		
-		this.setDirection(Direction.Left);
-		
-		img = img_matrix[0][1];
+  private int column;
+  private final Player playerParameter;
+  private AABB box1;
+  private boolean collide;
+  private long timer;
+  private long lastime;
+  private final int expGuaranteed;
 
-		lastime = System.currentTimeMillis();
-		timer = 0;
-		
-		this.setMax_hp(100);
-		this.setExpGuaranteed(30);
-		this.augmStat();
-	}
+  /*
+   * Constructor
+   * 
+   * @param x      horizontal position
+   * @param y      vertical position
+   * @param id     game.ID
+   * @param combat Type of combat
+   * @param level  Used for stats modifier
+   * @param floor  Used for positioning
+   * @param player Used for damage and statistics
+   * 
+   * @throws IOException
+   * @throws LineUnavailableException
+   * @throws UnsupportedAudioFileException
+   */
+  
+  public Enemy(final int x, final int y, final ID id, final CombatSystem combat, 
+      final int level, final AbsFloor floor, final Player player)
+      throws IOException, LineUnavailableException, UnsupportedAudioFileException {
+    super(x, y, id, combat, level, floor);
+    // TODO Auto-generated constructor stub
 
-	@Override
-	public void tick() {
-		timer += System.currentTimeMillis() - lastime;
-		// TODO Auto-generated method stub
-		if(timer>=1500)
-		{
-			switch(this.getDirection())
-			{
-				case Left:
-					img = img_matrix [1][this.column];
-					break;
-					
-				case Down:
-					img = img_matrix [0][this.column];
-					break;
-					
-				case Right:
-					img = img_matrix [2][this.column];
-					break;
-					
-				case Up:
-					img = img_matrix [3][this.column];
-					break;
-			}
-			
-			if(this.column==2)
-				this.column=0;
-			else
-				this.column++;
-			
-			lastime = System.currentTimeMillis();
-			timer = 0;
-		}
-	}
+    final ResourceLoader resource = new ResourceLoader();
 
-	@Override
-	public void move() {
-		// TODO Auto-generated method stub
-		
-		x+=velX;
-		y+=velY;
-		box.setpos(new Point(x,y));
-		velX=0;
-		velY=0;
-	}
+    hpBar = ImageIO.read(resource.getStreamImage("hpbar"));
+    sprite = new SpriteSheet(ImageIO.read(resource.getStreamImage("enemy1")));
+    this.setBox(new AABB(new Point(this.x, this.y), 1, 2));
+    this.playerParameter = player;
+    this.imgMatrix = new BufferedImage[4][3];
+    for (int row = 0; row < 4; row++) {
+      for (int column = 0; column < 3; column++) {
+        imgMatrix[row][column] = getSprite().grabImage(column + 1, row + 1, 38, 66);
+      }
+    }
 
-	@Override
-	public void render(Graphics2D g) {
-		// TODO Auto-generated method stub
-		
-		g.setColor(Color.green);
-		
-		//with a proportion the render function set the hp of the monster
-		
-		if(this.getHp() > 0) {
-			if(this.getMax_hp()/this.getHp() < 2) {
-				
-				g.fillRect((x-getFloor().getOffsetX())*32,
-						(y-getFloor().getOffsetY()-1)*32-11, 
-						(this.getHp()*54)/this.getMax_hp(), 14);
-				
-				g.drawImage(hp_bar,(x-getFloor().getOffsetX())*32-14,
-						(y-getFloor().getOffsetY()-2)*32+19,null);
-			}
-			else if ( this.getMax_hp()/this.getHp() <= 4 && this.getMax_hp()/this.getHp() >= 2)
-			{		
-				g.setColor(Color.orange);
-				g.fillRect((x-getFloor().getOffsetX())*32,
-						(y-getFloor().getOffsetY()-1)*32-11, 
-						(this.getHp()*54)/this.getMax_hp(), 14);
-				
-				g.drawImage(hp_bar,(x-getFloor().getOffsetX())*32-14,
-						(y-getFloor().getOffsetY()-2)*32+19,null);
-			}
-			else if (this.getMax_hp()/this.getHp() > 4)
-			{
-				g.setColor(Color.red);
-				g.fillRect((x-getFloor().getOffsetX())*32, 
-						(y-getFloor().getOffsetY()-1)*32-11, 
-						(this.getHp()*54)/this.getMax_hp(), 14);
-				
-				g.drawImage(hp_bar,(x-getFloor().getOffsetX())*32-14,
-						(y-getFloor().getOffsetY()-2)*32+19,null);
-			}
-		}
-		g.drawImage(img,(x-getFloor().getOffsetX())*32,
-				(y-getFloor().getOffsetY()-1)*32,null);
-		
-		
-		g.setColor(Color.black);
-		String level;
-    	level=""+this.getLevel();
-	    if(this.getLevel()<10)
-	    {
-	        g.setFont(new CustomFontUtil(true, 12).getCustomFont());
-	        g.drawString(level, (x-getFloor().getOffsetX())*32-7, 
-					(y-getFloor().getOffsetY()-2)*32+33);
-	    }
-	    else if(this.getLevel()>=10)
-	    {
-	        g.setFont(new CustomFontUtil(true, 12).getCustomFont());
-	        g.drawString(level, (x-getFloor().getOffsetX())*32-11, 
-					(y-getFloor().getOffsetY()-2)*32+32);
-	    }
-	}
+    this.setDirection(Direction.LEFT);
 
-	@Override
-	public void input(KeyEvent key, List<AABB> collisions) {
-		
-		// TODO Auto-generated method stub
-		box1 = new AABB(new Point(this.getBox().getX(), getBox().getY()), 1, 2);
-		collisions.remove(box);
-		collide = false;
-		
-		//the enemy find the position of the player like it is in a cartesian system
-		
-		if(this.getY()<player_parameter.getY())
-		{
-			if(!(this.getFloor().getMap().get(new Point((this.x),(this.y+1))).gettype()==tiletype.OFF))
-			{
-				this.changeDirection(Direction.Down);
-				box1.sumY(1);	
-				this.setvelY(1);
-			}
-		}
-		
-		if(this.getY()>player_parameter.getY())
-		{
-			if(!(this.getFloor().getMap().get(new Point((this.x),(this.y-1))).gettype()==tiletype.OFF))
-			{
-				this.changeDirection(Direction.Up);
-				box1.sumY(-1);	
-				this.setvelY(-1);
-			}
-		}
-		
-		if(this.getX()<player_parameter.getX())
-		{
-			if(!(this.getFloor().getMap().get(new Point((this.x+1),(this.y+velY))).gettype()==tiletype.OFF))
-			{
-				this.changeDirection(Direction.Right);
-				box1.sumX(1);	
-				this.setvelX(1);
-			}
-		}
-		
-		if(this.getX()>player_parameter.getX())
-		{
-			if(!(this.getFloor().getMap().get(new Point((this.x-1),(this.y+velY))).gettype()==tiletype.OFF))
-			{	
-				this.changeDirection(Direction.Left);
-				box1.sumX(-1);	
-				this.setvelX(-1);
-			}
-		}
-		
-		//try if there are any other entity in the position where i'm going to go, if not the enemy move
-		collisions.forEach(x -> {if(box1.collides(x)) {collide=true;}});
-		if(!collide)
-			this.move();
-		
-		else {
-				
-				this.setvelX(0);
-				this.setvelY(0);
-				
-				if(box1.collides(player_parameter.getBox()))
-				{
-					this.setAttacking(true);
-					combat.enemyAttack(this);
-				}
-				      
-		}
-		
-		collisions.add(box);
-	}
-	
-	public int getExpGuaranteed() {
-		return expGuaranteed;
-	}
-	
-	public void setExpGuaranteed(int expGuaranteed) {/*is dead true -> player_stat.setExp(expgranted)*/
-		this.expGuaranteed=expGuaranteed+(this.getLevel()*10);
-	}
-	
-	@Override
-	public void augmStat() {
+    setImg(imgMatrix[0][1]);
 
-		Random rng = new Random();
-		int attack = this.player_parameter.getDefence() + ((this.getLevel()*2)-rng.nextInt(this.getLevel()));
-		
-		this.setAttack(attack);
-		this.setMax_hp(this.getMax_hp()   + ( this.getLevel()*10 ) );
-		this.setHp(this.getMax_hp());
-		this.setDefence(( (int)(this.player_parameter.getAttack()/2) + this.getLevel())  );
-	}
-	
-  public Player getPlayerparameter() {return this.player_parameter;}
-	//attacco nemico = difesa del player + ((level*2)-random(level))
-	
+    lastime = System.currentTimeMillis();
+    timer = 0;
+
+    this.setMaxHp(100);
+    this.expGuaranteed = 30 + (this.getLevel() * 10);
+    this.augmStat();
+  }
+
+  @Override
+  public void tick() {
+    timer += System.currentTimeMillis() - lastime;
+    // TODO Auto-generated method stub
+    if (timer >= 1500) {
+      switch (this.getDirection()) {
+        case LEFT:
+          setImg(imgMatrix[1][this.column]);
+          break;
+  
+        case DOWN:
+          setImg(imgMatrix[0][this.column]);
+          break;
+  
+        case RIGHT:
+          setImg(imgMatrix[2][this.column]);
+          break;
+  
+        case UP:
+          setImg(imgMatrix[3][this.column]);
+          break;
+          
+        default:
+          break;
+      }
+
+      if (this.column == 2) {
+      } else {
+        this.column++;
+      }
+
+      lastime = System.currentTimeMillis();
+      timer = 0;
+    }
+  }
+
+  @Override
+  public void move() {
+    // TODO Auto-generated method stub
+
+    x += velX;
+    y += velY;
+    box.setpos(new Point(x, y));
+    velX = 0;
+    velY = 0;
+  }
+
+  @Override
+  public void render(final Graphics2D g) {
+    // TODO Auto-generated method stub
+
+    g.setColor(Color.green);
+
+    // with a proportion the render function set the hp of the monster
+
+    if (this.getHp() > 0) {
+      if (this.getMaxHp() / this.getHp() < 2) {
+
+        g.fillRect((x - getFloor().getOffsetX()) * 32, (y - getFloor().getOffsetY() - 1) * 32 - 11,
+            (this.getHp() * 54) / this.getMaxHp(), 14);
+
+        g.drawImage(getHpBar(), (x - getFloor().getOffsetX()) * 32 - 14, 
+            (y - getFloor().getOffsetY() - 2) * 32 + 19, null);
+      } else if (this.getMaxHp() / this.getHp() <= 4 && this.getMaxHp() / this.getHp() >= 2) {
+        g.setColor(Color.orange);
+        g.fillRect((x - getFloor().getOffsetX()) * 32, (y - getFloor().getOffsetY() - 1) * 32 - 11,
+            (this.getHp() * 54) / this.getMaxHp(), 14);
+
+        g.drawImage(getHpBar(), (x - getFloor().getOffsetX()) * 32 - 14, 
+            (y - getFloor().getOffsetY() - 2) * 32 + 19, null);
+      } else if (this.getMaxHp() / this.getHp() > 4) {
+        g.setColor(Color.red);
+        g.fillRect((x - getFloor().getOffsetX()) * 32, (y - getFloor().getOffsetY() - 1) * 32 - 11,
+            (this.getHp() * 54) / this.getMaxHp(), 14);
+
+        g.drawImage(getHpBar(), (x - getFloor().getOffsetX()) * 32 - 14, 
+            (y - getFloor().getOffsetY() - 2) * 32 + 19, null);
+      }
+    }
+    g.drawImage(getImg(), (x - getFloor().getOffsetX()) * 32, 
+        (y - getFloor().getOffsetY() - 1) * 32, null);
+
+    g.setColor(Color.black);
+    String level;
+    level = String.valueOf(this.getLevel());
+    if (this.getLevel() < 10) {
+      g.setFont(new CustomFontUtil(true, 12).getCustomFont());
+      g.drawString(level, (x - getFloor().getOffsetX()) * 32 - 7, 
+          (y - getFloor().getOffsetY() - 2) * 32 + 33);
+    } else if (this.getLevel() >= 10) {
+      g.setFont(new CustomFontUtil(true, 12).getCustomFont());
+      g.drawString(level, (x - getFloor().getOffsetX()) * 32 - 11, 
+          (y - getFloor().getOffsetY() - 2) * 32 + 32);
+    }
+  }
+
+  @Override
+  public void input(final KeyEvent key, final List<AABB> collisions) {
+    // TODO Auto-generated method stub
+    box1 = new AABB(new Point(this.getBox().getX(), getBox().getY()), 1, 2);
+    collisions.remove(box);
+    collide = false;
+
+    // the enemy find the position of the player like it is in a cartesian system
+
+    if (this.getY() < playerParameter.getY()) {
+      if (!(this.getFloor().getMap().get(new Point(this.x, this.y + 1)).gettype() 
+          == tiletype.OFF)) {
+        this.changeDirection(Direction.DOWN);
+        box1.sumY(1);
+        this.setvelY(1);
+      }
+    }
+
+    if (this.getY() > playerParameter.getY()) {
+      if (!(this.getFloor().getMap().get(new Point(this.x, this.y - 1)).gettype() 
+          == tiletype.OFF)) {
+        this.changeDirection(Direction.UP);
+        box1.sumY(-1);
+        this.setvelY(-1);
+      }
+    }
+
+    if (this.getX() < playerParameter.getX()) {
+      if (!(this.getFloor().getMap().get(new Point(this.x + 1, this.y + velY)).gettype() 
+          == tiletype.OFF)) {
+        this.changeDirection(Direction.RIGHT);
+        box1.sumX(1);
+        this.setvelX(1);
+      }
+    }
+
+    if (this.getX() > playerParameter.getX()) {
+      if (!(this.getFloor().getMap().get(new Point(this.x - 1, this.y + velY)).gettype() 
+          == tiletype.OFF)) {
+        this.changeDirection(Direction.LEFT);
+        box1.sumX(-1);
+        this.setvelX(-1);
+      }
+    }
+
+    // try if there are any other entity in the position where i'm going to go, if
+    // not the enemy move
+    collisions.forEach(x -> {
+      if (box1.collides(x)) {
+        collide = true;
+      }
+    });
+    if (!collide) {
+      this.move();
+    } else {
+
+      this.setvelX(0);
+      this.setvelY(0);
+
+      if (box1.collides(playerParameter.getBox())) {
+        this.setAttacking(true);
+        getCombat().enemyAttack(this);
+      }
+
+    }
+
+    collisions.add(box);
+  }
+
+  public int getExpGuaranteed() {
+    return expGuaranteed;
+  }
+
+  @Override
+  public final void augmStat() {
+
+    final Random rng = new Random();
+    final int attack = this.playerParameter.getDefence() 
+        + (this.getLevel() * 2 - rng.nextInt(this.getLevel()));
+
+    this.setAttack(attack);
+    this.setMaxHp(this.getMaxHp() + (this.getLevel() * 10));
+    this.setHp(this.getMaxHp());
+    this.setDefence((int) this.playerParameter.getAttack() / 2 + this.getLevel());
+  }
+
+  public Player getPlayerparameter() {
+    return this.playerParameter;
+  }
+  // attacco nemico = difesa del player + ((level*2)-random(level))
+
 }

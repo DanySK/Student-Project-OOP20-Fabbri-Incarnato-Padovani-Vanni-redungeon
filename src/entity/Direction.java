@@ -1,7 +1,7 @@
 package entity;
-/**
+
+/*
  * Enumerator for the animation direction
- * 
  * @author Francesco Padovani
  * @author Luigi Incarnato
  * @author Leroy Fabbri
@@ -12,7 +12,7 @@ package entity;
  * @see entity.Boss
  * @see entity.Entity
  */
+
 public enum Direction {
-	
-	Up, Down, Right, Left;
+UP, DOWN, RIGHT, LEFT;
 }

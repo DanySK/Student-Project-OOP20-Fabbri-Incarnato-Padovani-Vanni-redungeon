@@ -418,7 +418,7 @@ public class CombatSystem {
 	public void magicDamage(Enemy e)
 	{
 		this.enemy=e;
-		enemy.setHp(enemy.getHp()-this.player.getMagic_attack());
+		enemy.setHp(enemy.getHp()-this.player.getMagicAttack());
 		
 		if(enemy.isDead())
 		{
@@ -434,15 +434,15 @@ public class CombatSystem {
 		switch(this.player.getInventory().getPowerStone())
 		{
 			case 1:
-				boss.setHp((boss.getHp()-(this.player.getMagic_attack()/2)));
+				boss.setHp((boss.getHp()-(this.player.getMagicAttack()/2)));
 				break;
 				
 			case 2:
-				boss.setHp((int) ((boss.getHp()-(this.player.getMagic_attack())/1.5)));
+				boss.setHp((int) ((boss.getHp()-(this.player.getMagicAttack())/1.5)));
 				break;
 				
 			case 3:
-				boss.setHp(boss.getHp()-this.player.getMagic_attack());
+				boss.setHp(boss.getHp()-this.player.getMagicAttack());
 				break;
 				
 		}
@@ -484,7 +484,7 @@ public class CombatSystem {
 	 */
 	public void flamesAttack()
 	{
-		player.setHp(player.getHp()-((int) (player.getMax_hp()*20/100)));
+		player.setHp(player.getHp()-((int) (player.getMaxHp()*20/100)));
 	}
 	/**
 	 * Decrease boss stats when player take power stone
