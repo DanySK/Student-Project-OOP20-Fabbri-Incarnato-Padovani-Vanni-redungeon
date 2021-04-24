@@ -1,19 +1,18 @@
 package menu;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.*;
-
+import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 class ImagePanel extends JPanel {
 
   /**
-	 * 
-	 */
-	private static final long serialVersionUID = 7441642089495026890L;
-	
-private Image img;
+*
+*/
+  private static final long serialVersionUID = 7441642089495026890L;
+  private Image img;
 
   public ImagePanel(String img) {
     this(new ImageIcon(img).getImage());
@@ -35,7 +34,7 @@ private Image img;
 
   
   public void setImage(Image img) {
-	  this.img= img;
+    this.img = img;
   }
   
 }
