@@ -1,27 +1,32 @@
-package JUnitTest;
+package test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 
+import entity.Boss;
+import entity.Enemy;
+import entity.Player;
+import game.CombatSystem;
+import game.Game;
+import game.Handler;
 import java.awt.AWTException;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
-import java.awt.Robot;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-
-import entity.*;
-import game.*;
-import mapandtiles.*;
+import mapandtiles.BossFloor;
+import mapandtiles.Floor;
 import menu.Difficulty;
 import menu.Menu;
 import utilities.AABB;
 
 public class ReDungonTest {
-
+	
 	public Boss boss;
 	public BossFloor bFloor;
 	public Floor floor;
@@ -34,7 +39,6 @@ public class ReDungonTest {
 	public KeyEvent key;
 	public Handler handler;
 	List<AABB> collisions;
-	Robot robot;
 	
 	static int level = 1;
 	public static int mapWidth=2000;
@@ -48,8 +52,6 @@ public class ReDungonTest {
 	public void initAll() throws IOException, LineUnavailableException, UnsupportedAudioFileException, AWTException {
 		box=new AABB(new Point(), mapWidth, mapHeight);
 		floor = new Floor(level, mapWidth, mapHeight, screenWidth, screenHeight);
-		
-		robot = new Robot();
 		
 		collisions = new ArrayList<AABB>();
 		
