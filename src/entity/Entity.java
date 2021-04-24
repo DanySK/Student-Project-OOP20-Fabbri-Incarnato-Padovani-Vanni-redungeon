@@ -2,13 +2,17 @@ package entity;
 
 import java.awt.image.BufferedImage;
 
-import game.*;
-import utilities.*;
-import mapandtiles.*;
+import game.CombatSystem;
+import game.GameObject;
+import game.Id;
+import mapandtiles.AbsFloor;
+import utilities.AABB;
+import utilities.SpriteSheet;
 
-/*
- * Class that extend GameObject and add function to manage game entity
- * 
+
+/**
+ * Class that extend GameObject and add function to manage game entity.
+ *
  * @author Francesco Padovani
  * @author Luigi Incarnato
  * @author Leroy Fabbri
@@ -42,9 +46,9 @@ public abstract class Entity extends GameObject {
 
   protected AbsFloor floor;
 
-  /*
-   * Entity constructor
-   * 
+  /**
+   * Entity constructor.
+   *
    * @param x      Horizontal starting position
    * 
    * @param y      Vertical starting position
@@ -57,25 +61,22 @@ public abstract class Entity extends GameObject {
    * 
    * @param floor  Used to take level and position
    * 
-   * @param player Used as variable to calculate damage and give experience to
-   *               player
    * 
    */
   public Entity(final int x, final int y, final Id id, final CombatSystem combat, 
       final int level, final AbsFloor floor) {
     super(x, y, id);
     this.sprite = null;
-    this.imgMatrix = null;
     this.hpBar = null;
     this.setLevel(level);
     this.floor = floor;
     this.combat = combat;
   }
 
-  /*
-   * Change entity sprite on different direction
-   * 
-   * @param direction
+  /**
+   * Change entity sprite on different direction.
+   *
+   * @param direction the direction of the entity
    */
   public void changeDirection(final Direction direction) {
     this.setDirection(direction);
@@ -102,8 +103,10 @@ public abstract class Entity extends GameObject {
     }
   }
 
-  /*
-   * @return boolean
+  /**
+   * dead entity.
+   *
+   * @return boolean true if is dead, false if not
    */
   public boolean isDead() {
 

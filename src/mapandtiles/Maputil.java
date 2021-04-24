@@ -5,15 +5,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * set the corner in the map of all
+ * the tiles.
+ *
+ * @author Francesco
+ * @author Luigi
+ * @author Leroy
+ * @author Matteo
+ *
+ */
 public class Maputil {
-
-  public Maputil() {
-  }
-
   /**
    * takes a point in input, checks the adjacent tiles to determine the right
-   * sprite
-   * 
+   * sprite.
+   *
    * @param tilestate the map to check
    * @param p         the position of the tile we have to determine
    * @return an enum used to assign the right sprite

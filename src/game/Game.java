@@ -22,7 +22,7 @@ import mapandtiles.AbsFloor;
 import mapandtiles.BossFloor;
 import mapandtiles.FloorFactory;
 import menu.Difficulty;
-import menu.HUD;
+import menu.Hud;
 import utilities.CustomFontUtil;
 import utilities.ResourceLoader;
 
@@ -71,9 +71,9 @@ public class Game extends Canvas implements Runnable {
   private final EnemyFactory enemyFactory;
   private int level = 1;
   private final Handler handler;
-  private CombatSystem combat;
+  private final CombatSystem combat;
   private final KeyInput keylistener;
-  private final HUD hudMenu;
+  private final Hud hudMenu;
   
   /**
    * Constructor that generate the game object.
@@ -100,7 +100,8 @@ public class Game extends Canvas implements Runnable {
 
 
     AudioInputStream audio;
-    FloatControl clipVolume;
+    
+    final FloatControl clipVolume;
     
     final ResourceLoader resource = new ResourceLoader();
 
@@ -120,15 +121,15 @@ public class Game extends Canvas implements Runnable {
     this.maph = mapheight;
 
     switch (difficulty) {
-      case Easy:
+      case EASY:
         this.maxEnemies = 15;
         break;
   
-      case Hard:
+      case HARD:
         this.maxEnemies = 45;
         break;
   
-      case Normal:
+      case NORMAL:
         this.maxEnemies = 30;
         break;
   
@@ -159,7 +160,7 @@ public class Game extends Canvas implements Runnable {
       combat.addEnemy(enemy);
     }
 
-    hudMenu = new HUD(32, 32, Id.HUD, player);
+    hudMenu = new Hud(32, 32, Id.HUD, player);
     handler.addObject(hudMenu);
   }
 

@@ -1,7 +1,8 @@
 package entity;
 
-/*
- * Magic elements for player magic attack
+/**
+ * Magic elements for player magic attack.
+ *
  * @author Francesco Padovani
  * @author Luigi Incarnato
  * @author Leroy Fabbri

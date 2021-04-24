@@ -9,18 +9,19 @@ import javax.swing.JPanel;
 class ImagePanel extends JPanel {
 
   /**
-*
-*/
+   * Jpanel with the possibility of a
+   * background image.
+   */
   private static final long serialVersionUID = 7441642089495026890L;
   private Image img;
 
-  public ImagePanel(String img) {
+  public ImagePanel(final String img) {
     this(new ImageIcon(img).getImage());
   }
 
-  public ImagePanel(Image img) {
+  public ImagePanel(final Image img) {
     this.img = img;
-    Dimension size = new Dimension(img.getWidth(null), img.getHeight(null));
+    final Dimension size = new Dimension(img.getWidth(null), img.getHeight(null));
     setPreferredSize(size);
     setMinimumSize(size);
     setMaximumSize(size);
@@ -28,13 +29,12 @@ class ImagePanel extends JPanel {
     setLayout(null);
   }
 
-  public void paintComponent(Graphics g) {
+  public void paintComponent(final Graphics g) {
     g.drawImage(img, 0, 0, null);
   }
 
-  
-  public void setImage(Image img) {
+  public void setImage(final Image img) {
     this.img = img;
   }
-  
+
 }

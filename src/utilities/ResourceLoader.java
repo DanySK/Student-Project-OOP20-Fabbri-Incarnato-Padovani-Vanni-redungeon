@@ -2,28 +2,31 @@ package utilities;
 
 import java.io.InputStream;
 
-public class ResourceLoader {
-	
-	public ResourceLoader() {}
+/**
+ * this class create an inputstream for all
+ * the file inside the resource folder.
+ *
+ * @author Francesco
+ * @author Luigi
+ * @author Leroy
+ * @author Matteo
+ *
+ */
 
-	public InputStream getStreamAudio(String name)
-	{
-		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-		InputStream input = classLoader.getResourceAsStream(name+".wav");
-		return input;
-	}
-	
-	public InputStream getStreamImage(String name)
-	{
-		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-		InputStream input = classLoader.getResourceAsStream(name+".png");
-		return input;
-	}
-	
-	public InputStream getStreamFont(String name)
-	{
-		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-		InputStream input = classLoader.getResourceAsStream("fonts/"+name+".ttf");
-		return input;
-	}
+public class ResourceLoader {
+
+  public InputStream getStreamAudio(final String name) {
+    final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+    return classLoader.getResourceAsStream(name + ".wav");
+  }
+
+  public InputStream getStreamImage(final String name) {
+    final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+    return classLoader.getResourceAsStream(name + ".png");
+  }
+
+  public InputStream getStreamFont(final String name) {
+    final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+    return classLoader.getResourceAsStream("fonts/" + name + ".ttf");
+  }
 }

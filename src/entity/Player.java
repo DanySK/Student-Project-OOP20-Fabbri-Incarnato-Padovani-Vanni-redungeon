@@ -1,5 +1,8 @@
 package entity;
 
+import game.CombatSystem;
+import game.Id;
+import game.Inventory;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -9,16 +12,16 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Random;
 import javax.imageio.ImageIO;
-import mapandtiles.*;
-import game.*;
+import mapandtiles.AbsFloor;
+import mapandtiles.TileType;
 import utilities.AABB;
 import utilities.CustomFontUtil;
 import utilities.ResourceLoader;
 import utilities.SpriteSheet;
 
 /**
- * Extended from Entity is the player controlled to the user with keyboard
- * 
+ * Extended from Entity is the player controlled to the user with keyboard.
+ *
  * @author Francesco Padovani
  * @author Luigi Incarnato
  * @author Leroy Fabbri
@@ -41,10 +44,9 @@ public class Player extends Entity {
   private int spellRemain;
   private boolean magicAttacking;
 
-  /*
-   * 
-   * Constructor
-   * 
+  /**
+   * Constructor.
+   *
    * @param x            Horizontal starting position
    * 
    * @param y            Vertical starting position
@@ -59,13 +61,10 @@ public class Player extends Entity {
    * 
    * @param attack       Attack damage
    * 
-   * @param magic_attack Magic attack damage
-   * 
    * @param defence      Player defense
    * 
    * @param floor        Used to take level and position
    * 
-   * @throws IOException
    */
   public Player(final int x, final int y, final Id id, final CombatSystem combat, final int level, 
       final int hp, final int attack, final int magicAttack, final int defence, 

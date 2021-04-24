@@ -20,6 +20,15 @@ import utilities.CustomFontUtil;
 import utilities.ResourceLoader;
 import utilities.SpriteSheet;
 
+/**
+ * Enemy.
+ *
+ * @author Luigi
+ * @author Luigi
+ * @author Luigi
+ * @author Luigi
+ *
+ */
 public class Enemy extends Entity {
 
   private int column;
@@ -30,9 +39,9 @@ public class Enemy extends Entity {
   private long lastime;
   private final int expGuaranteed;
 
-  /*
-   * Constructor
-   * 
+  /**
+   * Constructor.
+   *
    * @param x      horizontal position
    * @param y      vertical position
    * @param id     game.ID
@@ -41,9 +50,14 @@ public class Enemy extends Entity {
    * @param floor  Used for positioning
    * @param player Used for damage and statistics
    * 
-   * @throws IOException
-   * @throws LineUnavailableException
-   * @throws UnsupportedAudioFileException
+   * @throws IOException    If a function that handler
+   *                        call doesn't read a file
+   *                        
+   * @throws LineUnavailableException   If a function that handler
+   *                                    call doens't open a line beacuse
+   *                                    it's unavailable
+   *                                    
+   * @throws UnsupportedAudioFileException If an audio file isn't supported
    */
   
   public Enemy(final int x, final int y, final Id id, final CombatSystem combat, 
@@ -138,21 +152,24 @@ public class Enemy extends Entity {
     if (this.getHp() > 0) {
       if (this.getMaxHp() / this.getHp() < 2) {
 
-        g.fillRect((cordX - getFloor().getOffsetX()) * 32, (cordY - getFloor().getOffsetY() - 1) * 32 - 11,
+        g.fillRect((cordX - getFloor().getOffsetX()) * 32, 
+            (cordY - getFloor().getOffsetY() - 1) * 32 - 11,
             (this.getHp() * 54) / this.getMaxHp(), 14);
 
         g.drawImage(getHpBar(), (cordX - getFloor().getOffsetX()) * 32 - 14, 
             (cordY - getFloor().getOffsetY() - 2) * 32 + 19, null);
       } else if (this.getMaxHp() / this.getHp() <= 4 && this.getMaxHp() / this.getHp() >= 2) {
         g.setColor(Color.orange);
-        g.fillRect((cordX - getFloor().getOffsetX()) * 32, (cordY - getFloor().getOffsetY() - 1) * 32 - 11,
+        g.fillRect((cordX - getFloor().getOffsetX()) * 32, 
+            (cordY - getFloor().getOffsetY() - 1) * 32 - 11,
             (this.getHp() * 54) / this.getMaxHp(), 14);
 
         g.drawImage(getHpBar(), (cordX - getFloor().getOffsetX()) * 32 - 14, 
             (cordY - getFloor().getOffsetY() - 2) * 32 + 19, null);
       } else if (this.getMaxHp() / this.getHp() > 4) {
         g.setColor(Color.red);
-        g.fillRect((cordX - getFloor().getOffsetX()) * 32, (cordY - getFloor().getOffsetY() - 1) * 32 - 11,
+        g.fillRect((cordX - getFloor().getOffsetX()) * 32, 
+            (cordY - getFloor().getOffsetY() - 1) * 32 - 11,
             (this.getHp() * 54) / this.getMaxHp(), 14);
 
         g.drawImage(getHpBar(), (cordX - getFloor().getOffsetX()) * 32 - 14, 

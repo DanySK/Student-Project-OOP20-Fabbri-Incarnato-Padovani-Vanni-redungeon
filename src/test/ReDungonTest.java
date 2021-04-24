@@ -73,7 +73,7 @@ public class ReDungonTest {
     combat.addEnemy(enemy);
     combat.addPlayer(player);
 
-    game = new Game(screenWidth, screenHeight, mapWidth, mapHeight, Difficulty.Easy, 0.0, 0.0);
+    game = new Game(screenWidth, screenHeight, mapWidth, mapHeight, Difficulty.EASY, 0.0, 0.0);
     key = new KeyEvent(game, KeyEvent.KEY_PRESSED, System.currentTimeMillis(), 
         0, KeyEvent.VK_1, '0');
   }

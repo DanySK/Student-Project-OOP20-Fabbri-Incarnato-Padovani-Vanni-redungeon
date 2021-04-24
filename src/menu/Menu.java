@@ -26,40 +26,58 @@ import javax.swing.JSlider;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import utilities.*;
+import utilities.CustomFontUtil;
+import utilities.ResourceLoader;
 
+/**
+ * Menu for select the varoisu option
+ * before creating the game.
+ *
+ * @author Francesco
+ * @author Luigi
+ * @author Leroy
+ * @author Matteo
+ *
+ */
 public class Menu extends JFrame {
 
-  /**
-   * 
-   */
   private static final long serialVersionUID = -8098037462564546327L;
 
-  private ResourceLoader resource;
 
-  private Clip menuSound;
-  private AudioInputStream menuAudio;
-  private FloatControl menuVolume;
+  private final Clip menuSound;
   private double musicGain = 0.5;
   private double effectGain = 0.5;
 
-  private Clip testSound;
-  private AudioInputStream testAudio;
-  private FloatControl testVolume;
+  private final Clip testSound;
 
-  private Difficulty difficulty = Difficulty.Easy;
+  private Difficulty difficulty = Difficulty.EASY;
 
-  public static int width = 960;
-  public static int height = 760;
-  public static int mapwidth = 2000;
-  public static int mapheight = 2000;
+  public int width = 960;
+  public int height = 760;
+  public int mapwidth = 2000;
+  public int mapheight = 2000;
 
-  final ImageIcon backGroundImage;
-  final ImageIcon optionsImage;
-  final ImageIcon tutorialImage;
+  private final ImageIcon backGroundImage;
+  protected final ImageIcon optionsImage;
+  protected final ImageIcon tutorialImage;
 
-  public Menu() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+  /**
+   * Costructor.
+   *
+   * @throws IOException    If a function that handler
+   *                        call doesn't read a file
+   *                        
+   * @throws LineUnavailableException   If a function that handler
+   *                                    call doens't open a line beacuse
+   *                                    it's unavailable
+   *                                    
+   * @throws UnsupportedAudioFileException If an audio file isn't supported
+   */
+  
+  public Menu() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
 
+    final ResourceLoader resource;
+    
     resource = new ResourceLoader();
 
     backGroundImage = new ImageIcon();
@@ -72,9 +90,9 @@ public class Menu extends JFrame {
     final JFrame f = new JFrame("Re:dungeon");
     f.setSize(width, height);
     f.addWindowListener(new WindowAdapter() {
-      public void windowClosing(WindowEvent e) {
+      public void windowClosing(final WindowEvent e) {
         menuSound.stop();
-        System.exit(0);
+        System.exit(1);
       }
     });
 
@@ -87,16 +105,18 @@ public class Menu extends JFrame {
 
     menupanel.setBackground(Color.BLACK);
 
-    final ImagePanel TutorialPanel = new ImagePanel(backgroundImageResizer(
+    final ImagePanel tutorialPanel = new ImagePanel(backgroundImageResizer(
         width, height, backGroundImage));
-    TutorialPanel.setBorder(new EmptyBorder((int) f.getSize().getHeight() / 5,
+    tutorialPanel.setBorder(new EmptyBorder((int) f.getSize().getHeight() / 5,
         (int) f.getSize().getWidth() / 3, (int) f.getSize().getHeight() / 5,
         (int) f.getSize().getWidth() / 3));
-    TutorialPanel.setLayout(new GridLayout(10, 1, 10, 5));
+    tutorialPanel.setLayout(new GridLayout(10, 1, 10, 5));
 
     f.add(menupanel);
     f.setResizable(false);
     f.setVisible(true);
+
+    final AudioInputStream menuAudio;
 
     menuSound = AudioSystem.getClip();
     menuAudio = AudioSystem.getAudioInputStream(new BufferedInputStream(
@@ -104,15 +124,16 @@ public class Menu extends JFrame {
     menuSound.open(menuAudio);
 
     menuSound.loop(Clip.LOOP_CONTINUOUSLY);
-
+    
+    final AudioInputStream testAudio;
     testSound = AudioSystem.getClip();
     testAudio = AudioSystem.getAudioInputStream(new BufferedInputStream(
         resource.getStreamAudio("bonk")));
     testSound.open(testAudio);
 
-    final ImagePanel Optionspanel = new ImagePanel(backgroundImageResizer(
+    final ImagePanel optionPanel = new ImagePanel(backgroundImageResizer(
         width, height, backGroundImage));
-    Optionspanel.setBorder(new EmptyBorder((int) f.getSize().getHeight() / 5,
+    optionPanel.setBorder(new EmptyBorder((int) f.getSize().getHeight() / 5,
         (int) f.getSize().getWidth() / 3, (int) f.getSize().getHeight() / 5,
             (int) f.getSize().getWidth() / 3));
     //Optionspanel.setLayout(new GridLayout(10, 1, 10, 5));
@@ -124,61 +145,55 @@ public class Menu extends JFrame {
     final JButton b6 = new JButton("Tutorial");
     final JButton b5 = new JButton("Indietro");
 
-    String[] resolution = { "960x760", "1280x720", "1440x900", "1600x900", "1920x1080" };
-    String[] difficultySelection = { "Facile", "Normale", "Difficile" };
+    final String[] resolution = { "960x760", "1280x720", "1440x900", "1600x900", "1920x1080" };
+    final String[] difficultySelection = { "Facile", "Normale", "Difficile" };
 
-    JComboBox<?> comboBox = new JComboBox<Object>(resolution);
-    JComboBox<?> difficultyBox = new JComboBox<Object>(difficultySelection);
-    JSlider musicSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 50);
-    JSlider effectSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 50);
+    final JComboBox<?> comboBox = new JComboBox<>(resolution);
+    final JComboBox<?> difficultyBox = new JComboBox<>(difficultySelection);
+    final JSlider musicSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 50);
+    final JSlider effectSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 50);
     final JButton effectB = new JButton("Suono");
     final JButton mus = new JButton("Volume Musica");
 
-    final ActionListener NewGame = (e) -> {
+    final ActionListener newGame = (e) -> {
       menuSound.stop();
       try {
         new Game(width, height, mapwidth, mapheight, getDifficulty(), musicGain, effectGain);
-      } catch (IOException e1) {
+      } catch (IOException | LineUnavailableException | UnsupportedAudioFileException e1) {
         // TODO Auto-generated catch block
         e1.printStackTrace();
-      } catch (LineUnavailableException e1) {
-        // TODO Auto-generated catch block
-        e1.printStackTrace();
-      } catch (UnsupportedAudioFileException e1) {
-        // TODO Auto-generated catch block
-        e1.printStackTrace();
-      }
+      } 
       f.dispose();
     };
 
-    final ActionListener Tutorial = (e) -> {
+    final ActionListener tutorial = (e) -> {
       f.remove(menupanel);
-      f.setContentPane(TutorialPanel); // apre il tutorial
+      f.setContentPane(tutorialPanel); // apre il tutorial
       f.validate();
       f.repaint();
     };
 
-    final ActionListener Options = (e) -> {
+    final ActionListener options = (e) -> {
       f.remove(menupanel);
-      f.setContentPane(Optionspanel); // apre le opzioni
+      f.setContentPane(optionPanel); // apre le opzioni
       f.validate();
       f.repaint();
     };
 
-    final ActionListener Quit = (e) -> {
+    final ActionListener quit = (e) -> {
       menuSound.stop();
       System.exit(0);
     };
 
-    final ActionListener Back = (e) -> {
-      f.remove(Optionspanel);
+    final ActionListener back = (e) -> {
+      f.remove(optionPanel);
       f.setContentPane(menupanel);
       f.validate();
       f.repaint();
     };
 
-    final ActionListener Back2 = (e) -> {
-      f.remove(TutorialPanel);
+    final ActionListener back2 = (e) -> {
+      f.remove(tutorialPanel);
       f.setContentPane(menupanel);
       f.validate();
       f.repaint();
@@ -194,10 +209,10 @@ public class Menu extends JFrame {
             (int) f.getSize().getWidth() / 3, (int) f.getSize().getHeight() / 5,
             (int) f.getSize().getWidth() / 3));
         menupanel.setImage(backgroundImageResizer(width, height, backGroundImage));
-        Optionspanel.setBorder(new EmptyBorder((int) f.getSize().getHeight() / 5,
+        optionPanel.setBorder(new EmptyBorder((int) f.getSize().getHeight() / 5,
             (int) f.getSize().getWidth() / 3, (int) f.getSize().getHeight() / 5,
             (int) f.getSize().getWidth() / 3));
-        Optionspanel.setImage(backgroundImageResizer(width, height, backGroundImage));
+        optionPanel.setImage(backgroundImageResizer(width, height, backGroundImage));
         comboBox.setBounds((int) f.getSize().getWidth() / 4,
             (int) f.getSize().getHeight() / 5, 150, 50);
         difficultyBox.setBounds((int) f.getSize().getWidth() / 2,
@@ -216,10 +231,10 @@ public class Menu extends JFrame {
             (int) f.getSize().getWidth() / 3, (int) f.getSize().getHeight() / 5,
             (int) f.getSize().getWidth() / 3));
         menupanel.setImage(backgroundImageResizer(width, height, backGroundImage));
-        Optionspanel.setBorder(new EmptyBorder((int) f.getSize().getHeight() / 5, 
+        optionPanel.setBorder(new EmptyBorder((int) f.getSize().getHeight() / 5, 
             (int) f.getSize().getWidth() / 3, (int) f.getSize().getHeight() / 5, 
             (int) f.getSize().getWidth() / 3));
-        Optionspanel.setImage(backgroundImageResizer(width, height, backGroundImage));
+        optionPanel.setImage(backgroundImageResizer(width, height, backGroundImage));
         comboBox.setBounds((int) f.getSize().getWidth() / 4,
             (int) f.getSize().getHeight() / 5, 150, 50);
         difficultyBox.setBounds((int) f.getSize().getWidth() / 2, 
@@ -238,10 +253,10 @@ public class Menu extends JFrame {
             (int) f.getSize().getWidth() / 3, (int) f.getSize().getHeight() / 5, 
             (int) f.getSize().getWidth() / 3));
         menupanel.setImage(backgroundImageResizer(width, height, backGroundImage));
-        Optionspanel.setBorder(new EmptyBorder((int) f.getSize().getHeight() / 5, 
+        optionPanel.setBorder(new EmptyBorder((int) f.getSize().getHeight() / 5, 
             (int) f.getSize().getWidth() / 3, (int) f.getSize().getHeight() / 5, 
             (int) f.getSize().getWidth() / 3));
-        Optionspanel.setImage(backgroundImageResizer(width, height, backGroundImage));
+        optionPanel.setImage(backgroundImageResizer(width, height, backGroundImage));
         comboBox.setBounds((int) f.getSize().getWidth() / 4,
             (int) f.getSize().getHeight() / 5, 150, 50);
         difficultyBox.setBounds((int) f.getSize().getWidth() / 2, 
@@ -260,10 +275,10 @@ public class Menu extends JFrame {
             (int) f.getSize().getWidth() / 3, (int) f.getSize().getHeight() / 5, 
             (int) f.getSize().getWidth() / 3));
         menupanel.setImage(backgroundImageResizer(width, height, backGroundImage));
-        Optionspanel.setBorder(new EmptyBorder((int) f.getSize().getHeight() / 5,
+        optionPanel.setBorder(new EmptyBorder((int) f.getSize().getHeight() / 5,
             (int) f.getSize().getWidth() / 3, (int) f.getSize().getHeight() / 5, 
             (int) f.getSize().getWidth() / 3));
-        Optionspanel.setImage(backgroundImageResizer(width, height, backGroundImage));
+        optionPanel.setImage(backgroundImageResizer(width, height, backGroundImage));
         comboBox.setBounds((int) f.getSize().getWidth() / 4, 
             (int) f.getSize().getHeight() / 5, 150, 50);
         difficultyBox.setBounds((int) f.getSize().getWidth() / 2, 
@@ -282,10 +297,10 @@ public class Menu extends JFrame {
             (int) f.getSize().getWidth() / 3, (int) f.getSize().getHeight() / 5, 
             (int) f.getSize().getWidth() / 3));
         menupanel.setImage(backgroundImageResizer(width, height, backGroundImage));
-        Optionspanel.setBorder(new EmptyBorder((int) f.getSize().getHeight() / 5, 
+        optionPanel.setBorder(new EmptyBorder((int) f.getSize().getHeight() / 5, 
             (int) f.getSize().getWidth() / 3, (int) f.getSize().getHeight() / 5,
             (int) f.getSize().getWidth() / 3));
-        Optionspanel.setImage(backgroundImageResizer(width, height, backGroundImage));
+        optionPanel.setImage(backgroundImageResizer(width, height, backGroundImage));
         comboBox.setBounds((int) f.getSize().getWidth() / 4, 
             (int) f.getSize().getHeight() / 5, 150, 50);
         difficultyBox.setBounds((int) f.getSize().getWidth() / 2,
@@ -302,15 +317,15 @@ public class Menu extends JFrame {
     final ActionListener diff = (e) -> {
       difficultyBox.getSelectedIndex();
       if (difficultyBox.getSelectedIndex() == 0) {
-        setDifficulty(Difficulty.Easy);
+        setDifficulty(Difficulty.EASY);
         mapwidth = 2000;
         mapheight = 2000;
       } else if (difficultyBox.getSelectedIndex() == 1) {
-        setDifficulty(Difficulty.Normal);
+        setDifficulty(Difficulty.NORMAL);
         mapwidth = 2560;
         mapheight = 2560;
       } else if (difficultyBox.getSelectedIndex() == 2) {
-        setDifficulty(Difficulty.Hard);
+        setDifficulty(Difficulty.HARD);
         mapwidth = 3200;
         mapheight = 3200;
       }
@@ -330,33 +345,32 @@ public class Menu extends JFrame {
     menupanel.add(Box.createRigidArea(new Dimension(20, 0)));
     menupanel.add(b3);
 
-    Dimension size = b1.getPreferredSize();
     b1.setFont(new CustomFontUtil(true, 18).getCustomFont());
     b1.setForeground(Color.WHITE);
     b1.setBackground(Color.BLACK);
     b1.setFocusable(false);
-    b1.addActionListener(NewGame);
+    b1.addActionListener(newGame);
 
-    size = b2.getPreferredSize();
+
     b2.setFont(new CustomFontUtil(true, 18).getCustomFont());
     b2.setForeground(Color.WHITE);
     b2.setBackground(Color.BLACK);
     b2.setFocusable(false);
-    b2.addActionListener(Options);
+    b2.addActionListener(options);
 
-    size = b3.getPreferredSize();
+
     b3.setFont(new CustomFontUtil(true, 18).getCustomFont());
     b3.setForeground(Color.WHITE);
     b3.setBackground(Color.BLACK);
     b3.setFocusable(false);
-    b3.addActionListener(Quit);
+    b3.addActionListener(quit);
 
-    size = b6.getPreferredSize();
+   
     b6.setFont(new CustomFontUtil(true, 18).getCustomFont());
     b6.setForeground(Color.WHITE);
     b6.setBackground(Color.BLACK);
     b6.setFocusable(false);
-    b6.addActionListener(Tutorial);
+    b6.addActionListener(tutorial);
 
     comboBox.setBounds((int) f.getSize().getWidth() / 4,
         (int) f.getSize().getHeight() / 5, 150, 50);
@@ -364,7 +378,7 @@ public class Menu extends JFrame {
     comboBox.setForeground(Color.WHITE);
     comboBox.setBackground(Color.BLACK);
     comboBox.addActionListener(res);
-    Optionspanel.add(comboBox);
+    optionPanel.add(comboBox);
 
     difficultyBox.setBounds((int) f.getSize().getWidth() / 2, 
         (int) f.getSize().getHeight() / 5, 150, 50);
@@ -372,16 +386,16 @@ public class Menu extends JFrame {
     difficultyBox.setForeground(Color.WHITE);
     difficultyBox.setBackground(Color.BLACK);
     difficultyBox.addActionListener(diff);
-    Optionspanel.add(difficultyBox);
-    Optionspanel.setLayout(null);
+    optionPanel.add(difficultyBox);
+    optionPanel.setLayout(null);
 
     b4.setBounds((int) f.getSize().getWidth() / 4, (int) f.getSize().getHeight() * 4 / 5, 150, 50);
     b4.setFont(new CustomFontUtil(true, 18).getCustomFont());
     b4.setForeground(Color.WHITE);
     b4.setBackground(Color.BLACK);
     b4.setFocusable(false);
-    b4.addActionListener(Back);
-    Optionspanel.add(b4);
+    b4.addActionListener(back);
+    optionPanel.add(b4);
 
     effectB.setBounds(150, height * 2 / 3, 100, 25);
     effectB.setFont(new CustomFontUtil(true, 18).getCustomFont());
@@ -389,7 +403,7 @@ public class Menu extends JFrame {
     effectB.setBackground(Color.BLACK);
     effectB.setFocusable(false);
     effectB.addActionListener(test);
-    Optionspanel.add(effectB);
+    optionPanel.add(effectB);
 
     mus.setBounds(150, height / 2, 150, 25);
     mus.setFont(new CustomFontUtil(true, 18).getCustomFont());
@@ -397,7 +411,7 @@ public class Menu extends JFrame {
     mus.setContentAreaFilled(false);
     mus.setBorderPainted(false);
     mus.setFocusable(false);
-    Optionspanel.add(mus);
+    optionPanel.add(mus);
 
     musicSlider.setFont(new CustomFontUtil(true, 18).getCustomFont());
     musicSlider.setMajorTickSpacing(10);
@@ -409,14 +423,15 @@ public class Menu extends JFrame {
     musicSlider.setBackground(Color.RED);
     musicSlider.setBounds(300, height / 2, size.width * 7, size.height * 2);
     musicSlider.addChangeListener(new ChangeListener() {
-      public void stateChanged(ChangeEvent e) {
+      public void stateChanged(final ChangeEvent e) {
+        final FloatControl menuVolume;
         musicGain = musicSlider.getValue() * 0.01;
-        float db = (float) (Math.log(musicGain) / Math.log(10.0) * 20.0);
+        final float db = (float) (Math.log(musicGain) / Math.log(10.0) * 20.0);
         menuVolume = (FloatControl) menuSound.getControl(FloatControl.Type.MASTER_GAIN);
         menuVolume.setValue(db);
       }
     });
-    Optionspanel.add(musicSlider);
+    optionPanel.add(musicSlider);
 
     effectSlider.setFont(new CustomFontUtil(true, 18).getCustomFont());
     effectSlider.setMajorTickSpacing(10);
@@ -427,34 +442,34 @@ public class Menu extends JFrame {
     effectSlider.setForeground(Color.WHITE);
     effectSlider.setBounds(300, height * 2 / 3, 500, 50);
     effectSlider.addChangeListener(new ChangeListener() {
-      public void stateChanged(ChangeEvent e) {
+      public void stateChanged(final ChangeEvent e) {
+        final FloatControl testVolume;
         effectGain = effectSlider.getValue() * 0.01;
-        float db = (float) (Math.log(effectGain) / Math.log(10.0) * 20.0);
+        final float db = (float) (Math.log(effectGain) / Math.log(10.0) * 20.0);
         testVolume = (FloatControl) testSound.getControl(FloatControl.Type.MASTER_GAIN);
         testVolume.setValue(db);
       }
     });
-    Optionspanel.add(effectSlider);
+    optionPanel.add(effectSlider);
 
-    size = b5.getPreferredSize();
     b5.setFont(new CustomFontUtil(true, 18).getCustomFont());
     b5.setFocusable(false);
     b5.setForeground(Color.WHITE);
     b5.setBackground(Color.BLACK);
-    b5.addActionListener(Back2);
-    TutorialPanel.add(Box.createRigidArea(new Dimension(20, 0)));
-    TutorialPanel.add(Box.createRigidArea(new Dimension(20, 0)));
-    TutorialPanel.add(Box.createRigidArea(new Dimension(20, 0)));
-    TutorialPanel.add(Box.createRigidArea(new Dimension(20, 0)));
-    TutorialPanel.add(Box.createRigidArea(new Dimension(20, 0)));
-    TutorialPanel.add(Box.createRigidArea(new Dimension(20, 0)));
-    TutorialPanel.add(Box.createRigidArea(new Dimension(20, 0)));
-    TutorialPanel.add(Box.createRigidArea(new Dimension(20, 0)));
-    TutorialPanel.add(b5);
+    b5.addActionListener(back2);
+    tutorialPanel.add(Box.createRigidArea(new Dimension(20, 0)));
+    tutorialPanel.add(Box.createRigidArea(new Dimension(20, 0)));
+    tutorialPanel.add(Box.createRigidArea(new Dimension(20, 0)));
+    tutorialPanel.add(Box.createRigidArea(new Dimension(20, 0)));
+    tutorialPanel.add(Box.createRigidArea(new Dimension(20, 0)));
+    tutorialPanel.add(Box.createRigidArea(new Dimension(20, 0)));
+    tutorialPanel.add(Box.createRigidArea(new Dimension(20, 0)));
+    tutorialPanel.add(Box.createRigidArea(new Dimension(20, 0)));
+    tutorialPanel.add(b5);
 
   }
 
-  public static void main(String[] args) throws IOException, 
+  public static void main(final String[] args) throws IOException, 
       LineUnavailableException, UnsupportedAudioFileException {
     new Menu();
   }
@@ -463,22 +478,22 @@ public class Menu extends JFrame {
     return difficulty;
   }
 
-  public void setDifficulty(Difficulty difficulty) {
+  public void setDifficulty(final Difficulty difficulty) {
     this.difficulty = difficulty;
   }
 
   /**
-   * Resize the given ImageIcon and convert it into an Image istance
-   * 
+   * Resize the given ImageIcon and convert it into an Image istance.
+   *
    * @param width     new image width
    * @param height    new image height
    * @param imageIcon the give image
    * @return a reized image
    */
-  private Image backgroundImageResizer(int width, int height, ImageIcon imageIcon) {
+  private Image backgroundImageResizer(final int width, final int height, final ImageIcon imageIcon) {
     Image preResizedImage = imageIcon.getImage().getScaledInstance(
-        width, height, java.awt.Image.SCALE_SMOOTH);
-    ImageIcon resizedImage = new ImageIcon(preResizedImage);
+        width, height, Image.SCALE_SMOOTH);
+    final ImageIcon resizedImage = new ImageIcon(preResizedImage);
     return resizedImage.getImage();
 
   }

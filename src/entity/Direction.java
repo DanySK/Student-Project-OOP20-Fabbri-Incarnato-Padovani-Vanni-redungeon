@@ -1,7 +1,8 @@
 package entity;
 
-/*
- * Enumerator for the animation direction
+/**
+ * Enumerator for the animation direction.
+ *
  * @author Francesco Padovani
  * @author Luigi Incarnato
  * @author Leroy Fabbri

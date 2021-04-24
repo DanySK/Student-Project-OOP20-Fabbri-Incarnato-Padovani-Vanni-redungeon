@@ -8,7 +8,7 @@ import java.util.List;
 
 import utilities.*;
 import entity.*;
-import menu.HUD;
+import menu.Hud;
 
 /**
  * Class extended from KeyAdapter, used for user input
@@ -81,7 +81,7 @@ public class KeyInput extends KeyAdapter {
       }
 
       if (tempobj.getId() == Id.HUD && key.getKeyCode() == KeyEvent.VK_Q) {
-        ((HUD) tempobj).setHud_display(true);
+        ((Hud) tempobj).setHudDisplay(true);
       }
     }
     collisions.clear();
@@ -125,7 +125,7 @@ public class KeyInput extends KeyAdapter {
       }
 
       if (key == KeyEvent.VK_Q && tempobj.getId() == Id.HUD) {
-        ((HUD) tempobj).setHud_display(false);
+        ((Hud) tempobj).setHudDisplay(false);
       }
     }
   }

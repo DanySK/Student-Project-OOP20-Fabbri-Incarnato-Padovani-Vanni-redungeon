@@ -4,7 +4,7 @@ import entity.Entity;
 import java.awt.Point;
 import java.util.Map;
 /**
- * An interface fot the AbsFloor.
+ * An interface for the AbsFloor.
  *
  * @author Francesco
  * @author Luigi

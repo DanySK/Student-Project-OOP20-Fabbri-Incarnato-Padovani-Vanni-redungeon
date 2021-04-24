@@ -1,7 +1,6 @@
 package mapandtiles;
 
 import java.awt.Point;
-
 import java.awt.Rectangle;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,14 +22,17 @@ public class Leaf {
 
   private final int minLeafSize;
 
-  public int y, x, w, h; // the position and size of this Leaf
+  //the position and size of this Leaf
+  public int coordY;
+  public int coordX;
+  public int width;
+  public int height;
 
   public Leaf leftChild; // the Leaf's left child Leaf
   public Leaf rightChild; // the Leaf's right child Leaf
   public Rectangle room; // the room that is inside this Leaf
-  private Vector<Rectangle> halls; // hallways to connect this Leaf to other Leafs
   private final Map<Point, Tile> tilestate = new HashMap<>();
-  private final SpriteSheet s;
+  private final SpriteSheet sprite;
 
   /**
    * the costructor of Leaf, inizialize
@@ -43,11 +45,11 @@ public class Leaf {
    * @param s sprisheet for image
    */
   public Leaf(final int x, final int y, final int w, final int h, final SpriteSheet s) {
-    this.x = x;
-    this.y = y;
-    this.w = w;
-    this.h = h;
-    this.s = s;
+    this.coordX = x;
+    this.coordY = y;
+    this.width = w;
+    this.height = h;
+    this.sprite = s;
     
     this.minLeafSize = 9;
 
@@ -69,14 +71,14 @@ public class Leaf {
     // if the height is >25% larger than the width, we split horizontally
     // otherwise we split randomly
     boolean splitH = Math.random() > 0.5;
-    if (w > h && w / h >= 1.25) {
+    if (width > height && width / height >= 1.25) {
       splitH = false;
-    } else if (h > w && h / w >= 1.25) {
+    } else if (height > width && height / width >= 1.25) {
       splitH = true;
     }
 
-
-    final int max = (splitH ? h : w) - minLeafSize; // determine the maximum height or width
+    // determine the maximum height or width
+    final int max = (splitH ? height : width) - minLeafSize; 
     if (max <= minLeafSize) {
       return false; // the area is too small to split any more...
     }
@@ -88,11 +90,11 @@ public class Leaf {
 
     // create our left and right children based on the direction of the split
     if (splitH) {
-      leftChild = new Leaf(x, y, w, split, s);
-      rightChild = new Leaf(x, y + split, w, h - split, s);
+      leftChild = new Leaf(coordX, coordY, width, split, sprite);
+      rightChild = new Leaf(coordX, coordY + split, width, height - split, sprite);
     } else {
-      leftChild = new Leaf(x, y, split, h, s);
-      rightChild = new Leaf(x + split, y, w - split, h, s);
+      leftChild = new Leaf(coordX, coordY, split, height, sprite);
+      rightChild = new Leaf(coordX + split, coordY, width - split, height, sprite);
     }
     return true; // split successful!
   }
@@ -122,17 +124,17 @@ public class Leaf {
       Point roomSize;
       Point roomPos;
       // the room can be between 3 x 3 tiles to the size of the leaf - 2.
-      roomSize = new Point((int) (Math.random() * (w - 2 - 3) + 3), 
-          (int) (Math.random() * (h - 2 - 3) + 3));
+      roomSize = new Point((int) (Math.random() * (width - 2 - 3) + 3), 
+          (int) (Math.random() * (height - 2 - 3) + 3));
       // place the room within the Leaf, but don't put it right
       // against the side of the Leaf (that would merge rooms together)
-      roomPos = new Point((int) (Math.random() * (w - roomSize.x - 1 - 1) + 1),
-          (int) (Math.random() * (h - roomSize.y - 1 - 1) + 1));
-      room = new Rectangle(x + roomPos.x, y + roomPos.y, roomSize.x, roomSize.y);
+      roomPos = new Point((int) (Math.random() * (width - roomSize.x - 1 - 1) + 1),
+          (int) (Math.random() * (height - roomSize.y - 1 - 1) + 1));
+      room = new Rectangle(coordX + roomPos.x, coordY + roomPos.y, roomSize.x, roomSize.y);
       final Vector<Point> roomph = new Vector<Point>();
       for (int a = room.x; a < room.x + room.width; a++) {
         for (int b = room.y; b < room.y + room.height; b++) {
-          tilestate2.put(new Point(a, b), new Tile(new Point(a, b), TileType.ON, s));
+          tilestate2.put(new Point(a, b), new Tile(new Point(a, b), TileType.ON, sprite));
           roomph.add(new Point(a, b));
         }
 
@@ -141,6 +143,13 @@ public class Leaf {
 
     }
   }
+  
+  /**
+   * create a rectangle that represents
+   * the room created.
+   *
+   * @return the room
+   */
 
   public Rectangle getRoom() {
     // iterate all the way through these leafs to find a room, if one exists.
@@ -169,8 +178,17 @@ public class Leaf {
 
     }
   }
+  
+  /**
+   * creation of all the halls that conect
+   * the rooms.
+   *
+   * @param l left
+   * @param r right
+   * @param tilestate2 mappa dei tiles
+   */
 
-  public void createHall(Rectangle l, Rectangle r, Map<Point, Tile> tilestate2) {
+  public void createHall(final Rectangle l, final Rectangle r, final Map<Point, Tile> tilestate2) {
     // now we connect these two rooms together with hallways.
     // this looks pretty complicated, but it's just trying to figure out which point
     // is where and then either draw a straight line, or a pair of lines to make a
@@ -178,6 +196,7 @@ public class Leaf {
     // you could do some extra logic to make your halls more bendy, or do some more
     // advanced things if you wanted.
 
+    Vector<Rectangle> halls; // hallways to connect this Leaf to other Leafs
     halls = new Vector<Rectangle>();
 
     final Point point1 = new Point((int) Math.random() * (l.width - l.x - 2) + l.x + 1,
@@ -241,7 +260,7 @@ public class Leaf {
       for (int b = 0; b < halls.get(a).width; b++) {
         for (int d = 0; d < halls.get(a).height; d++) {
           tilestate2.put(new Point(halls.get(a).x + b, halls.get(a).y + d),
-              new Tile(new Point(halls.get(a).x + b, halls.get(a).y + d), TileType.ON, s));
+              new Tile(new Point(halls.get(a).x + b, halls.get(a).y + d), TileType.ON, sprite));
         }
       }
     }

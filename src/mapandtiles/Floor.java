@@ -44,15 +44,17 @@ public class Floor extends GameObject implements AbsFloor {
   private int offsetX;
   private int offsetY;
 
-  // generate a Floor with level, width ,height,screen width and screen height
   /**
-   * 
+   * generate a Floor with level, width ,
+   * height,screen width and screen height.
+   *
    * @param l       level of this floor
    * @param w       width of the floor in pixels
    * @param h       height of the floor in pixels
    * @param screenw width of the window in pixels
    * @param screenh height of the screen in pixels
-   * @throws IOException 
+   * @throws IOException  If a function that handler
+   *                      call doesn't read a file
    */
   public Floor(final int l, final int w, final int h, final int screenw, 
       final int screenh) throws IOException {
@@ -122,7 +124,7 @@ public class Floor extends GameObject implements AbsFloor {
         final Leaf l = leaves.get(i);
         if (l.leftChild == null && l.rightChild == null) { // if this Leaf is not already split...
           // if this Leaf is too big, or 75% chance...
-          if (l.w > MAX_LEAF_SIZE || l.h > MAX_LEAF_SIZE || rand.nextFloat() > 0.25) {
+          if (l.width > MAX_LEAF_SIZE || l.height > MAX_LEAF_SIZE || rand.nextFloat() > 0.25) {
             if (l.split()) { // split the Leaf!
               // if we did split, push the child leafs to the Vector so we can loop into them
               // next

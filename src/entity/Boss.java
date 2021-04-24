@@ -20,9 +20,10 @@ import utilities.AABB;
 import utilities.ResourceLoader;
 import utilities.SpriteSheet;
 
-/*
+/**
  * Extended from Entity, is a particular type of Enemy with some different
- * function
+ * function.
+ *
  * @author Francesco Padovani
  * @author Luigi Incarnato
  * @author Leroy Fabbri
@@ -52,9 +53,9 @@ public class Boss extends Entity {
    */
   private final List<AABB> flames = new ArrayList<>();
 
-  /*
-   * Constructor
-   * 
+  /**
+   * Constructor.
+   *
    * @param x horizontal position
    * 
    * @param y vertical position
@@ -69,11 +70,14 @@ public class Boss extends Entity {
    * 
    * @param player Used for damage and statistics
    * 
-   * @throws IOException
-   * 
-   * @throws LineUnavailableException
-   * 
-   * @throws UnsupportedAudioFileException
+   * @throws IOException    If a function that handler
+   *                        call doesn't read a file
+   *                        
+   * @throws LineUnavailableException   If a function that handler
+   *                                    call doens't open a line beacuse
+   *                                    it's unavailable
+   *                                    
+   * @throws UnsupportedAudioFileException If an audio file isn't supported
    */
   public Boss(final int x, final int y, final Id id, final CombatSystem combat, 
       final int level, final BossFloor floor, final Player player)
@@ -299,8 +303,8 @@ public class Boss extends Entity {
     collisions.add(box);
   }
 
-  /*
-   * Boss special attack that moves around the map
+  /**
+   * Boss special attack that moves around the map.
    */
   public void moveFlames() {
     final Random rand = new Random();
@@ -358,9 +362,9 @@ public class Boss extends Entity {
     }
   }
 
-  /*
-   * Collision for the flames so they never go out of the map or block with walls
-   * 
+  /**
+   * Collision for the flames so they never go out of the map or block with walls.
+   *
    * @param box Collision box
    * @param a   horizontal modifiers
    * @param b   vertical modifiers
@@ -411,7 +415,7 @@ public class Boss extends Entity {
   public final void augmStat() {
 
     final Random rng = new Random();
-    int attack = (this.playerParameter.getDefence()
+    final int attack = (this.playerParameter.getDefence()
         + (this.getLevel() * 2 - rng.nextInt(this.getLevel()))) * 2;
 
     this.setAttack(attack);
