@@ -25,124 +25,125 @@ import menu.HUD;
  * @see javax.sound.sampled.FloatControl
  */
 public class KeyInput extends KeyAdapter {
-	
-	private Handler handler;
-	int moves=0;
-	
-	/**
-	 * Constructor
-	 * @param handler event controller
-	 * @param punch	  player hit sound
-	 * @param bonk	  enemy hit sound
-	 */
-	public KeyInput(Handler handler) {
-		this.handler=handler;
-	}
-	/**
-	 * Control events when user press a key
-	 * @param key the key pressed
-	 */
-	public void keyPressed(KeyEvent key) {
-		
-		List<AABB> collisions = new ArrayList<AABB>();
-		handler.object.stream().filter(x->(x.getID() != ID.Floor && x.getID() != ID.HUD)).forEach( x -> collisions.add(((Entity) x).getBox()));
-		for(int i=0;i<handler.object.size();i++) {
-			GameObject tempobj=handler.object.get(i);
-			
-			if(tempobj.getID()==ID.Player) {
-				//((Entity) tempobj).setAttacking(true);
-				tempobj.input(key, collisions);
-				if(key.getKeyCode()==KeyEvent.VK_A || key.getKeyCode()==KeyEvent.VK_S || key.getKeyCode()==KeyEvent.VK_D || key.getKeyCode()==KeyEvent.VK_W)
-					moves++;
-				
-			}
-			
-			if(key.getKeyCode()==KeyEvent.VK_A || key.getKeyCode()==KeyEvent.VK_S || key.getKeyCode()==KeyEvent.VK_D || key.getKeyCode()==KeyEvent.VK_W || key.getKeyCode()==KeyEvent.VK_J || key.getKeyCode()==KeyEvent.VK_K)
-			{
-				if(key.getKeyCode()!=KeyEvent.VK_J && key.getKeyCode()!=KeyEvent.VK_K)
-				{
-					if(tempobj.getID()==ID.Player) {
-						((Player) tempobj).setAttacking(false);
-					} 
-				}
-				
-					if(tempobj.getID()==ID.Enemy) {
-						tempobj.input(key, collisions);
-					} 
-					if(tempobj.getID()==ID.Boss) {
-						tempobj.input(key, collisions);
-					}
-			}
-			
-			if(tempobj.getID()==ID.HUD)
-			{
-				if(key.getKeyCode()==KeyEvent.VK_Q)
-				{
-					((HUD) tempobj).setHud_display(true);;
-				}
-			}
-		}
-		collisions.clear();
-	}
-	
-	/**
-	 * Control when user release the pressed key
-	 * @param e the event of the key pressed
-	 */
-	public void keyReleased(KeyEvent e) {
-		int key=e.getKeyCode();
-		for(int i=0; i<handler.object.size();i++) {
-			GameObject tempobj=handler.object.get(i);
-			if(tempobj.getID()==ID.Enemy || tempobj.getID()==ID.Player) {
-				if(key==KeyEvent.VK_W) {
-					tempobj.setvelY(0);
-					((Entity) tempobj).setMovement(false);
-					((Entity) tempobj).setAttacking(false);
-				}
-				if(key==KeyEvent.VK_A) {
-					tempobj.setvelX(0);
-					((Entity) tempobj).setMovement(false);
-					((Entity) tempobj).setAttacking(false);
-				}
-				if(key==KeyEvent.VK_S) {
-					tempobj.setvelY(0);
-					((Entity) tempobj).setMovement(false);
-					((Entity) tempobj).setAttacking(false);
-				}
-				if(key==KeyEvent.VK_D) {
-					tempobj.setvelX(0);
-					((Entity) tempobj).setMovement(false);
-					((Entity) tempobj).setAttacking(false);
-				}
-				if(key==KeyEvent.VK_J) {
-					tempobj.setvelX(0);
-					((Entity) tempobj).setMovement(false);
-					((Entity) tempobj).setAttacking(false);
-				}
-			}
 
-			if(key==KeyEvent.VK_Q && tempobj.getID()==ID.HUD)
-			{
-				((HUD) tempobj).setHud_display(false);;
-			}
-		}
-	}
-	
-	/**
-	 * 
-	 * @return the entity movement
-	 */
-	public int getMoves()
-	{
-		return this.moves;
-	}
-	
-	/**
-	 * Set the entity movement
-	 */
-	public void setMoves()
-	{
-		this.moves = 0;
-	}
-	
+  private final Handler handler;
+  private int moves;
+
+  /**
+   * Constructor.
+   *
+   * @param handler event controller
+   */
+  public KeyInput(final Handler handler) {
+    this.handler = handler;
+    this.moves = 0;
+  }
+
+  /**
+   * Control events when user press a key.
+   *
+   * @param key the key pressed
+   */
+  public void keyPressed(final KeyEvent key) {
+
+    final List<AABB> collisions = new ArrayList<>();
+    handler.object.stream().filter(x -> x.getId() != Id.FLOOR && x.getId() != Id.HUD)
+        .forEach(x -> collisions.add(((Entity) x).getBox()));
+    for (int i = 0; i < handler.object.size(); i++) {
+      final GameObject tempobj = handler.object.get(i);
+
+      if (tempobj.getId() == Id.PLAYER) {
+        // ((Entity) tempobj).setAttacking(true);
+        tempobj.input(key, collisions);
+        if (key.getKeyCode() == KeyEvent.VK_A || key.getKeyCode() == KeyEvent.VK_S 
+            || key.getKeyCode() == KeyEvent.VK_D || key.getKeyCode() == KeyEvent.VK_W) {
+          this.moves++;
+        }
+
+
+      }
+
+      if (key.getKeyCode() == KeyEvent.VK_A || key.getKeyCode() == KeyEvent.VK_S 
+          || key.getKeyCode() == KeyEvent.VK_D || key.getKeyCode() == KeyEvent.VK_W 
+          || key.getKeyCode() == KeyEvent.VK_J|| key.getKeyCode() == KeyEvent.VK_K) {
+        if (key.getKeyCode() != KeyEvent.VK_J && key.getKeyCode() != KeyEvent.VK_K) {
+          if (tempobj.getId() == Id.PLAYER) {
+            ((Player) tempobj).setAttacking(false);
+          }
+        }
+
+        if (tempobj.getId() == Id.ENEMY) {
+          tempobj.input(key, collisions);
+        }
+        if (tempobj.getId() == Id.BOSS) {
+          tempobj.input(key, collisions);
+        }
+      }
+
+      if (tempobj.getId() == Id.HUD && key.getKeyCode() == KeyEvent.VK_Q) {
+        ((HUD) tempobj).setHud_display(true);
+      }
+    }
+    collisions.clear();
+  }
+
+  /**
+   * Control when user release the pressed key.
+   *
+   * @param e the event of the key pressed
+   */
+  public void keyReleased(final KeyEvent e) {
+    final int key = e.getKeyCode();
+    for (int i = 0; i < handler.object.size(); i++) {
+      final GameObject tempobj = handler.object.get(i);
+      if (tempobj.getId() == Id.ENEMY || tempobj.getId() == Id.PLAYER) {
+        if (key == KeyEvent.VK_W) {
+          tempobj.setvelY(0);
+          ((Entity) tempobj).setMovement(false);
+          ((Entity) tempobj).setAttacking(false);
+        }
+        if (key == KeyEvent.VK_A) {
+          tempobj.setvelX(0);
+          ((Entity) tempobj).setMovement(false);
+          ((Entity) tempobj).setAttacking(false);
+        }
+        if (key == KeyEvent.VK_S) {
+          tempobj.setvelY(0);
+          ((Entity) tempobj).setMovement(false);
+          ((Entity) tempobj).setAttacking(false);
+        }
+        if (key == KeyEvent.VK_D) {
+          tempobj.setvelX(0);
+          ((Entity) tempobj).setMovement(false);
+          ((Entity) tempobj).setAttacking(false);
+        }
+        if (key == KeyEvent.VK_J) {
+          tempobj.setvelX(0);
+          ((Entity) tempobj).setMovement(false);
+          ((Entity) tempobj).setAttacking(false);
+        }
+      }
+
+      if (key == KeyEvent.VK_Q && tempobj.getId() == Id.HUD) {
+        ((HUD) tempobj).setHud_display(false);
+      }
+    }
+  }
+
+  /**
+   * How many steps the player done.
+   *
+   * @return the entity movement
+   */
+  public int getMoves() {
+    return this.moves;
+  }
+
+  /**
+   * Set the entity movement.
+   */
+  public void setMoves() {
+    this.moves = 0;
+  }
+
 }

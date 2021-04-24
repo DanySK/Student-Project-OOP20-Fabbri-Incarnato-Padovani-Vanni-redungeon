@@ -12,7 +12,7 @@ import entity.Player;
 import game.CombatSystem;
 import game.Game;
 import game.Handler;
-import game.ID;
+import game.Id;
 import java.awt.AWTException;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
@@ -55,13 +55,13 @@ public class ReDungonTest {
     collisions = new ArrayList<>();
     bfloor = new BossFloor(level, mapWidth, mapHeight, screenWidth, screenHeight);
     combat = new CombatSystem(0);
-    player = new Player(0, 0, ID.Player, combat, 1, 100, 10, 10, 10, floor);
+    player = new Player(0, 0, Id.PLAYER, combat, 1, 100, 10, 10, 10, floor);
 
     collisions.add(player.getBox());
 
-    boss = new Boss(32, 32, ID.Boss, combat, level, bfloor, player);
+    boss = new Boss(32, 32, Id.BOSS, combat, level, bfloor, player);
 
-    enemy = new Enemy(32, 32, ID.Enemy, combat, level, floor, player);
+    enemy = new Enemy(32, 32, Id.ENEMY, combat, level, floor, player);
 
     floor.placeEntity(player);
 

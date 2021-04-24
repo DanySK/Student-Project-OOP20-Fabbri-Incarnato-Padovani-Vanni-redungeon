@@ -24,7 +24,7 @@ public class HUD extends GameObject{
 	protected int dungeon_level;
 	
 	
-	public HUD(int x, int y, ID id, Player p) throws IOException {
+	public HUD(int x, int y, Id id, Player p) throws IOException {
 		super(x, y, id);
 		// TODO Auto-generated constructor stub
 		
@@ -43,34 +43,34 @@ public class HUD extends GameObject{
         if(this.hud_display)
         {
         	g.setFont(new CustomFontUtil(true, 18).getCustomFont());
-        	g.drawImage(this.HUD_menu, this.x, this.x, null);
+        	g.drawImage(this.HUD_menu, this.cordX, this.cordX, null);
         	
         	g.drawString(String.valueOf(this.dungeon_level), 
-        			this.x+60, this.y+24);
+        			this.cordX+60, this.cordY+24);
         	
         	g.drawString("x " + String.valueOf(this.player.getInventory().getgems()), 
-        			this.x+60, this.y+54);
+        			this.cordX+60, this.cordY+54);
         	
         	g.drawString(String.valueOf(this.player.getAttack()), 
-        			this.x+60, this.y+115);
+        			this.cordX+60, this.cordY+115);
         	
         	g.drawString(String.valueOf(this.player.getDefence()), 
-        			this.x+60, this.y+148);
+        			this.cordX+60, this.cordY+148);
         	
         	g.drawString("x " +String.valueOf(this.player.getSpells()), 
-        			this.x+60, this.y+181);
+        			this.cordX+60, this.cordY+181);
         	
         	g.setFont(new CustomFontUtil(true, 12).getCustomFont());
         	
         	g.drawString(String.valueOf(this.player.getHp())
         			+"/"+
         			String.valueOf(this.player.getMaxHp()), 
-        			this.x+40, this.y+84);
+        			this.cordX+40, this.cordY+84);
         	
         	if(this.player.getInventory().hasKey())
         	{
             	g.drawImage(key, 
-            			this.x+30, this.y+185, 
+            			this.cordX+30, this.cordY+185, 
             			null);
         	}
         }

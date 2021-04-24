@@ -1,7 +1,7 @@
 package entity;
 
 import game.CombatSystem;
-import game.ID;
+import game.Id;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -14,7 +14,7 @@ import javax.imageio.ImageIO;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import mapandtiles.AbsFloor;
-import mapandtiles.tiletype;
+import mapandtiles.TileType;
 import utilities.AABB;
 import utilities.CustomFontUtil;
 import utilities.ResourceLoader;
@@ -46,17 +46,19 @@ public class Enemy extends Entity {
    * @throws UnsupportedAudioFileException
    */
   
-  public Enemy(final int x, final int y, final ID id, final CombatSystem combat, 
+  public Enemy(final int x, final int y, final Id id, final CombatSystem combat, 
       final int level, final AbsFloor floor, final Player player)
       throws IOException, LineUnavailableException, UnsupportedAudioFileException {
     super(x, y, id, combat, level, floor);
     // TODO Auto-generated constructor stub
+    
+    this.column = 0;
 
     final ResourceLoader resource = new ResourceLoader();
 
     hpBar = ImageIO.read(resource.getStreamImage("hpbar"));
     sprite = new SpriteSheet(ImageIO.read(resource.getStreamImage("enemy1")));
-    this.setBox(new AABB(new Point(this.x, this.y), 1, 2));
+    this.setBox(new AABB(new Point(this.cordX, this.cordY), 1, 2));
     this.playerParameter = player;
     this.imgMatrix = new BufferedImage[4][3];
     for (int row = 0; row < 4; row++) {
@@ -104,6 +106,7 @@ public class Enemy extends Entity {
       }
 
       if (this.column == 2) {
+        this.column = 0;
       } else {
         this.column++;
       }
@@ -117,9 +120,9 @@ public class Enemy extends Entity {
   public void move() {
     // TODO Auto-generated method stub
 
-    x += velX;
-    y += velY;
-    box.setpos(new Point(x, y));
+    cordX += velX;
+    cordY += velY;
+    box.setpos(new Point(cordX, cordY));
     velX = 0;
     velY = 0;
   }
@@ -135,41 +138,41 @@ public class Enemy extends Entity {
     if (this.getHp() > 0) {
       if (this.getMaxHp() / this.getHp() < 2) {
 
-        g.fillRect((x - getFloor().getOffsetX()) * 32, (y - getFloor().getOffsetY() - 1) * 32 - 11,
+        g.fillRect((cordX - getFloor().getOffsetX()) * 32, (cordY - getFloor().getOffsetY() - 1) * 32 - 11,
             (this.getHp() * 54) / this.getMaxHp(), 14);
 
-        g.drawImage(getHpBar(), (x - getFloor().getOffsetX()) * 32 - 14, 
-            (y - getFloor().getOffsetY() - 2) * 32 + 19, null);
+        g.drawImage(getHpBar(), (cordX - getFloor().getOffsetX()) * 32 - 14, 
+            (cordY - getFloor().getOffsetY() - 2) * 32 + 19, null);
       } else if (this.getMaxHp() / this.getHp() <= 4 && this.getMaxHp() / this.getHp() >= 2) {
         g.setColor(Color.orange);
-        g.fillRect((x - getFloor().getOffsetX()) * 32, (y - getFloor().getOffsetY() - 1) * 32 - 11,
+        g.fillRect((cordX - getFloor().getOffsetX()) * 32, (cordY - getFloor().getOffsetY() - 1) * 32 - 11,
             (this.getHp() * 54) / this.getMaxHp(), 14);
 
-        g.drawImage(getHpBar(), (x - getFloor().getOffsetX()) * 32 - 14, 
-            (y - getFloor().getOffsetY() - 2) * 32 + 19, null);
+        g.drawImage(getHpBar(), (cordX - getFloor().getOffsetX()) * 32 - 14, 
+            (cordY - getFloor().getOffsetY() - 2) * 32 + 19, null);
       } else if (this.getMaxHp() / this.getHp() > 4) {
         g.setColor(Color.red);
-        g.fillRect((x - getFloor().getOffsetX()) * 32, (y - getFloor().getOffsetY() - 1) * 32 - 11,
+        g.fillRect((cordX - getFloor().getOffsetX()) * 32, (cordY - getFloor().getOffsetY() - 1) * 32 - 11,
             (this.getHp() * 54) / this.getMaxHp(), 14);
 
-        g.drawImage(getHpBar(), (x - getFloor().getOffsetX()) * 32 - 14, 
-            (y - getFloor().getOffsetY() - 2) * 32 + 19, null);
+        g.drawImage(getHpBar(), (cordX - getFloor().getOffsetX()) * 32 - 14, 
+            (cordY - getFloor().getOffsetY() - 2) * 32 + 19, null);
       }
     }
-    g.drawImage(getImg(), (x - getFloor().getOffsetX()) * 32, 
-        (y - getFloor().getOffsetY() - 1) * 32, null);
+    g.drawImage(getImg(), (cordX - getFloor().getOffsetX()) * 32, 
+        (cordY - getFloor().getOffsetY() - 1) * 32, null);
 
     g.setColor(Color.black);
     String level;
     level = String.valueOf(this.getLevel());
     if (this.getLevel() < 10) {
       g.setFont(new CustomFontUtil(true, 12).getCustomFont());
-      g.drawString(level, (x - getFloor().getOffsetX()) * 32 - 7, 
-          (y - getFloor().getOffsetY() - 2) * 32 + 33);
+      g.drawString(level, (cordX - getFloor().getOffsetX()) * 32 - 7, 
+          (cordY - getFloor().getOffsetY() - 2) * 32 + 33);
     } else if (this.getLevel() >= 10) {
       g.setFont(new CustomFontUtil(true, 12).getCustomFont());
-      g.drawString(level, (x - getFloor().getOffsetX()) * 32 - 11, 
-          (y - getFloor().getOffsetY() - 2) * 32 + 32);
+      g.drawString(level, (cordX - getFloor().getOffsetX()) * 32 - 11, 
+          (cordY - getFloor().getOffsetY() - 2) * 32 + 32);
     }
   }
 
@@ -183,8 +186,8 @@ public class Enemy extends Entity {
     // the enemy find the position of the player like it is in a cartesian system
 
     if (this.getY() < playerParameter.getY()) {
-      if (!(this.getFloor().getMap().get(new Point(this.x, this.y + 1)).gettype() 
-          == tiletype.OFF)) {
+      if (!(this.getFloor().getMap().get(new Point(this.cordX, this.cordY + 1)).gettype() 
+          == TileType.OFF)) {
         this.changeDirection(Direction.DOWN);
         box1.sumY(1);
         this.setvelY(1);
@@ -192,8 +195,8 @@ public class Enemy extends Entity {
     }
 
     if (this.getY() > playerParameter.getY()) {
-      if (!(this.getFloor().getMap().get(new Point(this.x, this.y - 1)).gettype() 
-          == tiletype.OFF)) {
+      if (!(this.getFloor().getMap().get(new Point(this.cordX, this.cordY - 1)).gettype() 
+          == TileType.OFF)) {
         this.changeDirection(Direction.UP);
         box1.sumY(-1);
         this.setvelY(-1);
@@ -201,8 +204,8 @@ public class Enemy extends Entity {
     }
 
     if (this.getX() < playerParameter.getX()) {
-      if (!(this.getFloor().getMap().get(new Point(this.x + 1, this.y + velY)).gettype() 
-          == tiletype.OFF)) {
+      if (!(this.getFloor().getMap().get(new Point(this.cordX + 1, this.cordY + velY)).gettype() 
+          == TileType.OFF)) {
         this.changeDirection(Direction.RIGHT);
         box1.sumX(1);
         this.setvelX(1);
@@ -210,8 +213,8 @@ public class Enemy extends Entity {
     }
 
     if (this.getX() > playerParameter.getX()) {
-      if (!(this.getFloor().getMap().get(new Point(this.x - 1, this.y + velY)).gettype() 
-          == tiletype.OFF)) {
+      if (!(this.getFloor().getMap().get(new Point(this.cordX - 1, this.cordY + velY)).gettype() 
+          == TileType.OFF)) {
         this.changeDirection(Direction.LEFT);
         box1.sumX(-1);
         this.setvelX(-1);

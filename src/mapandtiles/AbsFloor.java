@@ -2,27 +2,36 @@ package mapandtiles;
 
 import entity.Entity;
 import java.awt.Point;
-import java.util.HashMap;
+import java.util.Map;
+/**
+ * An interface fot the AbsFloor.
+ *
+ * @author Francesco
+ * @author Luigi
+ * @author Leroy
+ * @author Matteo
+ *
+ */
 
 public interface AbsFloor {
-  public void setTile(Point p);
+  void setTile(Point p);
   
-  public void placeEntity(Entity e);
+  void placeEntity(Entity e);
   
-  public void moveCam(int x, int y);
+  void moveCam(int x, int y);
   
-  public HashMap<Point, Tile> getMap();
+  Map<Point, Tile> getMap();
   
-  public int getOffsetX();
+  int getOffsetX();
   
-  public int getOffsetY();
+  int getOffsetY();
   
-  public int getScreenw();
+  int getScreenw();
   
-  public int getScreenh();
+  int getScreenh();
   
-  public int getWidth();
+  int getWidth();
   
-  public int getHeight();
+  int getHeight();
   
 }

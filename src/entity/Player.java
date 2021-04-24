@@ -67,7 +67,7 @@ public class Player extends Entity {
    * 
    * @throws IOException
    */
-  public Player(final int x, final int y, final ID id, final CombatSystem combat, final int level, 
+  public Player(final int x, final int y, final Id id, final CombatSystem combat, final int level, 
       final int hp, final int attack, final int magicAttack, final int defence, 
       final AbsFloor floor) throws IOException {
     super(x, y, id, combat, level, floor);
@@ -79,13 +79,16 @@ public class Player extends Entity {
     this.setAttribute(Attribute.FIRE);
     this.inventory = new Inventory();
 
+    this.column = 0;
+    this.timer = 0;
+
     final ResourceLoader resource = new ResourceLoader();
 
-    setAttacking(false);
+    this.setAttacking(false);
     hpBar = ImageIO.read(resource.getStreamImage("hpbar"));
 
     sprite = new SpriteSheet(ImageIO.read(resource.getStreamImage("player")));
-    this.setBox(new AABB(new Point(this.x, this.y), 1, 2));
+    this.setBox(new AABB(new Point(this.cordX, this.cordY), 1, 2));
     this.imgMatrix = new BufferedImage[4][3];
 
     spellRemain = maxSpell;
@@ -143,13 +146,13 @@ public class Player extends Entity {
 
   @Override
   public void move() {
-    final Point pred = new Point(x + velX, y + velY);
+    final Point pred = new Point(cordX + velX, cordY + velY);
 
     if (new AABB(pred, 1, 1).collides(
         this.getFloor().getMap().get(new Point(this.box.getpos().x + velX, 
             this.box.getpos().y + velY)).getbox()) 
-        && this.getFloor().getMap().get(new Point(this.x + velX, this.y + velY)).gettype() 
-        == tiletype.OFF) {
+        && this.getFloor().getMap().get(new Point(this.cordX + velX, this.cordY + velY)).gettype() 
+        == TileType.OFF) {
 
       velX = 0;
       velY = 0;
@@ -174,17 +177,17 @@ public class Player extends Entity {
         opvely = 0;
       }
       this.getFloor().moveCam(opvelx, opvely);
-      x += velX;
-      y += velY;
-      box.setpos(new Point(x, y));
-      if (this.getFloor().getMap().get(this.box.getpos()).gettype() == tiletype.Heal) {
+      cordX += velX;
+      cordY += velY;
+      box.setpos(new Point(cordX, cordY));
+      if (this.getFloor().getMap().get(this.box.getpos()).gettype() == TileType.HEAL) {
         this.setHp(this.getMaxHp());
         this.getFloor().setTile(this.getBox().getpos());
 
         velX = 0;
         velY = 0;
       }
-      if (this.getFloor().getMap().get(this.box.getpos()).gettype() == tiletype.Key) {
+      if (this.getFloor().getMap().get(this.box.getpos()).gettype() == TileType.KEY) {
         this.inventory.gotKey();
         this.getFloor().setTile(this.getBox().getpos());
 
@@ -192,7 +195,7 @@ public class Player extends Entity {
         velY = 0;
       }
 
-      if (this.getFloor().getMap().get(this.box.getpos()).gettype() == tiletype.Powerstone) {
+      if (this.getFloor().getMap().get(this.box.getpos()).gettype() == TileType.POWERSTONE) {
         this.inventory.increasePowerStone();
         this.inventory.addGems(1);
         this.getFloor().setTile(this.getBox().getpos());
@@ -201,18 +204,18 @@ public class Player extends Entity {
         velX = 0;
         velY = 0;
       }
-      if (this.getFloor().getMap().get(this.box.getpos()).gettype() == tiletype.Teleport) {
+      if (this.getFloor().getMap().get(this.box.getpos()).gettype() == TileType.TELEPORT) {
         this.getFloor().placeEntity(this);
         velX = 0;
         velY = 0;
       }
-      if (this.getFloor().getMap().get(this.box.getpos()).gettype() == tiletype.Trap) {
+      if (this.getFloor().getMap().get(this.box.getpos()).gettype() == TileType.TRAP) {
         this.setHp(this.getHp() - this.getHp() / 2);
 
         velX = 0;
         velY = 0;
       }
-      if (this.getFloor().getMap().get(this.box.getpos()).gettype() == tiletype.Gemstone) {
+      if (this.getFloor().getMap().get(this.box.getpos()).gettype() == TileType.GEMSTONE) {
         this.inventory.addGems(1);
         this.getFloor().setTile(this.getBox().getpos());
 
@@ -227,45 +230,48 @@ public class Player extends Entity {
 
     // Experience bar
     g.setColor(Color.blue);
-    g.fillRect((x - getFloor().getOffsetX()) * 32, (y - getFloor().getOffsetY() + 1) * 32,
+    g.fillRect((cordX - getFloor().getOffsetX()) * 32, (cordY - getFloor().getOffsetY() + 1) * 32,
         (this.getActualExp() * 32) / this.getMaxExp(), 8);
 
-    g.drawImage(null, (x - getFloor().getOffsetX()) * 32, 
-        (y - getFloor().getOffsetY() - 1) * 32, null);
+    g.drawImage(null, (cordX - getFloor().getOffsetX()) * 32, 
+        (cordY - getFloor().getOffsetY() - 1) * 32, null);
 
     g.setColor(Color.GREEN);
 
     if (this.getHp() > 0) {
       if (this.getMaxHp() / this.getHp() < 2) {
 
-        g.fillRect((x - getFloor().getOffsetX()) * 32, (y - getFloor().getOffsetY() - 1) * 32 - 11,
+        g.fillRect((cordX - getFloor().getOffsetX()) * 32, 
+            (cordY - getFloor().getOffsetY() - 1) * 32 - 11,
             (this.getHp() * 54) / this.getMaxHp(), 14);
 
-        g.drawImage(getHpBar(), (x - getFloor().getOffsetX()) * 32 - 14, 
-            (y - getFloor().getOffsetY() - 2) * 32 + 19,
+        g.drawImage(getHpBar(), (cordX - getFloor().getOffsetX()) * 32 - 14, 
+            (cordY - getFloor().getOffsetY() - 2) * 32 + 19,
             null);
 
       } else if (this.getMaxHp() / this.getHp() <= 4 && this.getMaxHp() / this.getHp() >= 2) {
         g.setColor(Color.orange);
-        g.fillRect((x - getFloor().getOffsetX()) * 32, (y - getFloor().getOffsetY() - 1) * 32 - 11,
+        g.fillRect((cordX - getFloor().getOffsetX()) * 32, 
+            (cordY - getFloor().getOffsetY() - 1) * 32 - 11,
             (this.getHp() * 54) / this.getMaxHp(), 14);
 
-        g.drawImage(getHpBar(), (x - getFloor().getOffsetX()) * 32 - 14, 
-            (y - getFloor().getOffsetY() - 2) * 32 + 19,
+        g.drawImage(getHpBar(), (cordX - getFloor().getOffsetX()) * 32 - 14, 
+            (cordY - getFloor().getOffsetY() - 2) * 32 + 19,
             null);
       } else if (this.getMaxHp() / this.getHp() > 4) {
         g.setColor(Color.red);
-        g.fillRect((x - getFloor().getOffsetX()) * 32, (y - getFloor().getOffsetY() - 1) * 32 - 11,
+        g.fillRect((cordX - getFloor().getOffsetX()) * 32, 
+            (cordY - getFloor().getOffsetY() - 1) * 32 - 11,
             (this.getHp() * 54) / this.getMaxHp(), 14);
 
-        g.drawImage(getHpBar(), (x - getFloor().getOffsetX()) * 32 - 14, 
-            (y - getFloor().getOffsetY() - 2) * 32 + 19,
+        g.drawImage(getHpBar(), (cordX - getFloor().getOffsetX()) * 32 - 14, 
+            (cordY - getFloor().getOffsetY() - 2) * 32 + 19,
             null);
       }
     }
 
-    g.drawImage(getImg(), (x - getFloor().getOffsetX()) * 32, 
-        (y - getFloor().getOffsetY() - 1) * 32, null);
+    g.drawImage(getImg(), (cordX - getFloor().getOffsetX()) * 32, 
+        (cordY - getFloor().getOffsetY() - 1) * 32, null);
     g.setColor(Color.black);
     // g.draw(getBounds()); g.setColor(Color.BLACK);
 
@@ -273,12 +279,12 @@ public class Player extends Entity {
     level = String.valueOf(this.getLevel());
     if (this.getLevel() < 10) {
       g.setFont(new CustomFontUtil(true, 12).getCustomFont());
-      g.drawString(level, (x - getFloor().getOffsetX()) * 32 - 7, 
-          (y - getFloor().getOffsetY() - 2) * 32 + 33);
+      g.drawString(level, (cordX - getFloor().getOffsetX()) * 32 - 7, 
+          (cordY - getFloor().getOffsetY() - 2) * 32 + 33);
     } else if (this.getLevel() >= 10) {
       g.setFont(new CustomFontUtil(true, 12).getCustomFont());
-      g.drawString(level, (x - getFloor().getOffsetX()) * 32 - 11, 
-          (y - getFloor().getOffsetY() - 2) * 32 + 32);
+      g.drawString(level, (cordX - getFloor().getOffsetX()) * 32 - 11, 
+          (cordY - getFloor().getOffsetY() - 2) * 32 + 32);
     }
 
   }
@@ -464,8 +470,8 @@ public class Player extends Entity {
    * @return boolean
    */
   public boolean isOut() {
-    if (this.getFloor().getMap().get(this.box.getpos()).gettype() == tiletype.Exit
-        || this.getFloor().getMap().get(this.box.getpos()).gettype() == tiletype.LockedExit
+    if (this.getFloor().getMap().get(this.box.getpos()).gettype() == TileType.EXIT
+        || this.getFloor().getMap().get(this.box.getpos()).gettype() == TileType.LOCKEDEXIT
             && this.inventory.hasKey()) {
       this.inventory.clearInventory();
       this.spellRemain = this.maxSpell;
@@ -531,6 +537,11 @@ public class Player extends Entity {
     if (this.getLevel() % 5 == 0) {
       this.maxSpell++;
     }
+  }
+
+  public void setFloor(final AbsFloor floor) {
+    // TODO Auto-generated method stub
+    this.floor = floor;
   }
 
 }

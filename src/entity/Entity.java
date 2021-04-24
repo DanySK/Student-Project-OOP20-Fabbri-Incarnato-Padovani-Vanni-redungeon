@@ -40,7 +40,7 @@ public abstract class Entity extends GameObject {
   private boolean movement; // false the entity steady, true is moving
   private boolean attacking;
 
-  private final AbsFloor floor;
+  protected AbsFloor floor;
 
   /*
    * Entity constructor
@@ -61,7 +61,7 @@ public abstract class Entity extends GameObject {
    *               player
    * 
    */
-  public Entity(final int x, final int y, final ID id, final CombatSystem combat, 
+  public Entity(final int x, final int y, final Id id, final CombatSystem combat, 
       final int level, final AbsFloor floor) {
     super(x, y, id);
     this.sprite = null;

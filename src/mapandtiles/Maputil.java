@@ -2,96 +2,109 @@ package mapandtiles;
 
 import java.awt.Point;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Maputil {
-	corner corner;
-	public Maputil() {}
-   
+
+  public Maputil() {
+  }
+
   /**
-   * takes a point in input, checks the adjacent tiles to determine the right sprite 
-   * @param t
-   * the map to check
-   * @param p
-   * the position of the tile we have to determine
-   * @return
-   * an enum used to assign the right sprite
+   * takes a point in input, checks the adjacent tiles to determine the right
+   * sprite
+   * 
+   * @param tilestate the map to check
+   * @param p         the position of the tile we have to determine
+   * @return an enum used to assign the right sprite
    */
-   public corner cornercheck(HashMap<Point,Tile> t,Point p) {
-	 ArrayList<Point> neartiles= new ArrayList<Point>();
-	 Point  p00= new Point(p.x-1,p.y-1);
-	 neartiles.add(p00);
-	 Point p01= new Point(p.x,p.y-1);
-	 neartiles.add(p01);
-	 Point p02= new Point(p.x+1,p.y-1);
-	 neartiles.add(p02);
-	 Point p10= new Point(p.x-1,p.y);
-	 neartiles.add(p10);
-	 Point p12=new Point(p.x+1,p.y);
-	 neartiles.add(p12);
-	 Point p20= new Point(p.x-1,p.y+1);
-	 neartiles.add(p20);
-	 Point p21=new Point(p.x,p.y+1);
-	 neartiles.add(p21);
-	 Point p22=new Point(p.x+1,p.y+1);
-	 neartiles.add(p22);
-	if( neartiles.stream().allMatch(e->t.get(e).gettype()!=tiletype.OFF)) {
-		return mapandtiles.corner.INS;
-	}
-	else if(t.get(p00).gettype()!=tiletype.OFF && t.get(p01).gettype()!=tiletype.OFF && t.get(p10).gettype()!=tiletype.OFF && t.get(p20).gettype()!=tiletype.OFF && t.get(p21).gettype()!=tiletype.OFF) {
-		return mapandtiles.corner.CL;
-	}
-	else if(t.get(p01).gettype()!=tiletype.OFF && t.get(p02).gettype()!=tiletype.OFF && t.get(p12).gettype()!=tiletype.OFF && t.get(p22).gettype()!=tiletype.OFF && t.get(p21).gettype()!=tiletype.OFF) {
-		return mapandtiles.corner.CR;
-	}
-	else if (t.get(p10).gettype()!=tiletype.OFF && t.get(p00).gettype()!=tiletype.OFF && t.get(p01).gettype()!=tiletype.OFF && t.get(p02).gettype()!=tiletype.OFF && t.get(p12).gettype()!=tiletype.OFF) {
-		return mapandtiles.corner.CT;
-	}
-	else if(t.get(p10).gettype()!=tiletype.OFF && t.get(p20).gettype()!=tiletype.OFF && t.get(p21).gettype()!=tiletype.OFF && t.get(p22).gettype()!=tiletype.OFF && t.get(p12).gettype()!=tiletype.OFF) {
-		return mapandtiles.corner.CB;
-	}
-	else if(t.get(p20).gettype()!=tiletype.OFF && t.get(p21).gettype()!=tiletype.OFF && t.get(p10).gettype()!=tiletype.OFF) {
-		 return mapandtiles.corner.TR;
-	 }
-	 else if(t.get(p12).gettype()!=tiletype.OFF && t.get(p21).gettype()!=tiletype.OFF && t.get(p22).gettype()!=tiletype.OFF) {
-		 return mapandtiles.corner.TL;
-	 }
-	 else if(t.get(p01).gettype()!=tiletype.OFF && t.get(p12).gettype()!=tiletype.OFF && t.get(p02).gettype()!=tiletype.OFF) {
-		 return mapandtiles.corner.BL;
-	 }
-	 else if(t.get(p00).gettype()!=tiletype.OFF && t.get(p10).gettype()!=tiletype.OFF&&t.get(p01).gettype()!=tiletype.OFF) {
-		 return mapandtiles.corner.BR;
-	 }
-	 else if(t.get(p01).gettype()!=tiletype.OFF && t.get(p21).gettype()!=tiletype.OFF) {
-		 return mapandtiles.corner.CO;
-	 }
-	 else if(t.get(p10).gettype()!=tiletype.OFF && t.get(p12).gettype()!=tiletype.OFF) {
-		 return mapandtiles.corner.CV;
-	 }
-	 else if(t.get(p01).gettype()!=tiletype.OFF) {
-		 return mapandtiles.corner.S;
-	 }
-	 else if(t.get(p10).gettype()!=tiletype.OFF) {
-		 return mapandtiles.corner.E;
-	 }
-	 else if(t.get(p12).gettype()!=tiletype.OFF) {
-		 return mapandtiles.corner.W;
-	 }
-	 else if(t.get(p21).gettype()!=tiletype.OFF) {
-		 return mapandtiles.corner.N;
-	 }
-	 else if(t.get(p20).gettype()!=tiletype.OFF) {
-		 return mapandtiles.corner.NE;
-	 }
-	
-	 else if(t.get(p02).gettype()!=tiletype.OFF) {
-		 return mapandtiles.corner.SW;
-	 }
-	 else if(t.get(p22).gettype()!=tiletype.OFF) {
-		 return mapandtiles.corner.NW;
-	 }
-	 else if(t.get(p00).gettype()!=tiletype.OFF )
-		   return mapandtiles.corner.SE;
-	 else return null;
+  public Corner cornercheck(final Map<Point, Tile> tilestate, final Point p) {
+    final List<Point> neartiles = new ArrayList<>();
+    final Point p00 = new Point(p.x - 1, p.y - 1);
+    neartiles.add(p00);
+    final Point p01 = new Point(p.x, p.y - 1);
+    neartiles.add(p01);
+    final Point p02 = new Point(p.x + 1, p.y - 1);
+    neartiles.add(p02);
+    final Point p10 = new Point(p.x - 1, p.y);
+    neartiles.add(p10);
+    final Point p12 = new Point(p.x + 1, p.y);
+    neartiles.add(p12);
+    final Point p20 = new Point(p.x - 1, p.y + 1);
+    neartiles.add(p20);
+    final Point p21 = new Point(p.x, p.y + 1);
+    neartiles.add(p21);
+    final  Point p22 = new Point(p.x + 1, p.y + 1);
+    neartiles.add(p22);
+    if (neartiles.stream().allMatch(e -> tilestate.get(e).gettype() != TileType.OFF)) {
+      return Corner.INS;
+    } else if (tilestate.get(p00).gettype() != TileType.OFF 
+        && tilestate.get(p01).gettype() != TileType.OFF
+        && tilestate.get(p10).gettype() != TileType.OFF 
+        && tilestate.get(p20).gettype() != TileType.OFF
+        && tilestate.get(p21).gettype() != TileType.OFF) {
+      return Corner.CL;
+    } else if (tilestate.get(p01).gettype() != TileType.OFF 
+        && tilestate.get(p02).gettype() != TileType.OFF
+        && tilestate.get(p12).gettype() != TileType.OFF 
+        && tilestate.get(p22).gettype() != TileType.OFF
+        && tilestate.get(p21).gettype() != TileType.OFF) {
+      return Corner.CR;
+    } else if (tilestate.get(p10).gettype() != TileType.OFF 
+        && tilestate.get(p00).gettype() != TileType.OFF
+        && tilestate.get(p01).gettype() != TileType.OFF 
+        && tilestate.get(p02).gettype() != TileType.OFF
+        && tilestate.get(p12).gettype() != TileType.OFF) {
+      return Corner.CT;
+    } else if (tilestate.get(p10).gettype() != TileType.OFF 
+        && tilestate.get(p20).gettype() != TileType.OFF
+        && tilestate.get(p21).gettype() != TileType.OFF 
+        && tilestate.get(p22).gettype() != TileType.OFF
+        && tilestate.get(p12).gettype() != TileType.OFF) {
+      return Corner.CB;
+    } else if (tilestate.get(p20).gettype() != TileType.OFF 
+        && tilestate.get(p21).gettype() != TileType.OFF
+        && tilestate.get(p10).gettype() != TileType.OFF) {
+      return Corner.TR;
+    } else if (tilestate.get(p12).gettype() != TileType.OFF 
+        && tilestate.get(p21).gettype() != TileType.OFF
+        && tilestate.get(p22).gettype() != TileType.OFF) {
+      return Corner.TL;
+    } else if (tilestate.get(p01).gettype() != TileType.OFF 
+        && tilestate.get(p12).gettype() != TileType.OFF
+        && tilestate.get(p02).gettype() != TileType.OFF) {
+      return Corner.BL;
+    } else if (tilestate.get(p00).gettype() != TileType.OFF 
+        && tilestate.get(p10).gettype() != TileType.OFF
+        && tilestate.get(p01).gettype() != TileType.OFF) {
+      return Corner.BR;
+    } else if (tilestate.get(p01).gettype() != TileType.OFF 
+        && tilestate.get(p21).gettype() != TileType.OFF) {
+      return Corner.CO;
+    } else if (tilestate.get(p10).gettype() != TileType.OFF 
+        && tilestate.get(p12).gettype() != TileType.OFF) {
+      return Corner.CV;
+    } else if (tilestate.get(p01).gettype() != TileType.OFF) {
+      return Corner.S;
+    } else if (tilestate.get(p10).gettype() != TileType.OFF) {
+      return Corner.E;
+    } else if (tilestate.get(p12).gettype() != TileType.OFF) {
+      return Corner.W;
+    } else if (tilestate.get(p21).gettype() != TileType.OFF) {
+      return Corner.N;
+    } else if (tilestate.get(p20).gettype() != TileType.OFF) {
+      return Corner.NE;
+    }
+
+    else if (tilestate.get(p02).gettype() != TileType.OFF) {
+      return Corner.SW;
+    } else if (tilestate.get(p22).gettype() != TileType.OFF) {
+      return Corner.NW;
+    } else if (tilestate.get(p00).gettype() != TileType.OFF) {
+      return Corner.SE;
+    } else {
+      return null;
+    }
+
+  }
 }
-   }

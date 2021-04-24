@@ -1,7 +1,7 @@
 package entity;
 
 import game.CombatSystem;
-import game.ID;
+import game.Id;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -15,7 +15,7 @@ import javax.imageio.ImageIO;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import mapandtiles.BossFloor;
-import mapandtiles.tiletype;
+import mapandtiles.TileType;
 import utilities.AABB;
 import utilities.ResourceLoader;
 import utilities.SpriteSheet;
@@ -75,11 +75,13 @@ public class Boss extends Entity {
    * 
    * @throws UnsupportedAudioFileException
    */
-  public Boss(final int x, final int y, final ID id, final CombatSystem combat, 
+  public Boss(final int x, final int y, final Id id, final CombatSystem combat, 
       final int level, final BossFloor floor, final Player player)
       throws IOException, LineUnavailableException, UnsupportedAudioFileException {
     super(x, y, id, combat, level, floor);
     // TODO Auto-generated constructor stub
+
+    this.column = 0;
 
     SpriteSheet sprite2;
     final ResourceLoader resource = new ResourceLoader();
@@ -119,7 +121,7 @@ public class Boss extends Entity {
       flameImgMatrix[0][column] = sprite2.grabImage(column + 1, 1, 32, 32);
     }
 
-    this.setBox(new AABB(new Point(this.x, this.y), 6, 4));
+    this.setBox(new AABB(new Point(this.cordX, this.cordY), 6, 4));
     this.playerParameter = player;
     this.imgMatrix = new BufferedImage[4][3];
     for (int row = 0; row < 4; row++) {
@@ -191,9 +193,9 @@ public class Boss extends Entity {
   public void move() {
     // TODO Auto-generated method stub
 
-    x += velX;
-    y += velY;
-    box.setpos(new Point(x, y));
+    cordX += velX;
+    cordY += velY;
+    box.setpos(new Point(cordX, cordY));
     velX = 0;
     velY = 0;
   }
@@ -225,8 +227,8 @@ public class Boss extends Entity {
 
     g.drawImage(getHpBar(), hpBarx, hpBarx, null);
 
-    g.drawImage(getImg(), (x - getFloor().getOffsetX()) * 32, 
-        (y - getFloor().getOffsetY() - 1) * 32, null);
+    g.drawImage(getImg(), (cordX - getFloor().getOffsetX()) * 32, 
+        (cordY - getFloor().getOffsetY() - 1) * 32, null);
   }
   
   @Override
@@ -241,8 +243,8 @@ public class Boss extends Entity {
      */
 
     if (this.getY() + 3 < playerParameter.getY()) {
-      if (!(this.getFloor().getMap().get(new Point(this.x, this.y + 1)).gettype() 
-          == tiletype.OFF)) {
+      if (!(this.getFloor().getMap().get(new Point(this.cordX, this.cordY + 1)).gettype() 
+          == TileType.OFF)) {
         this.setDirection(Direction.DOWN);
         box1.sumY(1);
         this.setvelY(1);
@@ -250,8 +252,8 @@ public class Boss extends Entity {
     }
 
     if (this.getY() > playerParameter.getY()) {
-      if (!(this.getFloor().getMap().get(new Point(this.x, this.y - 1)).gettype() 
-          == tiletype.OFF)) {
+      if (!(this.getFloor().getMap().get(new Point(this.cordX, this.cordY - 1)).gettype() 
+          == TileType.OFF)) {
         this.setDirection(Direction.UP);
         box1.sumY(-1);
         this.setvelY(-1);
@@ -259,8 +261,8 @@ public class Boss extends Entity {
     }
 
     if (this.getX() + 5 < playerParameter.getX()) {
-      if (!(this.getFloor().getMap().get(new Point(this.x + 1, this.y + velY)).gettype() 
-          == tiletype.OFF)) {
+      if (!(this.getFloor().getMap().get(new Point(this.cordX + 1, this.cordY + velY)).gettype() 
+          == TileType.OFF)) {
         this.setDirection(Direction.RIGHT);
         box1.sumX(1);
         this.setvelX(1);
@@ -268,8 +270,8 @@ public class Boss extends Entity {
     }
 
     if (this.getX() > playerParameter.getX()) {
-      if (!(this.getFloor().getMap().get(new Point(this.x - 1, this.y + velY)).gettype() 
-          == tiletype.OFF)) {
+      if (!(this.getFloor().getMap().get(new Point(this.cordX - 1, this.cordY + velY)).gettype() 
+          == TileType.OFF)) {
         this.setDirection(Direction.LEFT);
         box1.sumX(-1);
         this.setvelX(-1);
@@ -366,7 +368,7 @@ public class Boss extends Entity {
    */
   public boolean flamesCollide(final AABB box, final int a, final int b) {
     if (!(this.getFloor().getMap().get(new Point(box.getX() + a, box.getY() + b)).gettype() 
-        == tiletype.OFF)) {
+        == TileType.OFF)) {
 
       if (new AABB(new Point(box.getX() + a, box.getY() + b + 1), 1, 1)
           .collides(playerParameter.getBox())) {
