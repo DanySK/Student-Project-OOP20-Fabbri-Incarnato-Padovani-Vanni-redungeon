@@ -247,8 +247,8 @@ public class Boss extends Entity {
      */
 
     if (this.getY() + 3 < playerParameter.getY()) {
-      if (!(this.getFloor().getMap().get(new Point(this.cordX, this.cordY + 1)).gettype() 
-          == TileType.OFF)) {
+      if (this.getFloor().getMap().get(new Point(this.cordX, this.cordY + 1)).gettype() 
+          != TileType.OFF) {
         this.setDirection(Direction.DOWN);
         box1.sumY(1);
         this.setvelY(1);
@@ -256,8 +256,8 @@ public class Boss extends Entity {
     }
 
     if (this.getY() > playerParameter.getY()) {
-      if (!(this.getFloor().getMap().get(new Point(this.cordX, this.cordY - 1)).gettype() 
-          == TileType.OFF)) {
+      if (this.getFloor().getMap().get(new Point(this.cordX, this.cordY - 1)).gettype() 
+          != TileType.OFF) {
         this.setDirection(Direction.UP);
         box1.sumY(-1);
         this.setvelY(-1);
@@ -265,8 +265,8 @@ public class Boss extends Entity {
     }
 
     if (this.getX() + 5 < playerParameter.getX()) {
-      if (!(this.getFloor().getMap().get(new Point(this.cordX + 1, this.cordY + velY)).gettype() 
-          == TileType.OFF)) {
+      if (this.getFloor().getMap().get(new Point(this.cordX + 1, this.cordY + velY)).gettype() 
+          != TileType.OFF) {
         this.setDirection(Direction.RIGHT);
         box1.sumX(1);
         this.setvelX(1);
@@ -274,8 +274,8 @@ public class Boss extends Entity {
     }
 
     if (this.getX() > playerParameter.getX()) {
-      if (!(this.getFloor().getMap().get(new Point(this.cordX - 1, this.cordY + velY)).gettype() 
-          == TileType.OFF)) {
+      if (this.getFloor().getMap().get(new Point(this.cordX - 1, this.cordY + velY)).gettype() 
+          != TileType.OFF) {
         this.setDirection(Direction.LEFT);
         box1.sumX(-1);
         this.setvelX(-1);

@@ -89,7 +89,9 @@ public class Menu extends JFrame {
 
     final JFrame f = new JFrame("Re:dungeon");
     f.setSize(width, height);
+    
     f.addWindowListener(new WindowAdapter() {
+      @Override
       public void windowClosing(final WindowEvent e) {
         menuSound.stop();
       }
