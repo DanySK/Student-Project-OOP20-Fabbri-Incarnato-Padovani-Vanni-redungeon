@@ -34,7 +34,7 @@ import utilities.AaBb;
  *
  */
 
-public class ReDungonTest {
+public class ReDungeonTest {
   public Boss boss;
   public BossFloor bfloor;
   public Floor floor;

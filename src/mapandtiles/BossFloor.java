@@ -22,8 +22,8 @@ import utilities.SpriteSheet;
  *
  * @author Francesco
  * @author Luigi
- * @author Francesco
- * @author Francesco
+ * @author Matteo
+ * @author Leroy
  *
  */
 public class BossFloor extends GameObject implements AbsFloor {
