@@ -14,8 +14,6 @@ import utilities.SpriteSheet;
  *
  * @author Francesco
  * @author Luigi
- * @author Leroy
- * @author Matteo
  *
  */
 
