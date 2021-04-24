@@ -422,7 +422,7 @@ public class Menu extends JFrame {
     musicSlider.setOpaque(false);
     musicSlider.setForeground(Color.WHITE);
     musicSlider.setBackground(Color.RED);
-    musicSlider.setBounds(300, height / 2, size.width * 7, size.height * 2);
+    musicSlider.setBounds(300, height / 2, 500, 50);
     musicSlider.addChangeListener(new ChangeListener() {
       public void stateChanged(final ChangeEvent e) {
         final FloatControl menuVolume;
