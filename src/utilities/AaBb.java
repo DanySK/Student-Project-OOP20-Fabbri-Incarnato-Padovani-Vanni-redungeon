@@ -14,7 +14,7 @@ import java.awt.Point;
  * @see java.awt.Point
  *
  */
-public class AABB {
+public class AaBb {
   private Point pos;
   private final int width;
   private final int height;
@@ -27,7 +27,7 @@ public class AABB {
    * @param w box width
    * @param h box height
    */
-  public AABB(final Point p, final int w, final int h) {
+  public AaBb(final Point p, final int w, final int h) {
     this.pos = p;
     this.width = w;
     this.height = h;
@@ -103,7 +103,7 @@ public class AABB {
    * @param box the box of the object
    * @return true if collides, false if not
    */
-  public boolean collides(final AABB box) {
+  public boolean collides(final AaBb box) {
 
     if (this.pos.x < box.pos.x + box.width && this.pos.x + this.width > box.pos.x 
         && this.pos.y < box.pos.y + box.height && this.pos.y + this.height > box.pos.y) {

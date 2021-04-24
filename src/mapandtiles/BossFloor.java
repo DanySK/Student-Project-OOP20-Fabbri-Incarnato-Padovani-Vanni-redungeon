@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.imageio.ImageIO;
-import utilities.AABB;
+import utilities.AaBb;
 import utilities.ResourceLoader;
 import utilities.SpriteSheet;
 
@@ -158,10 +158,11 @@ public class BossFloor extends GameObject implements AbsFloor {
      *
      */
   
-  public void placeFlames(final AABB flame) {
+  public void placeFlames(final AaBb flame) {
     final int randx = (int) (Math.random() * (this.width / 32 - 4) + 2);
     final int randy = (int) (Math.random() * (this.height / 32 - 4) + 2);
-    if (new Point(randx, randy) != new Point(screenw / (tilesize * 2), screenh / tilesize - 10)) {
+    if (!new Point(randx, randy)
+        .equals(new Point(screenw / (tilesize * 2), screenh / tilesize - 10))) {
       flame.setpos(new Point(randx, randy));
     } else {
       placeFlames(flame);
@@ -175,7 +176,8 @@ public class BossFloor extends GameObject implements AbsFloor {
   public void powerstoneCreate() {
     final int randx = (int) (Math.random() * (this.width / 32 - 5) + 3);
     final int randy = (int) (Math.random() * (this.height / 32 - 5) + 3);
-    if (new Point(randx, randy) != new Point(screenw / (tilesize * 2), screenh / tilesize - 10)
+    if (!new Point(randx, randy)
+        .equals(new Point(screenw / (tilesize * 2), screenh / tilesize - 10))
         || tilestate.get(new Point(randx, randy)).gettype() != TileType.POWERSTONE) {
       this.tilestate.replace(new Point(randx, randy), new Tile(
           new Point(randx, randy), TileType.POWERSTONE, sprite));
@@ -195,19 +197,19 @@ public class BossFloor extends GameObject implements AbsFloor {
     if (e.getId() == Id.PLAYER) {
       e.setX(screenw / (tilesize * 2));
       e.setY(screenh / tilesize - 10);
-      e.setBox(new AABB(new Point(screenw / (tilesize  * 2), screenh / tilesize - 10), 1, 2)); 
+      e.setBox(new AaBb(new Point(screenw / (tilesize  * 2), screenh / tilesize - 10), 1, 2)); 
     }
     if (e.getId() == Id.BOSS) {
       e.setX(screenw / (tilesize * 2) - 1);
       e.setY(5);
-      e.setBox(new AABB(new Point(screenw / (tilesize * 2) - 1, 5), 6, 4));
+      e.setBox(new AaBb(new Point(screenw / (tilesize * 2) - 1, 5), 6, 4));
     }
   }
   
   public void moveCam(final int x, final int y) {}
 
   @Override
-  public void input(final KeyEvent key, final List<AABB> collisions) {
+  public void input(final KeyEvent key, final List<AaBb> collisions) {
   // TODO Auto-generated method stub
   }
   

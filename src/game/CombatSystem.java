@@ -19,7 +19,7 @@ import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import mapandtiles.TileType;
-import utilities.AABB;
+import utilities.AaBb;
 import utilities.ResourceLoader;
 import utilities.SpriteSheet;
 
@@ -36,7 +36,7 @@ import utilities.SpriteSheet;
  * @see entity.Enemy
  * @see java.util.List
  * @see entity.Boss
- * @see utilities.AABB
+ * @see utilities.AaBb
  * @see java.awt.image.BufferedImage
  * @see javax.sound.sampled.AudioInputStream
  * 
@@ -47,11 +47,11 @@ public class CombatSystem {
   private Enemy enemy;
   private List<Enemy> enemies;
   private Boss boss;
-  private AABB directionBox;
+  private AaBb directionBox;
   private boolean collide;
   private final BufferedImage punchImg;
   private final BufferedImage flameImg;
-  private AABB punchBox;
+  private AaBb punchBox;
   private int dungeonLevel;
 
   private long timer;
@@ -59,7 +59,7 @@ public class CombatSystem {
   private final String enemyString;
   private final String bossString;
 
-  private AABB[] magicBoxes;
+  private AaBb[] magicBoxes;
 
   private final Clip boneSound;
 
@@ -201,7 +201,7 @@ public class CombatSystem {
 
       if (this.player.isMagicAttacking()) {
         if (timer <= 500) {
-          for (final AABB box : this.magicBoxes) {
+          for (final AaBb box : this.magicBoxes) {
             g.drawImage(flameImg, (box.getX() - player.getFloor().getOffsetX()) * 32,
                 (box.getY() - player.getFloor().getOffsetY() - 1) * 32, null);
           }
@@ -225,7 +225,7 @@ public class CombatSystem {
 
     switch (this.player.getDirection()) {
       case DOWN:
-        directionBox = new AABB(new Point(player.getX(), player.getY() + 1), 1, 2);
+        directionBox = new AaBb(new Point(player.getX(), player.getY() + 1), 1, 2);
   
         if (!this.enemies.isEmpty()) {
           enemies.forEach(x -> {
@@ -242,12 +242,12 @@ public class CombatSystem {
           }
         }
   
-        punchBox = new AABB(new Point(player.getX(), player.getY() + 1), 1, 2);
+        punchBox = new AaBb(new Point(player.getX(), player.getY() + 1), 1, 2);
   
         break;
   
       case LEFT:
-        directionBox = new AABB(new Point(player.getX() - 1, player.getY()), 1, 2);
+        directionBox = new AaBb(new Point(player.getX() - 1, player.getY()), 1, 2);
   
         if (!this.enemies.isEmpty()) {
           enemies.forEach(x -> {
@@ -264,12 +264,12 @@ public class CombatSystem {
           }
         }
   
-        punchBox = new AABB(new Point(player.getX() - 1, player.getY() - 1), 1, 2);
+        punchBox = new AaBb(new Point(player.getX() - 1, player.getY() - 1), 1, 2);
   
         break;
   
       case RIGHT:
-        directionBox = new AABB(new Point(player.getX() + 1, player.getY()), 1, 2);
+        directionBox = new AaBb(new Point(player.getX() + 1, player.getY()), 1, 2);
   
         if (!this.enemies.isEmpty()) {
           enemies.forEach(x -> {
@@ -286,12 +286,12 @@ public class CombatSystem {
           }
         }
   
-        punchBox = new AABB(new Point(player.getX() + 1, player.getY() - 1), 1, 2);
+        punchBox = new AaBb(new Point(player.getX() + 1, player.getY() - 1), 1, 2);
   
         break;
   
       case UP:
-        directionBox = new AABB(new Point(player.getX(), player.getY() - 1), 1, 2);
+        directionBox = new AaBb(new Point(player.getX(), player.getY() - 1), 1, 2);
   
         if (!this.enemies.isEmpty()) {
           enemies.forEach(x -> {
@@ -308,7 +308,7 @@ public class CombatSystem {
           }
         }
   
-        punchBox = new AABB(new Point(player.getX(), player.getY() - 2), 1, 2);
+        punchBox = new AaBb(new Point(player.getX(), player.getY() - 2), 1, 2);
   
         break;
       
@@ -325,8 +325,8 @@ public class CombatSystem {
    *                attack
    */
   public void damagePlayer(final String type, final boolean collide) {
-    if (!(this.player.getFloor().getMap().get(directionBox.getpos()).gettype() 
-        == TileType.OFF)) {
+    if (this.player.getFloor().getMap().get(directionBox.getpos()).gettype() 
+        != TileType.OFF) {
       if (type.equals(bossString)) {
         if (!boss.isDead()) {
           if (collide) {
@@ -364,22 +364,22 @@ public class CombatSystem {
    */
   public void playerMagicAttack() {
     this.player.setSpells();
-    final AABB[] magicBoxes = { 
-        new AABB(new Point(this.player.getX() - 1, this.player.getY() - 1), 1, 1),
-        new AABB(new Point(this.player.getX(), this.player.getY() - 1), 1, 1),
-        new AABB(new Point(this.player.getX() + 1, this.player.getY() - 1), 1, 1),
-        new AABB(new Point(this.player.getX() - 1, this.player.getY()), 1, 1),
-        new AABB(new Point(this.player.getX() + 1, this.player.getY()), 1, 1),
-        new AABB(new Point(this.player.getX() + 1, this.player.getY() + 1), 1, 1),
-        new AABB(new Point(this.player.getX() - 1, this.player.getY() + 1), 1, 1),
-        new AABB(new Point(this.player.getX() - 1, this.player.getY() + 2), 1, 1),
-        new AABB(new Point(this.player.getX(), this.player.getY() + 2), 1, 1),
-        new AABB(new Point(this.player.getX() + 1, this.player.getY() + 2), 1, 1) };
+    final AaBb[] magicBoxes = { 
+        new AaBb(new Point(this.player.getX() - 1, this.player.getY() - 1), 1, 1),
+        new AaBb(new Point(this.player.getX(), this.player.getY() - 1), 1, 1),
+        new AaBb(new Point(this.player.getX() + 1, this.player.getY() - 1), 1, 1),
+        new AaBb(new Point(this.player.getX() - 1, this.player.getY()), 1, 1),
+        new AaBb(new Point(this.player.getX() + 1, this.player.getY()), 1, 1),
+        new AaBb(new Point(this.player.getX() + 1, this.player.getY() + 1), 1, 1),
+        new AaBb(new Point(this.player.getX() - 1, this.player.getY() + 1), 1, 1),
+        new AaBb(new Point(this.player.getX() - 1, this.player.getY() + 2), 1, 1),
+        new AaBb(new Point(this.player.getX(), this.player.getY() + 2), 1, 1),
+        new AaBb(new Point(this.player.getX() + 1, this.player.getY() + 2), 1, 1) };
 
     this.magicBoxes = magicBoxes;
 
     if (this.dungeonLevel % 5 != 0 && !(this.enemies.isEmpty())) {
-      for (final AABB box : magicBoxes) {
+      for (final AaBb box : magicBoxes) {
         this.enemies.forEach(x -> {
 
           if (box.collides(x.getBox())) {

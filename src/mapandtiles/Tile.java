@@ -4,7 +4,7 @@ import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.Random;
-import utilities.AABB;
+import utilities.AaBb;
 import utilities.SpriteSheet;
 
 /**
@@ -18,7 +18,7 @@ import utilities.SpriteSheet;
  *
  */
 public class Tile {
-  private final AABB box;
+  private final AaBb box;
   private TileType tiles;
   private BufferedImage img;
 
@@ -31,7 +31,7 @@ public class Tile {
    */
   public Tile(final Point p, final TileType t, final SpriteSheet s) {
     final SpriteSheet sprite;
-    this.box = new AABB(p, 1, 1);
+    this.box = new AaBb(p, 1, 1);
     this.tiles = t;
     sprite = s;
     final Random rand = new Random();
@@ -80,7 +80,7 @@ public class Tile {
     this.img = im;
   }
 
-  public AABB getbox() {
+  public AaBb getbox() {
     return this.box;
   }
 

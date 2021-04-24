@@ -100,9 +100,7 @@ public class Maputil {
       return Corner.N;
     } else if (tilestate.get(p20).gettype() != TileType.OFF) {
       return Corner.NE;
-    }
-
-    else if (tilestate.get(p02).gettype() != TileType.OFF) {
+    } else if (tilestate.get(p02).gettype() != TileType.OFF) {
       return Corner.SW;
     } else if (tilestate.get(p22).gettype() != TileType.OFF) {
       return Corner.NW;

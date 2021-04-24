@@ -16,7 +16,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import mapandtiles.BossFloor;
 import mapandtiles.TileType;
-import utilities.AABB;
+import utilities.AaBb;
 import utilities.ResourceLoader;
 import utilities.SpriteSheet;
 
@@ -36,12 +36,13 @@ public class Boss extends Entity {
 
   private int column;
   private final Player playerParameter;
-  private AABB box1;
+  private AaBb box1;
   private boolean collide;
   private long timer;
   private long lastime;
   private final int hpBarx;
   private final int hpBary;
+  private static final Random RNG = new Random();
 
   private final int expGuaranteed;
 
@@ -51,7 +52,7 @@ public class Boss extends Entity {
   /*
    * Extended from Entity is an Enemy with particular statistic
    */
-  private final List<AABB> flames = new ArrayList<>();
+  private final List<AaBb> flames = new ArrayList<>();
 
   /**
    * Constructor.
@@ -84,7 +85,6 @@ public class Boss extends Entity {
       throws IOException, LineUnavailableException, UnsupportedAudioFileException {
     super(x, y, id, combat, level, floor);
     // TODO Auto-generated constructor stub
-
     this.column = 0;
 
     SpriteSheet sprite2;
@@ -94,9 +94,8 @@ public class Boss extends Entity {
     hpBarx = x - getFloor().getOffsetX();
     hpBary = y - getFloor().getOffsetY();
 
-    final Random rng = new Random();
-
-    switch (rng.nextInt(3)) {
+    int random = RNG.nextInt(3);
+    switch (random) {
       case 0:
         sprite2 = new SpriteSheet(ImageIO.read(resource.getStreamImage("flame")));
         sprite = new SpriteSheet(ImageIO.read(resource.getStreamImage("boss1")));
@@ -125,7 +124,7 @@ public class Boss extends Entity {
       flameImgMatrix[0][column] = sprite2.grabImage(column + 1, 1, 32, 32);
     }
 
-    this.setBox(new AABB(new Point(this.cordX, this.cordY), 6, 4));
+    this.setBox(new AaBb(new Point(this.cordX, this.cordY), 6, 4));
     this.playerParameter = player;
     this.imgMatrix = new BufferedImage[4][3];
     for (int row = 0; row < 4; row++) {
@@ -133,11 +132,12 @@ public class Boss extends Entity {
         imgMatrix[row][column] = getSprite().grabImage(column + 1, row + 1, 192, 128);
       }
     }
-
-    final int flameCounter = rng.nextInt(15) + 10;
+    
+    random = RNG.nextInt(15);
+    final int flameCounter = random + 10;
 
     for (int i = 0; i < flameCounter; i++) {
-      final AABB flame = new AABB(new Point(0, 0), 1, 1);
+      final AaBb flame = new AaBb(new Point(0, 0), 1, 1);
       floor.placeFlames(flame);
       flames.add(flame);
     }
@@ -225,7 +225,7 @@ public class Boss extends Entity {
       }
     }
 
-    for (final AABB x : this.flames) {
+    for (final AaBb x : this.flames) {
       g.drawImage(flameImg, (x.getX()) * 32, (x.getY()) * 32, null);
     }
 
@@ -236,9 +236,9 @@ public class Boss extends Entity {
   }
   
   @Override
-  public void input(final KeyEvent key, final List<AABB> collisions) {
+  public void input(final KeyEvent key, final List<AaBb> collisions) {
     // TODO Auto-generated method stub
-    box1 = new AABB(new Point(this.getBox().getX(), getBox().getY()), 6, 4);
+    box1 = new AaBb(new Point(this.getBox().getX(), getBox().getY()), 6, 4);
     collisions.remove(box);
     collide = false;
 
@@ -307,12 +307,12 @@ public class Boss extends Entity {
    * Boss special attack that moves around the map.
    */
   public void moveFlames() {
-    final Random rand = new Random();
-    for (final AABB i : this.flames) {
+    for (final AaBb i : this.flames) {
       boolean flag = true;
-
+      
+      final int random = RNG.nextInt(8);
       while (flag) {
-        switch (rand.nextInt(8)) {
+        switch (random) {
           // the south tile
           case 0:
             flag = this.flamesCollide(i, 0, -1);
@@ -370,11 +370,11 @@ public class Boss extends Entity {
    * @param b   vertical modifiers
    * @return boolean
    */
-  public boolean flamesCollide(final AABB box, final int a, final int b) {
-    if (!(this.getFloor().getMap().get(new Point(box.getX() + a, box.getY() + b)).gettype() 
-        == TileType.OFF)) {
+  public boolean flamesCollide(final AaBb box, final int a, final int b) {
+    if (this.getFloor().getMap().get(new Point(box.getX() + a, box.getY() + b)).gettype() 
+        != TileType.OFF) {
 
-      if (new AABB(new Point(box.getX() + a, box.getY() + b + 1), 1, 1)
+      if (new AaBb(new Point(box.getX() + a, box.getY() + b + 1), 1, 1)
           .collides(playerParameter.getBox())) {
         this.getCombat().flamesAttack();
       }
@@ -413,10 +413,9 @@ public class Boss extends Entity {
 
   @Override
   public final void augmStat() {
-
-    final Random rng = new Random();
+    final int random = RNG.nextInt(this.getLevel());
     final int attack = (this.playerParameter.getDefence()
-        + (this.getLevel() * 2 - rng.nextInt(this.getLevel()))) * 2;
+        + (this.getLevel() * 2 - random)) * 2;
 
     this.setAttack(attack);
     this.setMaxHp(this.getMaxHp() + (this.getLevel() * 10));

@@ -3,7 +3,7 @@ package game;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.util.List;
-import utilities.AABB;
+import utilities.AaBb;
 
 /**
  * Class used to create main game elements.
@@ -62,7 +62,7 @@ public abstract class GameObject {
    * @param key        The keyboard key(Es.: KeyEvent.VK_W)
    * @param collisions Set the movement limit on the map
    */
-  public abstract void input(KeyEvent key, List<AABB> collisions);
+  public abstract void input(KeyEvent key, List<AaBb> collisions);
 
   /**
    * Set horizontal position.

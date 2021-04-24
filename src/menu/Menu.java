@@ -157,6 +157,13 @@ public class Menu extends JFrame {
     final JButton mus = new JButton("Volume Musica");
 
     final ActionListener newGame = (e) -> {
+      try {
+        menuAudio.close();
+        testAudio.close();
+      } catch (IOException e2) {
+        // TODO Auto-generated catch block
+        e2.printStackTrace();
+      }
       menuSound.stop();
       try {
         new Game(width, height, mapwidth, mapheight, getDifficulty(), musicGain, effectGain);

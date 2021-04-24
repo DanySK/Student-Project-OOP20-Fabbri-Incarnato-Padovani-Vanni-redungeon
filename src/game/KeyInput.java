@@ -7,7 +7,7 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 import menu.Hud;
-import utilities.AABB;
+import utilities.AaBb;
 
 /**
  * Class extended from KeyAdapter, used for user input.
@@ -45,7 +45,7 @@ public class KeyInput extends KeyAdapter {
    */
   public void keyPressed(final KeyEvent key) {
 
-    final List<AABB> collisions = new ArrayList<>();
+    final List<AaBb> collisions = new ArrayList<>();
     handler.object.stream().filter(x -> x.getId() != Id.FLOOR && x.getId() != Id.HUD)
         .forEach(x -> collisions.add(((Entity) x).getBox()));
     for (int i = 0; i < handler.object.size(); i++) {
@@ -64,7 +64,7 @@ public class KeyInput extends KeyAdapter {
 
       if (key.getKeyCode() == KeyEvent.VK_A || key.getKeyCode() == KeyEvent.VK_S 
           || key.getKeyCode() == KeyEvent.VK_D || key.getKeyCode() == KeyEvent.VK_W 
-          || key.getKeyCode() == KeyEvent.VK_J|| key.getKeyCode() == KeyEvent.VK_K) {
+          || key.getKeyCode() == KeyEvent.VK_J || key.getKeyCode() == KeyEvent.VK_K) {
         if (key.getKeyCode() != KeyEvent.VK_J && key.getKeyCode() != KeyEvent.VK_K) {
           if (tempobj.getId() == Id.PLAYER) {
             ((Player) tempobj).setAttacking(false);

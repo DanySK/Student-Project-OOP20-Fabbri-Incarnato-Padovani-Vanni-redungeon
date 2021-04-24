@@ -14,7 +14,7 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 import mapandtiles.AbsFloor;
 import mapandtiles.TileType;
-import utilities.AABB;
+import utilities.AaBb;
 import utilities.CustomFontUtil;
 import utilities.ResourceLoader;
 import utilities.SpriteSheet;
@@ -87,7 +87,7 @@ public class Player extends Entity {
     hpBar = ImageIO.read(resource.getStreamImage("hpbar"));
 
     sprite = new SpriteSheet(ImageIO.read(resource.getStreamImage("player")));
-    this.setBox(new AABB(new Point(this.cordX, this.cordY), 1, 2));
+    this.setBox(new AaBb(new Point(this.cordX, this.cordY), 1, 2));
     this.imgMatrix = new BufferedImage[4][3];
 
     spellRemain = maxSpell;
@@ -147,7 +147,7 @@ public class Player extends Entity {
   public void move() {
     final Point pred = new Point(cordX + velX, cordY + velY);
 
-    if (new AABB(pred, 1, 1).collides(
+    if (new AaBb(pred, 1, 1).collides(
         this.getFloor().getMap().get(new Point(this.box.getpos().x + velX, 
             this.box.getpos().y + velY)).getbox()) 
         && this.getFloor().getMap().get(new Point(this.cordX + velX, this.cordY + velY)).gettype() 
@@ -289,17 +289,17 @@ public class Player extends Entity {
   }
 
   @Override
-  public void input(final KeyEvent key, final List<AABB> collisions) {
+  public void input(final KeyEvent key, final List<AaBb> collisions) {
 
     final int e = key.getKeyCode();
     collisions.remove(box);
     flag = false;
-    AABB box1;
+    AaBb box1;
 
     switch (e) {
       case KeyEvent.VK_W:
         this.changeDirection(Direction.UP);
-        box1 = new AABB(new Point(box.getX(), box.getY() - 1), 1, 2);
+        box1 = new AaBb(new Point(box.getX(), box.getY() - 1), 1, 2);
         collisions.forEach(x -> {
           if (box1.collides(x)) {
             flag = true;
@@ -314,7 +314,7 @@ public class Player extends Entity {
         break;
       case KeyEvent.VK_A:
         this.changeDirection(Direction.LEFT);
-        box1 = new AABB(new Point(box.getX() - 1, box.getY()), 1, 2);
+        box1 = new AaBb(new Point(box.getX() - 1, box.getY()), 1, 2);
         collisions.forEach(x -> {
           if (box1.collides(x)) {
             flag = true;
@@ -330,7 +330,7 @@ public class Player extends Entity {
   
       case KeyEvent.VK_S:
         this.changeDirection(Direction.DOWN);
-        box1 = new AABB(new Point(box.getX(), box.getY() + 1), 1, 2);
+        box1 = new AaBb(new Point(box.getX(), box.getY() + 1), 1, 2);
         collisions.forEach(x -> {
           if (box1.collides(x)) {
             flag = true;
@@ -346,7 +346,7 @@ public class Player extends Entity {
   
       case KeyEvent.VK_D:
         this.changeDirection(Direction.RIGHT);
-        box1 = new AABB(new Point(box.getX() + 1, box.getY()), 1, 2);
+        box1 = new AaBb(new Point(box.getX() + 1, box.getY()), 1, 2);
         collisions.forEach(x -> {
           if (box1.collides(x)) {
             flag = true;

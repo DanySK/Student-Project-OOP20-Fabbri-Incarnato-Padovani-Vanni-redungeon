@@ -25,26 +25,28 @@ import mapandtiles.BossFloor;
 import mapandtiles.Floor;
 import menu.Difficulty;
 import menu.Menu;
-import utilities.AABB;
+import utilities.AaBb;
+
 /**
- * Class test
- * 
+ * Class test.
+ *
  * @author Luigi Incarnato
  *
  */
+
 public class ReDungonTest {
   public Boss boss;
   public BossFloor bfloor;
   public Floor floor;
   public CombatSystem combat;
   public Player player;
-  public AABB box;
+  public AaBb box;
   public Menu menu;
   public Game game;
   public Enemy enemy;
   public KeyEvent key;
   public Handler handler;
-  public List<AABB> collisions;
+  public List<AaBb> collisions;
 
   public static int level = 1;
   public static int mapWidth = 2000;
@@ -69,7 +71,7 @@ public class ReDungonTest {
   @org.junit.Before
   public void initAll() throws IOException, LineUnavailableException, 
       UnsupportedAudioFileException, AWTException {
-    box = new AABB(new Point(), mapWidth, mapHeight);
+    box = new AaBb(new Point(), mapWidth, mapHeight);
     floor = new Floor(level, mapWidth, mapHeight, screenWidth, screenHeight);
     collisions = new ArrayList<>();
     bfloor = new BossFloor(level, mapWidth, mapHeight, screenWidth, screenHeight);

@@ -15,7 +15,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import mapandtiles.AbsFloor;
 import mapandtiles.TileType;
-import utilities.AABB;
+import utilities.AaBb;
 import utilities.CustomFontUtil;
 import utilities.ResourceLoader;
 import utilities.SpriteSheet;
@@ -33,7 +33,7 @@ public class Enemy extends Entity {
 
   private int column;
   private final Player playerParameter;
-  private AABB box1;
+  private AaBb box1;
   private boolean collide;
   private long timer;
   private long lastime;
@@ -72,7 +72,7 @@ public class Enemy extends Entity {
 
     hpBar = ImageIO.read(resource.getStreamImage("hpbar"));
     sprite = new SpriteSheet(ImageIO.read(resource.getStreamImage("enemy1")));
-    this.setBox(new AABB(new Point(this.cordX, this.cordY), 1, 2));
+    this.setBox(new AaBb(new Point(this.cordX, this.cordY), 1, 2));
     this.playerParameter = player;
     this.imgMatrix = new BufferedImage[4][3];
     for (int row = 0; row < 4; row++) {
@@ -194,17 +194,17 @@ public class Enemy extends Entity {
   }
 
   @Override
-  public void input(final KeyEvent key, final List<AABB> collisions) {
+  public void input(final KeyEvent key, final List<AaBb> collisions) {
     // TODO Auto-generated method stub
-    box1 = new AABB(new Point(this.getBox().getX(), getBox().getY()), 1, 2);
+    box1 = new AaBb(new Point(this.getBox().getX(), getBox().getY()), 1, 2);
     collisions.remove(box);
     collide = false;
 
     // the enemy find the position of the player like it is in a cartesian system
 
     if (this.getY() < playerParameter.getY()) {
-      if (!(this.getFloor().getMap().get(new Point(this.cordX, this.cordY + 1)).gettype() 
-          == TileType.OFF)) {
+      if (this.getFloor().getMap().get(new Point(this.cordX, this.cordY + 1)).gettype() 
+          != TileType.OFF) {
         this.changeDirection(Direction.DOWN);
         box1.sumY(1);
         this.setvelY(1);
@@ -212,8 +212,8 @@ public class Enemy extends Entity {
     }
 
     if (this.getY() > playerParameter.getY()) {
-      if (!(this.getFloor().getMap().get(new Point(this.cordX, this.cordY - 1)).gettype() 
-          == TileType.OFF)) {
+      if (this.getFloor().getMap().get(new Point(this.cordX, this.cordY - 1)).gettype() 
+          != TileType.OFF) {
         this.changeDirection(Direction.UP);
         box1.sumY(-1);
         this.setvelY(-1);
@@ -221,8 +221,8 @@ public class Enemy extends Entity {
     }
 
     if (this.getX() < playerParameter.getX()) {
-      if (!(this.getFloor().getMap().get(new Point(this.cordX + 1, this.cordY + velY)).gettype() 
-          == TileType.OFF)) {
+      if (this.getFloor().getMap().get(new Point(this.cordX + 1, this.cordY + velY)).gettype() 
+          != TileType.OFF) {
         this.changeDirection(Direction.RIGHT);
         box1.sumX(1);
         this.setvelX(1);
@@ -230,8 +230,8 @@ public class Enemy extends Entity {
     }
 
     if (this.getX() > playerParameter.getX()) {
-      if (!(this.getFloor().getMap().get(new Point(this.cordX - 1, this.cordY + velY)).gettype() 
-          == TileType.OFF)) {
+      if (this.getFloor().getMap().get(new Point(this.cordX - 1, this.cordY + velY)).gettype() 
+          != TileType.OFF) {
         this.changeDirection(Direction.LEFT);
         box1.sumX(-1);
         this.setvelX(-1);

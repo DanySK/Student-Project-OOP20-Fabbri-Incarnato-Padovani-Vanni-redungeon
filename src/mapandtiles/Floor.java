@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import javax.imageio.ImageIO;
-import utilities.AABB;
+import utilities.AaBb;
 import utilities.ResourceLoader;
 import utilities.SpriteSheet;
 
@@ -232,7 +232,7 @@ public class Floor extends GameObject implements AbsFloor {
     final Point rpos = rooms.get(a).get(r.nextInt(rooms.get(a).size()));
     e.setX(rpos.x);
     e.setY(rpos.y);
-    e.setBox(new AABB(rpos, 1, 2));
+    e.setBox(new AaBb(rpos, 1, 2));
     if (e.getId() == Id.ENEMY) {
       final Enemy tempen = (Enemy) e;
       if (tempen.getBox().collides(tempen.getPlayerparameter().getBox())) {
@@ -432,7 +432,7 @@ public class Floor extends GameObject implements AbsFloor {
   }
 
   @Override
-  public void input(final KeyEvent key, final List<AABB> collisions) {
+  public void input(final KeyEvent key, final List<AaBb> collisions) {
 
   }
 

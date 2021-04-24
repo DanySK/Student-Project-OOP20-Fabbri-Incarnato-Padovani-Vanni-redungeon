@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;
 import javax.imageio.ImageIO;
-import utilities.AABB;
+import utilities.AaBb;
 import utilities.CustomFontUtil;
 import utilities.ResourceLoader;
 
@@ -109,7 +109,7 @@ public class Hud extends GameObject {
   }
 
   @Override
-  public void input(final KeyEvent key, final List<AABB> collisions) {
+  public void input(final KeyEvent key, final List<AaBb> collisions) {
     // TODO Auto-generated method stub
 
   }

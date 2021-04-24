@@ -5,7 +5,7 @@ import game.GameObject;
 import game.Id;
 import java.awt.image.BufferedImage;
 import mapandtiles.AbsFloor;
-import utilities.AABB;
+import utilities.AaBb;
 import utilities.SpriteSheet;
 
 
@@ -30,7 +30,7 @@ public abstract class Entity extends GameObject {
   private BufferedImage img;
   protected BufferedImage hpBar;
   private final CombatSystem combat;
-  protected AABB box;
+  protected AaBb box;
   private int level;
   private int hp;
   private int maxHp;
@@ -177,7 +177,7 @@ public abstract class Entity extends GameObject {
   /*
    * @return collision box
    */
-  public AABB getBox() {
+  public AaBb getBox() {
     return box;
   }
 
@@ -259,7 +259,7 @@ public abstract class Entity extends GameObject {
    * 
    * @param box
    */
-  public void setBox(final AABB box) {
+  public void setBox(final AaBb box) {
     this.box = box;
   }
 
