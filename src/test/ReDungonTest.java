@@ -72,23 +72,23 @@ public class ReDungonTest {
   public void initAll() throws IOException, LineUnavailableException, 
       UnsupportedAudioFileException, AWTException {
     box = new AaBb(new Point(), mapWidth, mapHeight);
-    floor = new Floor(level, mapWidth, mapHeight, screenWidth, screenHeight);
+    //floor = new Floor(level, mapWidth, mapHeight, screenWidth, screenHeight);
     collisions = new ArrayList<>();
     bfloor = new BossFloor(level, mapWidth, mapHeight, screenWidth, screenHeight);
     combat = new CombatSystem(0);
-    player = new Player(0, 0, Id.PLAYER, combat, 1, 100, 10, 10, 10, floor);
+    player = new Player(0, 0, Id.PLAYER, combat, 1, 100, 10, 10, 10, bfloor);
 
     collisions.add(player.getBox());
 
     boss = new Boss(32, 32, Id.BOSS, combat, level, bfloor, player);
 
-    enemy = new Enemy(32, 32, Id.ENEMY, combat, level, floor, player);
+    enemy = new Enemy(32, 32, Id.ENEMY, combat, level, bfloor, player);
 
-    floor.placeEntity(player);
+    bfloor.placeEntity(player);
 
-    floor.placeEntity(enemy);
+    bfloor.placeEntity(enemy);
 
-    floor.placeEntity(boss);
+    bfloor.placeEntity(boss);
 
     combat.addBoss(boss);
     combat.addEnemy(enemy);
@@ -102,10 +102,12 @@ public class ReDungonTest {
   @org.junit.Test
   public void bossTest() throws IOException, LineUnavailableException, 
       UnsupportedAudioFileException {
+    /* right init */
+    assertEquals(boss.getMaxHp(), boss.getHp());
     /* the boss exp increase ten by ten */
     assertEquals(70, boss.getExpGuaranteed());
     boss.setLevel(2); 
-    Boss boss1 = new Boss(32, 32, Id.BOSS, combat, 
+    final Boss boss1 = new Boss(32, 32, Id.BOSS, combat, 
         2, bfloor, player); // by costructor it always have 30 + (leve*10)
     assertEquals(80, boss1.getExpGuaranteed());
 
@@ -127,10 +129,11 @@ public class ReDungonTest {
   @org.junit.Test
   public void enemyTest() throws IOException, LineUnavailableException, 
       UnsupportedAudioFileException {
-
+    /* right init */
+    assertEquals(enemy.getMaxHp(), enemy.getHp());
     /* the enemy exp increase ten by ten getting to next levels */
     assertEquals(40, enemy.getExpGuaranteed());
-    Enemy enemy1 = new Enemy(32, 32, Id.ENEMY, 
+    final Enemy enemy1 = new Enemy(32, 32, Id.ENEMY, 
         combat, 2, floor, player); // by costructor it always have 30 + (leve*10)
     assertEquals(50, enemy1.getExpGuaranteed());
 
@@ -150,6 +153,9 @@ public class ReDungonTest {
 
   @org.junit.Test
   public void playerTest() {
+    
+    /* right initin */
+    assertEquals(player.getMaxHp(), player.getHp());
 
     assertFalse(player.isDead());
 
@@ -202,10 +208,40 @@ public class ReDungonTest {
   }
 
   @org.junit.Test
-  public void combatSystemTest() {
+  public void combatSystemTest() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
+    player.getCombat().playerAttack();
+    player.getCombat().damagePlayer("boss", true);
+    /*the enemy try to attack the boss, but it has
+     * the defence equal to the player attack
+     */
+    assertEquals(510, boss.getHp());
+    player.getInventory().increasePowerStone();
+    player.getCombat().lowerBossStats();
+    /*after getting a powerStone the boss' defence is
+     * halved and the player success to damage the boss
+     */
+    player.getCombat().damagePlayer("boss", true);
+    assertEquals(505, boss.getHp());
     
-    boss.getCombat().damagePlayer("boss", true);
-
+    /* the flames decrease the 20% of the maxHp */ 
+    boss.getCombat().flamesAttack();
+    assertEquals(player.getMaxHp() - player.getMaxHp() / 100 * 20, player.getHp());
+    
+    /* spawn an enemy near the player, and the player damage it */
+    
+    final Enemy nearEnemy = new Enemy(player.getX() - 1, player.getY(), 
+        Id.ENEMY, combat, level, floor, player);
+    combat.addEnemy(nearEnemy);
+    player.getCombat().playerAttack();
+    
+    assertEquals(nearEnemy.getMaxHp() - (player.getAttack() - nearEnemy.getDefence()),
+        nearEnemy.getHp());
+    
+    /* the enemy attack the player */
+    
+    nearEnemy.getCombat().enemyAttack(nearEnemy);
+    
+    assertEquals(80 - (nearEnemy.getAttack() - player.getDefence()), player.getHp());
   }
 
 }
