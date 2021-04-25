@@ -42,7 +42,7 @@ public class Boss extends Entity {
   private long lastime;
   private final int hpBarx;
   private final int hpBary;
-  private static final Random RNG = new Random();
+  private static Random RNG = new Random();
 
   private final int expGuaranteed;
 
@@ -196,7 +196,6 @@ public class Boss extends Entity {
   @Override
   public void move() {
     // TODO Auto-generated method stub
-
     cordX += velX;
     cordY += velY;
     box.setpos(new Point(cordX, cordY));
@@ -310,8 +309,9 @@ public class Boss extends Entity {
     for (final AaBb i : this.flames) {
       boolean flag = true;
       
-      int random = RNG.nextInt(8);
+      
       while (flag) {
+        int random = RNG.nextInt(8);
         switch (random) {
           // the south tile
           case 0:
@@ -351,9 +351,6 @@ public class Boss extends Entity {
           // the south-west tile
           case 7:
             flag = this.flamesCollide(i, -1, -1);
-            break;
-          
-          default:
             break;
 
         }
