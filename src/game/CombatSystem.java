@@ -154,6 +154,7 @@ public class CombatSystem {
    */
   public void addPlayer(final Player player) {
     this.player = player;
+    punchBox = new AaBb(new Point(player.getX() - 1, player.getY()), 1, 2);
   }
 
   /**
