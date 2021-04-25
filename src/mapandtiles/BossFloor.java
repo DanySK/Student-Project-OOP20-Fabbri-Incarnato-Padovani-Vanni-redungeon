@@ -160,7 +160,7 @@ public class BossFloor extends GameObject implements AbsFloor {
   
   public void placeFlames(final AaBb flame) {
     final int randx = (int) (Math.random() * (this.width / 32 - 4) + 2);
-    final int randy = (int) (Math.random() * (this.height / 32 - 4) + 2);
+    final int randy = (int) (Math.random() * (this.height / 32 - 5) + 3);
     if (!new Point(randx, randy)
         .equals(new Point(screenw / (tilesize * 2), screenh / tilesize - 10))) {
       flame.setpos(new Point(randx, randy));
