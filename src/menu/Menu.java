@@ -58,7 +58,6 @@ public class Menu extends JFrame {
   public int mapheight = 2000;
 
   private final ImageIcon backGroundImage;
-  protected final ImageIcon optionsImage;
   protected final ImageIcon tutorialImage;
 
   /**
@@ -83,9 +82,8 @@ public class Menu extends JFrame {
     backGroundImage = new ImageIcon();
     backGroundImage.setImage(ImageIO.read(resource.getStreamImage("GameBackground1920x1080")));
 
-    optionsImage = new ImageIcon();
-
     tutorialImage = new ImageIcon();
+    tutorialImage.setImage(ImageIO.read(resource.getStreamImage("tutorial")));
 
     final JFrame f = new JFrame("Re:dungeon");
     f.setSize(width, height);
@@ -104,14 +102,11 @@ public class Menu extends JFrame {
         (int) f.getSize().getWidth() / 3));
     menupanel.setLayout(new GridLayout(10, 1, 10, 5));
 
-    menupanel.setBackground(Color.BLACK);
-
     final ImagePanel tutorialPanel = new ImagePanel(backgroundImageResizer(
-        width, height, backGroundImage));
+        width, height, tutorialImage));
     tutorialPanel.setBorder(new EmptyBorder((int) f.getSize().getHeight() / 5,
         (int) f.getSize().getWidth() / 3, (int) f.getSize().getHeight() / 5,
         (int) f.getSize().getWidth() / 3));
-    tutorialPanel.setLayout(new GridLayout(10, 1, 10, 5));
 
     f.add(menupanel);
     f.setResizable(false);
@@ -221,12 +216,14 @@ public class Menu extends JFrame {
             (int) f.getSize().getWidth() / 3, (int) f.getSize().getHeight() / 5,
             (int) f.getSize().getWidth() / 3));
         optionPanel.setImage(backgroundImageResizer(width, height, backGroundImage));
+        tutorialPanel.setImage(backgroundImageResizer(width, height, tutorialImage));
         comboBox.setBounds((int) f.getSize().getWidth() / 4,
             (int) f.getSize().getHeight() / 5, 150, 50);
         difficultyBox.setBounds((int) f.getSize().getWidth() / 2,
             (int) f.getSize().getHeight() / 5, 150, 50);
         b4.setBounds((int) f.getSize().getWidth() / 4,
             (int) f.getSize().getHeight() * 4 / 5, 150, 50);
+        b5.setBounds(100, 600, 150, 50);
         effectB.setBounds(150, (int) f.getSize().getHeight() * 2 / 3, 100, 25);
         effectSlider.setBounds(300, (int) f.getSize().getHeight() * 2 / 3, 500, 50);
         musicSlider.setBounds(300, (int) f.getSize().getHeight() / 2, 500, 50);
@@ -243,12 +240,14 @@ public class Menu extends JFrame {
             (int) f.getSize().getWidth() / 3, (int) f.getSize().getHeight() / 5, 
             (int) f.getSize().getWidth() / 3));
         optionPanel.setImage(backgroundImageResizer(width, height, backGroundImage));
+        tutorialPanel.setImage(backgroundImageResizer(width, height, tutorialImage));
         comboBox.setBounds((int) f.getSize().getWidth() / 4,
             (int) f.getSize().getHeight() / 5, 150, 50);
         difficultyBox.setBounds((int) f.getSize().getWidth() / 2, 
             (int) f.getSize().getHeight() / 5, 150, 50);
         b4.setBounds((int) f.getSize().getWidth() / 4,
             (int) f.getSize().getHeight() * 4 / 5, 150, 50);
+        b5.setBounds(100, 550, 150, 50);
         effectB.setBounds(150, height * 2 / 3, 100, 25);
         effectSlider.setBounds(300, (int) f.getSize().getHeight() * 2 / 3, 625, 50);
         musicSlider.setBounds(300, (int) f.getSize().getHeight() / 2, 625, 50);
@@ -265,12 +264,14 @@ public class Menu extends JFrame {
             (int) f.getSize().getWidth() / 3, (int) f.getSize().getHeight() / 5, 
             (int) f.getSize().getWidth() / 3));
         optionPanel.setImage(backgroundImageResizer(width, height, backGroundImage));
+        tutorialPanel.setImage(backgroundImageResizer(width, height, tutorialImage));
         comboBox.setBounds((int) f.getSize().getWidth() / 4,
             (int) f.getSize().getHeight() / 5, 150, 50);
         difficultyBox.setBounds((int) f.getSize().getWidth() / 2, 
             (int) f.getSize().getHeight() / 5, 150, 50);
         b4.setBounds((int) f.getSize().getWidth() / 4,
             (int) f.getSize().getHeight() * 4 / 5, 150, 50);
+        b5.setBounds(100, 750, 150, 50);
         effectB.setBounds(150, height * 2 / 3, 100, 25);
         effectSlider.setBounds(300, (int) f.getSize().getHeight() * 2 / 3, 750, 50);
         musicSlider.setBounds(300, (int) f.getSize().getHeight() / 2, 750, 50);
@@ -287,12 +288,14 @@ public class Menu extends JFrame {
             (int) f.getSize().getWidth() / 3, (int) f.getSize().getHeight() / 5, 
             (int) f.getSize().getWidth() / 3));
         optionPanel.setImage(backgroundImageResizer(width, height, backGroundImage));
+        tutorialPanel.setImage(backgroundImageResizer(width, height, tutorialImage));
         comboBox.setBounds((int) f.getSize().getWidth() / 4, 
             (int) f.getSize().getHeight() / 5, 150, 50);
         difficultyBox.setBounds((int) f.getSize().getWidth() / 2, 
             (int) f.getSize().getHeight() / 5, 150, 50);
         b4.setBounds((int) f.getSize().getWidth() / 4, 
             (int) f.getSize().getHeight() * 4 / 5, 150, 50);
+        b5.setBounds(100, 750, 150, 50);
         effectB.setBounds(150, height * 2 / 3, 100, 25);
         effectSlider.setBounds(300, (int) f.getSize().getHeight() * 2 / 3, 750, 50);
         musicSlider.setBounds(300, (int) f.getSize().getHeight() / 2, 750, 50);
@@ -309,12 +312,14 @@ public class Menu extends JFrame {
             (int) f.getSize().getWidth() / 3, (int) f.getSize().getHeight() / 5,
             (int) f.getSize().getWidth() / 3));
         optionPanel.setImage(backgroundImageResizer(width, height, backGroundImage));
+        tutorialPanel.setImage(backgroundImageResizer(width, height, tutorialImage));
         comboBox.setBounds((int) f.getSize().getWidth() / 4, 
             (int) f.getSize().getHeight() / 5, 150, 50);
         difficultyBox.setBounds((int) f.getSize().getWidth() / 2,
             (int) f.getSize().getHeight() / 5, 150, 50);
         b4.setBounds((int) f.getSize().getWidth() / 4,
             (int) f.getSize().getHeight() * 4 / 5, 150, 50);
+        b5.setBounds(100, 900, 150, 50);
         effectB.setBounds(150, height * 2 / 3, 100, 25);
         effectSlider.setBounds(300, (int) f.getSize().getHeight() * 2 / 3, 900, 50);
         musicSlider.setBounds(300, (int) f.getSize().getHeight() / 2, 900, 50);
@@ -465,14 +470,7 @@ public class Menu extends JFrame {
     b5.setForeground(Color.WHITE);
     b5.setBackground(Color.BLACK);
     b5.addActionListener(back2);
-    tutorialPanel.add(Box.createRigidArea(new Dimension(20, 0)));
-    tutorialPanel.add(Box.createRigidArea(new Dimension(20, 0)));
-    tutorialPanel.add(Box.createRigidArea(new Dimension(20, 0)));
-    tutorialPanel.add(Box.createRigidArea(new Dimension(20, 0)));
-    tutorialPanel.add(Box.createRigidArea(new Dimension(20, 0)));
-    tutorialPanel.add(Box.createRigidArea(new Dimension(20, 0)));
-    tutorialPanel.add(Box.createRigidArea(new Dimension(20, 0)));
-    tutorialPanel.add(Box.createRigidArea(new Dimension(20, 0)));
+    b5.setBounds(100, 600, 150, 50);
     tutorialPanel.add(b5);
 
   }
