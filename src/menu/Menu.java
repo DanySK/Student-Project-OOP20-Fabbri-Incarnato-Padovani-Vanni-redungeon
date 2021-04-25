@@ -84,7 +84,9 @@ public class Menu extends JFrame {
 
     tutorialImage = new ImageIcon();
     tutorialImage.setImage(ImageIO.read(resource.getStreamImage("tutorial")));
-
+    
+    
+    //menu JFrame creation
     final JFrame f = new JFrame("Re:dungeon");
     f.setSize(width, height);
     
@@ -94,7 +96,7 @@ public class Menu extends JFrame {
         menuSound.stop();
       }
     });
-
+    
     final ImagePanel menupanel = new ImagePanel(backgroundImageResizer(
         width, height, backGroundImage));
     menupanel.setBorder(new EmptyBorder((int) f.getSize().getHeight() / 5,
@@ -132,8 +134,8 @@ public class Menu extends JFrame {
     optionPanel.setBorder(new EmptyBorder((int) f.getSize().getHeight() / 5,
         (int) f.getSize().getWidth() / 3, (int) f.getSize().getHeight() / 5,
             (int) f.getSize().getWidth() / 3));
-    //Optionspanel.setLayout(new GridLayout(10, 1, 10, 5));
 
+    //initializing buttons
     final JButton b1 = new JButton("Inizia Gioco");
     final JButton b2 = new JButton("Opzioni");
     final JButton b3 = new JButton("Esci");
@@ -169,6 +171,7 @@ public class Menu extends JFrame {
       f.dispose();
     };
 
+    //Buttons ActionListeners
     final ActionListener tutorial = (e) -> {
       f.remove(menupanel);
       f.setContentPane(tutorialPanel); // apre il tutorial
@@ -202,6 +205,7 @@ public class Menu extends JFrame {
       f.repaint();
     };
 
+    //ActionListener for the window size, moves images and buttons according to size
     final ActionListener res = (e) -> {
       comboBox.getSelectedIndex();
       if (comboBox.getSelectedIndex() == 0) {
@@ -326,7 +330,8 @@ public class Menu extends JFrame {
         mus.setBounds(150, (int) f.getSize().getHeight() / 2, 150, 25);
       }
     };
-
+    
+    //ActionListener for the difficulty
     final ActionListener diff = (e) -> {
       difficultyBox.getSelectedIndex();
       if (difficultyBox.getSelectedIndex() == 0) {
@@ -350,6 +355,7 @@ public class Menu extends JFrame {
       }
     };
 
+    //adding buttons in the main menu panel
     menupanel.add(b1);
     menupanel.add(Box.createRigidArea(new Dimension(20, 0)));
     menupanel.add(b2);
@@ -358,6 +364,7 @@ public class Menu extends JFrame {
     menupanel.add(Box.createRigidArea(new Dimension(20, 0)));
     menupanel.add(b3);
 
+    //setting the buttons
     b1.setFont(new CustomFontUtil(true, 18).getCustomFont());
     b1.setForeground(Color.WHITE);
     b1.setBackground(Color.BLACK);
@@ -384,7 +391,8 @@ public class Menu extends JFrame {
     b6.setBackground(Color.BLACK);
     b6.setFocusable(false);
     b6.addActionListener(tutorial);
-
+    
+    //setting comboBoxes
     comboBox.setBounds((int) f.getSize().getWidth() / 4,
         (int) f.getSize().getHeight() / 5, 150, 50);
     comboBox.setFont(new CustomFontUtil(true, 18).getCustomFont());
@@ -425,7 +433,8 @@ public class Menu extends JFrame {
     mus.setBorderPainted(false);
     mus.setFocusable(false);
     optionPanel.add(mus);
-
+    
+    //setting Sliders
     musicSlider.setFont(new CustomFontUtil(true, 18).getCustomFont());
     musicSlider.setMajorTickSpacing(10);
     musicSlider.setMinorTickSpacing(10);
