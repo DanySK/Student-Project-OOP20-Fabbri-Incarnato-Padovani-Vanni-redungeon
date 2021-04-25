@@ -35,8 +35,8 @@ public class BossFloor extends GameObject implements AbsFloor {
   private final int screenh;
   private final int width;
   private final int height;
-  //private int offsetX=0;
-  //private int offsetY=0;
+  private int offsetX=0;
+  private int offsetY=0;
   private final SpriteSheet sprite;
   private final int border;
   
@@ -206,7 +206,10 @@ public class BossFloor extends GameObject implements AbsFloor {
     }
   }
   
-  public void moveCam(final int x, final int y) {}
+  public void moveCam(final int x, final int y) {
+	  this.offsetX=0;
+	  this.offsetY=0;
+  }
 
   @Override
   public void input(final KeyEvent key, final List<AaBb> collisions) {
@@ -220,37 +223,37 @@ public class BossFloor extends GameObject implements AbsFloor {
   @Override
  public int getOffsetX() {
     // TODO Auto-generated method stub
-    return 0;
+    return this.offsetX;
   }
 
   @Override
   public int getOffsetY() {
     // TODO Auto-generated method stub
-    return 0;
+    return this.offsetY;
   }
 
   @Override
   public int getScreenw() {
     // TODO Auto-generated method stub
-    return 0;
+    return this.screenw;
   }
 
   @Override
   public int getScreenh() {
     // TODO Auto-generated method stub
-    return 0;
+    return this.screenh;
   }
 
   @Override
   public int getWidth() {
     // TODO Auto-generated method stub
-    return 0;
+    return this.width;
   }
 
   @Override
   public int getHeight() {
     // TODO Auto-generated method stub
-    return 0;
+    return this.height;
   }
 
 }
