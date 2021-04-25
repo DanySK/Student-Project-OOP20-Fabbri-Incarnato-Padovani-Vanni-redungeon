@@ -310,7 +310,7 @@ public class Boss extends Entity {
     for (final AaBb i : this.flames) {
       boolean flag = true;
       
-      final int random = RNG.nextInt(8);
+      int random = RNG.nextInt(8);
       while (flag) {
         switch (random) {
           // the south tile
